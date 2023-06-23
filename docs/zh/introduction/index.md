@@ -16,7 +16,7 @@ Nix 是一个声明式的软件包管理器，用户需要通过某些配置声�
 因此 NixOS 实际也只支持通过声明式配置管理系统的部分状态，上面提到的各种动态数据，以及用户 Home 目录中的所有内容，都不受它管控（所以在你将 NixOS 切换到上一个版本时，NixOS 不会对它们做任何操作）。
 
 但是用户的 Home 目录中实际包含了许多重要的配置文件，用户当然会希望能使用 Nix 将它们给管理起来。
-另一个重要的社区项目 [home-manager](https://github.com/nix-community/home-manager) 就填补了这块缺失，它被设计用于管理用户 Home 目录以及用户级别的软件包。
+另一个重要的社区项目 [home-manager](https://github.com/nix-community/home-manager) 就填补了这块缺失，它被设计用于管理用户 Home 目录中的配置文件以及用户级别的软件包。
 
 因为 Nix 声明式、可复现的特性，Nix 不仅可用于管理桌面电脑的环境，也有很多人用它管理开发编译环境、云上虚拟机、容器镜像构建等等，Nix 官方的 [NixOps](https://github.com/NixOS/nixops) 与社区的 [deploy-rs](https://github.com/serokell/deploy-rs) 都是基于 Nix 实现的运维工具。
 

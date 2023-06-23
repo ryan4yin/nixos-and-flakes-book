@@ -16,7 +16,7 @@ Therefore, **NixOS actually only supports to manage part of the state of the sys
 
 Although we cannot make the entire system reproducible, the `/home` directory, as an important user directory, does have many necessary configuration files.
 Another important community project, [home-manager](https://github.com/nix-community/home-manager), filled this gap.
-home-manager is designed to manage user-level packages & HOME directories.
+home-manager is designed to manage user-level packages & configuration files in user's home directory.
 
 Due to Nix's features such as declarative and reproducible, Nix is not only used to manage desktop environments but also widely used to manage development environments, compilation environments, cloud virtual machines, container image construction, etc. [NixOps](https://github.com/NixOS/nixops) from the Nix official and [deploy-rs](https://github.com/serokell/deploy-rs) from the community are both operations tools based on Nix.
 
