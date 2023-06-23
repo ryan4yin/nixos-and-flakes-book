@@ -6,12 +6,9 @@ export default defineConfig({
     theme: "material-theme-palenight",
     lineNumbers: true,
 
-    // adjust how header anchors are generated,
-    // useful for integrating with tools that use different conventions
-    anchor: {
-      slugify(str) {
-        return encodeURIComponent(str);
-      },
+    config: (md) => {
+      // use more markdown-it plugins!
+      md.use(require("markdown-it-footnote"));
     },
   },
 
