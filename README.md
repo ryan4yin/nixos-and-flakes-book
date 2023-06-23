@@ -2,6 +2,8 @@
 
 An unofficial NixOS & Flakes :book: for beginners: https://nixos-and-flakes.thiscute.world
 
+中文版: https://nixos-and-flakes.thiscute.world/zh/
+
 ## Contribution
 
 > _A real community, however, exists only when its members interact in a meaningful way that deepens their understanding of each other and leads to learning._
