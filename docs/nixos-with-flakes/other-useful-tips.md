@@ -65,3 +65,32 @@ Another command returns all packages installed in the system:
 ```shell
 nix-env -qa
 ```
+
+
+## Reduce Disk Usage
+
+
+```nix
+{ lib, pkgs, ... }:
+
+{
+  # ......
+
+  # do not need to keep too much generations
+  boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
+  # boot.loader.grub.configurationLimit = 10;
+
+  # do garbage collection weekly to keep disk usage low
+  nix.gc = {
+    automatic = lib.mkDefault true;
+    dates = lib.mkDefault "weekly";
+    options = lib.mkDefault "--delete-older-than 1w";
+  };
+
+  # Optimise storage
+  # you can alse optimise the store manually via:
+  #    nix-store --optimise
+  # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
+  nix.settings.auto-optimise-store = true;
+}
+```

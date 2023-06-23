@@ -62,3 +62,31 @@ sudo nix store gc --debug
 ```shell
 nix-env -qa
 ```
+
+## 节约存储空间
+
+
+```nix
+{ lib, pkgs, ... }:
+
+{
+  # ......
+
+  # do not need to keep too much generations
+  boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
+  # boot.loader.grub.configurationLimit = 10;
+
+  # do garbage collection weekly to keep disk usage low
+  nix.gc = {
+    automatic = lib.mkDefault true;
+    dates = lib.mkDefault "weekly";
+    options = lib.mkDefault "--delete-older-than 1w";
+  };
+
+  # Optimise storage
+  # you can alse optimise the store manually via:
+  #    nix-store --optimise
+  # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
+  nix.settings.auto-optimise-store = true;
+}
+```
