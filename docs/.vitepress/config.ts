@@ -126,35 +126,35 @@ export default defineConfig({
             items: [
               {
                 text: "开始使用 NixOS",
-                link: "/nixos-with-flakes/get-started-with-nixos.md",
+                link: "/zh/nixos-with-flakes/get-started-with-nixos.md",
               },
               {
                 text: "Flakes 简介",
-                link: "/nixos-with-flakes/introduction-to-flakes.md",
+                link: "/zh/nixos-with-flakes/introduction-to-flakes.md",
               },
               {
                 text: "使用 Flakes 管理 NixOS",
-                link: "/nixos-with-flakes/get-started-with-flakes.md",
+                link: "/zh/nixos-with-flakes/get-started-with-flakes.md",
               },
               {
                 text: "开始使用 Home Manager",
-                link: "/nixos-with-flakes/start-using-home-manager.md",
+                link: "/zh/nixos-with-flakes/start-using-home-manager.md",
               },
               {
                 text: "模块化系统配置",
-                link: "/nixos-with-flakes/modularize-the-configuration.md",
+                link: "/zh/nixos-with-flakes/modularize-the-configuration.md",
               },
               {
                 text: "更新系统",
-                link: "/nixos-with-flakes/update-the-system.md",
+                link: "/zh/nixos-with-flakes/update-the-system.md",
               },
               {
                 text: "升级或降级软件包",
-                link: "/nixos-with-flakes/upgrade-or-downgrade-packages.md",
+                link: "/zh/nixos-with-flakes/upgrade-or-downgrade-packages.md",
               },
               {
                 text: "其他杂七杂八的内容",
-                link: "/nixos-with-flakes/other-useful-tips.md",
+                link: "/zh/nixos-with-flakes/other-useful-tips.md",
               },
             ],
           },
