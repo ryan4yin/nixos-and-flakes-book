@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 开始使用
-      link: /guide/what-is-vitepress
+      link: /zh/introduction/index.md
     - theme: alt
       text: "前往 GitHub 仓库"
       link: https://github.com/ryan4yin/nixos-and-flakes-book
