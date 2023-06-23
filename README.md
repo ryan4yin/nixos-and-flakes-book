@@ -1,4 +1,4 @@
-# NixOS & Flakes Book :heart:
+# NixOS & Flakes Book :hammer_and_wrench: :heart:
 
 An unofficial NixOS & Flakes :book: for beginners: https://nixos-and-flakes.thiscute.world
 
