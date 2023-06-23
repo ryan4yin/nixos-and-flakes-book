@@ -28,7 +28,7 @@ export default defineConfig({
         nav: [
           { text: "Home", link: "/" },
           { text: "Get Started", link: "/introduction/index.md" },
-          { text: "Best Pracetice", link: "/best-practices/index.md" },
+          { text: "Best Pracetice", link: "/best-practices/intro.md" },
         ],
 
         sidebar: [
@@ -161,7 +161,7 @@ export default defineConfig({
         nav: [
           { text: "Home", link: "/zh/" },
           { text: "Get Started", link: "/zh/introduction/index.md" },
-          { text: "Best Pracetice", link: "/zh/best-practices/index.md" },
+          { text: "Best Pracetice", link: "/zh/best-practices/intro.md" },
         ],
 
         sidebar: [
