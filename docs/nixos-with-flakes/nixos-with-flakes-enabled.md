@@ -1,5 +1,7 @@
+## NixOS with Flakes Enabled
 
-## Enabling Flakes Support
+
+### Enabling Flakes Support
 
 Compared to the default configuration approach of NixOS, Flakes provide better reproducibility and a clearer package structure that is easier to maintain. Therefore, it is recommended to manage NixOS with Flakes.
 
@@ -37,7 +39,7 @@ However, as Flakes is still an experimental feature currently, it's not enabled 
 
 Now run `sudo nixos-rebuild switch` to apply the changes, and then you can write the configuration for NixOS with Flakes.
 
-## Switching System Configuration to `flake.nix`
+### Switching System Configuration to `flake.nix`
 
 After enabling `flakes`, `sudo nixos-rebuild switch` will try to read`/etc/nixos/flake.nix` first every time you run it, if not found, it will fallback to `/etc/nixos/configuration.nix`.
 
@@ -138,7 +140,7 @@ Now run `sudo nixos-rebuild switch` to apply the configuration, and no changes w
 
 
 
-## Manage system software through Flakes
+### Manage system software through Flakes
 
 After the switch, we can now manage the system through Flakes. The most common requirement for managing a system is to install softwares. We have seen how to install packages through `environment.systemPackages` before, and these packages are all from the official nixpkgs repository.
 
@@ -202,9 +204,9 @@ Then udpate `configuration.nix` to install `helix` from the input `helix`:
 
 Now deploy the changes by `sudo nixos-rebuild switch`, and then we can start the helix editor by `helix` command.
 
-## Add Custom Cache Mirror
+### Add Custom Cache Mirror
 
-> You can skip this section if you don't need to customize the cache mirror.
+> You can safely skip this section if you don't need to customize the cache mirror.
 
 To speed up package building, Nix provides <https://cache.nixos.org> to cache build results to avoid build every packages locally.
 

@@ -1,3 +1,5 @@
+## Advanced Topics
+
 
 After becoming familiar with the NixOS, you can further explore Nix's three manuals and other docs to discover more ways to use it:
 

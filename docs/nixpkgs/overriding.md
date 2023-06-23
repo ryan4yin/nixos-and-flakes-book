@@ -1,3 +1,5 @@
+## Overriding
+
 
 Simply put, all Nix packages in nixpkgs can be customized with `<pkg>.override {}` to define some build parameters, which returns a new Derivation that uses custom parameters. For example:
 

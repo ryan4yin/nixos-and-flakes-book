@@ -1,6 +1,8 @@
+## Introduction to Flakes
+
 The flakes experimental feature is a major development for Nix, it introduces a policy for managing dependencies between Nix expressions, it improves reproducibility, composability and usability in the Nix ecosystem. Although it's still an experimental feature, flakes have been widely used by the Nix community.[^1]
 
-It's Flakes is one of the most significant changes the nix project has ever seen.[^2]
+Flakes is one of the most significant changes the nix project has ever seen.[^2]
 
 
 ## Warning about Flakes

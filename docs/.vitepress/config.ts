@@ -62,8 +62,8 @@ export default defineConfig({
                 link: "/nixos-with-flakes/introduction-to-flakes.md",
               },
               {
-                text: "NixOS with Flakes enabled",
-                link: "/nixos-with-flakes/get-started-with-flakes.md",
+                text: "NixOS with Flakes Enabled",
+                link: "/nixos-with-flakes/nixos-with-flakes-enabled.md",
               },
               {
                 text: "Started using Home Manager",
@@ -79,7 +79,7 @@ export default defineConfig({
               },
               {
                 text: "Upgrade or Downgrade Packages",
-                link: "/nixos-with-flakes/upgrade-or-downgrade-packages.md",
+                link: "/nixos-with-flakes/downgrade-or-upgrade-packages.md",
               },
               {
                 text: "Other useful Tips",
@@ -92,7 +92,7 @@ export default defineConfig({
             items: [
               { text: "Introduction", link: "/nixpkgs/intro.md" },
               { text: "callPackage", link: "/nixpkgs/callpackage.md" },
-              { text: "Overridding", link: "/nixpkgs/override.md" },
+              { text: "Overridding", link: "/nixpkgs/overriding.md" },
               { text: "Overlays", link: "/nixpkgs/overlays.md" },
             ],
           },
@@ -136,7 +136,7 @@ export default defineConfig({
           {
             text: "Advanced Topics",
             items: [
-              { text: "Introduction", link: "/zh/advanced-topics/index.md" },
+              { text: "Introduction", link: "/advanced-topics/index.md" },
             ],
           },
         ],
@@ -199,7 +199,7 @@ export default defineConfig({
               },
               {
                 text: "使用 Flakes 管理 NixOS",
-                link: "/zh/nixos-with-flakes/get-started-with-flakes.md",
+                link: "/zh/nixos-with-flakes/nixos-with-flakes-enabled.md",
               },
               {
                 text: "开始使用 Home Manager",
@@ -215,7 +215,7 @@ export default defineConfig({
               },
               {
                 text: "升级或降级软件包",
-                link: "/zh/nixos-with-flakes/upgrade-or-downgrade-packages.md",
+                link: "/zh/nixos-with-flakes/downgrade-or-upgrade-packages.md",
               },
               {
                 text: "其他杂七杂八的内容",
@@ -228,7 +228,7 @@ export default defineConfig({
             items: [
               { text: "介绍", link: "/zh/nixpkgs/intro.md" },
               { text: "callPackage", link: "/zh/nixpkgs/callpackage.md" },
-              { text: "Overridding", link: "/zh/nixpkgs/override.md" },
+              { text: "Overridding", link: "/zh/nixpkgs/overriding.md" },
               { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
             ],
           },

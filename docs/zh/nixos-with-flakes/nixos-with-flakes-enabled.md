@@ -1,3 +1,5 @@
+## 使用 Flakes 来管理你的 NixOS
+
 
 ## 启用 NixOS 的 Flakes 支持 {#enable-nix-flakes}
 

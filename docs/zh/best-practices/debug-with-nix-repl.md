@@ -1,5 +1,5 @@
 
-## 通过 `nix repl` 查看源码、调试配置 {#view-source-code-via-nix-repl}
+## 通过 `nix repl` 查看源码、调试配置 {#debug-via-nix-repl}
 
 前面我们已经使用 `nix repl '<nixpkgs>'` 看过很多次源码了，这是一个非常强大的工具，可以帮助我们理解 Nix 的工作原理。
 

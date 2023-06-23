@@ -1,6 +1,3 @@
----
-footer: false
----
 
 ## Nix 与 NixOS 简介
 

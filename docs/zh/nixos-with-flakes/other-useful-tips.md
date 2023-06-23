@@ -1,3 +1,5 @@
+## NixOS 的其他实用技巧
+
 
 ## 使用 Git 管理 NixOS 配置 {#git-manage-nixos-config}
 

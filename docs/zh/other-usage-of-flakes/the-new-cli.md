@@ -1,5 +1,5 @@
 
-## Flake 命令行的使用 {#flake-commands-usage}
+## 新一代 Nix 命令行工具的使用 {#flake-commands-usage}
 
 在启用了 `nix-command` & `flakes` 功能后，我们就可以使用 Nix 提供的新一代 Nix 命令行工具 [New Nix Commands][New Nix Commands] 了，下面列举下其中常用命令的用法：
 

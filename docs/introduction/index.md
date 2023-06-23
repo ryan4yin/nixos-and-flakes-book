@@ -1,6 +1,3 @@
----
-footer: false
----
 
 ## Introduction to Nix & NixOS
 

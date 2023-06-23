@@ -122,9 +122,6 @@ nix-repl> outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.ses
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.BROWSER
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.DELTA_PAGER
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.EDITOR
-outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.GLFW_IM_MODULE
-outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.MANPAGER
-outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.QT_IM_MODULE
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.TERM
 # ......omit other outputs
 
@@ -141,11 +138,6 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/fcitx5/profile-bak
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/i3/config
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/i3/i3blocks.conf
-outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/i3/keybindings
-outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/i3/layouts
-outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/i3/scripts
-outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/i3/wallpaper.png
-outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/rofi
 #......
 ```
 

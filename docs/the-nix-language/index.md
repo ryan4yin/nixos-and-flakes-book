@@ -1,5 +1,5 @@
 
-## V. Basics of The Nix language
+## Basics of The Nix language
 
 The Nix language is used to declare the configuration to be built by Nix, if you want to play with NixOS and Flakes and enjoy the benefits they bring, you must learn the basics of this language first.
 
