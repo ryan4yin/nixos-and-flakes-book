@@ -8,9 +8,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
-    permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+    # permissions:
+    #   pages: write      # to deploy to Pages
+    #   id-token: write   # to verify the deployment originates from an appropriate source
     # Deploy to the github-pages environment
     environment:
       name: github-pages
@@ -49,12 +49,12 @@ jobs:
       # build and deploy the docs
       - name: Build
         run: pnpm docs:build
-      - uses: actions/configure-pages@v2
-      - uses: actions/upload-pages-artifact@v1
-        with:
-          path: docs/.vitepress/dist
 
       # use vercel currently, so disable this one
+      # - uses: actions/configure-pages@v2
+      # - uses: actions/upload-pages-artifact@v1
+      #   with:
+      #     path: docs/.vitepress/dist
       # - name: Deploy to GitHub Pages
       #   id: deployment
       #   uses: actions/deploy-pages@v2 # or the latest "vX.X.X" version tag for this action
