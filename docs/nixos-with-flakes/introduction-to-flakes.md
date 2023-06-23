@@ -42,7 +42,7 @@ I dived into some details about flakes:
 
 - [[RFC 0136] A plan to stabilize Flakes and the new CLI incrementally](https://github.com/NixOS/rfcs/pull/136): A plan to stabilize Flakes and the new CLI incrementally, still WIP.
 - [Why are flakes still experimental? - NixOS Discourse](https://discourse.nixos.org/t/why-are-flakes-still-experimental/29317): A post, Why are flakes still experimental?
-- [lakes are such an obviously good thing - Graham Christensen](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/): Flakes are such an obviously good thing... but the design and development process should be better.
+- [Flakes are such an obviously good thing - Graham Christensen](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/): Flakes are such an obviously good thing... but the design and development process should be better.
 - [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9): A roadmap of nixos fundation, which includes plan about the stabilization of flakes.
 
 After reading all of these, I feel like that flakes will eventually be stabilized in one or two years, maybe with some breaking changes.
