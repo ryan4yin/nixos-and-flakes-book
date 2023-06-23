@@ -22,3 +22,6 @@ And many other useful community projects to explore, here are some of them:
 - [nixos-generator](https://github.com/nix-community/nixos-generators): generate iso/qcow2/... from nixos configuration
 - [lanzaboote](https://github.com/nix-community/lanzaboote): enable secure boot for NixOS
 - [impermanence](https://github.com/nix-community/impermanence): used to make NixOS stateless, to imporve the reproduciability of NixOS system.
+
+
+[digga]: https://github.com/divnix/digga

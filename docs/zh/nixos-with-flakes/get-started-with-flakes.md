@@ -1,5 +1,5 @@
 
-### 2. 启用 NixOS 的 Flakes 支持 {#enable-nix-flakes}
+## 启用 NixOS 的 Flakes 支持 {#enable-nix-flakes}
 
 与 NixOS 默认的配置方式相比，Nix Flakes 提供了更好的可复现性，同时它清晰的包结构定义原生支持了以其他 Git 仓库为依赖，便于代码分享，因此更建议使用 Nix Flakes 来管理系统配置。
 
@@ -37,7 +37,7 @@
 
 额外还有个好处就是，现在你可以通过 `nix repl` 打开一个 nix 交互式环境，有兴趣的话，可以使用它复习测试一遍前面学过的所有 Nix 语法。
 
-### 3. 将系统配置切换到 flake.nix {#switch-to-flake-nix}
+## 将系统配置切换到 flake.nix {#switch-to-flake-nix}
 
 在启用了 Nix Flakes 特性后，`sudo nixos-rebuild switch` 命令会优先读取 `/etc/nixos/flake.nix` 文件，如果找不到再尝试使用 `/etc/nixos/configuration.nix`。
 
@@ -132,7 +132,7 @@ cat flake.nix
 
 现在执行 `sudo nixos-rebuild switch` 应用配置，系统应该没有任何变化，因为我们仅仅是切换到了 Nix Flakes，配置内容与之前还是一致的。
 
-### 4. 通过 Flakes 来管理系统软件 {#manage-system-software-with-flakes}
+## 通过 Flakes 来管理系统软件 {#manage-system-software-with-flakes}
 
 切换完毕后，我们就可以通过 Flakes 来管理系统了。管系统最常见的需求就是装软件，我们在前面已经见识过如何通过 `environment.systemPackages` 来安装 `pkgs` 中的包，这些包都来自官方的 nixpkgs 仓库。
 
@@ -193,7 +193,7 @@ cat flake.nix
 
 改好后再 `sudo nixos-rebuild switch` 部署，就能安装好 helix 程序了，可直接在终端使用 `helix` 命令测试验证。
 
-### 5. 为 Flake 添加国内 cache 源 {#add-cache-source-for-flake}
+## 为 Flake 添加国内 cache 源 {#add-cache-source-for-flake}
 
 Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓存构建结果提供给用户，但是在国内访问这个 cache 地址非常地慢，如果没有全局代理的话，基本上是无法使用的。
 另外 Flakes 的数据源基本都是某个 Github 仓库，在国内从 Github 下载 Flakes 数据源也同样非常非常慢。

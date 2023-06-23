@@ -1,5 +1,5 @@
 
-### 8. 更新系统 {#update-nixos-system}
+## 更新系统 {#update-nixos-system}
 
 在使用了 Nix Flakes 后，要更新系统也很简单，先更新 flake.lock 文件，然后部署即可。在配置文件夹中执行如下命令：
 

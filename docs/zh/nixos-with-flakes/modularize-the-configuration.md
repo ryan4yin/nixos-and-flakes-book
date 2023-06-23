@@ -1,5 +1,5 @@
 
-### 7. 模块化 NixOS 配置 {#modularize-nixos-configuration}
+## 模块化 NixOS 配置 {#modularize-nixos-configuration}
 
 到这里整个系统的骨架基本就配置完成了，当前我们 `/etc/nixos` 中的系统配置结构应该如下：
 
@@ -87,7 +87,7 @@ $ tree
 
 详细结构与内容，请移步前面提供的 github 仓库链接，这里就不多介绍了。
 
-#### 7.1. `mkOverride`, `lib.mkDefault` and `lib.mkForce`
+## `mkOverride`, `lib.mkDefault` and `lib.mkForce`
 
 你可能会发现有些人在 Nix 文件中使用 `lib.mkDefault` `lib.mkForce` 来定义值，顾名思义，`lib.mkDefault` 和 `lib.mkForce` 用于设置选项的默认值，或者强制设置选项的值。
 
@@ -154,7 +154,7 @@ $ tree
 }
 ```
 
-#### 7.2 `lib.mkOrder`, `lib.mkBefore` 与 `lib.mkAfter`
+## `lib.mkOrder`, `lib.mkBefore` 与 `lib.mkAfter`
 
 `lib.mkBefore` 跟 `lib.mkAfter` 用于设置**列表类型**的合并顺序，它们跟 `lib.mkDefault` 和 `lib.mkForce` 一样，也被用于模块化配置。
 

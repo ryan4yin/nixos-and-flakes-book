@@ -2,6 +2,19 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  markdown: {
+    theme: "material-theme-palenight",
+    lineNumbers: true,
+
+    // adjust how header anchors are generated,
+    // useful for integrating with tools that use different conventions
+    anchor: {
+      slugify(str) {
+        return encodeURIComponent(str);
+      },
+    },
+  },
+
   locales: {
     root: {
       label: "English",
@@ -101,6 +114,31 @@ export default defineConfig({
               },
             ],
           },
+
+          {
+            text: "Other Usage of Flakes",
+            items: [
+              { text: "Introduction", link: "/other-usage-of-flakes/intro.md" },
+              {
+                text: "Flake Inputs",
+                link: "/other-usage-of-flakes/inputs.md",
+              },
+              {
+                text: "Flake Outputs",
+                link: "/other-usage-of-flakes/outputs.md",
+              },
+              {
+                text: "The New CLI",
+                link: "/other-usage-of-flakes/the-new-cli.md",
+              },
+            ],
+          },
+          {
+            text: "Advanced Topics",
+            items: [
+              { text: "Introduction", link: "/zh/advanced-topics/index.md" },
+            ],
+          },
         ],
 
         socialLinks: [
@@ -188,7 +226,7 @@ export default defineConfig({
           {
             text: "Nixpkgs 高级用法",
             items: [
-              { text: "Introduction", link: "/zh/nixpkgs/intro.md" },
+              { text: "介绍", link: "/zh/nixpkgs/intro.md" },
               { text: "callPackage", link: "/zh/nixpkgs/callpackage.md" },
               { text: "Overridding", link: "/zh/nixpkgs/override.md" },
               { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
@@ -214,11 +252,25 @@ export default defineConfig({
           },
           {
             text: "Flakes 的其他玩法",
-            items: [{ text: "快速入门", link: "/zh/nixpkgs/index.md" }],
+            items: [
+              { text: "介绍", link: "/zh/other-usage-of-flakes/intro.md" },
+              {
+                text: "Flake Inputs",
+                link: "/zh/other-usage-of-flakes/inputs.md",
+              },
+              {
+                text: "Flake Outputs",
+                link: "/zh/other-usage-of-flakes/outputs.md",
+              },
+              {
+                text: "The New CLI",
+                link: "/zh/other-usage-of-flakes/the-new-cli.md",
+              },
+            ],
           },
           {
             text: "其他进阶话题",
-            items: [{ text: "快速入门", link: "/zh/nixpkgs/index.md" }],
+            items: [{ text: "介绍", link: "/zh/advanced-topics/index.md" }],
           },
         ],
 

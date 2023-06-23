@@ -34,7 +34,7 @@ Here are the classic Nix commands and related concepts that are no longer needed
 > maybe `nix-env -qa` is still useful some times, which returns all packages installed in the System.
 
 
-## IX. When will flakes stablized {#when-will-flakes-stablized}
+## When will flakes stablized {#when-will-flakes-stablized}
 
 I dived into some details about flakes:
 

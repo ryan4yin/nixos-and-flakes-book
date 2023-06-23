@@ -1,5 +1,5 @@
 
-### Advantages of Nix
+## Advantages of Nix
 
 - **Declarative configuration, Environment as Code, can be managed with Git**
   - Nix Flakes lock dependences's version through a lock file named `flake.lock`, to ensure that the system is reproducible. This idea actually borrows from some package managers such as npm, cargo, etc.
@@ -12,7 +12,7 @@
 - **The community is very active, and there are quite a few third-party projects**. The official package repository, nixpkgs, has many contributors, and many people share their Nix configuration on Github/Gitlab. After browsing through it, the entire ecosystem gives me a sense of excitement in discovering a new continent.
 
 
-### Disadvantages of Nix
+## Disadvantages of Nix
 
 - **High learning curve:**: If you want the system to be completely reproducible and avoid pitfalls caused by improper use, you need to learn about the entire design of Nix and manage the system in a declarative manner. You cannot blindly use `nix-env -i` (which is similar to `apt-get install`).
 - **Chaotic documentation**: Flakes is still an experimental feature, and there are currently few documents introducing it, Most of the Nix community's documentation only introduces the old cli such as `nix-env`/`nix-channel`. If you want to start learning Nix directly from Flakes, you need to refer to a large number of old documents and extract what you need from them. In addition, some of Nix's current core functions are not well-documented (such as `imports` and Nix Module System), to figure out what it does, it is best to look at the source code...
@@ -21,7 +21,7 @@
 `--show- Trace` may throw you a stack of errors that are of little help.
 
 
-### Summary
+## Summary
 
 Generally speaking, I think NixOS is suitable for developers who have some experience in using Linux and programming and want to have more control over their systems.
 

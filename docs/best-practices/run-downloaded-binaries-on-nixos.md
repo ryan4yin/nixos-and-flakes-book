@@ -56,3 +56,6 @@ $ fhs
 ## References
 
 - [Tips&Tricks for NixOS Desktop - NixOS Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]: Just as the title says, it is a collection of tips and tricks for NixOS desktop.
+
+
+[Tips&Tricks for NixOS Desktop - NixOS Discourse]: https://discourse.nixos.org/t/tips-tricks-for-nixos-desktop/28488

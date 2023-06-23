@@ -1,5 +1,5 @@
 
-### 3. Flake 命令行的使用 {#flake-commands-usage}
+## Flake 命令行的使用 {#flake-commands-usage}
 
 在启用了 `nix-command` & `flakes` 功能后，我们就可以使用 Nix 提供的新一代 Nix 命令行工具 [New Nix Commands][New Nix Commands] 了，下面列举下其中常用命令的用法：
 
@@ -35,3 +35,6 @@ mkdir build-nix-package && cd build-nix-package
 nix build "nixpkgs#bat"
 # 构建一个本地 flake 和 nix develop 是一样的，不再赘述
 ```
+
+
+[New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html

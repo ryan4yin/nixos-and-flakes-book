@@ -1,5 +1,5 @@
 
-### 10. 使用 Git 管理 NixOS 配置 {#git-manage-nixos-config}
+## 使用 Git 管理 NixOS 配置 {#git-manage-nixos-config}
 
 NixOS 的配置文件是纯文本，因此跟普通的 dotfiles 一样可以使用 Git 管理。
 
@@ -38,7 +38,7 @@ sudo nixos-rebuild switch --flake .#nixos-test
 
 Git 的更多操作这里就不介绍了，总之一般情况下的回滚都能直接通过 Git 完成，只在系统完全崩溃的情况下，才需要通过重启进入 grub，从上一个历史版本启动系统。
 
-### 11. 查看与清理历史数据 {#view-and-delete-history}
+## 查看与清理历史数据 {#view-and-delete-history}
 
 如前所述，NixOS 的每次部署都会生成一个新的版本，所有版本都会被添加到系统启动项中，除了重启电脑外，我们也可以通过如下命令查询当前可用的所有历史版本：
 

@@ -3,7 +3,6 @@ Nix is powerful and flexible, it provides a lot of ways to do things, making it 
 Here are some best practices that I've learned from the community, hope it can help you.
 
 
-## 4. 
 ## References
 
 - [Tips&Tricks for NixOS Desktop - NixOS Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]
