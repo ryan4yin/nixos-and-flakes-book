@@ -37,6 +37,43 @@ export default defineConfig({
             text: "The Nix Language",
             items: [{ text: "Basics", link: "/the-nix-language/index.md" }],
           },
+          {
+            text: "NixOS with Flakes",
+            items: [
+              {
+                text: "Get Started with NixOS",
+                link: "/nixos-with-flakes/get-started-with-nixos.md",
+              },
+              {
+                text: "Introduction to Flakes",
+                link: "/nixos-with-flakes/introduction-to-flakes.md",
+              },
+              {
+                text: "NixOS with Flakes enabled",
+                link: "/nixos-with-flakes/get-started-with-flakes.md",
+              },
+              {
+                text: "Started using Home Manager",
+                link: "/nixos-with-flakes/start-using-home-manager.md",
+              },
+              {
+                text: "Modularize the Configuration",
+                link: "/nixos-with-flakes/modularize-the-configuration.md",
+              },
+              {
+                text: "Update the System",
+                link: "/nixos-with-flakes/update-the-system.md",
+              },
+              {
+                text: "Upgrade or Downgrade Packages",
+                link: "/nixos-with-flakes/upgrade-or-downgrade-packages.md",
+              },
+              {
+                text: "Other useful Tips",
+                link: "/nixos-with-flakes/other-useful-tips.md",
+              },
+            ],
+          },
         ],
 
         socialLinks: [
@@ -79,7 +116,63 @@ export default defineConfig({
           },
           {
             text: "Nix 语言",
-            items: [{ text: "快速入门", link: "/zh/the-nix-language/index.md" }],
+            items: [
+              { text: "快速入门", link: "/zh/the-nix-language/index.md" },
+            ],
+          },
+
+          {
+            text: "NixOS 与 Flakes",
+            items: [
+              {
+                text: "开始使用 NixOS",
+                link: "/nixos-with-flakes/get-started-with-nixos.md",
+              },
+              {
+                text: "Flakes 简介",
+                link: "/nixos-with-flakes/introduction-to-flakes.md",
+              },
+              {
+                text: "使用 Flakes 管理 NixOS",
+                link: "/nixos-with-flakes/get-started-with-flakes.md",
+              },
+              {
+                text: "开始使用 Home Manager",
+                link: "/nixos-with-flakes/start-using-home-manager.md",
+              },
+              {
+                text: "模块化系统配置",
+                link: "/nixos-with-flakes/modularize-the-configuration.md",
+              },
+              {
+                text: "更新系统",
+                link: "/nixos-with-flakes/update-the-system.md",
+              },
+              {
+                text: "升级或降级软件包",
+                link: "/nixos-with-flakes/upgrade-or-downgrade-packages.md",
+              },
+              {
+                text: "其他杂七杂八的内容",
+                link: "/nixos-with-flakes/other-useful-tips.md",
+              },
+            ],
+          },
+          {
+            text: "Nixpkgs 高级用法",
+            items: [{ text: "快速入门", link: "/zh/nixpkgs/index.md" }],
+          },
+          {
+            text: "NixOS 最佳实践",
+            items: [{ text: "快速入门", link: "/zh/best-practices/index.md" }],
+          },
+          {
+            text: "Flakes 的其他玩法",
+            items: [{ text: "快速入门", link: "/zh/nixpkgs/index.md" }],
+          },
+          {
+            text: "其他进阶话题",
+            items: [{ text: "快速入门", link: "/zh/nixpkgs/index.md" }],
           },
         ],
 

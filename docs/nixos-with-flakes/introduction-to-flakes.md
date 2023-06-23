@@ -1,19 +1,19 @@
-
-## Warning about Flakes
-
 The flakes experimental feature is a major development for Nix, it introduces a policy for managing dependencies between Nix expressions, it improves reproducibility, composability and usability in the Nix ecosystem. Although it's still an experimental feature, flakes have been widely used by the Nix community.[^1]
 
 It's Flakes is one of the most significant changes the nix project has ever seen.[^2]
+
+
+## Warning about Flakes
 
 The benefits of Flakes are obvious, and the entire NixOS community likes it very much. Currently, more than half of the users are using Flakes[^3], so we're pretty sure that Flakes will never be deprecated.
 
 :warning: But **Flakes is still an experimental feature**, there are still many problems with it, and it is likely to introduce some breaking changes in the process of stablizing it, and it’s uncertain how greatly the breaking changes will be.
 
-So overall, I still recommend everyone to use Flakes, but be prepared for the problems that may be caused by the upcomming breaking changes.
+So overall, I still recommend everyone to use Flakes, this book is also written around NixOS and Flakes, but please be prepared for the problems that may be caused by the upcomming breaking changes.
 
 
 
-## III. Nix Flakes and the classic Nix
+## Nix Flakes and the classic Nix
 
 As `nix-command` & `flakes` are still experimental features, the official documentation does not cover them in detail, and the community's documentation about them is also very scattered.
 However, from the perspective of reproducibility and ease of management and maintenance, the classic Nix package structure and cli are no longer recommended for use.
@@ -34,7 +34,6 @@ Here are the classic Nix commands and related concepts that are no longer needed
 > maybe `nix-env -qa` is still useful some times, which returns all packages installed in the System.
 
 
-
 ## IX. When will flakes stablized {#when-will-flakes-stablized}
 
 I dived into some details about flakes:
@@ -47,24 +46,6 @@ I dived into some details about flakes:
 After reading all of these, I feel like that flakes will eventually be stabilized in one or two years, maybe with some breaking changes.
 
 
-
 [^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes) 
 [^2]: [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
 [^3]: [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-[^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes) 
-[^2]: [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)

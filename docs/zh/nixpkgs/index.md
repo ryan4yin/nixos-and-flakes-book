@@ -1,43 +1,43 @@
 
-## VIII. Nixpkgs's Advanced Usage
+## 八、Nixpkgs 的高级用法 {#nixpkgs-advanced-usage}
 
-`callPackage`, `Overriding`, and `Overlays` are the techniques occasionally used when using Nix to customize the build method of Nix packages.
+callPackage、Overriding 与 Overlays 是在使用 Nix 时偶尔会用到的技术，它们都是用来自定义 Nix 包的构建方法的。
 
-We know that many programs have a large number of build parameters that need to be configured, and different users may want to use different build parameters. This is where `Overriding` and `Overlays` come in handy. Let me give you a few examples I have encountered:
+我们知道许多程序都有大量构建参数需要配置，不同的用户会希望使用不同的构建参数，这时候就需要 Overriding 与 Overlays 来实现。我举几个我遇到过的例子：
 
-1. [`fcitx5-rime.nix`](https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix): By default, `fcitx5-rime` use `rime-data` as the value of `rimeDataPkgs`, but this parameter can be customized by `override`.
-2. [`vscode/with-extensions.nix`](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vscode/with-extensions.nix): This package for VS Code can also be customized by overriding the value of `vscodeExtensions`, thus we can install some custom plugins into VS Code.
-   - [`nix-vscode-extensions`](https://github.com/nix-community/nix-vscode-extensions): This is a vscode plugin manager implemented by overriding `vscodeExtensions`.
-3. [`firefox/common.nix`](https://github.com/NixOS/nixpkgs/blob/416ffcd08f1f16211130cd9571f74322e98ecef6/pkgs/applications/networking/browsers/firefox/common.nix): Firefox has many customizable parameters too.
-4. ...
+1. [fcitx5-rime.nix](https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix): fcitx5-rime 的 `rimeDataPkgs` 默认使用 `rime-data` 包，但是也可以通过 override 来自定义该参数的值，以加载自定义的 rime 配置（比如加载小鹤音形输入法配置）。
+2. [vscode/with-extensions.nix](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/editors/vscode/with-extensions.nix): vscode 的这个包也可以通过 override 来自定义 `vscodeExtensions` 参数的值来安装自定义插件。
+   1. [nix-vscode-extensions](https://github.com/nix-community/nix-vscode-extensions): 就是利用该参数实现的 vscode 插件管理
+3. [firefox/common.nix](https://github.com/NixOS/nixpkgs/blob/416ffcd08f1f16211130cd9571f74322e98ecef6/pkgs/applications/networking/browsers/firefox/common.nix): firefox 同样有许多可自定义的参数
+4. 等等
 
-In short, `Overriding` or `Overlays` can be used to customize the build parameters of Nix packages.
+总之如果需要自定义上述这类 Nix 包的构建参数，或者实施某些比较底层的修改，我们就得用到 Overriding 跟 Overlays。
 
 ### 1. pkgs.callPackage {#callpackage}
 
 > [Chapter 13. Callpackage Design Pattern - Nix Pills](https://nixos.org/guides/nix-pills/callpackage-design-pattern.html)
 
-In the previous content, We have used `import xxx.nix` to import Nix files many times, this syntax simply returns the execution result of the file, without any further processing of the it.
+前面我们介绍并大量使用了 `import xxx.nix` 来导入 Nix 文件，这种语法只是单纯地返回该文件的执行结果，不会对该结果进行进一步处理。
+比如说 `xxx.nix` 的内容是形如 `{...}: {...}`，那么 `import xxx.nix` 的结果就是该文件中定义的这个函数。
 
-`pkgs.callPackage` is also used to import Nix files, its syntax is `pkgs.callPackage xxx.nix { ... }`, but unlike `import`, the Nix file imported by it must be a Derivation or a function that returns a Derivation. Its result is a Derivation(a software package) too.
+`pkgs.callPackage` 也是用来导入 Nix 文件的，它的语法是 `pkgs.callPackage xxx.nix { ... }`. 但跟 `import` 不同的是，它导入的 nix 文件内容必须是一个 Derivation 或者返回 Derivation 的函数，它的执行结果一定是一个 Derivation，也就是一个软件包。
 
-So what does the Nix file that can be used as a parameter of `pkgs.callPackge` look like? You can take a look at the `hello.nix` `fcitx5-rime.nix` `vscode/with-extensions.nix` `firefox/common.nix` we mentioned earlier, they can all be imported by `pkgs.callPackage`.
+那可以作为 `pkgs.callPackge` 参数的 nix 文件具体长啥样呢，可以去看看我们前面举例过的 `hello.nix` `fcitx5-rime.nix` `vscode/with-extensions.nix` `firefox/common.nix`，它们都可以被 `pkgs.callPackage` 导入。
 
-When the `xxx.nix` used in `pkgs.callPackge xxx.nix {...}` is a function (most Nix packages are like this), the execution flow is as follows:
+当 `pkgs.callPackge xxx.nix {...}` 中的 `xxx.nix`，其内容为一个函数时（绝大多数 nix 包都是如此），执行流程如下：
 
-1. `pkgs.callPackge xxx.nix {...}` will first `import xxx.nix` to get the function defined in it. The parameters of this function usually have `lib`, `stdenv`, `fetchurl` and other parameters, as well as some custom parameters, which usually have default values.
-2. Then `pkgs.callPackge` will first look up the value matching the name from the current environment as the parameter to be passed to the function. parameters like `lib` `stdenv` `fetchurl` are defined in nixpkgs, and they will be found in this step.
-3. Then `pkgs.callPackge` will merge its second parameter `{...}` with the attribute set obtained in the previous step, and then pass it to the function imported from `xxx.nix` and execute it.
-4. Finally we get a Derivation as the result of the function execution.
+1. `pkgs.callPackge xxx.nix {...}` 会先 `import xxx.nix`，得到其中定义的函数，该函数的参数通常会有 `lib`, `stdenv`, `fetchurl` 等参数，以及一些自定义参数，自定义参数通常都有默认值。
+2. 接着 `pkgs.callPackge` 会首先从当前环境中查找名称匹配的值，作为将要传递给前述函数的参数。像 `lib` `stdenv` `fetchurl` 这些都是 nixpkgs 中的函数，在这一步就会查找到它们。
+3. 接着 `pkgs.callPackge` 会将其第二个参数 `{...}` 与前一步得到的参数集（attribute set）进行合并，得到一个新的参数列表，然后将其传递给该函数并执行。
+4. 函数执行结果是一个 Derivation，也就是一个软件包。
 
-So the common usage of `pkgs.callPackage` is to import custom Nix packages and used it in Nix Module.
-For example, we wrote a `hello.nix` ourselves, and then we can use `pkgs.callPackage ./hello.nix {}` in any Nix Module to import and use it.
+这个函数比较常见的用途是用来导入一些自定义的 Nix 包，比如说我们自己写了一个 `hello.nix`，然后就可以在任意 Nix Module 中使用 `pkgs.callPackage ./hello.nix {}` 来导入并使用它。
 
 ### 2. Overriding {#overriding}
 
 > [Chapter 4. Overriding - nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable/#chap-overrides)
 
-Simply put, all Nix packages in nixpkgs can be customized with `<pkg>.override {}` to define some build parameters, which returns a new Derivation that uses custom parameters. For example:
+简单的说，所有 nixpkgs 中的 Nix 包都可以通过 `<pkg>.override {}` 来自定义某些构建参数，它返回一个使用了自定义参数的新 Derivation. 举个例子：
 
 ```nix
 pkgs.fcitx5-rime.override {rimeDataPkgs = [
@@ -45,16 +45,15 @@ pkgs.fcitx5-rime.override {rimeDataPkgs = [
 ];}
 ```
 
-The result of this Nix expression is a new Derivation, where `rimeDataPkgs` is overridden as `[./rime-data-flypy]`, while other parameters remain their original values.
+上面这个 Nix 表达式的执行结果就是一个新的 Derivation，它的 `rimeDataPkgs` 参数被覆盖为 `[./rime-data-flypy]`，而其他参数则沿用原来的值。
 
-How to know which parameters of `fcitx5-rime` can be overridden? There are several ways:
+如何知道 `fcitx5-rime` 这个包有哪些参数可以覆写呢？有几种方法：
 
-1. Try to find the source code of the package in the nixpkgs repository on GitHub, such as [fcitx5-rime.nix](https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix)
-   1. Note: Be sure to select the correct branch, for example, if you are using the nixos-unstable branch, you need to find it in the nixos-unstable branch.
-2. Check by using `nix repl '<nixpkgs>'`, then enter `:e pkgs.fcitx5-rime`, which will open the source code of this package through the default editor, and then you can see all the parameters of this package.
-   1. Note: To learn the basic usage of `nix repl`, just type `:?` to see the help information
+1. 直接在 GitHub 的 nixpkgs 源码中找：[fcitx5-rime.nix](https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix)
+   1. 注意要选择正确的分支，加入你用的是 nixos-unstable 分支，那就要在 nixos-unstable 分支中找。
+2. 通过 `nix repl` 交互式查看：`nix repl '<nixpkgs>'`，然后输入 `:e pkgs.fcitx5-rime`，会通过编辑器打开这个包的源码，然后就可以看到这个包的所有参数了。
 
-Through these two methods, you can see that the `fcitx5-rime` package has the following input parameters, which can all be modified by `override`:
+通过上述两种方法，都可以看到 `fcitx5-rime` 这个包拥有如下输入参数，它们都是可以通过 `override` 修改的：
 
 ```nix
 { lib, stdenv
@@ -75,9 +74,8 @@ stdenv.mkDerivation rec {
 }
 ```
 
-Instead of override the function's parameters, we can also override the attributes of the Derivation created by `stdenv.mkDerivation`.
-
-Take `pkgs.hello` as an example, first check the source code of this package through the method we mentioned earlier:
+除了覆写参数，还可以通过 `overrideAttrs` 来覆写使用 `stdenv.mkDerivation` 构建的 Derivation 的属性。
+以 `pkgs.hello` 为例，首先通过前述方法查看这个包的源码：
 
 ```nix
 # https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/misc/hello/default.nix
@@ -105,7 +103,7 @@ stdenv.mkDerivation (finalAttrs: {
 })
 ```
 
-The attributes showed above, such as `pname` `version` `src` `doCheck`, can all be overridden by `overrideAttrs`, for example:
+其中 `pname` `version` `src` `doCheck` 等属性都是可以通过 `overrideAttrs` 来覆写的，比如：
 
 ```nix
 helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
@@ -113,9 +111,9 @@ helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
 });
 ```
 
-Here we use `overrideAttrs` to override `doCheck`, while other attributes remain their original values.
+上面这个例子中，`doCheck` 就是一个新的 Derivation，它的 `doCheck` 参数被改写为 `false`，而其他参数则沿用原来的值。
 
-Some default attributes defined in `stdenv.mkDerivation` can also be overridden by `overrideAttrs`, for example:
+除了包源码中自定义的参数值外，我们也可以通过 `overrideAttrs` 直接改写 `stdenv.mkDerivation` 内部的默认参数，比如：
 
 ```nix
 helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
@@ -123,36 +121,36 @@ helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
 });
 ```
 
-The attribute we override here, `separateDebugInfo`, is defined in `stdenv.mkDerivation`, not in the source code of `hello`.
-We can check the source code of `stdenv.mkDerivation` to see all the attributes defined in it by using `nix repl '<nixpkgs>'` and then enter `:e stdenv.mkDerivation`(To learn the basic usage of `nix repl`, just type `:?` to see the help information).
+具体的内部参数可以通过 `nix repl '<nixpkgs>'` 然后输入 `:e stdenv.mkDerivation` 来查看其源码。
 
-### 3. Overlays
+### 3. Overlays {#overlays}
 
 > [Chapter 3. Overlays - nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable/#chap-overlays)
 
-The `override` we introduced previously will generate a new Derivation, which does not affect the original Derivation in `pkgs`, and is only suitable for use as a local parameter,
-if you need to override a Derivation that is also depended on by other Nix packages, then other Nix packages will still use the original Derivation.
+前面介绍的 override 函数都会生成新的 Derivation，不影响 pkgs 中原有的 Derivation，只适合作为局部参数使用。
+但如果你需要覆写的 Derivation 还被其他 Nix 包所依赖，那其他 Nix 包使用的仍然会是原有的 Derivation.
 
-To solve this problem, Nix provides the ability to use `overlays`. Simply put, `overlays` can globally modify the Derivation in `pkgs`.
+为了解决这个问题，Nix 提供了 overlays 能力。简单的说，Overlays 可以全局修改 pkgs 中的 Derivation。
 
-In the classic Nix environment, Nix automatically applies all `overlays` configuration under the paths `~/.config/nixpkgs/overlays.nix` `~/.config/nixpkgs/overlays/*.nix`,
-but in Flakes, in order to ensure the reproducibility of the system, it cannot depend on any configuration outside the Git repository, so this classic method cannot be used now.
+在旧的 Nix 环境中，Nix 默认会自动应用 `~/.config/nixpkgs/overlays.nix` `~/.config/nixpkgs/overlays/*.nix` 这类路径下的所有 overlays 配置。
 
-When using Flakes to write configuration for NixOS, home Manager and NixOS both provide the `nixpkgs.overlays` option to define `overlays`, related documentation:
+但是在 Flakes 中，为了确保系统的可复现性，它不能依赖任何 Git 仓库之外的配置，所以这种旧的方法就不能用了。
+
+在使用 Nix Flakes 编写 NixOS 配置时，Home Manager 与 NixOS 都提供了 `nixpkgs.overlays` 这个 option 来引入 overlays, 相关文档：
 
 - [home-manager docs - `nixpkgs.overlays`](https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.overlays)
 - [nixpkgs source code - `nixpkgs.overlays`](https://github.com/NixOS/nixpkgs/blob/30d7dd7e7f2cba9c105a6906ae2c9ed419e02f17/nixos/modules/misc/nixpkgs.nix#L169)
 
-For example, the following content is a Module that loads Overlays, which can be used as either a home Manager Module or a NixOS Module, because the two definitions are exactly the same:
+举个例子，如下内容就是一个加载 Overlays 的 Module，它既可以用做 Home Manager Module，也可以用做 NixOS Module，因为这俩定义完全是一致的：
 
-> home Manager is an external component after all, and most people use the unstable branch of home Manager & nixpkgs, which sometimes causes problems with home Manager Module, so it is recommended to import `overlays` in a NixOS Module.
+> 不过我使用发现，Home Manager 毕竟是个外部组件，而且现在全都用的 unstable 分支，这导致 Home Manager Module 有时候会有点小毛病，因此更建议以 NixOS Module 的形式引入 overlays
 
 ```nix
 { config, pkgs, lib, ... }:
 
 {
   nixpkgs.overlays = [
-    # overlayer1 - use self and super to express the inheritance relationship
+    # overlayer1 - 参数名用 self 与 super，表达继承关系
     (self: super: {
      google-chrome = super.google-chrome.override {
        commandLineArgs =
@@ -160,8 +158,8 @@ For example, the following content is a Module that loads Overlays, which can be
      };
     })
 
-    # overlayer2 - you can also use `extend` to inherit other overlays
-    # use `final` and `prev` to express the relationship between the new and the old
+    # overlayer2 - 还可以使用 extend 来继承其他 overlay
+    # 这里改用 final 与 prev，表达新旧关系
     (final: prev: {
       steam = prev.steam.override {
         extraPkgs = pkgs:
@@ -181,52 +179,51 @@ For example, the following content is a Module that loads Overlays, which can be
       };
     })
 
-    # overlay3 - define overlays in other files
-    # here the content of overlay3.nix is the same as above:
-    #   `final: prev: { xxx = prev.xxx.override { ... }; }`
+    # overlay3 - 也可以将 overlay 定义在其他文件中
+    # 这里 overlay3.nix 中的内容格式与上面的一致，都是 `final: prev: { xxx = prev.xxx.override { ... }; }`
     (import ./overlays/overlay3.nix)
   ];
 }
 ```
 
-refer to this example to write your own overlays, import the configuration as a NixOS Module or a home Manager Module, and then deploy it to see the effect.
+这里只是个示例配置，参照此格式编写你自己的 overlays 配置，将该配置作为 NixOS Module 或者 Home Manager Module 引入，然后部署就可以看到效果了。
 
-#### Modular overlays
+#### 模块化 overlays 配置
 
-The previous example shows how to write overlays, but all overlays are written in a single nix file, which is a bit difficult to maintain.
+上面的例子说明了如何编写 overlays，但是所有 overlays 都一股脑儿写在一起，就有点难以维护了，写得多了自然就希望模块化管理这些 overlays.
 
-To resolve this problem,here is a best practice of how to manage overlays in a modular way.
+这里介绍下我找到的一个 overlays 模块化管理的最佳实践。
 
-First, create an `overlays` folder in the Git repository to store all overlays configuration, and then create `overlays/default.nix`, whose content is as follows:
+首先在 Git 仓库中创建 `overlays` 文件夹用于存放所有 overlays 配置，然后创建 `overlays/default.nix`，其内容如下：
 
 ```nix
 args:
-  # import all nix files in the current folder, and execute them with args as parameters
-  # The return value is a list of all execution results, which is the list of overlays
+  # import 当前文件夹下所有的 nix 文件，并以 args 为参数执行它们
+  # 返回值是一个所有执行结果的列表，也就是 overlays 的列表
   builtins.map
-  (f: (import (./. + "/${f}") args))  # the first parameter of map, a function that import and execute a nix file
-  (builtins.filter          # the second parameter of map, a list of all nix files in the current folder except default.nix
+  (f: (import (./. + "/${f}") args))  # map 的第一个参数，是一个 import 并执行 nix 文件的函数
+  (builtins.filter          # map 的第二个参数，它返回一个当前文件夹下除 default.nix 外所有 nix 文件的列表
     (f: f != "default.nix")
     (builtins.attrNames (builtins.readDir ./.)))
 ```
 
-Then you can write all overlays configuration in the `overlays` folder, an example configuration `overlays/fcitx5/default.nix` is as follows:
+后续所有 overlays 配置都添加到 `overlays` 文件夹中，一个示例配置 `overlays/fcitx5/default.nix` 内容如下：
 
 ```nix
-# to add my custom input method, I override the default rime-data here
-# refer to https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix
+# 为了不使用默认的 rime-data，改用我自定义的小鹤音形数据，这里需要 override
+# 参考 https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix
 {pkgs, config, lib, ...}:
 
 (self: super: {
-  # my custom input method's rime-data, downloaded from https://flypy.com
+  # 小鹤音形配置，配置来自 flypy.com 官方网盘的鼠须管配置压缩包「小鹤音形“鼠须管”for macOS.zip」
   rime-data = ./rime-data-flypy;
   fcitx5-rime = super.fcitx5-rime.override { rimeDataPkgs = [ ./rime-data-flypy ]; };
 })
 ```
 
-I custom the `rime-data` package through the overlay shown above.
+我通过上面这个 overlays 修改了 fcitx5-rime 输入法的默认数据，加载了我自定义的小鹤音形输入法。
 
-At last, you need to load all overlays returned by `overlays/default.nix` through the `nixpkgs.overlays` option, add the following parameter to any NixOS Module to achieve this:
+最后，还需要通过 `nixpkgs.overlays` 这个 option 加载 `overlays/default.nix` 返回的所有 overlays 配置，在任一 NixOS Module 中添加如下参数即可：
 
 ```nix
 { config, pkgs, lib, ... } @ args:
@@ -234,14 +231,14 @@ At last, you need to load all overlays returned by `overlays/default.nix` throug
 {
   # ......
 
-  # add this parameter
+  # 添加此参数
   nixpkgs.overlays = import /path/to/overlays/dir;
 
   # ......
 }
 ```
 
-For example, you can just add it directly in `flake.nix`:
+比如说直接写 `flake.nix` 里：
 
 ```nix
 {
@@ -261,8 +258,8 @@ For example, you can just add it directly in `flake.nix`:
         modules = [
           ./hosts/nixos-test
 
-          # add the following inline module definition
-          #   here, all parameters of modules are passed to overlays
+          # 添加如下内嵌 module 定义
+          #   这里将 modules 的所有参数 args 都传递到了 overlays 中
           (args: { nixpkgs.overlays = import ./overlays args; })
 
           # ......
@@ -273,7 +270,7 @@ For example, you can just add it directly in `flake.nix`:
 }
 ```
 
-By using this modular approach, it is very convenient to modularize all your overlays. Taking my configuration as an example, the structure of the `overlays` folder is roughly as follows:
+按照上述方法进行配置，就可以很方便地模块化管理所有 overlays 配置了，以我的配置为例，overlays 文件夹的结构大致如下：
 
 ```nix
 .
@@ -284,26 +281,15 @@ By using this modular approach, it is very convenient to modularize all your ove
 ├── modules
 ├── ......
 ├── overlays
-│   ├── default.nix         # it returns a list of all overlays.
+│   ├── default.nix         # 它返回一个所有 overlays 的列表
 │   └── fcitx5              # fcitx5 overlay
 │       ├── default.nix
 │       ├── README.md
-│       └── rime-data-flypy  # my custom rime-data
+│       └── rime-data-flypy  # 自定义的 rime-data，需要遵循它的文件夹格式
 │           └── share
 │               └── rime-data
-│                   ├── ......  # rime-data files
+│                   ├── ......  # rime-data 文件
 └── README.md
 ```
 
-
-## IV. Package Repositories of Nix
-
-Similar to Arch Linux, Nix also has official and community software package repositories:
-
-1. [nixpkgs](https://github.com/NixOS/nixpkgs) is a Git repository containing all Nix packages and NixOS modules.
-   1. Its `master` branch contains the latest Nix packages and modules.
-   2. The `nixos-unstable` branch contains the latest tested modules, but some bugs may still exist.
-   3. And the `nixos-XX.YY` branch(the stable branch) contains the latest stable Nix packages and modules.
-2. [NUR](https://github.com/nix-community/NUR) is similar to Arch Linux's AUR.
-   1. NUR is a third-party Nix package repository and serves as a supplement to nixpkgs, use it at your own risk.
-3. Flakes can also install software packages directly from Git repositories, which can be used to install Flakes provided by anyone, we will talk about this later.
+你可以在我的配置仓库 [ryan4yin/nix-config/v0.0.4](https://github.com/ryan4yin/nix-config/tree/v0.0.4) 查看更详细的内容，获取些灵感。
