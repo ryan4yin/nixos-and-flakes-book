@@ -9,7 +9,7 @@ Flakes is one of the most significant changes the nix project has ever seen.[^2]
 
 The benefits of Flakes are obvious, and the entire NixOS community likes it very much. Currently, more than half of the users are using Flakes[^3], so we're pretty sure that Flakes will never be deprecated.
 
-:warning: But **Flakes is still an experimental feature**, there are still many problems with it, it is likely to introduce some breaking changes in the process of stablizing it, and it’s uncertain how greatly the breaking changes will be.
+:warning: But **Flakes is still an experimental feature**, there are still some problems with it, so it is likely to introduce some breaking changes in the process of stablizing it, and it’s uncertain how greatly the breaking changes will be.
 
 So overall, I still recommend everyone to use Flakes, this book is also written around NixOS and Flakes after all, but please be prepared for the problems that may be caused by the upcomming breaking changes.
 
