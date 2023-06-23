@@ -65,6 +65,7 @@ nix-env -qa
 
 ## 节约存储空间
 
+如下配置可以比较好的缩减 NixOS 的磁盘占用，可以考虑将它们添加到你的 NixOS 配置中：
 
 ```nix
 { lib, pkgs, ... }:
@@ -73,14 +74,14 @@ nix-env -qa
   # ......
 
   # do not need to keep too much generations
-  boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
+  boot.loader.systemd-boot.configurationLimit = 10;
   # boot.loader.grub.configurationLimit = 10;
 
   # do garbage collection weekly to keep disk usage low
   nix.gc = {
-    automatic = lib.mkDefault true;
-    dates = lib.mkDefault "weekly";
-    options = lib.mkDefault "--delete-older-than 1w";
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 1w";
   };
 
   # Optimise storage

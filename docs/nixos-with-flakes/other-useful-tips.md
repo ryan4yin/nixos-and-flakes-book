@@ -69,6 +69,7 @@ nix-env -qa
 
 ## Reduce Disk Usage
 
+The following configuration can be used to reduce disk usage, feel free to add it into your NixOS Configuration.
 
 ```nix
 { lib, pkgs, ... }:
@@ -77,14 +78,14 @@ nix-env -qa
   # ......
 
   # do not need to keep too much generations
-  boot.loader.systemd-boot.configurationLimit = lib.mkDefault 10;
+  boot.loader.systemd-boot.configurationLimit = 10;
   # boot.loader.grub.configurationLimit = 10;
 
   # do garbage collection weekly to keep disk usage low
   nix.gc = {
-    automatic = lib.mkDefault true;
-    dates = lib.mkDefault "weekly";
-    options = lib.mkDefault "--delete-older-than 1w";
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 1w";
   };
 
   # Optimise storage
