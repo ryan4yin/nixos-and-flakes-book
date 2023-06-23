@@ -47,9 +47,8 @@ jobs:
         run: pnpm install
 
       # build and deploy the docs
-      - run: npm ci
       - name: Build
-        run: npm run docs:build
+        run: pnpm docs:build
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
         with:
