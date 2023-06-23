@@ -83,6 +83,24 @@ export default defineConfig({
               { text: "Overlays", link: "/nixpkgs/overlays.md" },
             ],
           },
+          {
+            text: "Best Practices",
+            items: [
+              { text: "Introduction", link: "/best-practices/intro.md" },
+              {
+                text: "Run downloaded binaries on NixOS",
+                link: "/best-practices/run-downloaded-binaries-on-nixos.md",
+              },
+              {
+                text: "Simplify NixOS-related Commands",
+                link: "/best-practices/simplify-nixos-related-commands.md",
+              },
+              {
+                text: "Debug with nix repl",
+                link: "/best-practices/debug-with-nix-repl.md",
+              },
+            ],
+          },
         ],
 
         socialLinks: [
@@ -178,7 +196,21 @@ export default defineConfig({
           },
           {
             text: "NixOS 最佳实践",
-            items: [{ text: "快速入门", link: "/zh/best-practices/index.md" }],
+            items: [
+              { text: "简介", link: "/zh/best-practices/intro.md" },
+              {
+                text: "运行非 NixOS 的二进制文件",
+                link: "/zh/best-practices/run-downloaded-binaries-on-nixos.md",
+              },
+              {
+                text: "使用 Makefile 简化常用命令",
+                link: "/zh/best-practices/simplify-nixos-related-commands.md",
+              },
+              {
+                text: "使用 nix repl 查看源码、调试配置",
+                link: "/zh/best-practices/debug-with-nix-repl.md",
+              },
+            ],
           },
           {
             text: "Flakes 的其他玩法",
