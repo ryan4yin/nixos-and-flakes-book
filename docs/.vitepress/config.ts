@@ -74,6 +74,15 @@ export default defineConfig({
               },
             ],
           },
+          {
+            text: "Nixpkgs's Advanced Usage",
+            items: [
+              { text: "Introduction", link: "/nixpkgs/intro.md" },
+              { text: "callPackage", link: "/nixpkgs/callpackage.md" },
+              { text: "Overridding", link: "/nixpkgs/override.md" },
+              { text: "Overlays", link: "/nixpkgs/overlays.md" },
+            ],
+          },
         ],
 
         socialLinks: [
@@ -160,7 +169,12 @@ export default defineConfig({
           },
           {
             text: "Nixpkgs 高级用法",
-            items: [{ text: "快速入门", link: "/zh/nixpkgs/index.md" }],
+            items: [
+              { text: "Introduction", link: "/zh/nixpkgs/intro.md" },
+              { text: "callPackage", link: "/zh/nixpkgs/callpackage.md" },
+              { text: "Overridding", link: "/zh/nixpkgs/override.md" },
+              { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
+            ],
           },
           {
             text: "NixOS 最佳实践",
