@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /get-started
+      link: /introduction/index.md
     - theme: alt
       text: View on GitHub
       link: https://github.com/ryan4yin/nixos-and-flakes-book
