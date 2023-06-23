@@ -3,6 +3,14 @@
 An unofficial NixOS & Flakes :book: for beginners: https://nixos-and-flakes.thiscute.world
 
 
+## Warning about Flakes
+
+The flakes experimental feature is a major development for Nix, it introduces a policy for managing dependencies between Nix expressions, it improves reproducibility, composability and usability in the Nix ecosystem. Although it's still an experimental feature, flakes have been widely used by the Nix community. 
+
+It's Flakes is one of the most significant changes the nix project has ever seen.
+
+:warning: But **Flakes is still an experimental feature**, there are still many problems with it, and it is likely to introduce some breaking changes in the process of stablizing it, and it’s uncertain how greatly the breaking changes will be, so **use it at your own risk**!
+
 ## Contribution
 
 > _A real community, however, exists only when its members interact in a meaningful way that deepens their understanding of each other and leads to learning._
