@@ -156,9 +156,9 @@ export default defineConfig({
       themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
         nav: [
-          { text: "Home", link: "/zh/" },
-          { text: "Get Started", link: "/zh/introduction/index.md" },
-          { text: "Best Pracetice", link: "/zh/best-practices/intro.md" },
+          { text: "首页", link: "/zh/" },
+          { text: "开始使用", link: "/zh/introduction/index.md" },
+          { text: "最佳实践", link: "/zh/best-practices/intro.md" },
         ],
 
         sidebar: [
