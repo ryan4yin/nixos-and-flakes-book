@@ -63,7 +63,7 @@ export default defineConfig({
                 link: "/nixos-with-flakes/nixos-with-flakes-enabled.md",
               },
               {
-                text: "Started using Home Manager",
+                text: "Start using Home Manager",
                 link: "/nixos-with-flakes/start-using-home-manager.md",
               },
               {
