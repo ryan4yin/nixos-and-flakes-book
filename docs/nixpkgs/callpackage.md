@@ -1,6 +1,6 @@
 ## pkgs.callPackage
 
-In the previous content, We have used `import xxx.nix` to import Nix files many times, this syntax simply returns the execution result of the file, without any further processing of the it.
+In the previous content, We have used `import xxx.nix` to import Nix files many times, this syntax simply returns the execution result of the file, without any further processing of it.
 
 `pkgs.callPackage` is also used to import Nix files, its syntax is `pkgs.callPackage xxx.nix { ... }`, but unlike `import`, the Nix file imported by it must be a Derivation or a function that returns a Derivation. Its result is a Derivation(a software package) too.
 
@@ -13,5 +13,5 @@ When the `xxx.nix` used in `pkgs.callPackge xxx.nix {...}` is a function (most N
 3. Then `pkgs.callPackge` will merge its second parameter `{...}` with the attribute set obtained in the previous step, and then pass it to the function imported from `xxx.nix` and execute it.
 4. Finally we get a Derivation as the result of the function execution.
 
-So the common usage of `pkgs.callPackage` is to import custom Nix packages and used it in Nix Module.
+So the common usage of `pkgs.callPackage` is to import customized Nix packages and used them in Nix Module.
 For example, we wrote a `hello.nix` ourselves, and then we can use `pkgs.callPackage ./hello.nix {}` in any Nix Module to import and use it.

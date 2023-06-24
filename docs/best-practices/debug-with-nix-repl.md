@@ -1,7 +1,6 @@
-
 ## Debug with `nix repl`
 
-We've used `nix repl '<nixpkgs>'` many times to check the source code in this guide, it's really a powerful tool to help us understand how things work in Nix.
+We've used `nix repl '<nixpkgs>'` many times to check the source code in this guide, it's a powerful tool to help us understand how things work in Nix.
 
 Better take a look at the help message of `nix repl`:
 
@@ -141,4 +140,4 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/
 #......
 ```
 
-As you can see, we can check every attribute of my flake in the REPL after loading it, which is very convenient for debugging.
+As we can see, we can check every attribute of my flake in the REPL after loading it, which is very convenient for debugging.

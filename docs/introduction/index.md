@@ -1,4 +1,3 @@
-
 ## Introduction to Nix & NixOS
 
 Nix package manager is a declarative configuration management tool. Users need to declare the expected system state in some configuration, and Nix is responsible for achieving that goal.
@@ -17,18 +16,17 @@ home-manager is designed to manage user-level packages & configuration files in 
 
 Due to Nix's features such as declarative and reproducible, Nix is not only used to manage desktop environments but also widely used to manage development environments, compilation environments, cloud virtual machines, container image construction, etc. [NixOps](https://github.com/NixOS/nixops) from the Nix official and [deploy-rs](https://github.com/serokell/deploy-rs) from the community are both operations tools based on Nix.
 
-
 ## Why NixOS?
 
-I heard about the Nix package manager several years ago. It uses the Nix language to describe system configuration, and the Linux distribution built on top of it, can roll back the system to any historical state at any time(In fact, only the state declared by nix configuration files can be rollback). Although it sounds impressive, it requires learning a new language and writing code to install packages, I thought it was too troublesome and didn't study it at the time.
+I heard about the Nix package manager several years ago. It uses the Nix language to describe system configuration, and the Linux distribution built on top of it can roll back the system to any historical state at any time(In fact, only the state declared by nix configuration files can be rollback). Although it sounds impressive, it requires learning a new language and writing code to install packages, I thought it was too troublesome and didn't study it at the time.
 
-But I recently encountered a lot of environmental problems in the process of using EndeavourOS, and I spent a lot of energy to solve them, which made me exhausted. After thinking about it carefully, I realized that the root cause was that EndeavourOS do not have any version control and rollback mechanism, which caused the system to be unable to be restored when problems occurred.
+But I recently encountered a lot of environmental problems in the process of using EndeavourOS, and I spent a lot of energy solving them, which made me exhausted. After thinking about it carefully, I realized that the root cause was that EndeavourOS do not have any version control and rollback mechanism, which caused the system to be unable to be restored when problems occurred.
 
 So I switched to NixOS.
 
-I am quite satisfied with NixOS, even more than expected. 
-The most amazing thing is, now I can restore the entire i3 environment and my commonly used softwares on a fresh NixOS host with just one command, that's really fantastic!
+I am quite satisfied with NixOS, even more than expected.
+The most amazing thing is, now I can restore the entire i3 environment and my commonly used packages on a fresh NixOS host with just one command, that's really fantastic!
 
-The rollback capability of NixOS gave me a lot of confidence - I no longer fear breaking the system any more. I even tried a lot of new things on NixOS, such as hyprland compositor. (On EndeavourOS before, I wouldn't have dared to play with such new compositors - it would have been a big hassle if something went wrong with the system and I need to fix it manually through various tricks.)
+The rollback capability of NixOS gave me a lot of confidence - I no longer fear breaking the system anymore. I even tried a lot of new things on NixOS, such as hyprland compositor. (On EndeavourOS before, I wouldn't have dared to play with such new compositors - it would have been a big hassle if something went wrong with the system and I need to fix it manually through various tricks.)
 
 So that's why I chose NixOS.

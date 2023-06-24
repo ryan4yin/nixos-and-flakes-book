@@ -1,15 +1,14 @@
 ## Overlays
 
-
 The `override` we introduced previously will generate a new Derivation, which does not affect the original Derivation in `pkgs`, and is only suitable for use as a local parameter,
-if you need to override a Derivation that is also depended on by other Nix packages, then other Nix packages will still use the original Derivation.
+if you need to override a Derivation that is also dependent on other Nix packages, then other Nix packages will still use the original Derivation.
 
 To solve this problem, Nix provides the ability to use `overlays`. Simply put, `overlays` can globally modify the Derivation in `pkgs`.
 
 In the classic Nix environment, Nix automatically applies all `overlays` configuration under the paths `~/.config/nixpkgs/overlays.nix` `~/.config/nixpkgs/overlays/*.nix`,
 but in Flakes, in order to ensure the reproducibility of the system, it cannot depend on any configuration outside the Git repository, so this classic method cannot be used now.
 
-When using Flakes to write configuration for NixOS, home Manager and NixOS both provide the `nixpkgs.overlays` option to define `overlays`, related documentation:
+When using Flakes to write configuration for NixOS, home Manager and NixOS both provide the `nixpkgs.overlays` option to define `overlays`. Related documentation:
 
 - [home-manager docs - `nixpkgs.overlays`](https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.overlays)
 - [nixpkgs source code - `nixpkgs.overlays`](https://github.com/NixOS/nixpkgs/blob/30d7dd7e7f2cba9c105a6906ae2c9ed419e02f17/nixos/modules/misc/nixpkgs.nix#L169)
@@ -66,9 +65,9 @@ refer to this example to write your own overlays, import the configuration as a 
 
 The previous example shows how to write overlays, but all overlays are written in a single nix file, which is a bit difficult to maintain.
 
-To resolve this problem,here is a best practice of how to manage overlays in a modular way.
+To resolve this problem, here is a best practice of how to manage overlays in a modular way.
 
-First, create an `overlays` folder in the Git repository to store all overlays configuration, and then create `overlays/default.nix`, whose content is as follows:
+First, create an `overlays` folder in the Git repository to store all overlays configurations, and then create `overlays/default.nix`, whose content is as follows:
 
 ```nix
 args:
@@ -81,7 +80,7 @@ args:
     (builtins.attrNames (builtins.readDir ./.)))
 ```
 
-Then you can write all overlays configuration in the `overlays` folder, an example configuration `overlays/fcitx5/default.nix` is as follows:
+Then you can write all overlays configurations in the `overlays` folder, an example configuration `overlays/fcitx5/default.nix` is as follows:
 
 ```nix
 # to add my custom input method, I override the default rime-data here
@@ -95,7 +94,7 @@ Then you can write all overlays configuration in the `overlays` folder, an examp
 })
 ```
 
-I custom the `rime-data` package through the overlay shown above.
+We customized the `rime-data` package through the overlay shown above.
 
 At last, you need to load all overlays returned by `overlays/default.nix` through the `nixpkgs.overlays` option, add the following parameter to any NixOS Module to achieve this:
 
@@ -144,7 +143,7 @@ For example, you can just add it directly in `flake.nix`:
 }
 ```
 
-By using this modular approach, it is very convenient to modularize all your overlays. Taking my configuration as an example, the structure of the `overlays` folder is roughly as follows:
+By using this modular approach, it is very convenient to modularize all your overlays. Taking my configuration as an example, the structure of the `overlays` folder is rough as follows:
 
 ```nix
 .

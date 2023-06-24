@@ -11,7 +11,7 @@ Flakes 带来的好处是显而易见的，整个 NixOS 社区都很喜欢它，
 
 但是 Flakes 目前仍然存在一些问题，因此在将它推向稳定的过程中，Nix 可能会引入一些不兼容的改动，这个改动的大小目前还无法确定。
 
-因此总的来说，我仍然推荐大家使用 Flakes，毕竟这本书本身也是围绕 NixOS 与 Flakes 编写的，但是也要做好准备——未来可能需要解决一些不兼容变更带来的问题。
+总的来说，我仍然推荐大家使用 Flakes，毕竟这本书本身也是围绕 NixOS 与 Flakes 编写的，但是也要做好准备——未来可能需要解决一些不兼容变更带来的问题。
 
 ## Flakes 与传统的 Nix
 
@@ -46,9 +46,6 @@ Nix 于 2020 年推出了 `nix-command` & `flakes` 两个新特性，它们提�
 
 读完上述内容后，个人猜测，**Flakes 可能会在未来一两年内成为稳定特性**。
 
-
 [^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes)
-
 [^2]: [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
-
 [^3]: [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9)
