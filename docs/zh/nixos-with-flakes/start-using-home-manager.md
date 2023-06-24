@@ -1,9 +1,8 @@
 ## 安装使用 Home Manager
 
-
 前面简单提过，NixOS 自身的配置文件只能管理系统级别的配置，而用户级别的配置则需要使用 home-manager 来管理。
 
-根据官方文档 [Home Manager Manual](https://nix-community.github.io/home-manager/index.htm)，要将 home manager 作为 NixOS 模块安装，首先需要创建 `/etc/nixos/home.nix`，配置方法如下：
+根据官方文档 [Home Manager Manual](https://nix-community.github.io/home-manager/index.html)，要将 home manager 作为 NixOS 模块安装，首先需要创建 `/etc/nixos/home.nix`，配置方法如下：
 
 ```nix
 { config, pkgs, ... }:

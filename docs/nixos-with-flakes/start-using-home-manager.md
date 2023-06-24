@@ -1,9 +1,8 @@
-
 ## Start using home-manager
 
 As I mentioned earlier, NixOS can only manage system-level configuration, to manage the Home directory(user-level configuration), we need to install home-manager.
 
-According to the official document [Home Manager Manual](https://nix-community.github.io/home-manager/index.htm), in order to install home-manager as a module of NixOS, we need to create `/etc/nixos/home.nix` first, an example content shown below:
+According to the official document [Home Manager Manual](https://nix-community.github.io/home-manager/index.html), in order to install home-manager as a module of NixOS, we need to create `/etc/nixos/home.nix` first, an example content shown below:
 
 ```nix
 { config, pkgs, ... }:
