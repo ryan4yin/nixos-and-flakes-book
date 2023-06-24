@@ -89,7 +89,7 @@ Use [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.
 
 For more details, see [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2).
 
-## `mkOverride`, `lib.mkDefault` and `lib.mkForce`
+## `lib.mkOverride`, `lib.mkDefault` and `lib.mkForce`
 
 You may found some people use `lib.mkDefault` `lib.mkForce` to define values in Nix files, as their names suggest, `lib.mkDefault` and `lib.mkForce` are used to set default values or force values of options.
 
