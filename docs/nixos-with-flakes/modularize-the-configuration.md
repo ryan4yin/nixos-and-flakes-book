@@ -1,4 +1,3 @@
-
 ## Modularize your NixOS configuration
 
 At this point, the skeleton of the entire system is basically configured. The current configuration structure in `/etc/nixos` should be as follows:
@@ -26,7 +25,7 @@ By modifying these files, you can change the status of the system and the home d
 
 As the configuration increases, it will be difficult to maintain the configuration by relying solely on `configuration.nix` and `home.nix`. Therefore, a better solution is to use the nix module system to split the configuration into multiple modules and write them in a classified manner.
 
-nix module system provide a paramter, `imports`, which accept a list of `.nix` files, and merge all the configuration defined in these files into the current nix module. Note that the word used here is "**merge**", which means that `imports` will **NOT** simply overwrite the duplicate configuration, but handle them more reasonably. For example, if I define `program.packages = [...]` in multiple modules, then `imports` will merge all `program.packages` defined in all nix modules into one list. Not only lists can be merged correctly, but attribute sets can also be merged correctly. The specific behavior can be explored by yourself.
+Nix module system provide a paramter, `imports`, which accept a list of `.nix` files, and merge all the configuration defined in these files into the current nix module. Note that the word used here is "**merge**", which means that `imports` will **NOT** simply overwrite the duplicate configuration, but handle them more reasonably. For example, if I define `program.packages = [...]` in multiple modules, then `imports` will merge all `program.packages` defined in all nix modules into one list. Not only lists can be merged correctly, but attribute sets can also be merged correctly. The specific behavior can be explored by yourself.
 
 > I only found a description of `imports` in [nixpkgs-unstable official manual - evalModules parameters](https://nixos.org/manual/nixpkgs/unstable/#module-system-lib-evalModules-parameters): `A list of modules. These are merged together to form the final configuration.`, it's a bit ambiguous...
 
@@ -95,7 +94,7 @@ You may found some people use `lib.mkDefault` `lib.mkForce` to define values in 
 
 You can read the source code of `lib.mkDefault` and `lib.mkForce` to understand them by running `nix repl -f '<nixpkgs>'` and then enter `:e lib.mkDefault`(To learn the basic usage of `nix repl`, just type `:?` to see the help information).
 
-its source code is as follows:
+Its source code is as follows:
 
 ```nix
   # ......
@@ -118,7 +117,7 @@ So `lib.mkDefault` is used to set default values of options, it has a priority o
 and `lib.mkForce` is used to force values of options, it has a priority of 50 internally.
 If you just set a value of an option directly, it will be set with a default priority of 1000(the same as `lib.mkDefault`).
 
-the lower the `priority`'s value is, the higher the actual priority is, so `lib.mkForce` has a higher priority than `lib.mkDefault`.
+The lower the `priority`'s value is, the higher the actual priority is, so `lib.mkForce` has a higher priority than `lib.mkDefault`.
 If you defined multiple values with the same priority, Nix will throw an error.
 
 They are useful to modularize the configuration, as you can set default values in a low-level module(base module), and force values in a high-level module.
