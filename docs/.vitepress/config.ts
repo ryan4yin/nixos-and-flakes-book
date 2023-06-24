@@ -25,7 +25,7 @@ export default defineConfig({
         nav: [
           { text: "Home", link: "/" },
           { text: "Get Started", link: "/introduction/index.md" },
-          { text: "Best Practice", link: "/best-practices/intro.md" },
+          { text: "Best Practices", link: "/best-practices/intro.md" },
         ],
 
         sidebar: [
