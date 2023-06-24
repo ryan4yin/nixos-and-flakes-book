@@ -1,7 +1,6 @@
-
 ## Usage of The New CLI
 
-after enabled `nix-command` & `flake`, you can use `nix help` to get all the info of [New Nix Commands][New Nix Commands], some useful examples are listed below:
+after enabling `nix-command` & `flake`, you can use `nix help` to get all the info of [New Nix Commands][New Nix Commands], some useful examples are listed below:
 
 ```bash
 # `nixpkgs#ponysay` means `ponysay` from `nixpkgs` flake.
@@ -35,7 +34,6 @@ nix build "nixpkgs#bat"
 ```
 
 [Zero to Nix - Determinate Systems][Zero to Nix - Determinate Systems] is a brand new guide to get started with Nix & Flake, recommended to read for beginners.
-
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
 [Zero to Nix - Determinate Systems]: https://github.com/DeterminateSystems/zero-to-nix

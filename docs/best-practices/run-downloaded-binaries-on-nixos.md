@@ -2,11 +2,11 @@
 
 NixOS does not follow the FHS standard, so the binaries you download from the Internet will not likely work on NixOS. But there are some ways to make it work.
 
-Here is a detailed guide which provides 10 ways to run downloaded binaries on NixOS: [Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos), I recommend you to read it.
+Here is a detailed guide that provides 10 ways to run downloaded binaries on NixOS: [Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos), I recommend you to read it.
 
-Among these methods, I prefer creating a FHS environment to run the binary, which is very convenient and easy to use.
+Among these methods, I prefer creating an FHS environment to run the binary, which is very convenient and easy to use.
 
-To create such an environment, add the following code to one of your nix modules:
+To create such an environment, add the following code to one of your Nix modules:
 
 ```nix
 { config, pkgs, lib, ... }:
@@ -42,7 +42,7 @@ To create such an environment, add the following code to one of your nix modules
 }
 ```
 
-after applying the updated configuration, you can run `fhs` to enter the FHS environment, and then run the binary you downloaded, e.g.
+After applying the updated configuration, you can run `fhs` to enter the FHS environment, and then run the binary you downloaded, e.g.
 
 ```shell
 # Activating FHS drops me in a shell which looks like a "normal" Linux
@@ -56,6 +56,5 @@ $ fhs
 ## References
 
 - [Tips&Tricks for NixOS Desktop - NixOS Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]: Just as the title says, it is a collection of tips and tricks for NixOS desktop.
-
 
 [Tips&Tricks for NixOS Desktop - NixOS Discourse]: https://discourse.nixos.org/t/tips-tricks-for-nixos-desktop/28488

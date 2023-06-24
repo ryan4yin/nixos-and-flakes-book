@@ -1,6 +1,5 @@
 ## Overriding
 
-
 Simply put, all Nix packages in nixpkgs can be customized with `<pkg>.override {}` to define some build parameters, which returns a new Derivation that uses custom parameters. For example:
 
 ```nix
@@ -9,7 +8,7 @@ pkgs.fcitx5-rime.override {rimeDataPkgs = [
 ];}
 ```
 
-The result of this Nix expression is a new Derivation, where `rimeDataPkgs` is overridden as `[./rime-data-flypy]`, while other parameters remain their original values.
+The result of this Nix expression is a new Derivation, where `rimeDataPkgs` is overridden as `[./rime-data-flypy]`, while other parameters remain at their original values.
 
 How to know which parameters of `fcitx5-rime` can be overridden? There are several ways:
 
@@ -39,7 +38,7 @@ stdenv.mkDerivation rec {
 }
 ```
 
-Instead of override the function's parameters, we can also override the attributes of the Derivation created by `stdenv.mkDerivation`.
+Instead of overriding the function's parameters, we can also override the attributes of the Derivation created by `stdenv.mkDerivation`.
 
 Take `pkgs.hello` as an example, first check the source code of this package through the method we mentioned earlier:
 

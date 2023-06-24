@@ -1,4 +1,3 @@
-
 ## Remote deployment
 
 Some tools like [NixOps](https://github.com/NixOS/nixops), [deploy-rs](https://github.com/serokell/deploy-rs), and [colmena](https://github.com/zhaofengli/colmena) can all be used to deploy NixOS configuration to remote hosts, but they are all too complicated for me.
@@ -22,12 +21,11 @@ ssh-add ~/.ssh/ai-idols
 nixos-rebuild --flake .#aquamarine --target-host 192.168.4.1 --build-host 192.168.4.1 switch --use-remote-sudo --verbose
 ```
 
-The commands above will build & deploy the configuration to aquamarine, the build process will be executed on aquamarine too,
+The commands above will build & deploy the configuration to `aquamarine`, the build process will be executed on `aquamarine` too,
 and the `--use-remote-sudo` option indicates that we need to use sudo permission on the remote server to deploy the configuration.
 
 If you want to build the configuration locally and deploy it to the remote server, just replace `--build-host aquamarinr` with `--build-host localhost`.
-
-Instead of use ip address directly, we can also define some host aliases in `~/.ssh/config` or `/etc/ssh/ssh_config`, for example:
+Instead of using IP address directly, we can also define some host aliases in `~/.ssh/config` or `/etc/ssh/ssh_config`, for example:
 
 > ssh's config can be generated completely through Nix configuration, and this task is left to you.
 

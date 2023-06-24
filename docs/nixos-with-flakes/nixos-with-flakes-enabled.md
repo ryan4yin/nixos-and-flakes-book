@@ -1,6 +1,5 @@
 ## NixOS with Flakes Enabled
 
-
 ### Enabling Flakes Support
 
 Compared to the default configuration approach of NixOS, Flakes provide better reproducibility and a clearer package structure that is easier to maintain. Therefore, it is recommended to manage NixOS with Flakes.
@@ -49,7 +48,7 @@ Now to learn how to write a flake, let's take a look at the official flake templ
 nix flake show templates
 ```
 
-The templates `templates#full` contains all possible usecases, let's take a look at it:
+The templates `templates#full` contain all possible use cases, let's take a look at them:
 
 ```bash
 nix flake init -t templates#full
@@ -137,16 +136,13 @@ Here we defined a NixOS system called `nixos-test`, whose configuration file is 
 
 Now run `sudo nixos-rebuild switch` to apply the configuration, and no changes will be made to the system, because we imported the old configuration file in `/etc/nixos/flake.nix`, so the actual state we declared remains unchanged.
 
-
-
-
 ### Manage system software through Flakes
 
-After the switch, we can now manage the system through Flakes. The most common requirement for managing a system is to install softwares. We have seen how to install packages through `environment.systemPackages` before, and these packages are all from the official nixpkgs repository.
+After the switch, we can now manage the system through Flakes. The most common requirement for managing a system is to install packges. We have seen how to install packages through `environment.systemPackages` before, and these packages are all from the official nixpkgs repository.
 
 Now let's learn how to install packages from other sources through Flakes. This is much more flexible than installing from nixpkgs directly. The most obvious benefit is that you can easily set the version of the software.
 
-Use [helix](https://github.com/helix-editor/helix) editor as an example, first we need to add the helix as an input into `flake.nix`:
+Use [helix](https://github.com/helix-editor/helix) editor as an example, first, we need to add the helix as an input into `flake.nix`:
 
 ```nix
 {
@@ -178,7 +174,7 @@ Use [helix](https://github.com/helix-editor/helix) editor as an example, first w
 }
 ```
 
-Then udpate `configuration.nix` to install `helix` from the input `helix`:
+Then update `configuration.nix` to install `helix` from the input `helix`:
 
 ```nix
 # Nix will automatically inject `helix` from specialArgs
@@ -208,7 +204,7 @@ Now deploy the changes by `sudo nixos-rebuild switch`, and then we can start the
 
 > You can safely skip this section if you don't need to customize the cache mirror.
 
-To speed up package building, Nix provides <https://cache.nixos.org> to cache build results to avoid build every packages locally.
+To speed up package building, Nix provides <https://cache.nixos.org> to cache build results to avoid building every package locally.
 
 With the NixOS's classic configuration method, other cache sources can be added by using `nix-channel`, but Flakes avoids using any system-level configuration and environment variables to ensure that its build results are not affected by the environment(so the build results are reproducible).
 
