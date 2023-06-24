@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig } from "vitepress";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -75,7 +75,7 @@ export default defineConfig({
                 link: "/nixos-with-flakes/update-the-system.md",
               },
               {
-                text: "Upgrade or Downgrade Packages",
+                text: "Downgrade or Upgrade Packages",
                 link: "/nixos-with-flakes/downgrade-or-upgrade-packages.md",
               },
               {
@@ -211,7 +211,7 @@ export default defineConfig({
                 link: "/zh/nixos-with-flakes/update-the-system.md",
               },
               {
-                text: "升级或降级软件包",
+                text: "降级或升级软件包",
                 link: "/zh/nixos-with-flakes/downgrade-or-upgrade-packages.md",
               },
               {
