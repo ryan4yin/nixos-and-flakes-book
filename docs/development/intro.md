@@ -1,4 +1,4 @@
-## Development on NixOS
+## Dev Environemnts on NixOS
 
 Due to the reproducibility of NixOS itself, it is very suitable for building development environments.
 But if you want to migrate the experience on other distros directly to NixOS, you may encounter problems, because NixOS has its own set of logic, we will explain this briefly below.

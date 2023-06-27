@@ -131,6 +131,32 @@ export default defineConfig({
             ],
           },
           {
+            text: "Dev Environemnts on NixOS",
+            items: [
+              { text: "intro", link: "/development/intro.md" },
+              {
+                text: "Dev Environments",
+                link: "/development/dev-environments.md",
+              },
+              {
+                text: "Packaging 101",
+                link: "/development/packaging-101.md",
+              },
+              {
+                text: "Cross-platform Compilation",
+                link: "/development/cross-platform-compilation.md",
+              },
+              {
+                text: "Distribution Building",
+                link: "/development/distributed-building.md",
+              },
+              {
+                text: "Kernel Development",
+                link: "/development/kernel-development.md",
+              },
+            ],
+          },
+          {
             text: "Advanced Topics",
             items: [
               { text: "Introduction", link: "/advanced-topics/index.md" },
