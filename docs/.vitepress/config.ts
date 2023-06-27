@@ -266,6 +266,32 @@ export default defineConfig({
             ],
           },
           {
+            text: "在 NixOS 上进行开发工作",
+            items: [
+              { text: "介绍", link: "/zh/development/intro.md" },
+              {
+                text: "各语言的开发环境",
+                link: "/zh/development/dev-environments.md",
+              },
+              {
+                text: "软件打包",
+                link: "/zh/development/packaging-101.md",
+              },
+              {
+                text: "跨平台编译",
+                link: "/zh/development/cross-platform-compilation.md",
+              },
+              {
+                text: "分布式构建",
+                link: "/zh/development/distributed-building.md",
+              },
+              {
+                text: "内核开发",
+                link: "/zh/development/kernel-development.md",
+              },
+            ],
+          },
+          {
             text: "其他进阶话题",
             items: [{ text: "介绍", link: "/zh/advanced-topics/index.md" }],
           },
