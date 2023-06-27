@@ -4,9 +4,6 @@ An unofficial NixOS & Flakes :book: for beginners: https://nixos-and-flakes.this
 
 中文版: https://nixos-and-flakes.thiscute.world/zh/
 
-## TODO
-
-- Reduce my personal information, make it more general
 
 ## Introduction to Flakes
 
