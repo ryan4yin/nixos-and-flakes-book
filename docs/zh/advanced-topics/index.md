@@ -17,8 +17,6 @@
 
 以及其他许多实用的社区项目可探索，我比较关注的有这几个：
 
-- [dev-templates](https://github.com/the-nix-way/dev-templates): 原汁原味的 devShell 模板，可以用于快速搭建开发环境。
-- [devenv](https://github.com/cachix/devenv): 开发环境管理
 - [agenix](https://github.com/ryantm/agenix): secrets 管理
 - [nixos-generator](https://github.com/nix-community/nixos-generators): 镜像生成工具，从 nixos 配置生成 iso/qcow2 等格式的镜像
 - [lanzaboote](https://github.com/nix-community/lanzaboote): 启用 secure boot
