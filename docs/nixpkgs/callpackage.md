@@ -15,8 +15,7 @@ When the `xxx.nix` used in `pkgs.callPackge xxx.nix {...}` is a function (most N
 
 The common usage of `pkgs.callPackage` is to import customized Nix packages and used them in Nix Module.
 
-
-For example, we have customized a NixOS kernel configuration `kernel.nix`, and used the SBC's name and kernel source as its variable parameters:
+For example, we have customized a NixOS kernel configuration `kernel.nix`, and it uses the SBC's name and kernel source as its variable parameters:
 
 ```nix
 {
@@ -43,7 +42,7 @@ For example, we have customized a NixOS kernel configuration `kernel.nix`, and u
 })
 ```
 
-Then we can use `pkgs.callPackage ./kernel.nix {}` in any Nix Module to import and use it, and replace any of its parameters:
+Then we can use `pkgs.callPackage ./kernel.nix {}` in any Nix Module to import and replace any of its parameters:
 
 ```nix
 { lib, pkgs, pkgsKernel, kernel-src, ... }: 
