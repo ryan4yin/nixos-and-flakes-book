@@ -8,17 +8,15 @@ Flakes is one of the most significant changes the nix project has ever seen.[^2]
 
 The benefits of Flakes are obvious, and the entire NixOS community likes it very much. Currently, more than half of the users are using Flakes[^3], so we're pretty sure that Flakes will never be deprecated.
 
-:warning: But **Flakes is still an experimental feature**, there are still some problems with it, so it is likely to introduce some breaking changes in the process of stablizing it, and it’s uncertain how greatly the breaking changes will be.
+:warning: But **Flakes is still an experimental feature**, there are still some problems with it, it is likely to introduce some breaking changes in the process of stablizing it, and it’s uncertain how greatly the breaking changes will be.
 
-Overall, I stll recommend using Flakes, as this book is written around NixOS and Flakes. However, please be prepared for potential problems caused by upcoming breaking changes.
+Overall, I still recommend everyone to use Flakes, this book is also written around NixOS and Flakes after all, but please be prepared for the problems that may be caused by the upcomming breaking changes.
 
 ## Nix Flakes and Classic Nix
 
 As `nix-command` and `flakes` are still experimental features, the official documentation does not cover them in detail, and the community's documentation about them is also scattered. However, from the perspective of reproducibility and ease of management and maintenance, the classic Nix package structure and CLI are no longer recommended for use. Therefore, I will not introduce the usage of the classic Nix. It's recommended that beginners start with `nix-command` and `flakes` and ignore all the contents about the classic Nix.
 
 Here are the classic Nix commands and related concepts that are no longer needed after enabling `nix-command` and `flakes`. When searching for information, you can safely ignore them:
-
-GitHub Copilot: Here's an optimized version of the text:
 
 1. `nix-channel`: `nix-channel` manages software package versions through stable/unstable/test channels, similar to other package management tools such as apt/yum/pacman.
    1. In Flakes, the functionality of `nix-channel` is completely replaced by `inputs` in `flake.nix`.

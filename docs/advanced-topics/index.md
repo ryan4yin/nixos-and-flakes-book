@@ -7,8 +7,6 @@ Once you're familiar with NixOS, you can explore Nix's three manuals and other d
 - [NixOS Manual](https://nixos.org/manual/nixos/unstable/): A user manual for NixOS, which includes configuration instructions for system-level components such as Wayland/X11 and GPU.
 - [nix-pills](https://nixos.org/guides/nix-pills): Nix Pills provides an in-depth explanation of how to use Nix to build software packages. It is written in a clear and understandable way and is worth reading, as it is also sufficiently in-depth.
 
-GitHub Copilot: Here's an optimized version of the text:
-
 Once you're familiar with Flakes, you may want to explore some advanced techniques. Here are some popular community projects to try out:
 
 - [flake-parts](https://github.com/hercules-ci/flake-parts): This project simplifies the writing and maintenance of configuration through the Module module system.
