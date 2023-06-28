@@ -1,6 +1,6 @@
 # NixOS & Flakes Book :hammer_and_wrench: :heart:
 
-An unofficial NixOS & Flakes :book: for beginners: https://nixos-and-flakes.thiscute.world
+An unofficial and opinionated NixOS & Flakes :book: for beginners: https://nixos-and-flakes.thiscute.world
 
 中文版: https://nixos-and-flakes.thiscute.world/zh/
 

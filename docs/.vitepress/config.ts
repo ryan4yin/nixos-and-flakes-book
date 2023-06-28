@@ -18,7 +18,7 @@ export default defineConfig({
       lang: "en",
       link: "/",
       title: "NixOS & Flakes Book",
-      description: "An unofficial book for beginners",
+      description: "An unofficial and opinionated book for beginners",
 
       themeConfig: {
         // https://vitepress.dev/reference/default-theme-config
