@@ -1,8 +1,8 @@
 ## Introduction to Nix & NixOS
 
-Nix package manager is a declarative configuration management tool. Users need to declare the expected system state in some configuration, and Nix is responsible for achieving that goal.
+Nix is a declarative package manager, that allows users to declare the expected system state in some configuration files, and Nix is responsible for achieving that goal.
 
-> To put it simply, "declarative configuration" means that users only need to declare the result they want. For example, you declare that you want to replace the i3 window manager with sway, then Nix will help you achieve the goal. You don't need to worry about the underlying details (such as which packages sway needs to install, which i3-related packages need to be uninstalled, which system configuration or environment variables need to be adjusted for sway, what adjustments need to be made to the Sway parameters if an Nvidia graphics card is used, etc.), Nix will automatically handle these details for the user(prerequisite: if the nix packages related to sway & i3 are designed properly.).
+> In simple terms, "declarative configuration" means that users only need to declare the result they want. For example, you declare that you want to replace the i3 window manager with sway, then Nix will help you achieve the goal. You don't need to worry about the underlying details (such as which packages sway needs to install, which i3-related packages need to be uninstalled, which system configuration or environment variables need to be adjusted for sway, what adjustments need to be made to the Sway parameters if an Nvidia graphics card is used, etc.), Nix will automatically handle these details for the user(prerequisite: if the nix packages related to sway & i3 are designed properly.).
 
 NixOS, the Linux distribution built on top of the Nix package manager, can be simply described as "OS as Code", which describes the entire operating system's state using declarative Nix configuration files.
 
@@ -27,6 +27,6 @@ So I switched to NixOS.
 I am quite satisfied with NixOS, even more than expected.
 The most amazing thing is, now I can restore the entire i3 environment and my commonly used packages on a fresh NixOS host with just one command, that's really fantastic!
 
-The rollback capability of NixOS gave me a lot of confidence - I no longer fear breaking the system anymore. I even tried a lot of new things on NixOS, such as hyprland compositor. (On EndeavourOS before, I wouldn't have dared to play with such new compositors - it would have been a big hassle if something went wrong with the system and I need to fix it manually through various tricks.)
+The rollback capability of NixOS gave me a lot of confidence - I no longer fear breaking the system anymore. I even tried a lot of new things on NixOS, such as hyprland compositor. (I wouldn't have dared to play with such new compositors on EndeavourOS - it would have been a big hassle if something went wrong with the system and I need to fix it manually through various tricks.)
 
-So that's why I chose NixOS.
+That's why I chose NixOS.

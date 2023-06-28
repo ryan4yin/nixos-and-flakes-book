@@ -10,28 +10,28 @@ The benefits of Flakes are obvious, and the entire NixOS community likes it very
 
 :warning: But **Flakes is still an experimental feature**, there are still some problems with it, so it is likely to introduce some breaking changes in the process of stablizing it, and it’s uncertain how greatly the breaking changes will be.
 
-Overall, I still recommend everyone to use Flakes, this book is also written around NixOS and Flakes after all, but please be prepared for the problems that may be caused by the upcomming breaking changes.
+Overall, I stll recommend using Flakes, as this book is written around NixOS and Flakes. However, please be prepared for potential problems caused by upcoming breaking changes.
 
-## Nix Flakes and the classic Nix
+## Nix Flakes and Classic Nix
 
-As `nix-command` & `flakes` are still experimental features, the official documentation does not cover them in detail, and the community's documentation about them is also very scattered.
-However, from the perspective of reproducibility and ease of management and maintenance, the classic Nix package structure and cli are no longer recommended for use.
-So I will not introduce the usage of the classic Nix. It's recommended that beginners just start with `nix-command` & `flakes` and ignore all the contents about the classic Nix.
+As `nix-command` and `flakes` are still experimental features, the official documentation does not cover them in detail, and the community's documentation about them is also scattered. However, from the perspective of reproducibility and ease of management and maintenance, the classic Nix package structure and CLI are no longer recommended for use. Therefore, I will not introduce the usage of the classic Nix. It's recommended that beginners start with `nix-command` and `flakes` and ignore all the contents about the classic Nix.
 
-Here are the classic Nix commands and related concepts that are no longer needed after you enabling `nix-command` and `flakes`, when searching for information, you can safely ignore them:
+Here are the classic Nix commands and related concepts that are no longer needed after enabling `nix-command` and `flakes`. When searching for information, you can safely ignore them:
 
-1. `nix-channel`: `nix-channel` is similar to other package management tools such as apt/yum/pacman, managing software package versions through stable/unstable/test channels.
+GitHub Copilot: Here's an optimized version of the text:
+
+1. `nix-channel`: `nix-channel` manages software package versions through stable/unstable/test channels, similar to other package management tools such as apt/yum/pacman.
    1. In Flakes, the functionality of `nix-channel` is completely replaced by `inputs` in `flake.nix`.
-2. `nix-env`: `nix-env` is a core command-line tool for classic Nix used to manage software packages in the user environment. It installs packages from the data sources added by `nix-channel`, so the installed package's version are influenced by the channel. Packages installed with `nix-env` are not automatically recorded in Nix's declarative configuration and are entirely outside of its control, making them difficult to reproduce on other machines. Therefore, it is not recommended to use this tool.
-   1. The corresponding command in Flakes is `nix profile`, it's not recommended to use it either.
-3. `nix-shell`: `nix-shell` is used to create a temporary shell environment, which is useful for development and testing.
-   1. This tool is a bit complicated, so it is split into three sub-commands in Flakes: `nix develop`, `nix shell` and `nix run`.
-   2. We will introduce these three commands in detail in the "Development" chapter.
-4. `nix-build`: `nix-build` is used to build Nix packages, and it places the build results in `/nix/store`, but it does not record them in Nix's declarative configuration.
+2. `nix-env`: `nix-env` is a core command-line tool for classic Nix used to manage software packages in the user environment.
+   1. It installs packages from the data sources added by `nix-channel`, so the installed package's version is influenced by the channel. Packages installed with `nix-env` are not automatically recorded in Nix's declarative configuration and are entirely outside of its control, making them difficult to reproduce on other machines. Therefore, it is not recommended to use this tool.
+   2. The corresponding command in Flakes is `nix profile`, which is also not recommended for use.
+3. `nix-shell`: `nix-shell` creates a temporary shell environment, which is useful for development and testing.
+   1. In Flakes, this tool is split into three sub-commands: `nix develop`, `nix shell`, and `nix run`. We will introduce these three commands in detail in the "Development" chapter.
+4. `nix-build`: `nix-build` builds Nix packages and places the build results in `/nix/store`, but it does not record them in Nix's declarative configuration.
    1. In Flakes, `nix-build` is replaced by `nix build`.
 5. ...
 
-> maybe `nix-env -qa` is still useful some times, which returns all packages installed in the System.
+> NOTE: `nix-env -qa` may still be useful sometimes, as it returns all packages installed in the system.
 
 ## When will flakes stablized {#when-will-flakes-stablized}
 

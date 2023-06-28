@@ -2,9 +2,9 @@
 
 ### Enabling Flakes Support
 
-Compared to the default configuration approach of NixOS, Flakes provide better reproducibility and a clearer package structure that is easier to maintain. Therefore, it is recommended to manage NixOS with Flakes.
+Flakes provide better reproducibility and a clearer package structure that is easier to maintain compared to the default configuration approach of NixOS. Therefore, it's recommended to manage NixOS with Flakes.
 
-However, as Flakes is still an experimental feature currently, it's not enabled by default yet, we need to enable it manually by modifying `/etc/nixos/configuration.nix`, example as follows:
+However, as Flakes is still an experimental feature, it's not enabled by default. To enable it, modify `/etc/nixos/configuration.nix` as follows:
 
 ```nix
 # Edit this configuration file to define what should be installed on
@@ -36,13 +36,13 @@ However, as Flakes is still an experimental feature currently, it's not enabled 
 }
 ```
 
-Now run `sudo nixos-rebuild switch` to apply the changes, and then you can write the configuration for NixOS with Flakes.
+To apply the changes, run `sudo nixos-rebuild switch`. After that, you can write the configuration for NixOS with Flakes.
 
 ### Switching System Configuration to `flake.nix`
 
-After enabling `flakes`, `sudo nixos-rebuild switch` will try to read`/etc/nixos/flake.nix` first every time you run it, if not found, it will fallback to `/etc/nixos/configuration.nix`.
+After enabling `flakes`, `sudo nixos-rebuild switch` will first try to read `/etc/nixos/flake.nix` every time you run it. If not found, it will fallback to `/etc/nixos/configuration.nix`.
 
-Now to learn how to write a flake, let's take a look at the official flake templates provided by Nix. First, check which templates are available:
+To learn how to write a flake, take a look at the official flake templates provided by Nix. To check which templates are available, run:
 
 ```bash
 nix flake show templates
@@ -55,10 +55,9 @@ nix flake init -t templates#full
 cat flake.nix
 ```
 
-After reading this example, let's create a file `/etc/nixos/flake.nix` and copy the content of the example into it.
-With `/etc/nixos/flake.nix`, all system modifications will be taken over by Flakes from now on.
+After reading the example, create a file `/etc/nixos/flake.nix` and copy the content of the example into it. From now on, all system modifications will be taken over by Flakes with `/etc/nixos/flake.nix`.
 
-The template we copied CAN NOT be used directly, we need to modify it to make it work, an example of `/etc/nixos/flake.nix` is as follows:
+Note that the template we copied cannot be used directly. We need to modify it to make it work. Here's an example of `/etc/nixos/flake.nix`:
 
 ```nix
 {
@@ -132,17 +131,17 @@ The template we copied CAN NOT be used directly, we need to modify it to make it
 }
 ```
 
-Here we defined a NixOS system called `nixos-test`, whose configuration file is `./configuration.nix`, which is the classic configuration we modified before, so we can still make use of it.
+We defined a NixOS system called `nixos-test` with a configuration file at `./configuration.nix`, which is the classic configuration we modified before. Therefore, we can still make use of it.
 
-Now run `sudo nixos-rebuild switch` to apply the configuration, and no changes will be made to the system, because we imported the old configuration file in `/etc/nixos/flake.nix`, so the actual state we declared remains unchanged.
+To apply the configuration, run `sudo nixos-rebuild switch`. No changes will be made to the system because we imported the old configuration file in `/etc/nixos/flake.nix`, so the actual state we declared remains unchanged.
 
-### Manage system software through Flakes
+### Manage System Software through Flakes
 
-After the switch, we can now manage the system through Flakes. The most common requirement for managing a system is to install packges. We have seen how to install packages through `environment.systemPackages` before, and these packages are all from the official nixpkgs repository.
+After the switch, we can manage the system through Flakes. The most common requirement for managing a system is to install packages. We have seen how to install packages through `environment.systemPackages` before, and these packages are all from the official nixpkgs repository.
 
-Now let's learn how to install packages from other sources through Flakes. This is much more flexible than installing from nixpkgs directly. The most obvious benefit is that you can easily set the version of the software.
+Now let's learn how to install packages from other sources through Flakes. This is much more flexible than installing from nixpkgs directly, and the most obvious benefit is that you can easily set the version of the software.
 
-Use [helix](https://github.com/helix-editor/helix) editor as an example, first, we need to add the helix as an input into `flake.nix`:
+Let's use [Helix](https://github.com/helix-editor/helix) editor as an example. First, we need to add Helix as an input to `flake.nix`:
 
 ```nix
 {
@@ -198,17 +197,17 @@ Then update `configuration.nix` to install `helix` from the input `helix`:
 }
 ```
 
-Now deploy the changes by `sudo nixos-rebuild switch`, and then we can start the helix editor by `helix` command.
+To deploy the changes, run `sudo nixos-rebuild switch`. Then start the Helix editor by running the `helix` command.
 
 ### Add Custom Cache Mirror
 
-> You can safely skip this section if you don't need to customize the cache mirror.
+> If you don't need to customize the cache mirror, you can safely skip this section.
 
-To speed up package building, Nix provides <https://cache.nixos.org> to cache build results to avoid building every package locally.
+To speed up package building, Nix provides <https://cache.nixos.org> to cache build results and avoid building every package locally.
 
-With the NixOS's classic configuration method, other cache sources can be added by using `nix-channel`, but Flakes avoids using any system-level configuration and environment variables to ensure that its build results are not affected by the environment(so the build results are reproducible).
+With the classic configuration method in NixOS, other cache sources can be added using `nix-channel`. However, Flakes avoids using any system-level configuration and environment variables to ensure that its build results are not affected by the environment, making the build results reproducible.
 
-Therefore, to customize the cache source, we must add the related configuration in `flake.nix` by using the parameter `nixConfig`. An example is as follows:
+Therefore, to customize the cache source, we must add the related configuration in `flake.nix` using the `nixConfig` parameter. Here's an example:
 
 ```nix
 {
