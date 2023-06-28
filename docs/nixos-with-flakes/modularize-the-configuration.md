@@ -1,6 +1,6 @@
-## Modularize your NixOS configuration
+## Modularize Your NixOS Configuration
 
-At this point, the skeleton of the entire system is basically configured. The current configuration structure in `/etc/nixos` should be as follows:
+At this point, the skeleton of the entire system is configured. The current configuration structure in `/etc/nixos` should be:
 
 ```
 $ tree
@@ -11,27 +11,27 @@ $ tree
 └── configuration.nix
 ```
 
-The functions of these four files are explained below:
+The functions of these four files are:
 
-- `flake.lock`: An automatically generated version-lock file, which records all input sources, hash values, and version numbers of the entire flake to ensure that the system is reproducible.
-- `flake.nix`: The entry file, which will be recognized and deployed when executing `sudo nixos-rebuild switch`.
+- `flake.lock`: An automatically generated version-lock file that records all input sources, hash values, and version numbers of the entire flake to ensure reproducibility.
+- `flake.nix`: The entry file that will be recognized and deployed when executing `sudo nixos-rebuild switch`.
   - See [Flakes - NixOS Wiki](https://nixos.wiki/wiki/Flakes) for all options of flake.nix.
-- `configuration.nix`: Imported as a nix module in flake.nix, all system-level configuration are currently written here.
+- `configuration.nix`: Imported as a Nix module in flake.nix, all system-level configuration is currently written here.
   - See [Configuration - NixOS Manual](https://nixos.org/manual/nixos/unstable/index.html#ch-configuration) for all options of configuration.nix.
-- `home.nix`: Imported by home-manager as the configuration of the user `ryan` in flake.nix, that is, it contains all the configuration of `ryan`, and is responsible for managing `ryan`'s home folder.
-  - See [Appendix A. Configuration Options - home Manager](https://nix-community.github.io/home-manager/options.html) for all options of home.nix.
+- `home.nix`: Imported by Home-Manager as the configuration of the user `ryan` in flake.nix, containing all of `ryan`'s configuration and managing `ryan`'s home folder.
+  - See [Appendix A. Configuration Options - Home-Manager](https://nix-community.github.io/home-manager/options.html) for all options of home.nix.
 
-By modifying these files, you can change the status of the system and the home directory declaratively.
+By modifying these files, you can declaratively change the system and home directory status.
 
-As the configuration increases, it will be difficult to maintain the configuration by relying solely on `configuration.nix` and `home.nix`. Therefore, a better solution is to use the nix module system to split the configuration into multiple modules and write them in a classified manner.
+As the configuration increases, it becomes difficult to maintain the configuration by relying solely on `configuration.nix` and `home.nix`. Therefore, a better solution is to use the Nix module system to split the configuration into multiple modules and write them in a classified manner.
 
-Nix module system provide a paramter, `imports`, which accept a list of `.nix` files, and merge all the configuration defined in these files into the current nix module. Note that the word used here is "**merge**", which means that `imports` will **NOT** simply overwrite the duplicate configuration, but handle them more reasonably. For example, if I define `program.packages = [...]` in multiple modules, then `imports` will merge all `program.packages` defined in all nix modules into one list. Not only lists can be merged correctly, but attribute sets can also be merged correctly. The specific behavior can be explored by yourself.
+The Nix module system provides a parameter, `imports`, which accepts a list of `.nix` files and merges all the configuration defined in these files into the current Nix module. Note that `imports` will not simply overwrite duplicate configuration, but handle it more reasonably. For example, if `program.packages = [...]` is defined in multiple modules, then `imports` will merge all `program.packages` defined in all Nix modules into one list. Attribute sets can also be merged correctly. The specific behavior can be explored by yourself.
 
-> I only found a description of `imports` in [nixpkgs-unstable official manual - evalModules parameters](https://nixos.org/manual/nixpkgs/unstable/#module-system-lib-evalModules-parameters): `A list of modules. These are merged together to form the final configuration.`, it's a bit ambiguous...
+> I only found a description of `imports` in [Nixpkgs-Unstable Official Manual - evalModules Parameters](https://nixos.org/manual/nixpkgs/unstable/#module-system-lib-evalModules-parameters): `A list of modules. These are merged together to form the final configuration.`, it's a bit ambiguous...
 
-With the help of `imports`, we can split `home.nix` and `configuration.nix` into multiple nix modules defined in diffrent `.nix` files.
+With the help of `imports`, we can split `home.nix` and `configuration.nix` into multiple Nix modules defined in different `.nix` files.
 
-Use [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2) as an example, which is the configuration of my previous NixOS system with i3 window manager. The structure of it is as follows:
+For example, [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2) is the configuration of my previous NixOS system with i3 window manager. Its structure is:
 
 ```shell
 ├── flake.lock
@@ -88,13 +88,13 @@ Use [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.
 
 For more details, see [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2).
 
-## `lib.mkOverride`, `lib.mkDefault` and `lib.mkForce`
+## `lib.mkOverride`, `lib.mkDefault`, and `lib.mkForce`
 
-You may found some people use `lib.mkDefault` `lib.mkForce` to define values in Nix files, as their names suggest, `lib.mkDefault` and `lib.mkForce` are used to set default values or force values of options.
+Some people use `lib.mkDefault` and `lib.mkForce` to define values in Nix files. As their names suggest, `lib.mkDefault` and `lib.mkForce` are used to set default values or force values of options.
 
-You can read the source code of `lib.mkDefault` and `lib.mkForce` to understand them by running `nix repl -f '<nixpkgs>'` and then enter `:e lib.mkDefault`(To learn the basic usage of `nix repl`, just type `:?` to see the help information).
+You can read the source code of `lib.mkDefault` and `lib.mkForce` by running `nix repl -f '<nixpkgs>'` and then entering `:e lib.mkDefault`. To learn the basic usage of `nix repl`, type `:?` to see the help information.
 
-Its source code is as follows:
+Here's the source code:
 
 ```nix
   # ......
@@ -113,16 +113,13 @@ Its source code is as follows:
   # ......
 ```
 
-So `lib.mkDefault` is used to set default values of options, it has a priority of 1000 internally,
-and `lib.mkForce` is used to force values of options, it has a priority of 50 internally.
-If you just set a value of an option directly, it will be set with a default priority of 1000(the same as `lib.mkDefault`).
+`lib.mkDefault` is used to set default values of options with a priority of 1000 internally, while `lib.mkForce` is used to force values of options with a priority of 50 internally. If you set a value of an option directly, it will be set with a default priority of 1000 (the same as `lib.mkDefault`).
 
-The lower the `priority`'s value is, the higher the actual priority is, so `lib.mkForce` has a higher priority than `lib.mkDefault`.
-If you defined multiple values with the same priority, Nix will throw an error.
+The lower the `priority` value, the higher the actual priority. Therefore, `lib.mkForce` has a higher priority than `lib.mkDefault`. If you define multiple values with the same priority, Nix will throw an error.
 
-They are useful to modularize the configuration, as you can set default values in a low-level module(base module), and force values in a high-level module.
+These functions are useful for modularizing the configuration. You can set default values in a low-level module (base module) and force values in a high-level module.
 
-For example, I defined some default values in <https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-server.nix#L30>:
+As an example, in my configuration <https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-server.nix#L30>, I define default values here:
 
 ```nix
 { lib, pkgs, ... }:
@@ -154,14 +151,13 @@ And for my dekstop machine, I force the values to another value in <https://gith
 }
 ```
 
-## `lib.mkOrder`, `lib.mkBefore` and `lib.mkAfter`
+## `lib.mkOrder`, `lib.mkBefore`, and `lib.mkAfter`
 
-`lib.mkBefore` and `lib.mkAfter` are used to set the merge order of **list-type options**, just like `lib.mkDefault` and `lib.mkForce`, they're also useful to modularize the configuration.
+`lib.mkBefore` and `lib.mkAfter` are used to set the merge order of **list-type options**. Like `lib.mkDefault` and `lib.mkForce`, they're also useful for modularizing the configuration.
 
-I said before that if you defined multiple values with the same **override priority**, Nix will throw an error.
-But with `lib.mkOrder`, `lib.mkBefore` or `lib.mkAfter`, you can define multiple values with the same override priority, they will be merged in the order you defined.
+As I mentioned earlier, if you define multiple values with the same **override priority**, Nix will throw an error. However, with `lib.mkOrder`, `lib.mkBefore`, or `lib.mkAfter`, you can define multiple values with the same override priority, and they will be merged in the order you defined.
 
-Let's running `nix repl -f '<nixpkgs>'` and then enter `:e lib.mkBefore` to take a look at its source code(To learn the basic usage of `nix repl`, just type `:?` to see the help information):
+To take a look at the source code of `lib.mkBefore`, run `nix repl -f '<nixpkgs>'` and then enter `:e lib.mkBefore`. To learn the basic usage of `nix repl`, type `:?` to see the help information:
 
 ```nix
   # ......
@@ -242,7 +238,7 @@ nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackag
   «derivation /nix/store/qpmpvq5azka70lvamsca4g4sf55j8994-vim-9.0.1441.drv» ]
 ```
 
-So we can see that the order of `systemPackages` is `git -> curl -> default packages -> vim`, which is the same as the order we defined in `flake.nix`.
+As we can see, the order of `systemPackages` is `git -> curl -> default packages -> vim`, which is the same as the order we defined in `flake.nix`.
 
 > Though it's useless to adjust the order of `systemPackages`, it may be helpful at some other places...
 
