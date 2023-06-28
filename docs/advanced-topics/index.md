@@ -1,6 +1,5 @@
 ## Advanced Topics
 
-
 After becoming familiar with the NixOS, you can further explore Nix's three manuals and other docs to discover more ways to use it:
 
 - [Nix Reference Manual](https://nixos.org/manual/nix/stable/package-management/profiles.html): A guide to the Nix package manager, which mainly covers the design of the package manager and instructions for using it from the command line.
@@ -17,11 +16,13 @@ After becoming familiar with Flakes, you may want to try some advanced technique
 
 And many other useful community projects to explore, here are some of them:
 
+- [nixpak](https://github.com/nixpak/nixpak)
+- [nix-output-monitor](https://github.com/maralorn/nix-output-monitor)
 - [agenix](https://github.com/ryantm/agenix): secrets management
 - [colmena](https://github.com/zhaofengli/colmena): NixOS deployment tools
 - [nixos-generator](https://github.com/nix-community/nixos-generators): generate iso/qcow2/... from nixos configuration
 - [lanzaboote](https://github.com/nix-community/lanzaboote): enable secure boot for NixOS
 - [impermanence](https://github.com/nix-community/impermanence): used to make NixOS stateless, to imporve the reproduciability of NixOS system.
-
+- ...
 
 [digga]: https://github.com/divnix/digga

@@ -245,3 +245,8 @@ nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackag
 So we can see that the order of `systemPackages` is `git -> curl -> default packages -> vim`, which is the same as the order we defined in `flake.nix`.
 
 > Though it's useless to adjust the order of `systemPackages`, it may be helpful at some other places...
+
+## References
+
+- [Nix modules: Improving Nix's discoverability and usability ](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
+- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/doc/module-system/module-system.chapter.md)

@@ -245,3 +245,9 @@ nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackag
 能看到 `systemPackages` 的顺序是 `git -> curl -> default packages -> vim`，跟我们预期的一致。`lib.mkBefore [pkgs.git]` 确实是将 `git` 插入到了列表头，而 `lib.mkAfter [pkgs.vim]` 则是将 `vim` 插入到了列表尾。
 
 > 虽然单纯调整 `systemPackages` 的顺序没什么用，但是在其他地方可能会有用...
+
+
+## References
+
+- [Nix modules: Improving Nix's discoverability and usability ](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
+- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/doc/module-system/module-system.chapter.md)
