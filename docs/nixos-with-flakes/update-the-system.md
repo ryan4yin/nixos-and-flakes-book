@@ -1,13 +1,12 @@
+## Updating the System
 
-## Update the system
-
-With Flakes, it is also very simple to update the system. Just run the following commands in `/etc/nixos`:
+With Flakes, updating the system is simple. Just run the following commands in `/etc/nixos`:
 
 ```shell
-# update flake.lock
+# Update flake.lock
 nix flake update
-# apply the updates
+# Apply the updates
 sudo nixos-rebuild switch
 ```
 
-Sometimes you may encounter some error of sha256 mismatch when running `nixos-rebuild switch`, which may be solved by updating `flake.lock` through `nix flake update`.
+Sometimes, you may encounter a sha256 mismatch error when running `nixos-rebuild switch`. This can be resolved by updating `flake.lock` through `nix flake update`.

@@ -1,20 +1,17 @@
 ## Distributed Building
 
-Distributed building can speed up the build process by make use of multiple machines.
+Distributed building can speed up the build process by utilizing multiple machines.
 
-NixOS's official cache.nixos.org provides the vast majority of caches for the X86_64 architecture, so distributed builds are generally not very useful for ordinary NixOS users.
+For ordinary NixOS users, distributed building is generally not very useful because NixOS's official `cache.nixos.org` provides the vast majority of caches for the `x86_64` architecture.
 
-Distributed building is of great application value only in scenarios where there is no cache available:
+Distributed building is of great value in scenarios where there is no cache available, such as:
 
+1. Users of `RISC-V` or `ARM64` architectures (especially `RISC-V`), because there are very few caches for these two architectures in the official cache repository, which often requires a lot of local compilation.
+2. Users who customize the system a lot, because the packages in the official cache repository are all default configurations. If you change the build parameters, then the official cache is not applicable, and you need to compile locally. For instance, in the embedded scenario, there is often a need for customization of the underlying kernel, drivers, etc., which leads to the need for local compilation.
 
-1. Users of RISC-V or ARM64 architectures (especially RISC-V), because there are very few caches for these two architectures in the official cache repository, which often requires a lot of local compilation.
-2. Users who customize the system a lot, because the packages in the official cache repository are all default configurations, if you change the build parameters, then the official cache is not applicable, then you need to compile locally.
-   2. For instance, in the embedded scenario, there is often a need for customization of the underlying kernel, drivers, etc., which leads to the need for local compilation.
+### Configure Distributed Building
 
-
-### Configure distributed building
-
-Currently, there is no official documentation for this, and I have listed some recommended reference documents at the end of this chapter, along with my distributed build configuration (a NixOS Module):
+Currently, there is no official documentation for distributed building. However, I have listed some recommended reference documents at the end of this chapter, along with my distributed build configuration (a NixOS Module).
 
 ```nix
 { ... }: {
@@ -28,7 +25,7 @@ Currently, there is no official documentation for this, and I have listed some r
   # set local's max-job to 0 to force remote building(disable local building)
   # nix.settings.max-jobs = 0;
   nix.distributedBuilds = true;
-  nix.buildMachines = 
+  nix.buildMachines =
     let
       sshUser = "ryan";
       # ssh key's path on local machine
@@ -92,11 +89,11 @@ Currently, there is no official documentation for this, and I have listed some r
     Host ai
       HostName 192.168.5.100
       Port 22
-    
+
     Host aquamarine
       HostName 192.168.5.101
       Port 22
-    
+
     Host ruby
       HostName 192.168.5.102
       Port 22
@@ -130,16 +127,14 @@ Currently, there is no official documentation for this, and I have listed some r
 }
 ```
 
-
 ## Defects
 
 The problems I have observed so far are:
 
 1. You cannot specify which hosts to use at build time, you can only specify a list of hosts in the configuration file, and nix automatically selects available hosts.
-two。
+   two。
 2. When choosing a host, I found that Nix always preferred the remote host, while my local host had the best performance, which caused the local host's CPU to be underutilized.
 3. The smallest unit of distributed building is Derivation, so when building some big packages, other machines may be idle for a long time, waiting for the big package to be built, which leads to a waste of resources.
-
 
 ## References
 

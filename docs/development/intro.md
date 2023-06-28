@@ -1,19 +1,18 @@
-## Dev Environemnts on NixOS
+## Development Environments on NixOS
 
-Due to the reproducibility of NixOS itself, it is very suitable for building development environments.
-But if you want to migrate the experience on other distros directly to NixOS, you may encounter problems, because NixOS has its own set of logic, we will explain this briefly below.
+NixOS's reproducibility makes it ideal for building development environments. However, if you're used to other distros, you may encounter problems because NixOS has its own logic. We'll explain this briefly below.
 
-On NixOS, it is recommended to install only common tools in the global environment, such as `git`, `vim`, `emacs`, `tmux`, `zsh`, etc., while the development environment of each language should be an independent environment for each project.
+On NixOS, it's recommended to only install common tools in the global environment, such as `git`, `vim`, `emacs`, `tmux`, `zsh`, etc. The development environment of each language should be an independent environment for each project.
 
-You should NOT install the development environment of each language in the global environment, and the project environment should be completely isolated from each other, and will not affect each other.
+You should NOT install the development environment of each language in the global environment. The project environment should be completely isolated from each other and will not affect each other.
 
-We will introduce how the development environment works in NixOS in the following sections.
+In the following sections, we'll introduce how the development environment works in NixOS.
 
-### Create a development environment
+### Creating a Development Environment
 
-We can create a development environment via `pkgs.mkShell { ... }`, and open an interactive Bash Shell of this development environment via `nix develop`.
+We can create a development environment using `pkgs.mkShell { ... }` and open an interactive Bash shell of this development environment using `nix develop`.
 
-Let's take a look at [the source code of `pkgs.mkShell`](https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/mkshell/default.nix) to see how it works:
+To see how `pkgs.mkShell` works, let's take a look at [its source code](https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/mkshell/default.nix).
 
 ```nix
 { lib, stdenv, buildEnv }:
