@@ -4,6 +4,9 @@ An unofficial NixOS & Flakes :book: for beginners: https://nixos-and-flakes.this
 
 中文版: https://nixos-and-flakes.thiscute.world/zh/
 
+## TODO
+
+- Fix spelling and grammatic mistakes in the English version.
 
 ## Introduction to Flakes
 
