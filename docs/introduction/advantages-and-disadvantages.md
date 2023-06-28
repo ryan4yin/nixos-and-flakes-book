@@ -18,7 +18,7 @@
 - **Chaotic documentation**: Flakes is still an experimental feature, and there are currently few documents introducing it, Most of the Nix community's documentation only introduces the old cli such as `nix-env`/`nix-channel`. If you want to start learning Nix directly from Flakes, you need to refer to a large number of old documents and extract what you need from them. In addition, some of Nix's current core functions are not well-documented (such as `imports` and Nix Module System), to figure out what it does, it is best to look at the source code...
 - **Relatively high disk space usage**: To ensure that the system can be rolled back at any time, Nix preserves all historical environments by default, which can take up a lot of disk space. This can be a problem, especially on some resource-constrained Virtual Machines.
 - **Obscure error messages**: Sometimes you may come across some strange error messages and not understand what's going on.
-  `--show- Trace` may throw you a stack of errors that are of little help.
+  `--show-trace` may throw you a stack of errors that are of little help.
 
 ## Summary
 
