@@ -63,7 +63,7 @@ export default defineConfig({
                 link: "/nixos-with-flakes/nixos-with-flakes-enabled.md",
               },
               {
-                text: "Start using Home Manager",
+                text: "Getting Started with Home Manager",
                 link: "/nixos-with-flakes/start-using-home-manager.md",
               },
               {
@@ -71,11 +71,11 @@ export default defineConfig({
                 link: "/nixos-with-flakes/modularize-the-configuration.md",
               },
               {
-                text: "Update the System",
+                text: "Updating the System",
                 link: "/nixos-with-flakes/update-the-system.md",
               },
               {
-                text: "Downgrade or Upgrade Packages",
+                text: "Downgrading or Upgrading Packages",
                 link: "/nixos-with-flakes/downgrade-or-upgrade-packages.md",
               },
               {
