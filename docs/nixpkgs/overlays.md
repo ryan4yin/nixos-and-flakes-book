@@ -1,21 +1,19 @@
 ## Overlays
 
-The `override` we introduced previously will generate a new Derivation, which does not affect the original Derivation in `pkgs`, and is only suitable for use as a local parameter,
-if you need to override a Derivation that is also dependent on other Nix packages, then other Nix packages will still use the original Derivation.
+The `override` we introduced earlier generates a new Derivation that does not affect the original Derivation in `pkgs`. It's only suitable for use as a local parameter. If you need to override a Derivation that is also dependent on other Nix packages, then other Nix packages will still use the original Derivation.
 
-To solve this problem, Nix provides the ability to use `overlays`. Simply put, `overlays` can globally modify the Derivation in `pkgs`.
+To solve this problem, Nix provides the ability to use `overlays`. Simply put, `overlays` can globally modify the Derivations in `pkgs`.
 
-In the classic Nix environment, Nix automatically applies all `overlays` configuration under the paths `~/.config/nixpkgs/overlays.nix` `~/.config/nixpkgs/overlays/*.nix`,
-but in Flakes, in order to ensure the reproducibility of the system, it cannot depend on any configuration outside the Git repository, so this classic method cannot be used now.
+In the classic Nix environment, Nix automatically applies all `overlays` configurations under the paths `~/.config/nixpkgs/overlays.nix` and `~/.config/nixpkgs/overlays/*.nix`. However, in Flakes, to ensure the reproducibility of the system, it cannot depend on any configuration outside the Git repository. Therefore, this classic method cannot be used now.
 
-When using Flakes to write configuration for NixOS, home Manager and NixOS both provide the `nixpkgs.overlays` option to define `overlays`. Related documentation:
+When using Flakes to write configuration for NixOS, both home Manager and NixOS provide the `nixpkgs.overlays` option to define `overlays`. For more information, refer to the following documentation:
 
 - [home-manager docs - `nixpkgs.overlays`](https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.overlays)
 - [nixpkgs source code - `nixpkgs.overlays`](https://github.com/NixOS/nixpkgs/blob/30d7dd7e7f2cba9c105a6906ae2c9ed419e02f17/nixos/modules/misc/nixpkgs.nix#L169)
 
-For example, the following content is a Module that loads Overlays, which can be used as either a home Manager Module or a NixOS Module, because the two definitions are exactly the same:
+For example, the following content is a Module that loads overlays, which can be used as either a home Manager Module or a NixOS Module because the two definitions are exactly the same:
 
-> home Manager is an external component after all, and most people use the unstable branch of home Manager & nixpkgs, which sometimes causes problems with home Manager Module, so it is recommended to import `overlays` in a NixOS Module.
+> Home Manager is an external component, and most people use the unstable branch of Home Manager and nixpkgs, which sometimes causes problems with Home Manager Module. Therefore, it's recommended to import `overlays` in a NixOS Module.
 
 ```nix
 { config, pkgs, lib, ... }:

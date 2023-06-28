@@ -1,11 +1,10 @@
-## Downgrade or upgrade packages
+## Downgrading or Upgrading Packages
 
-After using Flakes, most people are currently using the `nixos-unstable` branch of nixpkgs. Sometimes you will encounter some bugs, such as the [chrome/vscode crash problem](https://github.com/swaywm/sway/issues/7562)
+After using Flakes, most people are currently using the `nixos-unstable` branch of nixpkgs. However, sometimes you may encounter bugs, such as the [chrome/vscode crash problem](https://github.com/swaywm/sway/issues/7562).
 
-To resolve problems, we may need to downgrade or upgrade some packages. In Flakes, all package versions and hash values are one-to-one corresponding to the git commit of their flake input.
-Therefore, to downgrade or upgrade a package, we need to lock the git commit of its flake input.
+To resolve these issues, you may need to downgrade or upgrade some packages. In Flakes, all package versions and hash values correspond one-to-one to the git commit of their flake input. Therefore, to downgrade or upgrade a package, you need to lock the git commit of its flake input.
 
-For example, let's add multiple nixpkgs, each using a different git commit or branch:
+For example, you can add multiple nixpkgs, each using a different git commit or branch:
 
 ```nix
 {
@@ -85,6 +84,8 @@ And then refer to the packages from `pkgs-stable` or `pkgs-fd40cef8d` in your su
 }
 ```
 
-After adjusting the configuration, deploy it with `sudo nixos-rebuild switch`, then your firefox/chrome/vscode will be downgraded to the version corresponding to `nixpkgs-stable` or `nixpkgs-fd40cef8d`.
+After adjusting the configuration, deploy it with `sudo nixos-rebuild switch`. This will downgrade your Firefox/Chrome/VSCode to the version corresponding to `nixpkgs-stable` or `nixpkgs-fd40cef8d`.
+
+According to [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347), it's not a good practice to use `import` in submodules to customize `nixpkgs`. Each `import` creates a new instance of nixpkgs, which increases build time and memory usage as the configuration grows. To avoid this problem, we create all nixpkgs instances in `flake.nix`.
 
 > according to [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347), it's not a good practice to use `import` in sub modules to customize `nixpkgs`, because each `import` will create a new instance of nixpkgs, which will increase the build time and memory usage as the configuration grows. So here we create all nixpkgs instances in `flake.nix` to avoid this problem.

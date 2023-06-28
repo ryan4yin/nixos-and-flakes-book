@@ -1,23 +1,21 @@
-## Cross-platform compilation
+## Cross-platform Compilation
 
-First of all, on any Linux platform, there are two ways to do cross-platform compilation.
-Taking the building of an`aarch64-linux` program on a `x86_64-linux` host as an example, the two methods are described as follows:
+On any Linux platform, there are two ways to do cross-platform compilation. For example, to build an `aarch64-linux` program on an `x86_64-linux` host, you can use the following methods:
 
-1. Use the cross-compilation toolchain to compile the aarch64 program
-   1. The disadvantage is that you cannot use the NixOS binary cache, and you need to compile everything yourself (cross-compilation also has cache, but there is basically nothing in it)
-   2. The advantages are that you don't need to emulate the instruction set, and the performance is high
-2. Use QEMU to emulate the aarch64 architecture, and then compile the program in the emulator
-   1. The disadvantage is that the instruction set is emulated and the performance is low
-   2. The advantage is that you can use the NixOS binary cache, and you don't need to compile everything yourself
+1. Use the cross-compilation toolchain to compile the `aarch64` program.
+   - The disadvantage is that you cannot use the NixOS binary cache, and you need to compile everything yourself (cross-compilation also has a cache, but there is basically nothing in it).
+   - The advantages are that you don't need to emulate the instruction set, and the performance is high.
+2. Use QEMU to emulate the `aarch64` architecture and then compile the program in the emulator.
+   - The disadvantage is that the instruction set is emulated, and the performance is low.
+   - The advantage is that you can use the NixOS binary cache, and you don't need to compile everything yourself.
 
-by using method one, you don't need to enable binfmt_misc, but you need to execute the compilation through the cross-compilation toolchain.
+If you use method one, you don't need to enable `binfmt_misc`, but you need to execute the compilation through the cross-compilation toolchain.
 
-If you use method two, you need to enable the binfmt_misc of the aarch64 architecture in the NixOS configuration of the building machine.
-
+If you use method two, you need to enable the `binfmt_misc` of the `aarch64` architecture in the NixOS configuration of the building machine.
 
 ### Cross Compilation
 
-nixpkgs comes with a set of predefined host platforms for cross compilation called pkgsCross, let's explore them in `nix repl`:
+`nixpkgs` provides a set of predefined host platforms for cross-compilation called `pkgsCross`. You can explore them in `nix repl`.
 
 ```shell
 › nix repl '<nixpkgs>'
@@ -95,7 +93,6 @@ If you want to set `pkgs` to a cross-compilation toolchain globally in a flake, 
 
 The `nixpkgs.crossSystem` option is used to set `pkgs` to a cross-compilation toolchain, so that all the contents built will be `riscv64-linux` architecture.
 
-
 ## Compile through emulated system
 
 The second method is to cross-compile through the emulated system. This method does not require a cross-compilation toolchain.
@@ -109,7 +106,7 @@ To use this method, first your building machine needs to enable the binfmt_misc 
 
   # Enable binfmt emulation.
   boot.binfmt.emulatedSystems = [ "aarch64-linux" "riscv64-linux" ];
-  
+
   # ......
 }
 ```
@@ -145,7 +142,7 @@ Sometimes we may need to use a custom toolchain for building, such as using our 
 
 For example, let's try to use a different version of gcc, and test it through `nix repl`:
 
-```shell
+````shell
 
 ```shell
 › nix repl -f '<nixpkgs>'
@@ -164,7 +161,7 @@ nix-repl> a.pkgsCross.riscv64.stdenv.cc
 # take a look at the default pkgs, it is still 11.3
 nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
 «derivation /nix/store/pq3g0wq3yfc4hqrikr03ixmhqxbh35q7-riscv64-unknown-linux-gnu-stage-final-gcc-wrapper-11.3.0.drv»
-```
+````
 
 So how to use this method in Flakes? The example `flake.nix` is as follows:
 
