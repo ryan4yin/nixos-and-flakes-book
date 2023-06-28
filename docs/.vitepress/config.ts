@@ -133,7 +133,7 @@ export default defineConfig({
           {
             text: "Dev Environemnts on NixOS",
             items: [
-              { text: "intro", link: "/development/intro.md" },
+              { text: "Introduction", link: "/development/intro.md" },
               {
                 text: "Dev Environments",
                 link: "/development/dev-environments.md",
@@ -158,9 +158,7 @@ export default defineConfig({
           },
           {
             text: "Advanced Topics",
-            items: [
-              { text: "Introduction", link: "/advanced-topics/index.md" },
-            ],
+            items: [{ text: "Links", link: "/advanced-topics/index.md" }],
           },
         ],
 
@@ -249,7 +247,7 @@ export default defineConfig({
           {
             text: "Nixpkgs 高级用法",
             items: [
-              { text: "介绍", link: "/zh/nixpkgs/intro.md" },
+              { text: "简介", link: "/zh/nixpkgs/intro.md" },
               { text: "callPackage", link: "/zh/nixpkgs/callpackage.md" },
               { text: "Overridding", link: "/zh/nixpkgs/overriding.md" },
               { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
@@ -276,7 +274,7 @@ export default defineConfig({
           {
             text: "Flakes 的其他玩法",
             items: [
-              { text: "介绍", link: "/zh/other-usage-of-flakes/intro.md" },
+              { text: "简介", link: "/zh/other-usage-of-flakes/intro.md" },
               {
                 text: "Flake Inputs",
                 link: "/zh/other-usage-of-flakes/inputs.md",
@@ -294,7 +292,7 @@ export default defineConfig({
           {
             text: "在 NixOS 上进行开发工作",
             items: [
-              { text: "介绍", link: "/zh/development/intro.md" },
+              { text: "简介", link: "/zh/development/intro.md" },
               {
                 text: "各语言的开发环境",
                 link: "/zh/development/dev-environments.md",
@@ -319,7 +317,7 @@ export default defineConfig({
           },
           {
             text: "其他进阶话题",
-            items: [{ text: "介绍", link: "/zh/advanced-topics/index.md" }],
+            items: [{ text: "简介", link: "/zh/advanced-topics/index.md" }],
           },
         ],
 
