@@ -82,6 +82,13 @@ export default defineConfig({
     },
   },
 
+  themeConfig: {
+    editLink: {
+      pattern:
+        "https://github.com/ryan4yin/nixos-and-flakes-book/edit/main/docs/:path",
+    },
+  },
+
   locales: {
     root: {
       label: "English",
