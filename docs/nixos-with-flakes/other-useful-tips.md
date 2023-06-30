@@ -19,7 +19,7 @@ sudo nixos-rebuild switch
 
 And then you can use Git to manage the configuration in `~/nixos-config`. The configuration can be used with ordinary user-level permissions, and it is not required to be owned by root.
 
-Another method is jsut to delete `/etc/nixos` directly, and specify the configuration file path each time you deploy it:
+Another method is just to delete `/etc/nixos` directly, and specify the configuration file path each time you deploy it:
 
 ```shell
 sudo mv /etc/nixos /etc/nixos.bak
