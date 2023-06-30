@@ -1,4 +1,4 @@
-## Debug with `nix repl`
+# Debug with `nix repl`
 
 We've used `nix repl '<nixpkgs>'` many times to check the source code in this guide, it's a powerful tool to help us understand how things work in Nix.
 

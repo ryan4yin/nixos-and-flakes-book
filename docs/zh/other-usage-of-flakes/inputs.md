@@ -1,5 +1,4 @@
-
-## Flake 的 inputs {#flake-inputs}
+# Flake 的 inputs {#flake-inputs}
 
 `flake.nix` 中的 `inputs` 是一个 attribute set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如下：
 

@@ -1,4 +1,4 @@
-## 运行非 NixOS 的二进制文件 {#run-non-nixos-binaries}
+# 运行非 NixOS 的二进制文件
 
 NixOS 不遵循 FHS 标准，因此你从网上下载的二进制程序在 NixOS 上大概率是跑不了的。
 为了在 NixOS 上跑这些非 NixOS 的二进制程序，需要做一些骚操作。有位老兄在这里总结了 10 种实现此目的的方法：[Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos)，推荐一读。
@@ -54,6 +54,5 @@ $ fhs
 ## 参考
 
 - [Tips&Tricks for NixOS Desktop - NixOS Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]: Just as the title says, it is a collection of tips and tricks for NixOS desktop.
-
 
 [Tips&Tricks for NixOS Desktop - NixOS Discourse]: https://discourse.nixos.org/t/tips-tricks-for-nixos-desktop/28488

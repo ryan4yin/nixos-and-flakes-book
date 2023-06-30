@@ -1,4 +1,4 @@
-## Advanced Topics
+# Advanced Topics
 
 Once you're familiar with NixOS, you can explore Nix's three manuals and other documentation to discover more ways to use it:
 

@@ -1,4 +1,4 @@
-## Usage of The New CLI
+# Usage of The New CLI
 
 after enabling `nix-command` & `flake`, you can use `nix help` to get all the info of [New Nix Commands][New Nix Commands], some useful examples are listed below:
 
@@ -20,7 +20,7 @@ nix develop "github:DeterminateSystems/zero-to-nix#example"
 
 # instead of using a remote flake, you can open a bash shell using the flake located in the current directory.
 mkdir my-flake && cd my-flake
-## init a flake with template
+# init a flake with template
 nix flake init --template "github:DeterminateSystems/zero-to-nix#javascript-dev"
 # open a bash shell using the flake in current directory
 nix develop

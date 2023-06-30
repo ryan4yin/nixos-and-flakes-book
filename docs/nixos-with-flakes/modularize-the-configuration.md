@@ -1,4 +1,4 @@
-## Modularize Your NixOS Configuration
+# Modularize Your NixOS Configuration
 
 At this point, the skeleton of the entire system is configured. The current configuration structure in `/etc/nixos` should be:
 

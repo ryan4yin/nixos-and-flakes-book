@@ -1,4 +1,4 @@
-## Simplify NixOS-related commands
+# Simplify NixOS-related commands
 
 I use Makefile to simplify NixOS-related commands, which is very convenient.
 You can also use other similar tools to do this job, here I will only introduce my usage as a reference.

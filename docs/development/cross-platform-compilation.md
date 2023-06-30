@@ -1,4 +1,4 @@
-## Cross-platform Compilation
+# Cross-platform Compilation
 
 On any Linux platform, there are two ways to do cross-platform compilation. For example, to build an `aarch64-linux` program on an `x86_64-linux` host, you can use the following methods:
 
@@ -13,7 +13,7 @@ If you use method one, you don't need to enable `binfmt_misc`, but you need to e
 
 If you use method two, you need to enable the `binfmt_misc` of the `aarch64` architecture in the NixOS configuration of the building machine.
 
-### Cross Compilation
+## Cross Compilation
 
 `nixpkgs` provides a set of predefined host platforms for cross-compilation called `pkgsCross`. You can explore them in `nix repl`.
 
@@ -136,7 +136,7 @@ As for `flake.nix`, its setting method is very simple, even simpler than the set
 You do not need to add any additional modules, just specify `system` as `riscv64-linux`.
 Nix will automatically detect whether the current system is `riscv64-linux` during the build. If not, it will automatically build through the emulated system(QEMU). For users, these underlying operations are completely transparent.
 
-### Custom build toolchain
+## Custom build toolchain
 
 Sometimes we may need to use a custom toolchain for building, such as using our own gcc, or using our own musl libc, etc. This modification can be achieved through overlays.
 

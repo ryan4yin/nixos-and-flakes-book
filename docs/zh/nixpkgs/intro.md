@@ -1,5 +1,4 @@
-
-## Nixpkgs 的高级用法 {#nixpkgs-advanced-usage}
+# Nixpkgs 的高级用法 {#nixpkgs-advanced-usage}
 
 callPackage、Overriding 与 Overlays 是在使用 Nix 时偶尔会用到的技术，它们都是用来自定义 Nix 包的构建方法的。
 

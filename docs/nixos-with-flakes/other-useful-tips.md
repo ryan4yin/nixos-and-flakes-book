@@ -1,7 +1,6 @@
-## Other useful Tips
+# Other useful Tips
 
-
-### Manage the configuration with Git
+## Manage the configuration with Git
 
 NixOS configuration is just a set of text files, it is very suitable to be managed with Git, and thus we can easily rollback to a previous version when we encounter some problems.
 
@@ -42,7 +41,7 @@ sudo nixos-rebuild switch --flake .#nixos-test
 
 More operations on Git are not described here. Generally speaking, rollback can be done directly through Git. Only when the system crashes completely, you will need to restart into bootloader and boot the system from the previous historical version.
 
-### View and delete history data {#view-and-delete-history}
+## View and delete history data {#view-and-delete-history}
 
 As we mentioned before, each deployment of NixOS will generate a new version, and all versions will be added to the system boot options. In addition to restarting the computer, we can also query all available historical versions through the following command:
 
@@ -65,7 +64,6 @@ Another command returns all packages installed in the system:
 ```shell
 nix-env -qa
 ```
-
 
 ## Reduce Disk Usage
 

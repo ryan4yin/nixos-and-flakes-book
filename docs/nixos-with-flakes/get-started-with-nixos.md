@@ -1,4 +1,4 @@
-## Get Started with NixOS
+# Get Started with NixOS
 
 After learning the basics of the Nix language, we can start using it to configure our NixOS. The default configuration for NixOS is located at `/etc/nixos/configuration.nix`, which contains all the declarative configuration for the system, such as time zone, language, keyboard layout, network, users, file system, boot options, etc.
 

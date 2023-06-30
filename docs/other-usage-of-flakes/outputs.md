@@ -1,5 +1,4 @@
-
-## Flake outputs
+# Flake outputs
 
 the `outputs` in `flake.nix` are what a flake produces as part of its build. Each flake can have many different outputs simultaneously, including but not limited to:
 

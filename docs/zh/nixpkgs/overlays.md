@@ -1,4 +1,4 @@
-## Overlays
+# Overlays
 
 前面介绍的 override 函数都会生成新的 Derivation，不影响 pkgs 中原有的 Derivation，只适合作为局部参数使用。
 但如果你需要覆写的 Derivation 还被其他 Nix 包所依赖，那其他 Nix 包使用的仍然会是原有的 Derivation.
@@ -84,7 +84,7 @@ args:
 
 ```nix
 # 为了不使用默认的 rime-data，改用我自定义的小鹤音形数据，这里需要 override
-# 参考 https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix
+## 参考 https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix
 {pkgs, config, lib, ...}:
 
 (self: super: {
@@ -166,7 +166,6 @@ args:
 ```
 
 你可以在我的配置仓库 [ryan4yin/nix-config/v0.0.4](https://github.com/ryan4yin/nix-config/tree/v0.0.4) 查看更详细的内容，获取些灵感。
-
 
 ## 参考
 

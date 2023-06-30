@@ -1,4 +1,4 @@
-## Dev Environments
+# Dev Environments
 
 前面我们已经学习了构建开发环境的实现原理，但是每次都要自己写一堆重复性较高的 `flake.nix`，略显繁琐。
 

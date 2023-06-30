@@ -1,6 +1,4 @@
-
-
-## Flake 的 outputs {#flake-outputs}
+# Flake 的 outputs {#flake-outputs}
 
 `flake.nix` 中的 `outputs` 是一个 attribute set，是整个 Flake 的构建结果，每个 Flake 都可以有许多不同的 outputs。
 

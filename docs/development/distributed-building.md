@@ -1,4 +1,4 @@
-## Distributed Building
+# Distributed Building
 
 Distributed building can speed up the build process by utilizing multiple machines.
 
@@ -9,7 +9,7 @@ Distributed building is of great value in scenarios where there is no cache avai
 1. Users of `RISC-V` or `ARM64` architectures (especially `RISC-V`), because there are very few caches for these two architectures in the official cache repository, which often requires a lot of local compilation.
 2. Users who customize the system a lot, because the packages in the official cache repository are all default configurations. If you change the build parameters, then the official cache is not applicable, and you need to compile locally. For instance, in the embedded scenario, there is often a need for customization of the underlying kernel, drivers, etc., which leads to the need for local compilation.
 
-### Configure Distributed Building
+## Configure Distributed Building
 
 Currently, there is no official documentation for distributed building. However, I have listed some recommended reference documents at the end of this chapter, along with my distributed build configuration (a NixOS Module).
 

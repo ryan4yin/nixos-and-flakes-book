@@ -1,5 +1,4 @@
-
-## 新一代 Nix 命令行工具的使用 {#flake-commands-usage}
+# 新一代 Nix 命令行工具的使用 {#flake-commands-usage}
 
 在启用了 `nix-command` & `flakes` 功能后，我们就可以使用 Nix 提供的新一代 Nix 命令行工具 [New Nix Commands][New Nix Commands] 了，下面列举下其中常用命令的用法：
 
@@ -22,9 +21,9 @@ nix develop "github:DeterminateSystems/zero-to-nix#example"
 
 # 除了使用远程 flake uri 之外，你也可以使用当前目录下的 flake 来创建一个开发环境。
 mkdir my-flake && cd my-flake
-## 通过模板初始化一个 flake
+# 通过模板初始化一个 flake
 nix flake init --template "github:DeterminateSystems/zero-to-nix#javascript-dev"
-## 使用当前目录下的 flake 创建一个开发环境，并打开一个 bash shell
+# 使用当前目录下的 flake 创建一个开发环境，并打开一个 bash shell
 nix develop
 # 或者如果你的 flake 有多个 devShell 输出，你可以指定使用名为 example 的那个
 nix develop .#example
@@ -35,6 +34,5 @@ mkdir build-nix-package && cd build-nix-package
 nix build "nixpkgs#bat"
 # 构建一个本地 flake 和 nix develop 是一样的，不再赘述
 ```
-
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html

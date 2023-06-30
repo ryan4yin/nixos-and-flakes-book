@@ -1,4 +1,4 @@
-## Downgrading or Upgrading Packages
+# Downgrading or Upgrading Packages
 
 After using Flakes, most people are currently using the `nixos-unstable` branch of nixpkgs. However, sometimes you may encounter bugs, such as the [chrome/vscode crash problem](https://github.com/swaywm/sway/issues/7562).
 

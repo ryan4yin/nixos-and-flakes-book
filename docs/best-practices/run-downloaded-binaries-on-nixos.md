@@ -1,4 +1,4 @@
-## Run downloaded binaries on NixOS
+# Run downloaded binaries on NixOS
 
 NixOS does not follow the FHS standard, so the binaries you download from the Internet will not likely work on NixOS. But there are some ways to make it work.
 

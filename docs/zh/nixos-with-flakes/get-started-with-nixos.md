@@ -1,4 +1,4 @@
-## 开始使用 NixOS
+# 开始使用 NixOS
 
 了解了 Nix 语言的基本用法之后，我们就可以开始使用 Nix 语言来配置 NixOS 系统了。
 NixOS 的系统配置路径为 `/etc/nixos/configuration.nix`，它包含系统的所有声明式配置，如时区、语言、键盘布局、网络、用户、文件系统、启动项、桌面环境等等。
@@ -74,7 +74,6 @@ NixOS 的系统配置路径为 `/etc/nixos/configuration.nix`，它包含系统�
 - 系统级别的配置，可以考虑在 [Configuration - NixOS Manual](https://nixos.org/manual/nixos/unstable/index.html#ch-configuration) 找找相关文档
 - 直接在 [nixpkgs](https://github.com/NixOS/nixpkgs) 仓库中搜索关键字，读相关的源码。
 
-
 ## 参考
 
-- [Overview of the NixOS Linux distribution]( https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution)
+- [Overview of the NixOS Linux distribution](https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution)

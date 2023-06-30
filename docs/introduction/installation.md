@@ -1,4 +1,4 @@
-## Installation
+# Installation
 
 Nix can be installed in multiple ways:
 

@@ -1,5 +1,4 @@
-
-## 降级与升级软件包 {#rollback-package-version}
+# 降级与升级软件包 {#rollback-package-version}
 
 在使用 Nix Flakes 后，目前大家用得比较多的都是 `nixos-unstable` 分支的 nixpkgs，有时候就会遇到一些 bug，比如我最近（2023/5/6）就遇到了 [chrome/vscode 闪退的问题](https://github.com/swaywm/sway/issues/7562)。
 
