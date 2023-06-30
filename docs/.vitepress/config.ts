@@ -1,9 +1,48 @@
 import { createWriteStream } from "node:fs";
 import { resolve } from "node:path";
 import { SitemapStream } from "sitemap";
-import { defineConfig } from "vitepress";
+import { PageData, defineConfig } from "vitepress";
 
 const links = [];
+
+function getJSONLD(pageData: PageData) {
+  console.log(pageData.relativePath);
+  if (pageData.relativePath === "index.md") {
+    return `{
+  "@context":"http://schema.org",
+  "@type":"WebSite",
+  "url":"https:\/\/nixos-and-flakes.thiscute.world\/",
+  "inLanguage":"en",
+  "description":"An unofficial book for beginners",
+  "name":"NixOS & Flakes Book"
+}`;
+  } else if (pageData.relativePath === "zh/index.md") {
+    return `{
+  "@context":"http://schema.org",
+  "@type":"WebSite",
+  "url":"https:\/\/nixos-and-flakes.thiscute.world\/zh\/",
+  "inLanguage":"zh-CN",
+  "description":"一份非官方的新手指南",
+  "name":"NixOS 与 Flakes"
+}`;
+  } else {
+    let url = `https:\/\/nixos-and-flakes.thiscute.world\/${pageData.relativePath
+      .replace(/\.md$/, ".html")
+      .replace(/\/index\.html$/, "/")}`;
+    return `{
+  "@context":"http://schema.org",
+  "@type":"BlogPosting",
+  "headline":"NixOS \u0026 Nix Flakes - A Guide for Beginners",
+  "inLanguage":"en",
+  "mainEntityOfPage":{
+     "@type":"WebPage",
+     "@id":"${url}"
+  },
+  "keywords":"NixOS, Nix, Flakes, Linux, Tutorial",
+  "url":"${url}"
+}`;
+  }
+}
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -25,6 +64,18 @@ export default defineConfig({
     links.forEach((link) => sitemap.write(link));
     sitemap.end();
     await new Promise((r) => writeStream.on("finish", r));
+  },
+
+  // seo meta tags / JSON-LD
+  transformPageData(pageData) {
+    return {
+      frontmatter: {
+        ...pageData.frontmatter,
+        head: [
+          ["script", { type: "application/ld+json" }, getJSONLD(pageData)],
+        ],
+      },
+    };
   },
 
   // markdown options
