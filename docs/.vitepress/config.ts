@@ -1,6 +1,6 @@
 import { createWriteStream } from "node:fs";
 import { resolve } from "node:path";
-import { SitemapStream } from "sitemap";
+import { generateSitemap as sitemap } from "sitemap-ts";
 import { PageData, defineConfig } from "vitepress";
 
 const links = [];
@@ -27,8 +27,8 @@ function getJSONLD(pageData: PageData) {
   } else {
     let lang = pageData.relativePath.startsWith("zh/") ? "zh-CN" : "en";
     let url = `https:\/\/nixos-and-flakes.thiscute.world\/${pageData.relativePath
-      .replace(/\.md$/, ".html")
-      .replace(/\/index\.html$/, "/")}`;
+      .replace(/\.md$/, "")
+      .replace(/\/index\$/, "/")}`;
     return `{
   "@context":"http://schema.org",
   "@type":"TechArticle",
@@ -46,6 +46,10 @@ function getJSONLD(pageData: PageData) {
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  // remove trailing `.html`
+  // https://vitepress.dev/guide/routing#generating-clean-url
+  cleanUrls: true,
+
   // sitemap.xml
   transformHtml: (_, id, { pageData }) => {
     if (!/[\\/]404\.html$/.test(id))
@@ -56,14 +60,11 @@ export default defineConfig({
       });
   },
   buildEnd: async ({ outDir }) => {
-    const sitemap = new SitemapStream({
+    sitemap({
       hostname: "https://nixos-and-flakes.thiscute.world/",
+      outDir: outDir,
+      generateRobotsTxt: true,
     });
-    const writeStream = createWriteStream(resolve(outDir, "sitemap.xml"));
-    sitemap.pipe(writeStream);
-    links.forEach((link) => sitemap.write(link));
-    sitemap.end();
-    await new Promise((r) => writeStream.on("finish", r));
   },
 
   // seo meta tags / JSON-LD

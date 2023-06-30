@@ -1,6 +1,5 @@
 {
   "devDependencies": {
-    "sitemap": "^7.1.1",
     "vitepress": "1.0.0-beta.3"
   },
   "scripts": {
@@ -9,6 +8,7 @@
     "docs:preview": "vitepress preview docs"
   },
   "dependencies": {
-    "markdown-it-footnote": "^3.0.3"
+    "markdown-it-footnote": "^3.0.3",
+    "sitemap-ts": "^1.4.0"
   }
 }
