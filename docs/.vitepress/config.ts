@@ -47,16 +47,10 @@ export default defineConfig({
   // remove trailing `.html`
   // https://vitepress.dev/guide/routing#generating-clean-url
   cleanUrls: true,
+  // Whether to get the last updated timestamp for each page using Git.
+  lastUpdated: true,
 
-  // sitemap.xml
-  transformHtml: (_, id, { pageData }) => {
-    if (!/[\\/]404\.html$/.test(id))
-      links.push({
-        // you might need to change this if not using clean urls mode
-        url: pageData.relativePath.replace(/((^|\/)index)?\.md$/, "$2.html"),
-        lastmod: pageData.lastUpdated,
-      });
-  },
+  // SEO Improvement - sitemap.xml & robots.txt
   buildEnd: async ({ outDir }) => {
     sitemap({
       hostname: "https://nixos-and-flakes.thiscute.world/",
@@ -65,7 +59,7 @@ export default defineConfig({
     });
   },
 
-  // seo meta tags / JSON-LD
+  // SEO Improvement - JSON-LD
   transformPageData(pageData) {
     return {
       frontmatter: {
@@ -83,7 +77,7 @@ export default defineConfig({
     lineNumbers: true,
 
     config: (md) => {
-      // use more markdown-it plugins!
+      // add support for footnote
       md.use(require("markdown-it-footnote"));
     },
   },
