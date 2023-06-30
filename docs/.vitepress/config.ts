@@ -1,8 +1,6 @@
 import { generateSitemap as sitemap } from "sitemap-ts";
 import { PageData, defineConfig } from "vitepress";
 
-const links = [];
-
 function getJSONLD(pageData: PageData) {
   if (pageData.relativePath === "index.md") {
     return `{
@@ -30,7 +28,7 @@ function getJSONLD(pageData: PageData) {
     return `{
   "@context":"http://schema.org",
   "@type":"TechArticle",
-  "headline":"NixOS & Flakes Book",
+  "headline":"${pageData.title} | NixOS & Flakes Book",
   "inLanguage":"${lang}",
   "mainEntityOfPage":{
      "@type":"WebPage",
