@@ -1,5 +1,3 @@
-import { createWriteStream } from "node:fs";
-import { resolve } from "node:path";
 import { generateSitemap as sitemap } from "sitemap-ts";
 import { PageData, defineConfig } from "vitepress";
 
