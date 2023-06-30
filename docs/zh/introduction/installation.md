@@ -1,4 +1,4 @@
-## 安装 NixOS
+# 安装 NixOS
 
 Nix 有多种安装方式：
 

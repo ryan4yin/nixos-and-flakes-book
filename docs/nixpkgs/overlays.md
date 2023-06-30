@@ -1,4 +1,4 @@
-## Overlays
+# Overlays
 
 The `override` we introduced earlier generates a new Derivation that does not affect the original Derivation in `pkgs`. It's only suitable for use as a local parameter. If you need to override a Derivation that is also dependent on other Nix packages, then other Nix packages will still use the original Derivation.
 

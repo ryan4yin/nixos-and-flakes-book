@@ -1,4 +1,4 @@
-## Flake inputs {#flake-inputs}
+# Flake inputs {#flake-inputs}
 
 The `inputs` in `flake.nix` is an attribute set, used to specify the dependencies of the current flake, there are many types of `inputs`, for example:
 

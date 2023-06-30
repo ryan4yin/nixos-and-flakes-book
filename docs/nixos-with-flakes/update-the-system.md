@@ -1,4 +1,4 @@
-## Updating the System
+# Updating the System
 
 With Flakes, updating the system is simple. Just run the following commands in `/etc/nixos`:
 

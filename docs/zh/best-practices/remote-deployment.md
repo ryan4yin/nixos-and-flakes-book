@@ -1,5 +1,4 @@
-
-## 远程部署
+# 远程部署
 
 社区的一些工具，比如 [NixOps](https://github.com/NixOS/nixops), [deploy-rs](https://github.com/serokell/deploy-rs), 跟 [colmena](https://github.com/zhaofengli/colmena)，都可以用来部署 NixOS 配置到远程主机，但是都太复杂了，所以先全部跳过。
 

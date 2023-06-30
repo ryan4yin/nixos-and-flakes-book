@@ -1,5 +1,4 @@
-## Overriding
-
+# Overriding
 
 简单的说，所有 nixpkgs 中的 Nix 包都可以通过 `<pkg>.override {}` 来自定义某些构建参数，它返回一个使用了自定义参数的新 Derivation. 举个例子：
 
@@ -86,7 +85,6 @@ helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
 ```
 
 具体的内部参数可以通过 `nix repl '<nixpkgs>'` 然后输入 `:e stdenv.mkDerivation` 来查看其源码。
-
 
 ## 参考
 

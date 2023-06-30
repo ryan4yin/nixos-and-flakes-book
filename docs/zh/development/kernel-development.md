@@ -18,11 +18,11 @@
     };
   };
 
-  outputs = inputs@{ 
+  outputs = inputs@{
     self
     ,nixpkgs
     ,thead-kernel
-    ,... }: 
+    ,... }:
   let
     pkgsKernel = import nixpkgs {
       localSystem = "x86_64-linux";
@@ -68,7 +68,7 @@
     # use `nix develop .#kernel` to enter the environment with the custom kernel build environment available.
     # and then use `unpackPhase` to unpack the kernel source code and cd into it.
     # then you can use `make menuconfig` to configure the kernel.
-    # 
+    #
     # problem
     #   - using `make menuconfig` - Unable to find the ncurses package.
     devShells.x86_64-linux.kernel = pkgsKernel.linuxPackages_thead.kernel.dev;

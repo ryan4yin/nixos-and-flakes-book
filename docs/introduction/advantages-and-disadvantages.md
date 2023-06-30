@@ -1,4 +1,4 @@
-## Advantages & Disadvantages of NixOS
+# Advantages & Disadvantages of NixOS
 
 ## Advantages
 

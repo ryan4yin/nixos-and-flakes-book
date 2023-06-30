@@ -1,9 +1,7 @@
-## Best Practices
-
+# Best Practices
 
 Nix is powerful and flexible, it provides a lot of ways to do things, making it difficult to find the most suitable way to do your job.
 Here are some best practices that I've learned from the community, hope it can help you.
-
 
 ## References
 

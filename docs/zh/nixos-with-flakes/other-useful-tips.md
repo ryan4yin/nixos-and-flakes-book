@@ -1,5 +1,4 @@
-## NixOS 的其他实用技巧
-
+# NixOS 的其他实用技巧
 
 ## 使用 Git 管理 NixOS 配置 {#git-manage-nixos-config}
 
@@ -63,7 +62,7 @@ sudo nix store gc --debug
 nix-env -qa
 ```
 
-## 节约存储空间
+# 节约存储空间
 
 如下配置可以比较好的缩减 NixOS 的磁盘占用，可以考虑将它们添加到你的 NixOS 配置中：
 

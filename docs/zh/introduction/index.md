@@ -1,5 +1,4 @@
-
-## Nix 与 NixOS 简介
+# Nix 与 NixOS 简介
 
 Nix 是一个声明式的软件包管理器，用户需要通过某些配置声明好期望的环境状态，而 Nix 负责达成这个目标。
 
@@ -16,8 +15,6 @@ Nix 是一个声明式的软件包管理器，用户需要通过某些配置声�
 另一个重要的社区项目 [home-manager](https://github.com/nix-community/home-manager) 就填补了这块缺失，它被设计用于管理用户 Home 目录中的配置文件以及用户级别的软件包。
 
 因为 Nix 声明式、可复现的特性，Nix 不仅可用于管理桌面电脑的环境，也有很多人用它管理开发编译环境、云上虚拟机、容器镜像构建等等，Nix 官方的 [NixOps](https://github.com/NixOS/nixops) 与社区的 [deploy-rs](https://github.com/serokell/deploy-rs) 都是基于 Nix 实现的运维工具。
-
-
 
 ## 为什么选择 NixOS？
 

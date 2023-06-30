@@ -1,5 +1,4 @@
-## Nixpkgs's Advanced Usage
-
+# Nixpkgs's Advanced Usage
 
 `callPackage`, `Overriding`, and `Overlays` are the techniques occasionally used when using Nix to customize the build method of Nix packages.
 

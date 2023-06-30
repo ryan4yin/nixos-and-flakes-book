@@ -1,4 +1,4 @@
-## Remote deployment
+# Remote deployment
 
 Some tools like [NixOps](https://github.com/NixOS/nixops), [deploy-rs](https://github.com/serokell/deploy-rs), and [colmena](https://github.com/zhaofengli/colmena) can all be used to deploy NixOS configuration to remote hosts, but they are all too complicated for me.
 

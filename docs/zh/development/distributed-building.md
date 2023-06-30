@@ -1,4 +1,4 @@
-## 分布式构建
+# 分布式构建
 
 分布式构建可以通过多台机器来分担本地的编译压力，加快构建速度。
 
@@ -10,7 +10,7 @@ NixOS 官方的 cache.nixos.org 中提供了绝大多数 X86_64 架构的缓存�
 2. 对系统进行大量定制的用户，因为官方缓存仓库中的 packages 都是默认配置，如果你改了构建参数，那么官方缓存就不适用了，这时候就需要本地编译。
    1. 比如嵌入式场景下往往对底层内核、驱动等有定制需求，导致需要本地编译。
 
-### 配置分布式构建
+## 配置分布式构建
 
 官方没有详细文档讲这个，我在文末列出了一些建议阅读的参考文档，同时如下是我的分布式构建配置（一个 NixOS Module）：
 
@@ -26,7 +26,7 @@ NixOS 官方的 cache.nixos.org 中提供了绝大多数 X86_64 架构的缓存�
   # set local's max-job to 0 to force remote building(disable local building)
   # nix.settings.max-jobs = 0;
   nix.distributedBuilds = true;
-  nix.buildMachines = 
+  nix.buildMachines =
     let
       sshUser = "ryan";
       # ssh key's path on local machine
@@ -90,11 +90,11 @@ NixOS 官方的 cache.nixos.org 中提供了绝大多数 X86_64 架构的缓存�
     Host ai
       HostName 192.168.5.100
       Port 22
-    
+
     Host aquamarine
       HostName 192.168.5.101
       Port 22
-    
+
     Host ruby
       HostName 192.168.5.102
       Port 22
@@ -136,7 +136,6 @@ NixOS 官方的 cache.nixos.org 中提供了绝大多数 X86_64 架构的缓存�
 2. 在选择主机时，我发现 Nix 总是优先选择远程主机，而我本地主机的性能最强，这导致本地主机的 CPU 无法充分利用。
 3. 多机远程构建是以 Derivation 为单位的，因此在构建一些比较大的包时，其他机器可能会空闲很久，一直等这个大包构建完毕，这导致了资源的浪费。
    1. 在构建的 packages 较多并且可以并行执行时，可以轻松将所有主机的 CPU 都用上，这确实非常爽。
-
 
 ## References
 

@@ -1,4 +1,4 @@
-## Dev Environments
+# Dev Environments
 
 We have learned how to build development environments, but it's a bit tedious to write `flake.nix` for each project.
 

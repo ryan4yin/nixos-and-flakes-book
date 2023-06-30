@@ -1,5 +1,4 @@
-
-## 使用 Makefile 简化 NixOS 相关命令
+# 使用 Makefile 简化 NixOS 相关命令
 
 > 注意: Makefile 的 target 名称不能与当前目录下的文件或者目录重名，否则 target 将不会被执行！
 

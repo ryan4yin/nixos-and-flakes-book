@@ -11,10 +11,10 @@ the preferred channel for bug reports, features requests and submitting pull req
 
 But please respect the following restrictions:
 
-* Please **do not** use the issue tracker for personal support requests (use
+- Please **do not** use the issue tracker for personal support requests (use
   [Stack Overflow](https://stackoverflow.com) or IRC)
 
-* Please **do not** derail or troll issues. Keep the discussion on topic and
+- Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others
 
 ## License

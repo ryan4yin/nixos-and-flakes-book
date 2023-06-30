@@ -1,4 +1,4 @@
-## Introduction to Nix & NixOS
+# Introduction to Nix & NixOS
 
 Nix is a declarative package manager, that allows users to declare the expected system state in some configuration files, and Nix is responsible for achieving that goal.
 

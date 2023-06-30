@@ -1,4 +1,4 @@
-## 安装使用 Home Manager
+# 安装使用 Home Manager
 
 前面简单提过，NixOS 自身的配置文件只能管理系统级别的配置，而用户级别的配置则需要使用 home-manager 来管理。
 

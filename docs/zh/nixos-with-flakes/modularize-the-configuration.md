@@ -1,4 +1,4 @@
-## 模块化 NixOS 配置 {#modularize-nixos-configuration}
+# 模块化 NixOS 配置 {#modularize-nixos-configuration}
 
 到这里整个系统的骨架基本就配置完成了，当前我们 `/etc/nixos` 中的系统配置结构应该如下：
 
@@ -245,7 +245,6 @@ nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackag
 能看到 `systemPackages` 的顺序是 `git -> curl -> default packages -> vim`，跟我们预期的一致。`lib.mkBefore [pkgs.git]` 确实是将 `git` 插入到了列表头，而 `lib.mkAfter [pkgs.vim]` 则是将 `vim` 插入到了列表尾。
 
 > 虽然单纯调整 `systemPackages` 的顺序没什么用，但是在其他地方可能会有用...
-
 
 ## References
 

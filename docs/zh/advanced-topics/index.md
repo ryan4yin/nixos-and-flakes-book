@@ -1,4 +1,4 @@
-## 进阶玩法 {#advanced-topics}
+# 进阶玩法 {#advanced-topics}
 
 逐渐熟悉 Nix 这一套工具链后，可以进一步读一读 Nix 的三本手册，挖掘更多的玩法：
 

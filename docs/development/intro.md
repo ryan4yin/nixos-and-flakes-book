@@ -1,4 +1,4 @@
-## Development Environments on NixOS
+# Development Environments on NixOS
 
 NixOS's reproducibility makes it ideal for building development environments. However, if you're used to other distros, you may encounter problems because NixOS has its own logic. We'll explain this briefly below.
 
@@ -8,7 +8,7 @@ You should NOT install the development environment of each language in the globa
 
 In the following sections, we'll introduce how the development environment works in NixOS.
 
-### Creating a Development Environment
+## Creating a Development Environment
 
 We can create a development environment using `pkgs.mkShell { ... }` and open an interactive Bash shell of this development environment using `nix develop`.
 
@@ -114,7 +114,7 @@ Here is a `flake.nix` that defined a development environment with nodejs 18 inst
 
 Create an empty folder, save the above configuration as `flake.nix`, and then execute `nix develop` (or more precisely, you can use `nix develop .#default`), you will find that you have entered a nodejs 18 development environment, you can use `node` `npm` `pnpm` `yarn` and other commands. And when you just entered, `shellHook` was also executed, outputting the current version of nodejs.
 
-### Enter the build environment of any Nix package
+## Enter the build environment of any Nix package
 
 Now let's take a look at `nix develop`, first read the help document output by `nix develop --help`:
 
@@ -242,7 +242,7 @@ Hello, world!
 
 This usage is mainly used to debug the build process of a Nix package, or to execute some commands in the build environment of a Nix package.
 
-### `nix shell` & `nix run`
+## `nix shell` & `nix run`
 
 Compare to `nix develop`, these two commands are much simpler and easier to understand.
 

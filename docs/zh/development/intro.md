@@ -1,4 +1,4 @@
-## 在 NixOS 上进行开发工作
+# 在 NixOS 上进行开发工作
 
 由于 NixOS 自身可复现的特性，它非常适合用于搭建开发环境。
 但是如果你想直接将在其他发行版上的环境搭建经验用在 NixOS 上，可能会遇到许多问题，因为 NixOS 有自己的一套逻辑在，下面我们先对此稍作说明。
@@ -10,7 +10,7 @@
 
 在本章中我们先学习一下 Nix Flakes 开发环境的实现原理，后面的章节再按使用场景介绍一些更具体的内容。
 
-### 创建与使用开发环境
+## 创建与使用开发环境
 
 在 Nix Flakes 中，我们可以通过 `pkgs.mkShell { ... }` 来定义一个项目环境，通过 `nix develop` 来打开一个该开发环境的交互式 Bash Shell.
 
@@ -118,7 +118,7 @@ stdenv.mkDerivation ({
 
 建个空文件夹，将上面的配置保存为 `flake.nix`，然后执行 `nix develop`（或者更精确点，可以用 `nix develop .#default`），你会发现你已经进入了一个 nodejs 18 的开发环境，可以使用 `node` `npm` `pnpm` `yarn` 等命令了。而且刚进入时，`shellHook` 也被执行了，输出了当前 nodejs 的版本。
 
-### 进入任何 Nix 包的构建环境
+## 进入任何 Nix 包的构建环境
 
 现在再来看看 `nix develop`，先读下 `nix develop --help` 输出的帮助文档：
 
@@ -246,7 +246,7 @@ Hello, world!
 
 这种用法的主要应用场景是调试某个 Nix 包的构建过程，或者在某个 Nix 包的构建环境中执行一些命令。
 
-### `nix shell` 与 `nix run`
+## `nix shell` 与 `nix run`
 
 与 `nix develop` 相比，这两个命令就简单且好理解很多了。
 
@@ -286,7 +286,6 @@ Hello, world!
 - Derivation 的 `name` 属性中去掉版本号后的内容
 
 比如说我们上面测试的包 hello，`nix run` 实际会执行 `$out/bin/hello` 这个程序。
-
 
 ## References
 
