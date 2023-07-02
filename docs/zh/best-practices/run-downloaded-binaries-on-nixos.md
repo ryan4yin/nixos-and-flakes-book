@@ -17,7 +17,7 @@ NixOS 不遵循 FHS 标准，因此你从网上下载的二进制程序在 NixOS
     # ......o
 
     # create a fhs environment by command `fhs`, so we can run non-nixos packages in nixos!
-    (pkgs.buildFHSUserEnv (base // {
+    (pkgs.buildFHSUserEnv (pkgs.appimageTools.defaultFhsEnvArgs // {
       name = "fhs";
       targetPkgs = pkgs: (
         # pkgs.buildFHSUserEnv 只提供一个最小的 FHS 环境，缺少很多常用软件所必须的基础包
