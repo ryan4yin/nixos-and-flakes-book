@@ -5,6 +5,7 @@
 在使用 NixOS 的过程中，我们会经常使用 `nixos-rebuild` 命令，经常需要输入一大堆参数，比较繁琐。
 
 所以我使用 Makefile 来管理我的 flake 配置相关的命令，简化使用。
+你也可以使用其他类似的工具来干这个活（比如说 [just](https://github.com/casey/just) 跟 [cargo-make](https://github.com/sagiegurari/cargo-make)），这里我仅介绍下我的用法以供参考。
 
 我的 Makefile 大概内容截取如下：
 

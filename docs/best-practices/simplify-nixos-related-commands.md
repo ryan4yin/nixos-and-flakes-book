@@ -1,7 +1,7 @@
 # Simplify NixOS-related commands
 
 I use Makefile to simplify NixOS-related commands, which is very convenient.
-You can also use other similar tools to do this job, here I will only introduce my usage as a reference.
+You can also use other similar tools to do this job(such as [just](https://github.com/casey/just) and [cargo-make](https://github.com/sagiegurari/cargo-make)), here I will only introduce my usage as a reference.
 
 My Makefile looks like this:
 
