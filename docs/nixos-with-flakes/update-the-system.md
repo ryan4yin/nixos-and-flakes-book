@@ -7,7 +7,7 @@ or any other place where you keep the configuration.):
 # Update flake.lock
 nix flake update
 # Apply the updates
-sudo nixos-rebuild switch
+sudo nixos-rebuild switch --flake .
 ```
 
 Sometimes, you may encounter a sha256 mismatch error when running `nixos-rebuild switch`. This can be resolved by updating `flake.lock` through `nix flake update`.

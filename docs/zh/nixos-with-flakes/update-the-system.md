@@ -6,7 +6,7 @@
 # 更新 flake.lock
 nix flake update
 # 部署系统
-sudo nixos-rebuild switch
+sudo nixos-rebuild switch --flake .
 ```
 
 另外有时候安装新的包，跑 `sudo nixos-rebuild switch` 时可能会遇到 sha256 不匹配的报错，也可以尝试通过 `nix flake update` 更新 flake.lock 来解决（原理暂时不太清楚）。
