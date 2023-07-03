@@ -4,7 +4,7 @@
 
 - **Declarative configuration, Environment as Code, can be managed with Git**
   - Nix Flakes lock dependencies' version through a lock file named `flake.lock`, to ensure that the system is reproducible. This idea actually borrows from some package managers such as npm, cargo, etc.
-  - Compared with Docker, Nix Flakes provides a much stronger guarantee for the reproducibility of build results, because Dockerfile is actually an imperative configuration and there is no such thing as `flake.lock` in Docker, Docker's reproducibility relies on sharing the build result(which is MUCH MORE LARGER than Dockerfile itself) through image registry(e.g. Docker Hub).
+  - Compared with Docker, Nix Flakes provides a much stronger guarantee for the reproducibility of build results, because Dockerfile is actually an imperative configuration and there is no such thing as `flake.lock` in Docker, Docker's reproducibility relies on sharing the build result (which is MUCH LARGER than the Dockerfile itself) through an image registry (e.g. Docker Hub).
 - **Highly convenient system customization capability**
   - By changing a few lines of configuration, various components of NixOS can be easily customized. This is because Nix encapsulates all the underlying complex operations in Nix packages and only exports concise and necessary declarative parameters.
   - Moreover, this modification is very safe. For example, switching between different desktop environments on NixOS is very simple and clean, you just need to change several lines of the configuration.
