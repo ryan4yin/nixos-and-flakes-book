@@ -18,7 +18,8 @@ To create such an environment, add the following code to one of your Nix modules
     # ......omit many packages
 
     # create a fhs environment by command `fhs`, so we can run non-nixos packages in nixos!
-    (pkgs.buildFHSUserEnv (base // {
+    (let base = pkgs.appimageTools.defaultFhsEnvArgs; in 
+      pkgs.buildFHSUserEnv (base // {
       name = "fhs";
       targetPkgs = pkgs: (
         # pkgs.buildFHSUserEnv provides only a minimal fhs environment,
@@ -26,7 +27,7 @@ To create such an environment, add the following code to one of your Nix modules
         # so we need to add them manually.
         #
         # pkgs.appimageTools provides basic packages needed by most softwares.
-        (pkgs.appimageTools.defaultFhsEnvArgs.targetPkgs pkgs) ++ with pkgs; [
+        (base.targetPkgs pkgs) ++ with pkgs; [
           pkg-config
           ncurses
           # feel free to add more packages here, if you need
