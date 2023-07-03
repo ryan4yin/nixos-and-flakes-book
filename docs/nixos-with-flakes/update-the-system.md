@@ -1,6 +1,7 @@
 # Updating the System
 
-With Flakes, updating the system is simple. Just run the following commands in `/etc/nixos`:
+With Flakes, updating the system is simple. Just run the following commands in `/etc/nixos`(
+or any other place where you keep the configuration.):
 
 ```shell
 # Update flake.lock
