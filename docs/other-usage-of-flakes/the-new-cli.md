@@ -1,13 +1,12 @@
-# Usage of The New CLI
+# Usage of the New CLI
 
-after enabling `nix-command` & `flake`, you can use `nix help` to get all the info of [New Nix Commands][New Nix Commands], some useful examples are listed below:
+Once you have enabled `nix-command` and `flake`, you can use the `nix help` command to obtain information about the [New Nix Commands][New Nix Commands]. Here are some useful examples:
 
 ```bash
-# `nixpkgs#ponysay` means `ponysay` from `nixpkgs` flake.
-# [nixpkgs](https://github.com/NixOS/nixpkgs) contains `flake.nix` file, so it's a flake.
-# `nixpkgs` is a falkeregistry id for `github:NixOS/nixpkgs/nixos-unstable`.
-# you can find all the falkeregistry ids at <https://github.com/NixOS/flake-registry/blob/master/flake-registry.json>
-# so this command means install and run package `ponysay` in `nixpkgs` flake.
+# The following command installs and runs the `ponysay` package from the `nixpkgs` flake.
+# The `nixpkgs` flake refers to the `nixpkgs` repository on GitHub, which contains a `flake.nix` file.
+# `nixpkgs` is a flake registry ID for `github:NixOS/nixpkgs/nixos-unstable`.
+# You can find all the flake registry IDs at <https://github.com/NixOS/flake-registry/blob/master/flake-registry.json>.
 echo "Hello Nix" | nix run "nixpkgs#ponysay"
 
 # this command is the same as above, but use a full flake URI instead of falkeregistry id.

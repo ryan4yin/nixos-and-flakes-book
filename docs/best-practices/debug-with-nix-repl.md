@@ -1,10 +1,10 @@
-# Debug with `nix repl`
+# Debugging with `nix repl`
 
-We've used `nix repl '<nixpkgs>'` many times to check the source code in this guide, it's a powerful tool to help us understand how things work in Nix.
+We have frequently used nix repl `<nixpkgs>` throughout this guide to examine the source code. It is a powerful tool that helps us understand how things work in Nix.
 
-Better take a look at the help message of `nix repl`:
+Let's take a closer look at the help message of nix repl:
 
-```
+```shell
 › nix repl -f '<nixpkgs>'
 Welcome to Nix 2.13.3. Type :? for help.
 
@@ -33,9 +33,9 @@ The following commands are available:
   :te [bool]    Enable, disable or toggle showing traces for errors
 ```
 
-Some expressions that I use frequently: `:lf <ref>`, `:e <expr>`.
+There are a couple of expressions that I frequently use: `:lf <ref>` and `:e <expr>`.
 
-`:e <expr>` is very intuitive, so I won't repeat it. let's take a look at `:lf <ref>`:
+The `:e <expr>` command is very intuitive, so I won't go into detail about it. Instead, let's focus on `:lf <ref>`:
 
 ```nix
 # cd into my nix-config repo(you should replace it with your own nix-config repo)
@@ -140,4 +140,4 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/
 #......
 ```
 
-As we can see, we can check every attribute of my flake in the REPL after loading it, which is very convenient for debugging.
+As you can see, after loading your Nix flake into the REPL, you can check every attribute of the flake. This capability is very convenient for debugging purposes.

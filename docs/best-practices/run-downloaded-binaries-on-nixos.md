@@ -1,12 +1,10 @@
-# Run downloaded binaries on NixOS
+# Running Downloaded Binaries on NixOS
 
-NixOS does not follow the FHS standard, so the binaries you download from the Internet will not likely work on NixOS. But there are some ways to make it work.
+Since NixOS does not strictly adhere to the Filesystem Hierarchy Standard (FHS), binaries downloaded from the internet may not work directly on NixOS. However, there are various methods available to make them function properly.
 
-Here is a detailed guide that provides 10 ways to run downloaded binaries on NixOS: [Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos), I recommend you to read it.
+For a comprehensive guide that presents ten different approaches to run downloaded binaries on NixOS, I recommend reading the article [Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos).
 
-Among these methods, I prefer creating an FHS environment to run the binary, which is very convenient and easy to use.
-
-To create such an environment, add the following code to one of your Nix modules:
+Among these methods, I personally prefer creating an FHS environment to run the binary, as it proves to be both convenient and easy to use. To set up such an environment, you can add the following code to one of your Nix modules:
 
 ```nix
 { config, pkgs, lib, ... }:
@@ -17,20 +15,20 @@ To create such an environment, add the following code to one of your Nix modules
   environment.systemPackages = with pkgs; [
     # ......omit many packages
 
-    # create a fhs environment by command `fhs`, so we can run non-nixos packages in nixos!
+    # Create an FHS environment using the command `fhs`, enabling the execution of non-NixOS packages in NixOS!
     (let base = pkgs.appimageTools.defaultFhsEnvArgs; in 
       pkgs.buildFHSUserEnv (base // {
       name = "fhs";
       targetPkgs = pkgs: (
-        # pkgs.buildFHSUserEnv provides only a minimal fhs environment,
-        # it lacks many basic packages needed by most softwares.
-        # so we need to add them manually.
+        # pkgs.buildFHSUserEnv provides only a minimal FHS environment,
+        # lacking many basic packages needed by most software.
+        # Therefore, we need to add them manually.
         #
-        # pkgs.appimageTools provides basic packages needed by most softwares.
+        # pkgs.appimageTools provides basic packages required by most software.
         (base.targetPkgs pkgs) ++ with pkgs; [
           pkg-config
           ncurses
-          # feel free to add more packages here, if you need
+          # Feel free to add more packages here if needed.
         ]
       );
       profile = "export FHS=1";
@@ -43,19 +41,19 @@ To create such an environment, add the following code to one of your Nix modules
 }
 ```
 
-After applying the updated configuration, you can run `fhs` to enter the FHS environment, and then run the binary you downloaded, e.g.
+After applying the updated configuration, you can use the `fhs` command to enter the FHS environment, and then execute the binary you downloaded, for example:
 
 ```shell
-# Activating FHS drops me in a shell which looks like a "normal" Linux
+# Activating FHS drops me into a shell that resembles a "normal" Linux environment.
 $ fhs
-# check what we have in /usr/bin
+# Check what we have in /usr/bin.
 (fhs) $ ls /usr/bin
-# try to run a non-nixos binary downloaded from the Internet
+# Try running a non-NixOS binary downloaded from the Internet.
 (fhs) $ ./bin/code
 ```
 
 ## References
 
-- [Tips&Tricks for NixOS Desktop - NixOS Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]: Just as the title says, it is a collection of tips and tricks for NixOS desktop.
+- [Tips&Tricks for NixOS Desktop - NixOS Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]: This resource provides a collection of useful tips and tricks for NixOS desktop users.
 
 [Tips&Tricks for NixOS Desktop - NixOS Discourse]: https://discourse.nixos.org/t/tips-tricks-for-nixos-desktop/28488

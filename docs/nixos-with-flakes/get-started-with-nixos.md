@@ -1,18 +1,18 @@
 # Get Started with NixOS
 
-After learning the basics of the Nix language, we can start using it to configure our NixOS. The default configuration for NixOS is located at `/etc/nixos/configuration.nix`, which contains all the declarative configuration for the system, such as time zone, language, keyboard layout, network, users, file system, boot options, etc.
+Now that we have learned the basics of the Nix language, we can start using it to configure our NixOS system. The default configuration file for NixOS is located at `/etc/nixos/configuration.nix`. This file contains all the declarative configuration for the system, including settings for the time zone, language, keyboard layout, network, users, file system, and boot options.
 
-To modify the system state in a reproducible way (**which is the most recommended way**), we need to manually edit `/etc/nixos/configuration.nix`, and then execute `sudo nixos-rebuild switch` to apply the modified configuration. This generates a new system environment based on the modified configuration file, sets the new environment as the default one, and preserves the previous environment in the boot options of grub/systemd-boot. This ensures that we can always roll back to the old environment (even if the new environment fails to start).
+To modify the system state in a reproducible manner (which is highly recommended), we need to manually edit the `/etc/nixos/configuration.nix` file and then execute `sudo nixos-rebuild switch` to apply the modified configuration. This command generates a new system environment based on the modified configuration file, sets the new environment as the default one, and preserves the previous environment in the boot options of grub/systemd-boot. This ensures that we can always roll back to the old environment if the new one fails to start.
 
-`/etc/nixos/configuration.nix` is the classic method to configure NixOS, which relies on data sources configured by `nix-channel` and has no version-locking mechanism, making it difficult to ensure the reproducibility of the system. **A better approach is to use Flakes**, which ensures the reproducibility of the system and makes it easy to manage the configuration.
+While `/etc/nixos/configuration.nix` is the classic method for configuring NixOS, it relies on data sources configured by `nix-channel` and lacks a version-locking mechanism, making it challenging to ensure the reproducibility of the system. A better approach is to use Flakes, which provides reproducibility and facilitates configuration management.
 
-Now, let's learn how to manage NixOS through the classic method, `/etc/nixos/configuration.nix`, and then migrate to the more advanced Flakes.
+In this section, we will first learn how to manage NixOS using the classic method (`/etc/nixos/configuration.nix`), and then we will explore the more advanced Flakes.
 
-## Configuring the system using `/etc/nixos/configuration.nix`
+## Configuring the System using `/etc/nixos/configuration.nix`
 
-This is the classic method to configure NixOS, and also the default method currently used by NixOS. It relies on data sources configured by `nix-channel` and has no version-locking mechanism, making it difficult to ensure the reproducibility of the system.
+The `/etc/nixos/configuration.nix` file is the default and classic method for configuring NixOS. While it lacks some of the advanced features of Flakes, it is still widely used and provides flexibility in system configuration.
 
-For example, to enable ssh and add a user `ryan`, simply add the following content into `/etc/nixos/configuration.nix`:
+To illustrate how to use `/etc/nixos/configuration.nix`, let's consider an example where we enable SSH and add a user named `ryan` to the system. We can achieve this by adding the following content to `/etc/nixos/configuration.nix`:
 
 ```nix
 { config, pkgs, ... }:
@@ -23,15 +23,15 @@ For example, to enable ssh and add a user `ryan`, simply add the following conte
       ./hardware-configuration.nix
     ];
 
-  # Omit the previous configuration.......
+  # Omit previous configuration settings...
 
-  # add user ryan
+  # Add user 'ryan'
   users.users.ryan = {
     isNormalUser = true;
     description = "ryan";
     extraGroups = [ "networkmanager" "wheel" ];
     openssh.authorizedKeys.keys = [
-        # replace with your own public key
+        # Replace with your own public key
         "ssh-ed25519 <some-public-key> ryan@ryan-pc"
     ];
     packages = with pkgs; [
@@ -40,31 +40,31 @@ For example, to enable ssh and add a user `ryan`, simply add the following conte
     ];
   };
 
-  # enable openssh-server
+  # Enable openssh-server
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";         # disable root login
-    passwordAuthentication = false; # disable password login
+    permitRootLogin = "no";         # Disable root login
+    passwordAuthentication = false; # Disable password login
     openFirewall = true;
-    forwardX11 = true;              # enable X11 forwarding
+    forwardX11 = true;              # Enable X11 forwarding
   };
 
-  # omit the rest of the configuration.......
+  # Omit the rest of the configuration...
 }
 ```
 
-In this configuration, we declared that we want to enable the openssh service, add an ssh public key for the user ryan, and disable password login.
+In this configuration, we declare our intention to enable the openssh service, add an SSH public key for the user 'ryan', and disable password login.
 
-Now, run `sudo nixos-rebuild switch` to deploy the modified configuration. After that, you can log in to the system using ssh with the ssh keys you configured.
+To deploy the modified configuration, run `sudo nixos-rebuild switch`. This command will apply the changes, generate a new system environment, and set it as the default. You can now log in to the system using SSH with the configured SSH keys.
 
-Any reproducible changes to the system can be made by modifying `/etc/nixos/configuration.nix` and deploying the changes by running `sudo nixos-rebuild switch`.
+Remember that any reproducible changes to the system can be made by modifying the `/etc/nixos/configuration.nix` file and deploying the changes with `sudo nixos-rebuild switch`.
 
-All configuration options in `/etc/nixos/configuration.nix` can be found in the following places:
+To find configuration options and documentation:
 
-- By searching on Google, such as `Chrome NixOS`, which will provide NixOS information related to Chrome. Generally, the NixOS Wiki and the source code of Nixpkgs will be among the top results.
-- By searching for keywords in [NixOS Options Search](https://search.nixos.org/options).
-- For system-level configuration, relevant documentation can be found in [Configuration - NixOS Manual](https://nixos.org/manual/nixos/unstable/index.html#ch-configuration).
-- By searching for keywords directly in the source code of [nixpkgs](https://github.com/NixOS/nixpkgs) on GitHub.
+- Use search engines like Google, e.g., search for `Chrome NixOS` to find NixOS-related information about Chrome. The NixOS Wiki and the source code of Nixpkgs are usually among the top results.
+- Utilize the [NixOS Options Search](https://search.nixos.org/options) to search for keywords.
+- Refer to the [Configuration section](https://nixos.org/manual/nixos/unstable/index.html#ch-configuration) in the NixOS Manual for system-level configuration documentation.
+- Search for keywords directly in the source code of [nixpkgs](https://github.com/NixOS/nixpkgs) on GitHub.
 
 ## References
 

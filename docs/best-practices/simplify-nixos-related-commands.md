@@ -1,14 +1,13 @@
-# Simplify NixOS-related commands
+# Simplifying NixOS-Related Commands
 
-I use Makefile to simplify NixOS-related commands, which is very convenient.
-You can also use other similar tools to do this job(such as [just](https://github.com/casey/just) and [cargo-make](https://github.com/sagiegurari/cargo-make)), here I will only introduce my usage as a reference.
+To simplify NixOS-related commands, I utilize a Makefile, which proves to be very convenient. Alternatively, you can also use similar tools like [just](https://github.com/casey/just) and [cargo-make](https://github.com/sagiegurari/cargo-make) for this purpose. Here, I will provide my approach as a reference.
 
-My Makefile looks like this:
+Below is an example of how my Makefile looks:
 
 ```makefile
 #
-#  NOTE: Makefile's target name should not be the same as one of the file or directory in the current directory,
-#    otherwise the target will not be executed!
+#  NOTE: The target names in the Makefile should not conflict with any file or directory names in the current directory.
+#  Otherwise, the targets will not execute.
 #
 
 
@@ -39,7 +38,7 @@ gc:
 
 ############################################################################
 #
-#  Idols, Commands related to my remote distributed building cluster
+#  Idols: Commands related to my remote distributed building cluster
 #
 ############################################################################
 
@@ -69,4 +68,6 @@ idols: aqua ruby kana
 idols-debug: aqua-debug ruby-debug kana-debug
 ```
 
-Save the above Makefile to the root directory of the flake, and then we can use `make deploy` to deploy the configuration to the local machine, and use `make idols` to deploy the configuration to all my remote servers.
+Save the above Makefile to the root directory of your Nix flake. Then, you can use `make deploy` to deploy the configuration to your local machine and `make aqua` to deploy the configuration to all your remote servers.
+
+This approach simplifies the execution of NixOS commands by abstracting them behind target names in the Makefile, providing a more user-friendly and convenient experience.

@@ -1,164 +1,163 @@
 # Overlays
 
-The `override` we introduced earlier generates a new Derivation that does not affect the original Derivation in `pkgs`. It's only suitable for use as a local parameter. If you need to override a Derivation that is also dependent on other Nix packages, then other Nix packages will still use the original Derivation.
+In the previous section, we learned about overriding derivations using the `override` keyword. However, this approach only affects the local derivation and doesn't modify the original derivation in `pkgs`. To globally modify derivations in `pkgs`, Nix provides a feature called "overlays".
 
-To solve this problem, Nix provides the ability to use `overlays`. Simply put, `overlays` can globally modify the Derivations in `pkgs`.
+In traditional Nix environments, overlays can be configured globally using the `~/.config/nixpkgs/overlays.nix` or `~/.config/nixpkgs/overlays/*.nix` files. However, in Flakes, to ensure system reproducibility, overlays cannot rely on configurations outside of the Git repository.
 
-In the classic Nix environment, Nix automatically applies all `overlays` configurations under the paths `~/.config/nixpkgs/overlays.nix` and `~/.config/nixpkgs/overlays/*.nix`. However, in Flakes, to ensure the reproducibility of the system, it cannot depend on any configuration outside the Git repository. Therefore, this classic method cannot be used now.
+When using Flakes to configure NixOS, both Home Manager and NixOS provide the `nixpkgs.overlays` option to define overlays. You can refer to the following documentation for more details:
 
-When using Flakes to write configuration for NixOS, both home Manager and NixOS provide the `nixpkgs.overlays` option to define `overlays`. For more information, refer to the following documentation:
+- [Home Manager docs - `nixpkgs.overlays`](https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.overlays)
+- [Nixpkgs source code - `nixpkgs.overlays`](https://github.com/NixOS/nixpkgs/blob/30d7dd7e7f2cba9c105a6906ae2c9ed419e02f17/nixos/modules/misc/nixpkgs.nix#L169)
 
-- [home-manager docs - `nixpkgs.overlays`](https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.overlays)
-- [nixpkgs source code - `nixpkgs.overlays`](https://github.com/NixOS/nixpkgs/blob/30d7dd7e7f2cba9c105a6906ae2c9ed419e02f17/nixos/modules/misc/nixpkgs.nix#L169)
-
-For example, the following content is a Module that loads overlays, which can be used as either a home Manager Module or a NixOS Module because the two definitions are exactly the same:
-
-> Home Manager is an external component, and most people use the unstable branch of Home Manager and nixpkgs, which sometimes causes problems with Home Manager Module. Therefore, it's recommended to import `overlays` in a NixOS Module.
+Let's take a look at an example module that loads overlays. This module can be used as a Home Manager module or a NixOS module, as the definitions are the same:
 
 ```nix
 { config, pkgs, lib, ... }:
 
 {
   nixpkgs.overlays = [
-    # overlayer1 - use self and super to express the inheritance relationship
+    # Overlay 1: Use `self` and `super` to express the inheritance relationship
     (self: super: {
-     google-chrome = super.google-chrome.override {
-       commandLineArgs =
-         "--proxy-server='https=127.0.0.1:3128;http=127.0.0.1:3128'";
-     };
+      google-chrome = super.google-chrome.override {
+        commandLineArgs =
+          "--proxy-server='https=127.0.0.1:3128;http=127.0.0.1:3128'";
+      };
     })
 
-    # overlayer2 - you can also use `extend` to inherit other overlays
-    # use `final` and `prev` to express the relationship between the new and the old
+    # Overlay 2: Use `final` and `prev` to express the relationship between the new and the old
     (final: prev: {
       steam = prev.steam.override {
-        extraPkgs = pkgs:
-          with pkgs; [
-            keyutils
-            libkrb5
-            libpng
-            libpulseaudio
-            libvorbis
-            stdenv.cc.cc.lib
-            xorg.libXcursor
-            xorg.libXi
-            xorg.libXinerama
-            xorg.libXScrnSaver
-          ];
+        extraPkgs = pkgs: with pkgs; [
+          keyutils
+          libkrb5
+          libpng
+          libpulseaudio
+          libvorbis
+          stdenv.cc.cc.lib
+          xorg.libXcursor
+          xorg.libXi
+          xorg.libXinerama
+          xorg.libXScrnSaver
+        ];
         extraProfile = "export GDK_SCALE=2";
       };
     })
 
-    # overlay3 - define overlays in other files
-    # here the content of overlay3.nix is the same as above:
-    #   `final: prev: { xxx = prev.xxx.override { ... }; }`
+    # Overlay 3: Define overlays in other files
+    # The content of overlay3.nix is the same as above:
+    # `(final: prev: { xxx = prev.xxx.override { ... }; })`
     (import ./overlays/overlay3.nix)
   ];
 }
 ```
 
-refer to this example to write your own overlays, import the configuration as a NixOS Module or a home Manager Module, and then deploy it to see the effect.
+In the above example, we define three overlays. Overlay 1 modifies the `google-chrome` derivation by adding a command-line argument for a proxy server. Overlay 2 modifies the `steam` derivation by adding extra packages and an environment variable. Overlay 3 is defined in a separate file `overlay3.nix`.
+
+You can write your own overlays following this example. Import the configuration as a NixOS module or a Home Manager module, and then deploy it to see the effect.
 
 ## Modular overlays
 
-The previous example shows how to write overlays, but all overlays are written in a single nix file, which is a bit difficult to maintain.
+In the previous example, all overlays were written in a single Nix file, which can become difficult to maintain over time. To address this, we can manage overlays in a modular way.
 
-To resolve this problem, here is a best practice of how to manage overlays in a modular way.
+Start by creating an `overlays` folder in your
 
-First, create an `overlays` folder in the Git repository to store all overlays configurations, and then create `overlays/default.nix`, whose content is as follows:
+ Git repository to store all overlay configurations. Inside this folder, create a `default.nix` file with the following content:
 
 ```nix
+# import all nix files in the current folder, and execute them with args as parameters
+# The return value is a list of all execution results, which is the list of overlays
+
 args:
-  # import all nix files in the current folder, and execute them with args as parameters
-  # The return value is a list of all execution results, which is the list of overlays
-  builtins.map
-  (f: (import (./. + "/${f}") args))  # the first parameter of map, a function that import and execute a nix file
-  (builtins.filter          # the second parameter of map, a list of all nix files in the current folder except default.nix
+# execute and import all overlay files in the current directory with the given args
+builtins.map
+  (f: (import (./. + "/${f}") args))  # execute and import the overlay file
+  (builtins.filter          # find all overlay files in the current directory
     (f: f != "default.nix")
     (builtins.attrNames (builtins.readDir ./.)))
 ```
 
-Then you can write all overlays configurations in the `overlays` folder, an example configuration `overlays/fcitx5/default.nix` is as follows:
+The `default.nix` file imports and executes all Nix files in the current folder (excluding `default.nix`) with the provided arguments. It returns a list of all overlay results.
+
+Next, write your overlay configurations in the `overlays` folder. For example, you can create `overlays/fcitx5/default.nix` with the following content:
 
 ```nix
-# to add my custom input method, I override the default rime-data here
-# refer to https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix
-{pkgs, config, lib, ...}:
+{ pkgs, config, lib, ... }:
 
 (self: super: {
-  # my custom input method's rime-data, downloaded from https://flypy.com
-  rime-data = ./rime-data-flypy;
+  rime-data = ./rime-data-flypy;  # Customized rime-data package
   fcitx5-rime = super.fcitx5-rime.override { rimeDataPkgs = [ ./rime-data-flypy ]; };
 })
 ```
 
-We customized the `rime-data` package through the overlay shown above.
+In the above example, we override the `rime-data` package with a custom version and modify the `fcitx5-rime` derivation to use the custom `rime-data` package.
 
-At last, you need to load all overlays returned by `overlays/default.nix` through the `nixpkgs.overlays` option, add the following parameter to any NixOS Module to achieve this:
+To load all overlays returned by `overlays/default.nix`, add the following parameter to any NixOS module:
 
 ```nix
 { config, pkgs, lib, ... } @ args:
 
 {
-  # ......
+  # ...
 
-  # add this parameter
   nixpkgs.overlays = import /path/to/overlays/dir;
 
-  # ......
+  # ...
 }
 ```
 
-For example, you can just add it directly in `flake.nix`:
+For instance, you can add it directly in `flake.nix`:
 
 ```nix
 {
   description = "NixOS configuration of Ryan Yin";
 
-  # ......
+  # ...
 
   inputs = {
-    # ......
+    # ...
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }: {
-    nixosConfigurations = {
-      nixos-test = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = inputs;
-        modules = [
-          ./hosts/nixos-test
+  outputs = inputs@{ self, nixpkgs, ... }:
+    {
+      nixosConfigurations = {
+        nixos-test = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = inputs;
+          modules = [
+            ./hosts/nixos-test
 
-          # add the following inline module definition
-          #   here, all parameters of modules are passed to overlays
-          (args: { nixpkgs.overlays = import ./overlays args; })
+            # add the following inline module definition
+            #   here, all parameters of modules are passed to overlays
+            (args: { nixpkgs.overlays = import ./overlays args; })
 
-          # ......
-        ];
+            # ...
+          ];
+        };
       };
     };
-  };
 }
 ```
 
-By using this modular approach, it is very convenient to modularize all your overlays. Taking my configuration as an example, the structure of the `overlays` folder is rough as follows:
+By using this modular approach, you can conveniently organize and manage your overlays. In this example, the structure of the `overlays` folder would look like this:
 
-```nix
+```txt
 .
 ├── flake.lock
 ├── flake.nix
 ├── home
 ├── hosts
 ├── modules
-├── ......
+├── ...
 ├── overlays
-│   ├── default.nix         # it returns a list of all overlays.
-│   └── fcitx5              # fcitx5 overlay
+│   ├── default.nix            # return a list of all overlays.
+│   └── fcitx5                 # fcitx5 overlay
 │       ├── default.nix
 │       ├── README.md
-│       └── rime-data-flypy  # my custom rime-data
+│       └── rime-data-flypy    # my custom rime-data
 │           └── share
 │               └── rime-data
-│                   ├── ......  # rime-data files
+│                   ├── ...
 └── README.md
 ```
+
+This modular approach simplifies the management of overlays and allows you to easily add, modify, or remove overlays as needed.
