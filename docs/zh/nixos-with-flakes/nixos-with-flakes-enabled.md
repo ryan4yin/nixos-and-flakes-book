@@ -192,7 +192,7 @@ cat flake.nix
 }
 ```
 
-改好后再 `sudo nixos-rebuild switch` 部署，就能安装好 helix 程序了，可直接在终端使用 `helix` 命令测试验证。
+改好后再 `sudo nixos-rebuild switch` 部署，就能安装好 helix 程序了，可直接在终端使用 `hx` 命令测试验证。
 
 ## 为 Flake 添加国内 cache 源 {#add-cache-source-for-flake}
 

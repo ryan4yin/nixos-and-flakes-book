@@ -197,7 +197,7 @@ Then update `configuration.nix` to install `helix` from the input `helix`:
 }
 ```
 
-To deploy the changes, run `sudo nixos-rebuild switch`. Then start the Helix editor by running the `helix` command.
+To deploy the changes, run `sudo nixos-rebuild switch`. Then start the Helix editor by running the `hx` command.
 
 ## Add Custom Cache Mirror
 
