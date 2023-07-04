@@ -1,6 +1,6 @@
 # Development Environments on NixOS
 
-NixOS's reproducibility makes it ideal for building development environments. However, if you're used to other distros, you may encounter problems because NixOS has its own logic. We'll explain this briefly below.
+NixOS's reproducibility makes it ideal for building development environments. However, if you're used to other distros, you may encounter problems because NixOS has its own logic. We'll briefly explain this below.
 
 On NixOS, it's recommended to only install common tools in the global environment, such as `git`, `vim`, `emacs`, `tmux`, `zsh`, etc. The development environment of each language should be an independent environment for each project.
 
@@ -67,9 +67,9 @@ stdenv.mkDerivation ({
 } // rest)
 ```
 
-`pkgs.mkShell { ... }` is a special Derivation (Nix package). Its `name` `buildInputs` and other parameters are customizable, and `shellHook` is a special parameter that will be executed when `nix develop` enters the environment.
+`pkgs.mkShell { ... }` is a special derivation (Nix package). Its `name`, `buildInputs`, and other parameters are customizable, and `shellHook` is a special parameter that will be executed when `nix develop` enters the environment.
 
-Here is a `flake.nix` that defined a development environment with nodejs 18 installed:
+Here is a `flake.nix` that defines a development environment with Node.js 18 installed:
 
 ```nix
 {

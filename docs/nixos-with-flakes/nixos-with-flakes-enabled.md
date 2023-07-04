@@ -1,14 +1,14 @@
-# NixOS with Flakes Enabled
+# Enabling NixOS with Flakes
 
 ## Enabling Flakes Support
 
-Flakes provide better reproducibility and a clearer package structure that is easier to maintain compared to the default configuration approach of NixOS. Therefore, it's recommended to manage NixOS with Flakes.
+Flakes provide improved reproducibility and a more organized package structure, making it easier to maintain NixOS configurations compared to the traditional approach. Therefore, it is recommended to manage NixOS using Flakes.
 
-However, as Flakes is still an experimental feature, it's not enabled by default. To enable it, modify `/etc/nixos/configuration.nix` as follows:
+However, as Flakes is still an experimental feature, it is not enabled by default. To enable Flakes, you need to modify the `/etc/nixos/configuration.nix` file as follows:
 
 ```nix
 # Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
+# your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
 { config, pkgs, ... }:
 
@@ -18,46 +18,50 @@ However, as Flakes is still an experimental feature, it's not enabled by default
       ./hardware-configuration.nix
     ];
 
-  # omit the previous configuration.......
+  # Omit the previous configuration...
 
-  # enable Flakes and the new command line tool
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # Enable Flakes and the new command-line tool
+  nix = {
+    package = pkgs.nixFlakes;
+    extraOptions = ''
+      experimental-features = nix-command flakes
+    '';
+  };
 
   environment.systemPackages = with pkgs; [
-    # Flakes uses git to pull dependencies from data sources, so git must be installed first
+    # Flakes use Git to pull dependencies from data sources, so Git must be installed first
     git
     vim
     wget
     curl
-
   ];
 
-  # omit the rest of the configuration.......
+  # Omit the rest of the configuration...
 }
 ```
 
-To apply the changes, run `sudo nixos-rebuild switch`. After that, you can write the configuration for NixOS with Flakes.
+To apply the changes, run `sudo nixos-rebuild switch`. After that, you can start writing the configuration for NixOS using Flakes.
 
-## Switching System Configuration to `flake.nix`
+## Switching to `flake.nix` for System Configuration
 
-After enabling `flakes`, `sudo nixos-rebuild switch` will first try to read `/etc/nixos/flake.nix` every time you run it. If not found, it will fallback to `/etc/nixos/configuration.nix`.
+After enabling `flakes`, whenever you run `sudo nixos-rebuild switch`, it will first attempt to read the `/etc/nixos/flake.nix` file. If the file is not found, it will fallback to `/etc/nixos/configuration.nix`.
 
-To learn how to write a flake, take a look at the official flake templates provided by Nix. To check which templates are available, run:
+To learn how to write a Flakes configuration, you can refer to the official Flakes templates provided by Nix. To check the available templates, run the following command:
 
 ```bash
 nix flake show templates
 ```
 
-The templates `templates#full` contain all possible use cases, let's take a look at them:
+The `templates#full` template contains examples covering various use cases. Let's take a look at them:
 
 ```bash
 nix flake init -t templates#full
 cat flake.nix
 ```
 
-After reading the example, create a file `/etc/nixos/flake.nix` and copy the content of the example into it. From now on, all system modifications will be taken over by Flakes with `/etc/nixos/flake.nix`.
+After reviewing the example, create a file named `/etc/nixos/flake.nix` and copy the content of the example into it. From now on, all system modifications will be managed by Flakes using `/etc/nixos/flake.nix`.
 
-Note that the template we copied cannot be used directly. We need to modify it to make it work. Here's an example of `/etc/nixos/flake.nix`:
+Note that the copied template cannot be used directly. You need to modify it to make it work. Here's an example of `/etc/nixos/flake.nix`:
 
 ```nix
 {
@@ -135,24 +139,24 @@ We defined a NixOS system called `nixos-test` with a configuration file at `./co
 
 To apply the configuration, run `sudo nixos-rebuild switch`. No changes will be made to the system because we imported the old configuration file in `/etc/nixos/flake.nix`, so the actual state we declared remains unchanged.
 
-## Manage System Software through Flakes
+## Managing System Packages with Flakes
 
-After the switch, we can manage the system through Flakes. The most common requirement for managing a system is to install packages. We have seen how to install packages through `environment.systemPackages` before, and these packages are all from the official nixpkgs repository.
+After the switch, we can manage the system using Flakes. One common requirement is installing packages. We have previously seen how to install packages using `environment.systemPackages` from the official `nixpkgs` repository.
 
-Now let's learn how to install packages from other sources through Flakes. This is much more flexible than installing from nixpkgs directly, and the most obvious benefit is that you can easily set the version of the software.
+Now let's learn how to install packages from other sources using Flakes. This provides greater flexibility, particularly when it comes to specifying software versions. Let's use [Helix](https://github.com/helix-editor/helix) editor as an example.
 
-Let's use [Helix](https://github.com/helix-editor/helix) editor as an example. First, we need to add Helix as an input to `flake.nix`:
+First, we need to add Helix as an input in `flake.nix`:
 
 ```nix
 {
   description = "NixOS configuration of Ryan Yin";
 
-  # ......
+  # ...
 
   inputs = {
-    # ......
+    # ...
 
-    # helix editor, use the tag 23.05
+    # Helix editor, using version 23.05
     helix.url = "github:helix-editor/helix/23.05";
   };
 
@@ -161,8 +165,8 @@ Let's use [Helix](https://github.com/helix-editor/helix) editor as an example. F
       nixos-test = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
-        # set all inputs parameters as specialArgs of all sub module
-        # so that we can use `helix` input in sub modules
+        # Set all input parameters as specialArgs of all sub-modules
+        # so that we can use the `helix` input in sub-modules
         specialArgs = inputs;
         modules = [
           ./configuration.nix
@@ -173,7 +177,7 @@ Let's use [Helix](https://github.com/helix-editor/helix) editor as an example. F
 }
 ```
 
-Then update `configuration.nix` to install `helix` from the input `helix`:
+Next, update `configuration.nix` to install `helix` from the `helix` input:
 
 ```nix
 # Nix will automatically inject `helix` from specialArgs
@@ -181,7 +185,7 @@ Then update `configuration.nix` to install `helix` from the input `helix`:
 { config, pkgs, helix, ... }:
 
 {
-  # omit other configuration......
+  # Omit other configurations...
 
   environment.systemPackages = with pkgs; [
     git
@@ -189,44 +193,44 @@ Then update `configuration.nix` to install `helix` from the input `helix`:
     wget
     curl
 
-    # install helix from the input `helix`
+    # Install Helix from the `helix` input
     helix.packages."${pkgs.system}".helix
   ];
 
-  # omit other configuration......
+  # Omit other configurations...
 }
 ```
 
-To deploy the changes, run `sudo nixos-rebuild switch`. Then start the Helix editor by running the `hx` command.
+To deploy the changes, run `sudo nixos-rebuild switch`. After that, you can start the Helix editor by running the `hx` command.
 
-## Add Custom Cache Mirror
+## Adding Custom Cache Mirrors
 
 > If you don't need to customize the cache mirror, you can safely skip this section.
 
-To speed up package building, Nix provides <https://cache.nixos.org> to cache build results and avoid building every package locally.
+To accelerate package building, Nix provides <https://cache.nixos.org> to cache build results and avoid rebuilding packages locally.
 
-With the classic configuration method in NixOS, other cache sources can be added using `nix-channel`. However, Flakes avoids using any system-level configuration and environment variables to ensure that its build results are not affected by the environment, making the build results reproducible.
+With the classic configuration method in NixOS, additional cache sources can be added using `nix-channel`. However, Flakes avoids relying on system-level configuration and environment variables to ensure reproducibility of its build results.
 
-Therefore, to customize the cache source, we must add the related configuration in `flake.nix` using the `nixConfig` parameter. Here's an example:
+To customize the cache source, we must add the related configuration in `flake.nix` using the `nixConfig` parameter. Here's an example:
 
 ```nix
 {
   description = "NixOS configuration of Ryan Yin";
 
-  # 1. To ensure purity, Flakes does not rely on the system's `/etc/nix/nix.conf`, so we have to set related configuration here.
-  # 2. To ensure security, flake allows only a few nixConfig parameters to be set directly by default.
-  #    you need to add `--accept-flake-config` when executing the nix command,
-  #    otherwise all other parameters will be ignored, and an warning will printed by nix.
+  # ...
+
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
-      # replace official cache with a mirror located in China
+      # Replace the official cache with a mirror located in China
       "https://mirrors.bfsu.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
 
-    extra-substituters = [
-      # nix community's cache server
+    extra-sub
+
+stituters = [
+      # Nix community's cache server
       "https://nix-community.cachix.org"
     ];
     extra-trusted-public-keys = [
@@ -235,14 +239,13 @@ Therefore, to customize the cache source, we must add the related configuration 
   };
 
   inputs = {
-    # omit some configuration...
+    # Omit some configurations...
   };
 
   outputs = {
-    # omit some configuration...
+    # Omit some configurations...
   };
 }
-
 ```
 
-After the modification, run `sudo nixos-rebuild switch` to apply the updates.
+After making the modifications, run `sudo nixos-rebuild switch` to apply the updates.

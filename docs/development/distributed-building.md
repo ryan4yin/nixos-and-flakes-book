@@ -1,17 +1,15 @@
 # Distributed Building
 
-Distributed building can speed up the build process by utilizing multiple machines.
+Distributed building can significantly speed up the build process by utilizing multiple machines. However, for ordinary NixOS users, distributed building may not be very useful since `cache.nixos.org` provides a vast majority of caches for the `x86_64` architecture.
 
-For ordinary NixOS users, distributed building is generally not very useful because NixOS's official `cache.nixos.org` provides the vast majority of caches for the `x86_64` architecture.
+Distributed building is particularly valuable in scenarios where no cache is available, such as:
 
-Distributed building is of great value in scenarios where there is no cache available, such as:
+1. Users of `RISC-V` or `ARM64` architectures, especially `RISC-V`, as there are very few caches for these architectures in the official cache repository. Local compilation is often required.
+2. Users who heavily customize their systems. The packages in the official cache repository are built with default configurations. If you modify the build parameters, the official cache is not applicable, and local compilation is necessary. For example, in embedded scenarios, customization of the underlying kernel, drivers, etc., is often required, leading to the need for local compilation.
 
-1. Users of `RISC-V` or `ARM64` architectures (especially `RISC-V`), because there are very few caches for these two architectures in the official cache repository, which often requires a lot of local compilation.
-2. Users who customize the system a lot, because the packages in the official cache repository are all default configurations. If you change the build parameters, then the official cache is not applicable, and you need to compile locally. For instance, in the embedded scenario, there is often a need for customization of the underlying kernel, drivers, etc., which leads to the need for local compilation.
+## Configuring Distributed Building
 
-## Configure Distributed Building
-
-Currently, there is no official documentation for distributed building. However, I have listed some recommended reference documents at the end of this chapter, along with my distributed build configuration (a NixOS Module).
+Currently, there is no official documentation for distributed building. However, I have provided a sample distributed build configuration (a NixOS module) below, along with some recommended reference documents at the end of this section.
 
 ```nix
 { ... }: {
@@ -22,24 +20,24 @@ Currently, there is no official documentation for distributed building. However,
   #
   ####################################################################
 
-  # set local's max-job to 0 to force remote building(disable local building)
+  # Set local's max-jobs to 0 to force remote building (disable local building).
   # nix.settings.max-jobs = 0;
   nix.distributedBuilds = true;
   nix.buildMachines =
     let
       sshUser = "ryan";
-      # ssh key's path on local machine
+      # Path to the SSH key on the local machine.
       sshKey = "/home/ryan/.ssh/ai-idols";
       systems = [
-        # native arch
+        # Native architecture.
         "x86_64-linux"
 
-        # emulated arch using binfmt_misc and qemu-user
+        # Emulated architecture using binfmt_misc and qemu-user.
         "aarch64-linux"
         "riscv64-linux"
       ];
-      # all available system features are poorly documentd here:
-      #  https://github.com/NixOS/nix/blob/e503ead/src/libstore/globals.hh#L673-L687
+      # All available system features are poorly documented here:
+      # https://github.com/NixOS/nix/blob/e503ead/src/libstore/globals.hh#L673-L687
       supportedFeatures = [
         "benchmark"
         "big-parallel"
@@ -47,22 +45,22 @@ Currently, there is no official documentation for distributed building. However,
       ];
     in
       [
-        # Nix seems always give priority to trying to build remotely
-        # to make use of the local machine's high-performance CPU, do not set remote builder's maxJobs too high.
+        # Nix seems to always prioritize remote building.
+        # To make use of the local machine's high-performance CPU, do not set the remote builder's maxJobs too high.
         {
-          # some of my remote builders are running NixOS
-          # and has the same sshUser, sshKey, systems, etc.
+          # Some of my remote builders are running NixOS
+          # and have the same sshUser, sshKey, systems, etc.
           inherit sshUser sshKey systems supportedFeatures;
 
-          # the hostName should be:
-          #   1. a hostname that can be resolved by DNS
-          #   2. the ip address of the remote builder
-          #   3. a host alias defined globally in /etc/ssh/ssh_config
+          # The hostName should be:
+          #   1. A hostname that can be resolved by DNS.
+          #   2. The IP address of the remote builder.
+          #   3. A host alias defined globally in /etc/ssh/ssh_config.
           hostName = "aquamarine";
-          # remote builder's max-job
+          # Remote builder's max-jobs.
           maxJobs = 3;
-          # speedFactor's a signed integer
-          # but it seems that it's not used by Nix, takes no effect
+          # SpeedFactor is a signed integer,
+          # but it seems that it's not used by Nix and has no effect.
           speedFactor = 1;
         }
         {
@@ -78,13 +76,15 @@ Currently, there is no official documentation for distributed building. However,
           speedFactor = 1;
         }
       ];
-  # optional, useful when the builder has a faster internet connection than yours
+  # Optional: Useful when the builder has a faster internet connection than yours.
 	nix.extraOptions = ''
-		builders-use-substitutes = true
+		builders-use-sub
+
+stitutes = true
 	'';
 
-  # define the host alias for remote builders
-  # this config will be written to /etc/ssh/ssh_config
+  # Define the host aliases for remote builders.
+  # This configuration will be written to /etc/ssh/ssh_config.
   programs.ssh.extraConfig = ''
     Host ai
       HostName 192.168.5.100
@@ -103,8 +103,8 @@ Currently, there is no official documentation for distributed building. However,
       Port 22
   '';
 
-  # define the host key for remote builders so that nix can verify all the remote builders
-  # this config will be written to /etc/ssh/ssh_known_hosts
+  # Define the host keys for remote builders so that Nix can verify all the remote builders.
+  # This configuration will be written to /etc/ssh/ssh_known_hosts.
   programs.ssh.knownHosts = {
     # 星野 愛久愛海, Hoshino Aquamarine
     aquamarine = {
@@ -127,19 +127,18 @@ Currently, there is no official documentation for distributed building. However,
 }
 ```
 
-## Defects
+## Limitations
 
-The problems I have observed so far are:
+Here are some observed issues and limitations:
 
-1. You cannot specify which hosts to use at build time, you can only specify a list of hosts in the configuration file, and nix automatically selects available hosts.
-   two。
-2. When choosing a host, I found that Nix always preferred the remote host, while my local host had the best performance, which caused the local host's CPU to be underutilized.
-3. The smallest unit of distributed building is Derivation, so when building some big packages, other machines may be idle for a long time, waiting for the big package to be built, which leads to a waste of resources.
+1. You cannot specify which hosts to use at build time. You can only specify a list of hosts in the configuration file, and Nix automatically selects available hosts.
+2. When choosing a host, Nix always prefers the remote host over the local host, even if the local host has better performance. This can result in underutilization of the local host's CPU.
+3. The smallest unit of distributed building is a derivation. When building large packages, other machines may remain idle for a long time, waiting for the large package to be built. This can lead to resource wastage.
 
 ## References
 
 - [Distributed build - NixOS Wiki](https://nixos.wiki/wiki/Distributed_build)
 - [Document available system features - nix#7380](https://github.com/NixOS/nix/issues/7380)
-- [Distributed builds seem to disable local builds nix#2589](https://github.com/NixOS/nix/issues/2589)
+- [Distributed builds seem to disable local builds - nix#2589](https://github.com/NixOS/nix/issues/2589)
 - [Offloading NixOS builds to a faster machine](https://sgt.hootr.club/molten-matter/nix-distributed-builds/)
 - [tests/nixos/remote-builds.nix - Nix Source Code](https://github.com/NixOS/nix/blob/713836112/tests/nixos/remote-builds.nix#L46)

@@ -1,3 +1,3 @@
 # Other Usage of Flakes
 
-Up to now, we have written a lot of configurations with Flakes to manage NixOS. Here is a brief introduction to the more detailed content of the Flakes, as well as the new command lines commonly used with flakes.
+So far, we have extensively used Flakes to manage NixOS configurations. In this section, I will provide a brief introduction to additional features and command-line options commonly used with Flakes.
