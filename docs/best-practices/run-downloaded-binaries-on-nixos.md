@@ -55,5 +55,6 @@ $ fhs
 ## References
 
 - [Tips&Tricks for NixOS Desktop - NixOS Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]: This resource provides a collection of useful tips and tricks for NixOS desktop users.
+- [nix-alien](https://github.com/thiagokokada/nix-alien): Run unpatched binaries on Nix/NixOS
 
 [Tips&Tricks for NixOS Desktop - NixOS Discourse]: https://discourse.nixos.org/t/tips-tricks-for-nixos-desktop/28488
