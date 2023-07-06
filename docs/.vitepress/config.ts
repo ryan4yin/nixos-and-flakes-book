@@ -206,7 +206,7 @@ export default defineConfig({
             ],
           },
           {
-            text: "Dev Environemnts on NixOS",
+            text: "Dev Environments on NixOS",
             items: [
               { text: "Introduction", link: "/development/intro.md" },
               {
