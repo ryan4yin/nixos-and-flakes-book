@@ -25,4 +25,6 @@
 - [colmena](https://github.com/zhaofengli/colmena): NixOS 主机部署工具
 - ...
 
+想了解更多内容，可以看看 [awesome-nix](https://github.com/nix-community/).
+
 [digga]: https://github.com/divnix/digga
