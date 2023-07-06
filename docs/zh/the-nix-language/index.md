@@ -179,7 +179,7 @@ in
 
 ```nix
 let
-  a = 1;
+  a = "1";
 in
 "the value of a is ${a}"  # 结果是 "the value of a is 1"
 ```
