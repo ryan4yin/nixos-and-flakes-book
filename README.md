@@ -6,6 +6,10 @@ An unofficial and opinionated NixOS & Flakes :book: for beginners: https://nixos
 
 ## Feedback and Discussion
 
+Want to discuss the content of this book? Have any questions? Please feel free to open an issue or join the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions).
+
+Historical feedback and discussion:
+
 - [[2023-05-11] NixOS & Nix Flakes - A Guide for Beginners - Reddit](https://www.reddit.com/r/NixOS/comments/13dxw9d/nixos_nix_flakes_a_guide_for_beginners/)
 - [[2023-06-22] Updates: NixOS & Nix Flakes - A Guide for Beginners - Reddit](https://www.reddit.com/r/NixOS/comments/14fvz1q/updates_nixos_nix_flakes_a_guide_for_beginners/)
 - [[2023-06-24] An unofficial NixOS & Flakes book for beginners - Discourse](https://discourse.nixos.org/t/an-unofficial-nixos-flakes-book-for-beginners/29561)
