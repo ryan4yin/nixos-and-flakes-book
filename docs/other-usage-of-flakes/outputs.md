@@ -62,6 +62,4 @@ Here's an example excerpt from the NixOS Wiki that demonstrates the structure of
     templates.default = { path = "<store-path>"; description = ""; };
   };
 }
-
-
 ```

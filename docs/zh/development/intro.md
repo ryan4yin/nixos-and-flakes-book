@@ -265,7 +265,7 @@ hello: command not found
 Hello, world!
 ```
 
-`nix run` 则是创建一个含有指定 Nix 包的环境，并在该环境中直接运行该 Nix 包：
+`nix run` 则是创建一个含有指定 Nix 包的环境，并在该环境中直接运行该 Nix 包（临时运行该程序，不将它安装到系统环境中）：
 
 ```shell
 # hello 不存在

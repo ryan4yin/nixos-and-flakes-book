@@ -261,7 +261,7 @@ hello: command not found
 Hello, world!
 ```
 
-`nix run` is used to create an environment containing the specified installable and run the installable in it:
+`nix run` is used to create an environment containing the specified installable and run the installable in it(without install it to the system):
 
 ```shell
 # hello not exists
@@ -277,9 +277,9 @@ Because `nix run` will directly run the Nix package as an installable, the Nix p
 
 According to the description of `nix run --help`, `nix run` will execute `<out>/bin/<name>`, where `<out>` is the root directory of a Derivation, and `<name>` is selected in the following order:
 
-- The meta.mainProgram attribute of the derivation.
-- The pname attribute of the derivation.
-- The name part of the value of the name attribute of the derivation.
+- The `meta.mainProgram` attribute of the derivation.
+- The `pname` attribute of the derivation.
+- The `name` part of the value of the name attribute of the derivation.
 
 For instance, if name is set to `hello-1.10`, nix run will run $out/bin/hello.
 

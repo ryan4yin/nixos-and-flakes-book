@@ -78,9 +78,7 @@ Currently, there is no official documentation for distributed building. However,
       ];
   # Optional: Useful when the builder has a faster internet connection than yours.
 	nix.extraOptions = ''
-		builders-use-sub
-
-stitutes = true
+		builders-use-substitutes = true
 	'';
 
   # Define the host aliases for remote builders.

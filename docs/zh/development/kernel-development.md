@@ -113,4 +113,5 @@
 
 ## References
 
+- [Linux kernel - NixOS Wiki](https://nixos.wiki/wiki/Linux_kernel)
 - https://github.com/jordanisaacs/kernel-module-flake

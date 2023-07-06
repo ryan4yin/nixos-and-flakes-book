@@ -36,6 +36,8 @@ The `inputs` in `flake.nix` is an attribute set, used to specify the dependencie
 
     # To use a subdirectory of a repo, pass `dir=xxx`
     nixpkgs.url = "github:foo/bar?dir=shu";
-  }
+  };
+
+  outputs = { self, ... }@inputs: { ... };
 }
 ```

@@ -19,8 +19,8 @@ Once you are comfortable with Flakes, you can explore more advanced techniques a
 
 There are many other valuable community projects worth exploring. Here are a few examples:
 
-- [nixpak](https://github.com/nixpak/nixpak)
-- [nix-output-monitor](https://github.com/maralorn/nix-output-monitor)
+- [nixpak](https://github.com/nixpak/nixpak): A tool to sandbox all sorts of Nix-packaged applications, including graphical ones.
+- [nix-output-monitor](https://github.com/maralorn/nix-output-monitor): Beautifully displays the build progress of Nix packages, with additional information such as build time and build log.
 - [agenix](https://github.com/ryantm/agenix): A tool for secrets management.
 - [colmena](https://github.com/zhaofengli/colmena): Tools for NixOS deployment.
 - [nixos-generators](https://github.com/nix-community/nixos-generators): A tool to generate ISO/qcow2/... from NixOS configurations.
@@ -28,3 +28,5 @@ There are many other valuable community projects worth exploring. Here are a few
 - [impermanence](https://github.com/nix-community/impermanence): Helps make NixOS stateless and improves system reproducibility.
 
 These projects offer additional functionality and tools that can enhance your NixOS experience.
+
+For more information, see the [awesome-nix](https://github.com/nix-community/).

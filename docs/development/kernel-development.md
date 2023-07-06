@@ -112,4 +112,5 @@ To solve this problem, I add a `fhs` environment to install the `ncurses` packag
 
 ## References
 
+- [Linux kernel - NixOS Wiki](https://nixos.wiki/wiki/Linux_kernel)
 - https://github.com/jordanisaacs/kernel-module-flake

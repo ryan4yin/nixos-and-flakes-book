@@ -32,7 +32,6 @@ nix build "nixpkgs#bat"
 # build a local flake is the same as nix develop, skip it
 ```
 
-[Zero to Nix - Determinate Systems][Zero to Nix - Determinate Systems] is a brand new guide to get started with Nix & Flake, recommended to read for beginners.
+We will introduce more details about `nix develop`, `nix shell` and `nix run` in the next chapter.
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
-[Zero to Nix - Determinate Systems]: https://github.com/DeterminateSystems/zero-to-nix

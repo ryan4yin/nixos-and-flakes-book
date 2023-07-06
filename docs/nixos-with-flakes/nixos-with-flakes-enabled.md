@@ -227,9 +227,7 @@ To customize the cache source, we must add the related configuration in `flake.n
       "https://cache.nixos.org/"
     ];
 
-    extra-sub
-
-stituters = [
+    extra-substituters = [
       # Nix community's cache server
       "https://nix-community.cachix.org"
     ];
