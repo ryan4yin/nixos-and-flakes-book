@@ -1,6 +1,6 @@
 # Introduction to Nix & NixOS
 
-Nix is a declarative package manager that enables users to specify the desired system state in configuration files. It takes responsibility for achieving that goal.
+Nix is a declarative package manager that enables users to specify the desired system state in configuration files, and it takes responsibility for achieving that state.
 
 > In simple terms, "declarative configuration" means that users only need to declare the desired outcome. For instance, if you declare that you want to replace the i3 window manager with sway, Nix will assist you in achieving that goal. You don't have to worry about the underlying details, such as which packages sway requires for installation, which i3-related packages need to be uninstalled, or the necessary adjustments to system configuration and environment variables for sway. Nix automatically handles these details for the user (provided that the Nix packages related to sway and i3 are properly designed).
 
@@ -20,10 +20,8 @@ However, I recently encountered numerous environmental issues while using Endeav
 
 That's when I decided to switch to NixOS.
 
-To my delight, NixOS has exceeded my expectations. The most astonishing aspect is that I can now restore my entire i3 environment and all my commonly used packages on a fresh NixOS host with just one command. It's truly fantastic!
+To my delight, NixOS has exceeded my expectations. The most astonishing aspect is that I can now restore my entire i3 environment and all my commonly used packages on a fresh NixOS host with just one command `sudo nixos-rebuild switch --flake .`. It's truly fantastic!
 
-The rollback capability of NixOS has instilled a great deal of confidence in me—I no longer fear breaking the system. I've even ventured into experimenting with new things on
-
- NixOS, such as the hyprland compositor. Previously, on EndeavourOS, I wouldn't have dared to tinker with such novel compositors, as any system mishaps would have entailed significant manual troubleshooting using various workarounds.
+The rollback capability of NixOS has instilled a great deal of confidence in me—I no longer fear breaking the system. I've even ventured into experimenting with new things on NixOS, such as the hyprland compositor. Previously, on EndeavourOS, I wouldn't have dared to tinker with such novel compositors, as any system mishaps would have entailed significant manual troubleshooting using various workarounds.
 
 This is why I chose NixOS.
