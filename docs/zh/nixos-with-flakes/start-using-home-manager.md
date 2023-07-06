@@ -217,4 +217,5 @@ nix flake new example -t github:nix-community/home-manager#nixos
 `home.nix` 中 Home Manager 的配置项有这几种查找方式：
 
 - [Home Manager - Appendix A. Configuration Options](https://nix-community.github.io/home-manager/options.html): 一份包含了所有配置项的列表，建议在其中关键字搜索。
+  - [Home Manager Option Search](https://mipmip.github.io/home-manager-option-search/): 一个更方便的 option 搜索工具。
 - [home-manager](https://github.com/nix-community/home-manager): 有些配置项在官方文档中没有列出，或者文档描述不够清晰，可以直接在这份 home-manager 的源码中搜索阅读对应的源码。
