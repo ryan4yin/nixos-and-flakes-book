@@ -203,6 +203,10 @@ export default defineConfig({
                 text: "The New CLI",
                 link: "/other-usage-of-flakes/the-new-cli.md",
               },
+              {
+                text: "Nix option difinitions",
+                link: "/zh/other-usage-of-flakes/options.md",
+              },
             ],
           },
           {
@@ -361,6 +365,10 @@ export default defineConfig({
               {
                 text: "The New CLI",
                 link: "/zh/other-usage-of-flakes/the-new-cli.md",
+              },
+              {
+                text: "Nix option difinitions",
+                link: "/zh/other-usage-of-flakes/options.md",
               },
             ],
           },
