@@ -8,6 +8,7 @@ Once you have become familiar with NixOS, you can explore advanced topics and di
 - [nixpkgs Manual](https://nixos.org/manual/nixpkgs/unstable/): The manual for nixpkgs, which introduces its parameters, explains how to use, modify, and package Nix packages.
 - [NixOS Manual](https://nixos.org/manual/nixos/unstable/): A user manual for NixOS, providing configuration instructions for system-level components such as Wayland/X11 and GPU.
 - [nix-pills](https://nixos.org/guides/nix-pills): "Nix Pills" is a series of guides that provide an in-depth explanation of building software packages with Nix. It offers clear and understandable explanations.
+- [nixos-in-production](https://github.com/Gabriella439/nixos-in-production): This is a work-in-progress book hosted on LeanPub about introducing and maintaining NixOS in a production environment.
 
 ## Advanced Techniques and Community Projects
 
