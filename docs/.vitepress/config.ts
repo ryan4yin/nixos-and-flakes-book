@@ -179,7 +179,7 @@ function themeConfigEnglish() {
             },
             {
               text: "Nix Options",
-              link: "/zh/other-usage-of-flakes/options.md",
+              link: "/other-usage-of-flakes/options.md",
             },
           ],
         },
