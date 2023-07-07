@@ -1,6 +1,6 @@
 # Advantages & Disadvantages of NixOS
 
-# Advantages of NixOS
+## Advantages of NixOS
 
 - **Declarative Configuration, OS as Code**
   - NixOS uses declarative configuration to manage the entire system environment. These configurations can be managed directly with Git, allowing the system to be restored to any historical state as long as the configuration files are preserved (provided the desired states are declared in the Nix configuration).
@@ -15,7 +15,7 @@
 
 The community is active, with a diverse range of third-party projects. The official package repository, nixpkgs, has numerous contributors, and many people share their Nix configurations. Exploring the NixOS ecosystem is an exciting experience, akin to discovering a new continent.
 
-# Disadvantages of NixOS
+## Disadvantages of NixOS
 
 - **High Learning Curve**:
   - Achieving complete reproducibility and avoiding pitfalls associated with improper usage requires learning about Nix's entire design and managing the system declaratively, rather than blindly using commands like `nix-env -i` (similar to `apt-get install`).
@@ -31,7 +31,7 @@ The community is active, with a diverse range of third-party projects. The offic
   - Nix's declarative abstraction introduces additional complexity in the underlying code compared to similar code in traditional imperative tools.
   - This complexity increases implementation difficulty and makes it more challenging to make custom modifications at the lower level. However, this burden primarily falls on Nix package maintainers, as regular users have limited exposure to the underlying complexities, reducing their burden.
 
-# Summary
+## Summary
 
 Overall, I believe that NixOS is suitable for developers with a certain level of Linux usage experience and programming knowledge who desire greater control over their systems.
 
