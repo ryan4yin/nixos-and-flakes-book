@@ -136,6 +136,30 @@ As for `flake.nix`, its setting method is very simple, even simpler than the set
 You do not need to add any additional modules, just specify `system` as `riscv64-linux`.
 Nix will automatically detect whether the current system is `riscv64-linux` during the build. If not, it will automatically build through the emulated system(QEMU). For users, these underlying operations are completely transparent.
 
+## Linux binfmt_misc
+
+The previous section only provided an introduction on how to use Nix's emulated system, but if you want to understand the underlying details, here's a brief introduction.
+
+`binfmt_misc` is a feature of the Linux kernel, which stands for Kernel Support for miscellaneous Binary Formats. It enables Linux to run programs for almost any CPU architecture, including X86_64, ARM64, RISCV64, and more.
+
+To enable `binfmt_misc` to run programs in various formats, two things are required: a specific identification method for the binary format and the location of the corresponding interpreter. Although `binfmt_misc` sounds powerful, its implementation is surprisingly easy to understand. It works similarly to how the Bash interpreter determines the interpreter to use by reading the first line of a script file (e.g., `#!/usr/bin/env python3`). `binfmt_misc` defines a set of rules, such as reading the magic number at a specific location in the binary file or determining the executable file format based on the file extension (e.g., .exe, .py). It then invokes the corresponding interpreter to execute the program. The default executable file format in Linux is ELF, but `binfmt_misc` expands the execution possibilities by allowing a wide range of binary files to be executed using their respective interpreters.
+
+To register a binary program format, you need to write a line in the format `:name:type:offset:magic:mask:interpreter:flags` to the `/proc/sys/fs/binfmt_misc/register` file. The detailed explanation of the format is beyond the scope of this discussion.
+
+Since manually writing the registration information for `binfmt_misc` can be cumbersome, the community provides a container to assist with automatic registration. This container is called `binfmt` and running it will install various `binfmt_misc` emulators. Here's an example:
+
+```shell
+# Register all architectures
+podman run --privileged --rm tonistiigi/binfmt:latest --install all
+
+# Register only common arm/riscv architectures
+docker run --privileged --rm tonistiigi/binfmt --install arm64,riscv64,arm
+```
+
+The `binfmt_misc` module was introduced in Linux version 2.6.12-rc2 and has undergone several minor changes in functionality since then. In Linux 4.8, the "F" (fix binary) flag was added, allowing the interpreter to be invoked correctly in mount namespaces and chroot environments. To work properly in containers where multiple architectures need to be built, the "F" flag is necessary. Therefore, the kernel version needs to be 4.8 or above.
+
+In summary, `binfmt_misc` provides transparency compared to explicitly calling an interpreter to execute non-native architecture programs. With `binfmt_misc`, users no longer need to worry about which interpreter to use when running a program. It allows programs of any architecture to be executed directly. The configurable "F" flag is an added benefit, as it loads the interpreter program into memory during installation and remains unaffected by subsequent environment changes.
+
 ## Custom build toolchain
 
 Sometimes we may need to use a custom toolchain for building, such as using our own gcc, or using our own musl libc, etc. This modification can be achieved through overlays.
