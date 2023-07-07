@@ -239,6 +239,10 @@ export default defineConfig({
             text: "Advanced Topics",
             items: [{ text: "Links", link: "/advanced-topics/index.md" }],
           },
+          {
+            text: "FAQ",
+            items: [{ text: "FAQ", link: "/faq/index.md" }],
+          },
         ],
 
         socialLinks: [
@@ -400,7 +404,13 @@ export default defineConfig({
           },
           {
             text: "其他进阶话题",
-            items: [{ text: "简介", link: "/zh/advanced-topics/index.md" }],
+            items: [
+              { text: "其他进阶话题", link: "/zh/advanced-topics/index.md" },
+            ],
+          },
+          {
+            text: "常见问题 FAQ",
+            items: [{ text: "常见问题 FAQ", link: "/zh/faq/index.md" }],
           },
         ],
 
