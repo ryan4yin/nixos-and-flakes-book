@@ -46,6 +46,13 @@ export default defineConfig({
       pattern:
         "https://github.com/ryan4yin/nixos-and-flakes-book/edit/main/docs/:path",
     },
+
+    socialLinks: [
+      {
+        icon: "github",
+        link: "https://github.com/ryan4yin/nixos-and-flakes-book",
+      },
+    ],
   },
 
   locales: {
@@ -215,13 +222,6 @@ function themeConfigEnglish() {
           ],
         },
       ],
-
-      socialLinks: [
-        {
-          icon: "github",
-          link: "https://github.com/ryan4yin/nixos-and-flakes-book",
-        },
-      ],
     },
   };
 }
@@ -383,13 +383,6 @@ function themeConfigChinese() {
         {
           text: "常见问题 FAQ",
           items: [{ text: "常见问题 FAQ", link: "/zh/faq/index.md" }],
-        },
-      ],
-
-      socialLinks: [
-        {
-          icon: "github",
-          link: "https://github.com/ryan4yin/nixos-and-flakes-book",
         },
       ],
     },
