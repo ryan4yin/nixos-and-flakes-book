@@ -35,6 +35,8 @@
 
     # 使用 `dir` 参数指定某个子目录
     nixpkgs.url = "github:foo/bar?dir=shu";
-  }
+  };
+
+  outputs = { self, ... }@inputs: { ... };
 }
 ```
