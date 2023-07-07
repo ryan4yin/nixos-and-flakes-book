@@ -242,7 +242,7 @@ args@{ a, b, ... }: a + b + args.c
 
 # 但是要注意命名参数仅绑定了输入的 attribute set，默认参数不在其中，举例
 let
-  f = { a ? 1, b ? 2, ... }@args: args
+  f = { a ? 1, b ? 2, ... }@args: args;
 in
   f {}  # 结果是 {}，也就说明了 args 中包含默认值
 
