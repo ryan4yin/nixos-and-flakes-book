@@ -41,7 +41,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
   };
 
   # Packages that should be installed to the user profile.
-  home.packages = [
+  home.packages = with pkgs; [
     # here is some command line tools I use frequently
     # feel free to add your own or remove some of them
 
@@ -123,6 +123,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
   programs.alacritty = {
     enable = true;
+    settings = {
       env.TERM = "xterm-256color";
       font = {
         size = 12;
@@ -130,6 +131,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
       };
       scrolling.multiplier = 5;
       selection.save_to_clipboard = true;
+    };
   };
 
   programs.bash = {
