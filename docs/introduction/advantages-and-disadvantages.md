@@ -37,4 +37,4 @@ Overall, I believe that NixOS is suitable for developers with a certain level of
 
 I do not recommend newcomers without any Linux usage experience to dive directly into NixOS, as it may lead to a frustrating journey.
 
-> If you have more questions about NixOS, you can refer to the last chapter of this book, "FAQ".
+> If you have more questions about NixOS, you can refer to the last chapter of this book, [FAQ](../faq/).
