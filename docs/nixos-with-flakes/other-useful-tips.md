@@ -83,8 +83,6 @@ The following configuration can be added to your NixOS configuration to help red
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 1w";
- 
-
  };
 
   # Optimize storage
