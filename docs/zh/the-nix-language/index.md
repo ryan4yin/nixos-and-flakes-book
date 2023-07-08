@@ -4,17 +4,6 @@ Nix 语言是 Nix 包管理器的基础，要想玩得转 NixOS 与 Nix Flakes�
 
 Nix 是一门比较简单的函数式语言，在已有一定编程基础的情况下，过一遍这些语法用时应该在 2 个小时以内，本文假设你具有一定编程基础（也就是说写得不会很细）。
 
-这一节主要包含如下内容：
-
-1. 数据类型
-2. let...in... with inherit 等特殊语法
-3. 函数的声明与调用语法
-4. 内置函数与库函数
-5. inputs 的不纯性（Impurities）
-6. 用于描述 Build Task 的 Derivation
-7. Overriding 与 Overlays
-8. ...
-
 先把语法过一遍，有个大概的印象就行，后面需要用到时再根据右侧目录回来复习。
 
 ## 基础数据类型一览 {#basic-data-types}
@@ -345,6 +334,9 @@ builtins.fetchTarball "https://github.com/NixOS/nix/archive/7c3ab5751568a0bc6343
 ```
 
 ## Derivations {#derivations}
+
+> 官方 Nixpkgs 包仓库中的软件包已经能满足绝大部分用户的使用，在学习 NixOS 的前期不太需要深入了解 Derivation 的使用细节，有个印象就行。
+> 本书会在后面 [Nix 软件打包入门](../development/packaging-101.md) 中详细介绍相关内容，这里仅做简要介绍。
 
 Derivation 描述了如何构建一个软件包，是一个软件包构建流程的 Nix 语言描述，它声明了构建时需要有哪些依赖项、需要什么构建工具链、要设置哪些环境变量、哪些构建参数、先干啥后干啥等等。
 

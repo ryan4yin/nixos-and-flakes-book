@@ -1,4 +1,4 @@
-# Packging
+# Nix 软件打包入门
 
 TODO
 
