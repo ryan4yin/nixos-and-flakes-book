@@ -9,7 +9,7 @@ hero:
   text: "一份非官方的新手指南"
   tagline: "想要学习使用 NixOS 与 Flakes 吗？在寻找一份新手友好的教程？那你可来对地方了！"
   image:
-    src: /images/nixos-flakes.png
+    src: /logo.png
     alt: NixOS Flakes
   actions:
     - theme: brand

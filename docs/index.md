@@ -9,7 +9,7 @@ hero:
   text: "An unofficial book for beginners"
   tagline: Want to know NixOS & Flakes in details? Looking for a beginner-friendly tutorial? Then you've come to the right place!
   image:
-    src: /images/nixos-flakes.png
+    src: /logo.png
     alt: NixOS Flakes
   actions:
     - theme: brand
