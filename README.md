@@ -1,4 +1,6 @@
-# NixOS & Flakes Book :hammer_and_wrench: :heart: [<img src="https://nixos.org/logo/nixos-logo-only-hires.png" width="200" align="right" alt="NixOS">](https://nixos.org)
+![](/docs/public/nixos-and-flakes-book.png)
+
+# NixOS & Flakes Book :hammer_and_wrench: :heart:
 
 Want to know NixOS & Flakes in details? Looking for a beginner-friendly tutorial? Then you've come to the right place!
 
