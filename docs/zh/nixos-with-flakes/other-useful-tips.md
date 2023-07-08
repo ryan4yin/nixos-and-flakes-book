@@ -23,7 +23,8 @@ sudo ln -s ~/nixos-config/ /etc/nixos
 sudo mv /etc/nixos /etc/nixos.bak  # 备份原来的配置
 cd ~/nixos-config
 
-# 通过 --flake .#nixos-test 参数，指定使用当前文件夹的 flake.nix，使用的 nixosConfiguraitons 名称为 nixos-test
+# 通过 --flake .#nixos-test 参数指定使用当前文件夹的 flake.nix，
+# 使用的 nixosConfiguraitons 名称为 nixos-test
 sudo nixos-rebuild switch --flake .#nixos-test
 ```
 
@@ -51,7 +52,7 @@ nix profile history --profile /nix/var/nix/profiles/system
 
 ```shell
 # 清理 7 天之前的所有历史版本
-sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 7d
+sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/system
 # 清理历史版本并不会删除数据，还需要手动 gc 下
 sudo nix store gc --debug
 ```

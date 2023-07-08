@@ -20,7 +20,7 @@ The functions of these four files are:
 
 By modifying these files, you can declaratively change the system and home directory status.
 
-As the configuration increases, it becomes difficult to maintain the configuration by relying solely on `configuration.nix` and `home.nix`. Therefore, a better solution is to use the Nix module system to split the configuration into multiple modules and write them in a classified manner.
+ However, as the configuration grows, relying solely on `configuration.nix` and `home.nix` can lead to bloated and difficult-to-maintain files. A better solution is to use the Nix module system to split the configuration into multiple Nix modules and write them in a classified manner.
 
 The Nix module system provides a parameter, `imports`, which accepts a list of `.nix` files and merges all the configuration defined in these files into the current Nix module. Note that `imports` will not simply overwrite duplicate configuration but handle it more reasonably. For example, if `program.packages = [...]` is defined in multiple modules, then `imports` will merge all `program.packages` defined in all Nix modules into one list. Attribute sets can also be merged correctly. The specific behavior can be explored by yourself.
 

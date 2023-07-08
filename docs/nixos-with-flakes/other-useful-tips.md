@@ -24,7 +24,8 @@ Another approach is to delete `/etc/nixos` directly and specify the configuratio
 sudo mv /etc/nixos /etc/nixos.bak
 cd ~/nixos-config
 
-# `--flake .#nixos-test` deploys the flake.nix located in the current directory, and the nixosConfiguration's name is `nixos-test`
+# `--flake .#nixos-test` deploys the flake.nix located in
+# the current directory, and the nixosConfiguration's name is `nixos-test`
 sudo nixos-rebuild switch --flake .#nixos-test
 ```
 
@@ -34,7 +35,8 @@ Choose the method that suits you best. Afterward, system rollback becomes simple
 cd ~/nixos-config
 # Switch to the previous commit
 git checkout HEAD^1
-# Deploy the flake.nix located in the current directory, with the nixosConfiguration's name `nixos-test`
+# Deploy the flake.nix located in the current directory,
+# with the nixosConfiguration's name `nixos-test`
 sudo nixos-rebuild switch --flake .#nixos-test
 ```
 
@@ -52,7 +54,7 @@ To clean up historical versions and free up storage space, use the following com
 
 ```shell
 # Delete all historical versions older than 7 days
-sudo nix profile wipe-history --profile /nix/var/nix/profiles/system --older-than 7d
+sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/system
 
 # Run garbage collection after wiping history
 sudo nix store gc --debug

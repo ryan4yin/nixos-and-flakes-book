@@ -6,7 +6,7 @@
 
 为了实现上述需求，首先修改 `/etc/nixos/flake.nix`，示例内容如下（主要是利用 `specialArgs` 参数）：
 
-```nix
+```nix{8-13,19-20,27-44}
 {
   description = "NixOS configuration of Ryan Yin"
 
@@ -14,7 +14,8 @@
     # 默认使用 nixos-unstable 分支
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # 最新 stable 分支的 nixpkgs，用于回退个别软件包的版本，当前最新版本为 23.05
+    # 最新 stable 分支的 nixpkgs，用于回退个别软件包的版本
+    # 当前最新版本为 23.05
     nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.05";
 
     # 另外也可以使用 git commit hash 来锁定版本，这是最彻底的锁定方式
@@ -38,8 +39,10 @@
           # 这里我们直接在 flake.nix 中创建实例， 再传递到其他子 modules 中使用
           # 这样能有效重用 nixpkgs 实例，避免 nixpkgs 实例泛滥。
           pkgs-stable = import nixpkgs-stable {
-            system = system;  # 这里递归引用了外部的 system 属性
-            # 为了拉取 chrome 等软件包，需要允许安装非自由软件
+            # 这里递归引用了外部的 system 属性
+            system = system;
+            # 为了拉取 chrome 等软件包，
+            # 这里我们需要允许安装非自由软件
             config.allowUnfree = true;
           };
 
@@ -61,10 +64,11 @@
 
 然后在你对应的 module 中使用该数据源中的包，一个 Home Manager 的子模块示例：
 
-```nix
+```nix{4-7,13,25}
 {
   pkgs,
   config,
+
   # nix 会从 flake.nix 的 specialArgs 查找并注入此参数
   pkgs-stable,
   # pkgs-fd40cef8d,  # 也可以使用固定 hash 的 nixpkgs 数据源
@@ -72,22 +76,24 @@
 }:
 
 {
-  # 这里从 pkg-stable 中引用包
+  # # 这里从 pkg-stable 中引用包（而不是默认的 pkgs）
   home.packages = with pkgs-stable; [
     firefox-wayland
 
-    # chrome wayland support was broken on nixos-unstable branch, so fallback to stable branch for now
-    # https://github.com/swaywm/sway/issues/7562
+    # nixos-unstable 分支中的 Chrome Wayland 支持目前存在问题，
+    # 因此这里我们将 google-chrome 回滚到 stable 分支，临时解决下 bug.
+    # 相关 Issue: https://github.com/swaywm/sway/issues/7562
     google-chrome
   ];
 
   programs.vscode = {
     enable = true;
-    package = pkgs-stable.vscode;  # 这里也一样，从 pkgs-stable 中引用包
+    # 这里也一样，从 pkgs-stable 中引用包
+    package = pkgs-stable.vscode;
   };
 }
 ```
 
 配置完成后，通过 `sudo nixos-rebuild switch` 部署即可将 firefox/chrome/vscode 三个软件包回退到 stable 分支的版本。
 
-> 根据 @fbewivpjsbsby 补充的文章 [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347)，在子模块中用 `import` 来定制 `nixpkgs` 不是一个好的习惯，因为每次 `import` 都会重新求值并产生一个新的 nixpkgs 实例，在配置越来越多时会导致构建时间变长、内存占用变大。所以这里改为了在 `flake.nix` 中创建所有 nixpkgs 实例。
+> 根据 @fbewivpjsbsby 补充的文章 [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347)，在子模块或者子 flakes 中用 `import` 来定制 `nixpkgs` 不是一个好的习惯，因为每次 `import` 都会重新求值并产生一个新的 nixpkgs 实例，在配置越来越多时会导致构建时间变长、内存占用变大。所以这里改为了在 `flake.nix` 中创建所有 nixpkgs 实例。

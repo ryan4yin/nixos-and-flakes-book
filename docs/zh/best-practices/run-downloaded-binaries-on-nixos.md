@@ -2,6 +2,7 @@
 
 NixOS 不遵循 FHS 标准，因此你从网上下载的二进制程序在 NixOS 上大概率是跑不了的。
 为了在 NixOS 上跑这些非 NixOS 的二进制程序，需要做一些骚操作。有位老兄在这里总结了 10 种实现此目的的方法：[Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos)，推荐一读。
+此外如果你懒得自己折腾，只想实现需求，也可以直接看看这个傻瓜式工具 [nix-alien](https://github.com/thiagokokada/nix-alien).
 
 我个人用的比较多的方法是，直接创建一个 FHS 环境来运行二进制程序，这种方法非常方便易用。
 
@@ -17,7 +18,7 @@ NixOS 不遵循 FHS 标准，因此你从网上下载的二进制程序在 NixOS
     # ......o
 
     # create a fhs environment by command `fhs`, so we can run non-nixos packages in nixos!
-    (let base = pkgs.appimageTools.defaultFhsEnvArgs; in 
+    (let base = pkgs.appimageTools.defaultFhsEnvArgs; in
       pkgs.buildFHSUserEnv (base // {
       name = "fhs";
       targetPkgs = pkgs: (
