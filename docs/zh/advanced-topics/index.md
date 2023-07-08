@@ -17,8 +17,6 @@
 
 以及其他许多实用的社区项目可探索，我比较关注的有这几个：
 
-Beautifully displays the build progress of Nix packages, with additional information such as build time and build log.
-
 - [nixpak](https://github.com/nixpak/nixpak): 一个使用沙箱运行任何 Nix 应用程序的工具（包括 GUI 应用程序），提升系统安全性
 - [nix-output-monitor](https://github.com/maralorn/nix-output-monitor): 美化 `nix build` 命令的输出日志，同时打印出更详细的日志信息，以及构建计时器等额外信息，强烈推荐使用！
 - [agenix](https://github.com/ryantm/agenix): secrets 管理工具
