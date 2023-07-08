@@ -33,7 +33,7 @@
 - **High Learning Curve**:
   - Achieving complete reproducibility and avoiding pitfalls associated with improper usage requires learning about Nix's entire design and managing the system declaratively, rather than blindly using commands like `nix-env -i` (similar to `apt-get install`).
 - **Disorganized Documentation**:
-  - Currently, Nix Flakes remains an experimental feature, and there is limited documentation specifically focused on it. Most Nix community documentation primarily covers the older `nix-env`/`nix-channel` approach. If you want to start learning directly from Nix Flakes, you need to refer to a significant amount of outdated documentation and extract the relevant information. Additionally, some core features of Nix, such as `imports` and the Nixpkgs Module System, lack detailed official documentation, requiring resorting to source code analysis.
+  - Currently, Nix Flakes remains an experimental feature, and there is limited documentation specifically focused on it. Most Nix community documentation primarily covers the older `nix-env`/`nix-channel` approach. If you want to start learning directly from Nix Flakes, you need to refer to a significant amount of outdated documentation and extract the relevant information. Additionally, some core features of Nix, such as `imports` and the Nix Module System, lack detailed official documentation, requiring resorting to source code analysis.
 - **Increased Disk Space Usage**:
   - To ensure the ability to roll back the system at any time, Nix retains all historical environments by default, resulting in increased disk space usage.
   - While this additional space usage may not be a concern on desktop computers, it can become problematic on resource-constrained cloud servers.
