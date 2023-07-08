@@ -6,7 +6,7 @@ Flakes provide improved reproducibility and a more organized package structure, 
 
 However, as Flakes is still an experimental feature, it is not enabled by default. To enable Flakes, you need to modify the `/etc/nixos/configuration.nix` file as follows:
 
-```nix{15}
+```nix{15,18-19}
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
