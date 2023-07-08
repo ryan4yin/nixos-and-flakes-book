@@ -186,7 +186,10 @@ function themeConfigEnglish() {
         {
           text: "Dev Environments on NixOS",
           items: [
-            { text: "Introduction", link: "/development/intro.md" },
+            {
+              text: "nix develop & pkgs.mkShell",
+              link: "/development/intro.md",
+            },
             {
               text: "Dev Environments",
               link: "/development/dev-environments.md",
@@ -351,7 +354,10 @@ function themeConfigChinese() {
         {
           text: "在 NixOS 上进行开发工作",
           items: [
-            { text: "简介", link: "/zh/development/intro.md" },
+            {
+              text: "nix develop 与 pkgs.mkShell",
+              link: "/zh/development/intro.md",
+            },
             {
               text: "各语言的开发环境",
               link: "/zh/development/dev-environments.md",

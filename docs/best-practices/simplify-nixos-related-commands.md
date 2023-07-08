@@ -2,11 +2,11 @@
 
 To simplify NixOS-related commands, I utilize a Makefile, which proves to be very convenient.
 
-Alternatively, you can also use similar tools like [just](https://github.com/casey/just) and [cargo-make](https://github.com/sagiegurari/cargo-make) for this purpose. Here, I will provide my approach as a reference. 
+Alternatively, you can also use similar tools like [just](https://github.com/casey/just) and [cargo-make](https://github.com/sagiegurari/cargo-make) for this purpose. Here, I will provide my approach as a reference.
 
 Below is an example of how my Makefile looks:
 
->**NOTE**: The target names in the Makefile should not conflict with any file or directory names in the current directory. Otherwise, the targets will not execute.
+> **NOTE**: The target names in the Makefile should not conflict with any file or directory names in the current directory. Otherwise, the targets will not execute.
 
 ```makefile
 ############################################################################
