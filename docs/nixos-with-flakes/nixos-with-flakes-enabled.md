@@ -21,12 +21,7 @@ However, as Flakes is still an experimental feature, it is not enabled by defaul
   # Omit the previous configuration...
 
   # Enable Flakes and the new command-line tool
-  nix = {
-    package = pkgs.nixFlakes;
-    extraOptions = ''
-      experimental-features = nix-command flakes
-    '';
-  };
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   environment.systemPackages = with pkgs; [
     # Flakes use Git to pull dependencies from data sources, so Git must be installed first
