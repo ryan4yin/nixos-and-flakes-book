@@ -204,7 +204,7 @@ To deploy the changes, run `sudo nixos-rebuild switch`. After that, you can star
 
 To accelerate package building, Nix provides <https://cache.nixos.org> to cache build results and avoid rebuilding packages locally.
 
-With the classic configuration method in NixOS, additional cache sources can be added using `nix-channel`. However, Flakes avoids relying on system-level configuration and environment variables to ensure reproducibility of its build results.
+With the classic configuration method in NixOS, additional cache sources can be added using `nix-channel`. However, Nix Flakes strives to avoid using any system-level configurations or environment variables as much as possible, ensuring that its build results are not affected by the environment. Therefore, after switching to Flakes, the `nix-channel` command becomes ineffective.
 
 To customize the cache source, we must add the related configuration in `flake.nix` using the `nixConfig` parameter. Here's an example:
 
