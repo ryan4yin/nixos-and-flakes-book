@@ -1,4 +1,4 @@
-![](/docs/public/nixos-and-flakes-book.png)
+![](./docs/public/nixos-and-flakes-book.webp)
 
 # NixOS & Flakes Book :hammer_and_wrench: :heart:
 
