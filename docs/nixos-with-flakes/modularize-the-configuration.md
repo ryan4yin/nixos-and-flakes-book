@@ -118,7 +118,7 @@ Using these functions can be very helpful for modularizing the configuration. Yo
 
 For example, in my configuration at [ryan4yin/nix-config/blob/main/modules/nixos/core-server.nix#L30](https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-server.nix#L30), I define default values like this:
 
-```nix
+```nix{6}
 { lib, pkgs, ... }:
 
 {
@@ -132,7 +132,7 @@ For example, in my configuration at [ryan4yin/nix-config/blob/main/modules/nixos
 
 Then, for my desktop machine, I override the value in [ryan4yin/nix-config/blob/main/modules/nixos/core-desktop.nix#L15](https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-desktop.nix#L15) like this:
 
-```nix
+```nix{10}
 { lib, pkgs, ... }:
 
 {
@@ -150,9 +150,9 @@ Then, for my desktop machine, I override the value in [ryan4yin/nix-config/blob/
 
 ## `lib.mkOrder`, `lib.mkBefore`, and `lib.mkAfter`
 
-In addition to `lib.mkDefault` and `lib.mkForce`, there are also `lib.mkBefore` and `lib.mkAfter`, which are used to set the merge order of **list
+In addition to `lib.mkDefault` and `lib.mkForce`, there are also `lib.mkBefore` and `lib.mkAfter`, which are used to set the merge order of \*\*list
 
--type options**. These functions further contribute to the modularization of the configuration.
+-type options\*\*. These functions further contribute to the modularization of the configuration.
 
 As mentioned earlier, when you define multiple values with the same **override priority**, Nix will throw an error. However, by using `lib.mkOrder`, `lib.mkBefore`, or `lib.mkAfter`, you can define multiple values with the same override priority, and they will be merged in the order you specify.
 
@@ -179,7 +179,7 @@ Therefore, `lib.mkBefore` is a shorthand for `lib.mkOrder 500`, and `lib.mkAfter
 
 To test the usage of `lib.mkBefore` and `lib.mkAfter`, let's create a simple Flake project:
 
-```shell
+```shell{16-29}
 # Create flake.nix with the following content
 › cat <<EOF | sudo tee flake.nix
 {

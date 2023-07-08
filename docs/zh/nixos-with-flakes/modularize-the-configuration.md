@@ -123,7 +123,7 @@ $ tree
 
 举个例子，我在这里定义了一个默认值：<https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-server.nix#L30>
 
-```nix
+```nix{6}
 { lib, pkgs, ... }:
 
 {
@@ -137,7 +137,7 @@ $ tree
 
 然后在桌面机器的配置中，我强制覆盖了默认值： <https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-desktop.nix#L15>
 
-```nix
+```nix{10}
 { lib, pkgs, ... }:
 
 {
@@ -184,7 +184,7 @@ $ tree
 
 为了更直观地理解这两个函数，现在来创建一个 flake 测试下：
 
-```shell
+```shell{16-29}
 # 使用如下内容创建一个 flake.nix 文件
 › cat <<EOF | sudo tee flake.nix
 {

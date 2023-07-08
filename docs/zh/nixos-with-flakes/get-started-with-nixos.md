@@ -19,7 +19,7 @@ NixOS 的系统配置路径为 `/etc/nixos/configuration.nix`，它包含系统�
 
 比如要启用 ssh 并添加一个用户 ryan，只需要在 `/etc/nixos/configuration.nix` 中添加如下配置：
 
-```nix
+```nix{14-38}
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).

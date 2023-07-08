@@ -14,7 +14,10 @@ The `/etc/nixos/configuration.nix` file is the default and classic method for co
 
 To illustrate how to use `/etc/nixos/configuration.nix`, let's consider an example where we enable SSH and add a user named `ryan` to the system. We can achieve this by adding the following content to `/etc/nixos/configuration.nix`:
 
-```nix
+```nix{14-38}
+# Edit this configuration file to define what should be installed on
+# your system.  Help is available in the configuration.nix(5) man page
+# and in the NixOS manual (accessible by running ‘nixos-help’).
 { config, pkgs, ... }:
 
 {

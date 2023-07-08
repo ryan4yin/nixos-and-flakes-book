@@ -6,7 +6,7 @@
 
 但是目前 Nix Flakes 作为一个实验性的功能，仍未被默认启用。所以我们需要手动启用它，修改 `/etc/nixos/configuration.nix` 文件，在函数块中启用 flakes 与 nix-command 功能：
 
-```nix
+```nix{15}
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
@@ -140,7 +140,7 @@ cat flake.nix
 现在我们学习下如何通过 Flakes 安装其他来源的软件包，这比直接安装 nixpkgs 要灵活很多，最显而易见的好处是你可以很方便地设定软件的版本。
 以 [helix](https://github.com/helix-editor/helix) 编辑器为例，我们首先需要在 `flake.nix` 中添加 helix 这个 inputs 数据源：
 
-```nix
+```nix{10,19}
 {
   description = "NixOS configuration of Ryan Yin";
 
@@ -171,8 +171,9 @@ cat flake.nix
 
 接下来在 `configuration.nix` 中就能引用这个 flake input 数据源了：
 
-```nix
-# Nix 会通过名称匹配，自动将 specialArgs 中的 helix 注入到此函数的第三个参数
+```nix{3,14-15}
+# Nix 会通过名称匹配，
+# 自动将 specialArgs 中的 helix 注入到此函数的第三个参数
 { config, pkgs, helix, ... }:
 
 {
@@ -196,6 +197,8 @@ cat flake.nix
 
 ## 为 Flake 添加国内 cache 源 {#add-cache-source-for-flake}
 
+> 注意：这里介绍的手段只能加速部分包的下载，许多 inputs 数据源仍然会从 Github 拉取，另外如果找不到缓存，会执行本地构建，这通常仍然需要从国外下载源码与构建依赖，因此仍然会很慢。为了完全解决速度问题，仍然建议使用旁路由等局域网全局代理方案。
+
 Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓存构建结果提供给用户，但是在国内访问这个 cache 地址非常地慢，如果没有全局代理的话，基本上是无法使用的。
 另外 Flakes 的数据源基本都是某个 Github 仓库，在国内从 Github 下载 Flakes 数据源也同样非常非常慢。
 
@@ -203,19 +206,10 @@ Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓�
 
 为了自定义 cache 镜像源，我们必须在 `flake.nix` 中添加相关配置，这就是 `nixConfig` 参数，示例如下：
 
-```nix
+```nix{4-19}
 {
   description = "NixOS configuration of Ryan Yin";
 
-  # 为了确保够纯，Flake 不依赖系统自身的 /etc/nix/nix.conf，而是在 flake.nix 中通过 nixConfig 设置
-  # 但是为了确保安全性，flake 默认仅允许直接设置少数 nixConfig 参数，其他参数都需要在执行 nix 命令时指定 `--accept-flake-config`，否则会被忽略
-  #     <https://nixos.org/manual/nix/stable/command-ref/conf-file.html>
-  # 注意：即使添加了国内 cache 镜像，如果有些包国内镜像下载不到，它仍然会走国外。
-  # 我的解法是使用 openwrt 旁路由 + openclash 加速下载。
-  # 临时修改系统默认网关为我的旁路由 IP:
-  #    sudo ip route add default via 192.168.5.201
-  # 还原路由规则:
-  #    sudo ip route del default via 192.168.5.201
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
@@ -245,5 +239,3 @@ Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓�
 ```
 
 改完后使用 `sudo nixos-rebuild switch` 应用配置即可生效，后续所有的包都会优先从国内镜像源查找缓存。
-
-> 注：上述手段只能加速部分包的下载，许多 inputs 数据源仍然会从 Github 拉取，另外如果找不到缓存，会执行本地构建，这通常仍然需要从国外下载源码与构建依赖，因此仍然会很慢。为了完全解决速度问题，仍然建议使用旁路由等局域网全局代理方案。

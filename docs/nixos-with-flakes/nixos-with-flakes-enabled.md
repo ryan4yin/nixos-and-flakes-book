@@ -6,7 +6,7 @@ Flakes provide improved reproducibility and a more organized package structure, 
 
 However, as Flakes is still an experimental feature, it is not enabled by default. To enable Flakes, you need to modify the `/etc/nixos/configuration.nix` file as follows:
 
-```nix
+```nix{15}
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
@@ -142,7 +142,7 @@ Now let's learn how to install packages from other sources using Flakes. This pr
 
 First, we need to add Helix as an input in `flake.nix`:
 
-```nix
+```nix{10,19}
 {
   description = "NixOS configuration of Ryan Yin";
 
@@ -174,7 +174,7 @@ First, we need to add Helix as an input in `flake.nix`:
 
 Next, update `configuration.nix` to install `helix` from the `helix` input:
 
-```nix
+```nix{3,14-15}
 # Nix will automatically inject `helix` from specialArgs
 # into the third parameter of this function through name matching
 { config, pkgs, helix, ... }:
@@ -208,11 +208,9 @@ With the classic configuration method in NixOS, additional cache sources can be 
 
 To customize the cache source, we must add the related configuration in `flake.nix` using the `nixConfig` parameter. Here's an example:
 
-```nix
+```nix{4-19}
 {
   description = "NixOS configuration of Ryan Yin";
-
-  # ...
 
   nixConfig = {
     experimental-features = [ "nix-command" "flakes" ];
