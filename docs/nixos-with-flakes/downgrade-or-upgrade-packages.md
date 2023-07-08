@@ -13,8 +13,8 @@ Here's an example of how you can add multiple nixpkgs inputs, each using a diffe
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # Latest stable branch of nixpkgs, used for version rollback
-    # The current latest version is 22.11
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.11";
+    # The current latest version is 23.05
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.05";
 
     # You can also use a specific git commit hash to lock the version
     nixpkgs-fd40cef8d.url = "github:nixos/nixpkgs/fd40cef8d797670e203a27a91e4b8e6decf0b90c";
@@ -85,5 +85,4 @@ Next, you can refer to the packages from `pkgs-stable` or `pkgs-fd40cef8d` withi
 
 By adjusting the configuration as shown above, you can deploy it using `sudo nixos-rebuild switch`. This will downgrade your Firefox/Chrome/VSCode versions to the ones corresponding to `nixpkgs-stable` or `nixpkgs-fd40cef8d`.
 
-
->According to [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347), it's not a good practice to use `import` in submodules to customize `nixpkgs`. Each `import` creates a new instance of nixpkgs, which increases build time and memory usage as the configuration grows. To avoid this problem, we create all nixpkgs instances in `flake.nix`.
+> According to [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347), it's not a good practice to use `import` in submodules to customize `nixpkgs`. Each `import` creates a new instance of nixpkgs, which increases build time and memory usage as the configuration grows. To avoid this problem, we create all nixpkgs instances in `flake.nix`.

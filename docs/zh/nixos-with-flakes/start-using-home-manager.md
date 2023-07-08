@@ -112,6 +112,7 @@
   # 启用 starship，这是一个漂亮的 shell 提示符
   programs.starship = {
     enable = true;
+    # 自定义配置
     settings = {
       add_newline = false;
       aws.disabled = true;
@@ -120,9 +121,11 @@
     };
   };
 
-  # alacritty 终端配置
+  # alacritty - 一个跨平台终端，带 GPU 加速功能
   programs.alacritty = {
     enable = true;
+    # 自定义配置
+    settings = {
       env.TERM = "xterm-256color";
       font = {
         size = 12;
@@ -130,20 +133,22 @@
       };
       scrolling.multiplier = 5;
       selection.save_to_clipboard = true;
+    };
   };
 
   programs.bash = {
     enable = true;
     enableCompletion = true;
+    # TODO 在这里添加你的自定义 bashrc 内容
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
     '';
 
-    # set some aliases, feel free to add more or remove some
+    # TODO 设置一些别名方便使用，你可以根据自己的需要进行增删
     shellAliases = {
+      k = "kubectl";
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
-      httpproxy = "export https_proxy=http://127.0.0.1:7890; export http_proxy=http://127.0.0.1:7890;";
     };
   };
 
@@ -155,7 +160,7 @@
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.05";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

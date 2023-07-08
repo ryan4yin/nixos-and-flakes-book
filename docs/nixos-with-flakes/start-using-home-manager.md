@@ -112,6 +112,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
   # starship - an customizable prompt for any shell
   programs.starship = {
     enable = true;
+    # custom settings
     settings = {
       add_newline = false;
       aws.disabled = true;
@@ -123,6 +124,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
   # alacritty - a cross-platform, GPU-accelerated terminal emulator
   programs.alacritty = {
     enable = true;
+    # custom settings
     settings = {
       env.TERM = "xterm-256color";
       font = {
@@ -137,15 +139,16 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
   programs.bash = {
     enable = true;
     enableCompletion = true;
+    # TODO add your cusotm bashrc here
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
     '';
 
     # set some aliases, feel free to add more or remove some
     shellAliases = {
+      k = "kubectl";
       urldecode = "python3 -c 'import sys, urllib.parse as ul; print(ul.unquote_plus(sys.stdin.read()))'";
       urlencode = "python3 -c 'import sys, urllib.parse as ul; print(ul.quote_plus(sys.stdin.read()))'";
-      httpproxy = "export https_proxy=http://127.0.0.1:7890; export http_proxy=http://127.0.0.1:7890;";
     };
   };
 
@@ -157,7 +160,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
   # You can update home Manager without changing this value. See
   # the home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.05";
 
   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
