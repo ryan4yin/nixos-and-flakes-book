@@ -51,10 +51,12 @@ NixOS 的系统配置路径为 `/etc/nixos/configuration.nix`，它包含系统�
   # 启用 OpenSSH 后台服务
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";         # disable root login
-    passwordAuthentication = false; # disable password login
+    settings = {
+      X11Forwarding = true;
+      PermitRootLogin = "no"; # disable root login
+      PasswordAuthentication = false; # disable password login
+    };
     openFirewall = true;
-    forwardX11 = true;              # enable X11 forwarding
   };
 
   # 省略其他配置......

@@ -40,13 +40,15 @@ To illustrate how to use `/etc/nixos/configuration.nix`, let's consider an examp
     ];
   };
 
-  # Enable openssh-server
+  # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
-    permitRootLogin = "no";         # Disable root login
-    passwordAuthentication = false; # Disable password login
+    settings = {
+      X11Forwarding = true;
+      PermitRootLogin = "no"; # disable root login
+      PasswordAuthentication = false; # disable password login
+    };
     openFirewall = true;
-    forwardX11 = true;              # Enable X11 forwarding
   };
 
   # Omit the rest of the configuration...
