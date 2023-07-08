@@ -4,7 +4,7 @@ The flakes experimental feature is a major development for Nix, it introduces a 
 
 Flakes is one of the most significant changes the nix project has ever seen.[^2]
 
-## A Word of Caution about Flakes
+## A Word of Caution about Flakes <Badge type="danger" text="caution" />
 
 The benefits of Flakes are evident, and the entire NixOS community has embraced it wholeheartedly. Currently, more than half of the users utilize Flakes[^3], providing assurance that Flakes will not be deprecated.
 
