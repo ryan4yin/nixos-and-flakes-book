@@ -1,3 +1,5 @@
+![](/nixos-and-flakes-book.webp)
+
 # Introduction to Nix & NixOS
 
 Nix is a declarative package manager that enables users to specify the desired system state in configuration files, and it takes responsibility for achieving that state.

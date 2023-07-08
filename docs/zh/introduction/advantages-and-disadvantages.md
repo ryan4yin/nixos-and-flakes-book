@@ -12,7 +12,20 @@
   - 可以随时回滚到任一历史环境，NixOS 甚至默认将所有旧版本都加入到了启动项，确保系统滚挂了也能随时回退。所以 Nix 也被认为是最稳定的包管理方式。
 - **没有依赖冲突问题**
   - 因为 Nix 中每个软件包都拥有唯一的 hash，其安装路径中也会包含这个 hash 值，因此可以多版本共存。
-- 社区很活跃，第三方项目也挺丰富，官方包仓库 nixpkgs 贡献者众多，也有很多人分享自己的 Nix 配置，一遍浏览下来，整个生态给我一种发现新大陆的兴奋感。
+- **社区很活跃，第三方项目也挺丰富**
+  - 官方包仓库 nixpkgs 贡献者众多，也有很多人分享自己的 Nix 配置，一遍浏览下来，整个生态给我一种发现新大陆的兴奋感。
+
+<figure>
+  <img src="/nixos-bootloader.avif">
+  <figcaption>
+    <h4 align="center">
+      NixOS 启动项中列出了所有历史版本，图来自 
+      <a href="https://discourse.nixos.org/t/how-to-make-uefis-grub2-menu-the-same-as-bioss-one/10074" target="_blank" rel="noopener noreferrer">
+        NixOS Discourse - 10074
+      </a>
+    </h4>
+  </figcaption>
+</figure>
 
 ## 缺点 {#disadvantages}
 

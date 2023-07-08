@@ -1,3 +1,5 @@
+![](/nixos-and-flakes-book.webp)
+
 # Nix 与 NixOS 简介
 
 Nix 是一个声明式的软件包管理器，用户需要通过某些配置声明好期望的环境状态，而 Nix 负责达成这个目标。

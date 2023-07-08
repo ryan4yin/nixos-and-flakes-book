@@ -12,8 +12,21 @@
   - It is possible to roll back to any previous system state, and NixOS even includes all old versions in the boot options by default, ensuring the ability to easily revert changes. Consequently, Nix is regarded as one of the most stable package management approaches.
 - **No Dependency Conflict Issues**
   - Each software package in Nix has a unique hash, which is incorporated into its installation path, allowing multiple versions to coexist.
+- **The community is active, with a diverse range of third-party projects**
+  - The official package repository, nixpkgs, has numerous contributors, and many people share their Nix configurations. Exploring the NixOS ecosystem is an exciting experience, akin to discovering a new continent.
 
-The community is active, with a diverse range of third-party projects. The official package repository, nixpkgs, has numerous contributors, and many people share their Nix configurations. Exploring the NixOS ecosystem is an exciting experience, akin to discovering a new continent.
+<figure>
+  <img src="/nixos-bootloader.avif">
+  <figcaption>
+    <h4 align="center">
+      All historical versions are listed in the boot options of NixOS. <br>
+      Image from
+      <a href="https://discourse.nixos.org/t/how-to-make-uefis-grub2-menu-the-same-as-bioss-one/10074" target="_blank" rel="noopener noreferrer">
+        NixOS Discourse - 10074
+      </a>
+    </h4>
+  </figcaption>
+</figure>
 
 ## Disadvantages of NixOS
 
