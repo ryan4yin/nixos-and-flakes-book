@@ -142,7 +142,7 @@ Now let's learn how to install packages from other sources using Flakes. This pr
 
 First, we need to add Helix as an input in `flake.nix`:
 
-```nix{10,19}
+```nix{10,20}
 {
   description = "NixOS configuration of Ryan Yin";
 

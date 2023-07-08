@@ -140,7 +140,7 @@ cat flake.nix
 现在我们学习下如何通过 Flakes 安装其他来源的软件包，这比直接安装 nixpkgs 要灵活很多，最显而易见的好处是你可以很方便地设定软件的版本。
 以 [helix](https://github.com/helix-editor/helix) 编辑器为例，我们首先需要在 `flake.nix` 中添加 helix 这个 inputs 数据源：
 
-```nix{10,19}
+```nix{10,20}
 {
   description = "NixOS configuration of Ryan Yin";
 
@@ -158,7 +158,8 @@ cat flake.nix
       nixos-test = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
-        # 将所有 inputs 参数设为所有子模块的特殊参数，这样就能在子模块中使用 helix 这个 inputs 了
+        # 将所有 inputs 参数设为所有子模块的特殊参数，
+        # 这样就能在子模块中使用 helix 这个 inputs 了
         specialArgs = inputs;
         modules = [
           ./configuration.nix
