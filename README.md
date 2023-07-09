@@ -2,7 +2,7 @@
 
 # NixOS & Flakes Book :hammer_and_wrench: :heart:
 
-Want to know NixOS & Flakes in details? Looking for a beginner-friendly tutorial? Then you've come to the right place!
+Want to know NixOS & Flakes in detail? Looking for a beginner-friendly tutorial? Then you've come to the right place!
 
 An unofficial and opinionated NixOS & Flakes :book: for beginners: https://nixos-and-flakes.thiscute.world
 
