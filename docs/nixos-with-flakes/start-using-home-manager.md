@@ -221,3 +221,19 @@ To find the options we can use in `home.nix`, referring to the following documen
 - [Home Manager - Appendix A. Configuration Options](https://nix-community.github.io/home-manager/options.html): A list of all options, it is recommended to search for keywords in it.
   - [Home Manager Option Search](https://mipmip.github.io/home-manager-option-search/) is another option search tool with better UI.
 - [home-manager](https://github.com/nix-community/home-manager): Some options are not listed in the official documentation, or the documentation is not clear enough, you can directly search and read the corresponding source code in this home-manager repo.
+
+## Home Manager vs NixOS
+
+When it comes to managing software packages and configurations, you often have the choice of using either NixOS modules (`configuration.nix`) or Home Manager (`home.nix`). This poses a dilemma: **What are the differences between putting packages or configuration files in NixOS modules versus Home Manager configurations, and how should you decide?**
+
+First, let's understand the differences. Packages and configuration files installed through NixOS modules are global to the entire system. Global configurations are typically stored in `/etc`, and globally installed packages are linked accordingly. Regardless of the user you switch to, you can access and use these packages and configurations.
+
+On the other hand, everything installed through Home Manager is specific to the corresponding user. Once you switch to another user, those configurations and packages become unavailable.
+
+Based on these characteristics, here is a general recommended approach:
+
+- NixOS modules: Install core system components and other software packages required by almost all users, including the root user.
+  - For example, if you want a package to be accessible even when you switch to the root user, or if you want a configuration to take effect for the root user as well, you should install it through a NixOS module.
+- Home Manager: Use Home Manager to install all other configurations and software specific to individual users.
+
+In summary, NixOS modules are suitable for installing system-wide components and packages that need to be accessible to multiple users, while Home Manager is ideal for managing user-specific configurations and software.

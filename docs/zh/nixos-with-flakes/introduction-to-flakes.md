@@ -26,12 +26,15 @@ Nix 于 2020 年推出了 `nix-command` & `flakes` 两个新特性，它们提�
    1. Nix Flakes 在 `flake.nix` 中通过 `inputs` 声明依赖包的数据源，通过 `flake.lock` 锁定依赖版本，完全取代掉了 `nix-channel` 的功能。
 2. `nix-env`: 用于管理用户环境的软件包，是传统 Nix 的核心命令行工具。它从 `nix-channel` 定义的数据源中安装软件包，所以安装的软件包版本受 channel 影响。
    1. 通过 `nix-env` 安装的包不会被自动记录到 Nix 的声明式配置中，是完全脱离掌控的，无法在其他主机上复现，因此不推荐使用。
-   2. 在 Nix Flakes 中对应的命令为 `nix profile`，此命令也同样不推荐使用。
+   2. 在 Nix Flakes 中对应的命令为 `nix profile`，我个人也不太推荐直接使用它.
 3. `nix-shell`: nix-shell 用于创建一个临时的 shell 环境
    1. 这玩意儿可能有点复杂了，因此在 Nix Flakes 中它被拆分成了三个子命令 `nix develop`, `nix shell` 以及 `nix run`，我们会在「[构建开发环境](../development/intro.md)」一章详细介绍这三个命令。
 4. `nix-build`: 用于构建 Nix 包，它会将构建结果放到 `/nix/store` 路径下，但是不会记录到 Nix 的声明式配置中。
    1. 在 Nix Flakes 中对应的命令为 `nix build`
-5. ...
+5. `nix-collect-garbage`: 垃圾回收指令，用于清理 `/nix/store` 中未被使用的 Store Objects.
+   1. 在 Nix Flakes 中对应的命令为 `nix store gc --debug`.
+6. 以及其他使用地较少的命令，就不一一列出了.
+   1. 详细的命令对比列表可以看看 [Try to explain nix commands](https://qiita-com.translate.goog/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en)
 
 > 可能也就 `nix-env -qa` 这个命令偶尔还会有些用了，它返回当前系统下安装的所有软件包。
 
