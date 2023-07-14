@@ -156,7 +156,7 @@ Note that the copied template cannot be used directly. You need to modify it to 
 
 We defined a NixOS system called `nixos-test` with a configuration file at `./configuration.nix`, which is the classic configuration we modified before. Therefore, we can still make use of it.
 
-To apply the configuration, run `sudo nixos-rebuild switch`. No changes will be made to the system because we imported the old configuration file in `/etc/nixos/flake.nix`, so the actual state we declared remains unchanged.
+To apply the configuration to a system with hostname `nixos-test`, run `sudo nixos-rebuild switch`. No changes will be made to the system because we imported the old configuration file in `/etc/nixos/flake.nix`, so the actual state we declared remains unchanged.
 
 ## Managing System Packages with Flakes
 
