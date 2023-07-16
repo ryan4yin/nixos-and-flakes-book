@@ -5,11 +5,14 @@ The `inputs` section in `flake.nix` is an attribute set used to specify the depe
 ```nix
 {
   inputs = {
-    # GitHub repository as the data source, specifying the master branch. This is the most common input format.
+    # GitHub repository as the data source, specifying the master branch.
+    # This is the most common input format.
     nixpkgs.url = "github:Mic92/nixpkgs/master";
     # Git URL, applicable to any Git repository using the https/ssh protocol.
     git-example.url = "git+https://git.somehost.tld/user/path?ref=branch";
-    # Similar to fetching a Git repository, but using the ssh protocol with key authentication. Also uses the shallow=1 parameter to avoid copying the .git directory.
+    # Similar to fetching a Git repository, but using the ssh protocol 
+    # with key authentication. Also uses the shallow=1 parameter 
+    # to avoid copying the .git directory.
     ssh-git-example.url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1";
     # It's also possible to directly depend on a local Git repository.
     git-directory-example.url = "git+file:/path/to/repo?shallow=1";
@@ -31,7 +34,8 @@ The `inputs` section in `flake.nix` is an attribute set used to specify the depe
     sops-nix = {
       url = "github:Mic92/sops-nix";
       # `follows` is the inheritance syntax within inputs.
-      # Here, it ensures that sops-nix's `inputs.nixpkgs` aligns with the current flake's inputs.nixpkgs,
+      # Here, it ensures that sops-nix's `inputs.nixpkgs` aligns with 
+      # the current flake's inputs.nixpkgs,
       # avoiding inconsistencies in the dependency's nixpkgs version.
       inputs.nixpkgs.follows = "nixpkgs";
     };
