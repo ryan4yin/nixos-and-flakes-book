@@ -10,4 +10,6 @@ Nix 有多种安装方式：
 NixOS 的安装步骤很简单，这里不多介绍，仅列一下我觉得比较有用的参考资料：
 
 1. [NixOS 官网](https://nixos.org/download.html)
-2. 国内镜像源：<https://mirrors.bfsu.edu.cn/help/nix/>
+2. 国内镜像源：
+  1. <https://mirrors.ustc.edu.cn/help/nix-channels.html>
+  2. <https://mirrors.tuna.tsinghua.edu.cn/help/nix/> 
