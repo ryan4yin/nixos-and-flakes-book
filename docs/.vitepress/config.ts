@@ -181,6 +181,10 @@ function themeConfigEnglish() {
               text: "Nix Options",
               link: "/other-usage-of-flakes/options.md",
             },
+            {
+              text: "Testing",
+              link: "/other-usage-of-flakes/testing.md",
+            },
           ],
         },
         {
@@ -348,6 +352,10 @@ function themeConfigChinese() {
             {
               text: "Nix Options",
               link: "/zh/other-usage-of-flakes/options.md",
+            },
+            {
+              text: "Testing",
+              link: "/zh/other-usage-of-flakes/testing.md",
             },
           ],
         },
