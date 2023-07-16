@@ -156,7 +156,7 @@ function themeConfigEnglish() {
             },
             {
               text: "Debug with nix repl",
-              link: "/best-practices/debug-with-nix-repl.md",
+              link: "/best-practices/debugging.md",
             },
           ],
         },
@@ -329,7 +329,7 @@ function themeConfigChinese() {
             },
             {
               text: "使用 nix repl 查看源码、调试配置",
-              link: "/zh/best-practices/debug-with-nix-repl.md",
+              link: "/zh/best-practices/debugging.md",
             },
           ],
         },
