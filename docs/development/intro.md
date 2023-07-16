@@ -242,49 +242,52 @@ Hello, world!
 
 This usage is mainly used to debug the build process of a Nix package, or to execute some commands in the build environment of a Nix package.
 
-## `nix shell` & `nix run`
+## `nix build`
 
-Compare to `nix develop`, these two commands are much simpler and easier to understand.
+The `nix build` command is used to build a software package and creates a symbolic link named `result` in the current directory, which points to the build result.
 
-`nix shell` is used to enter an environment containing the specified Nix package and open an interactive shell for it:
+Here's an example:
 
-```shell
-# hello not exists
-› hello
-hello: command not found
-
-# enter an environment containing hello
-› nix shell nixpkgs#hello
-
-# now hello exists
-› hello
-Hello, world!
+```bash
+# Build the package 'ponysay' from the 'nixpkgs' flake
+nix build "nixpkgs#ponysay"
+# Use the built 'ponysay' command
+› ./result/bin/ponysay 'hey buddy!'
+ ____________ 
+< hey buddy! >
+ ------------ 
+     \                                  
+      \                                 
+       \                                
+       ▄▄  ▄▄ ▄ ▄                       
+    ▀▄▄▄█▄▄▄▄▄█▄▄▄                      
+   ▀▄███▄▄██▄██▄▄██                     
+  ▄██▄███▄▄██▄▄▄█▄██                    
+ █▄█▄██▄█████████▄██                    
+  ▄▄█▄█▄▄▄▄▄████████                    
+ ▀▀▀▄█▄█▄█▄▄▄▄▄█████         ▄   ▄      
+    ▀▄████▄▄▄█▄█▄▄██       ▄▄▄▄▄█▄▄▄    
+    █▄██▄▄▄▄███▄▄▄██    ▄▄▄▄▄▄▄▄▄█▄▄    
+    ▀▄▄██████▄▄▄████    █████████████   
+       ▀▀▀▀▀█████▄▄ ▄▄▄▄▄▄▄▄▄▄██▄█▄▄▀   
+            ██▄███▄▄▄▄█▄▄▀  ███▄█▄▄▄█▀  
+            █▄██▄▄▄▄▄████   ███████▄██  
+            █▄███▄▄█████    ▀███▄█████▄ 
+            ██████▀▄▄▄█▄█    █▄██▄▄█▄█▄ 
+           ███████ ███████   ▀████▄████ 
+           ▀▀█▄▄▄▀ ▀▀█▄▄▄▀     ▀██▄▄██▀█
+                                ▀  ▀▀█  
 ```
 
-`nix run` is used to create an environment containing the specified installable and run the installable in it(without install it to the system):
+## Other Commands
 
-```shell
-# hello not exists
-› hello
-hello: command not found
-
-# enter an environment containing hello and run it
-› nix run nixpkgs#hello
-Hello, world!
-```
-
-Because `nix run` will directly run the Nix package as an installable, the Nix package used as its parameter must be able to generate an executable program.
-
-According to the description of `nix run --help`, `nix run` will execute `<out>/bin/<name>`, where `<out>` is the root directory of a Derivation, and `<name>` is selected in the following order:
-
-- The `meta.mainProgram` attribute of the derivation.
-- The `pname` attribute of the derivation.
-- The `name` part of the value of the name attribute of the derivation.
-
-For instance, if name is set to `hello-1.10`, nix run will run $out/bin/hello.
+There are other commands like `nix flake init`, which you can explore in [New Nix Commands][New Nix Commands]. For more detailed information, please refer to the documentation.
 
 ## References
 
 - [pkgs.mkShell - nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
 - [A minimal nix-shell](https://fzakaria.com/2021/08/02/a-minimal-nix-shell.html)
 - [One too many shell, Clearing up with nix' shells nix shell and nix-shell - Yannik Sander](https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/)
+
+[New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
+

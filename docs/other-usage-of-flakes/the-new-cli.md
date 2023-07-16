@@ -1,37 +1,77 @@
 # Usage of the New CLI
 
-Once you have enabled `nix-command` and `flake`, you can use the `nix help` command to obtain information about the [New Nix Commands][New Nix Commands]. Here are some useful examples:
+Once you have enabled the `nix-command` and `flakes` features, you can start using the new generation Nix command-line tools provided by [New Nix Commands][New Nix Commands]. In this section, we will focus on two commands: `nix shell` and `nix run`. Other important commands like `nix build` will be discussed in detail in the chapter "Development Work on NixOS".
 
-```bash
-# The following command installs and runs the `ponysay` package from the `nixpkgs` flake.
-# The `nixpkgs` flake refers to the `nixpkgs` repository on GitHub, which contains a `flake.nix` file.
-# `nixpkgs` is a flake registry ID for `github:NixOS/nixpkgs/nixos-unstable`.
-# You can find all the flake registry IDs at <https://github.com/NixOS/flake-registry/blob/master/flake-registry.json>.
-echo "Hello Nix" | nix run "nixpkgs#ponysay"
+## `nix shell`
 
-# this command is the same as above, but use a full flake URI instead of falkeregistry id.
-echo "Hello Nix" | nix run "github:NixOS/nixpkgs/nixos-unstable#ponysay"
+The `nix shell` command allows you to enter an environment with the specified Nix package and opens an interactive shell within that environment:
 
-# instead of treat flake package as an application,
-# this command use `devShells.example` in flake `zero-to-nix`'s outputs, to setup the development environment,
-# and then open a bash shell in that environment.
-nix develop "github:DeterminateSystems/zero-to-nix#example"
+```shell
+# hello is not available
+› hello
+hello: command not found
 
-# instead of using a remote flake, you can open a bash shell using the flake located in the current directory.
-mkdir my-flake && cd my-flake
-# init a flake with template
-nix flake init --template "github:DeterminateSystems/zero-to-nix#javascript-dev"
-# open a bash shell using the flake in current directory
-nix develop
-# or if your flake has multiple devShell outputs, you can specify which one to use.
-nix develop .#example
+# Enter an environment with the 'hello' package
+› nix shell nixpkgs#hello
 
-# build package `bat` from flake `nixpkgs`, and put a symlink `result` in the current directory.
-mkdir build-nix-package && cd build-nix-package
-nix build "nixpkgs#bat"
-# build a local flake is the same as nix develop, skip it
+# hello is now available
+› hello
+Hello, world!
 ```
 
-We will introduce more details about `nix develop`, `nix shell` and `nix run` in the next chapter.
+## `nix run`
+
+On the other hand, `nix run` creates an environment with the specified Nix package and directly runs that package within the environment (without installing it into the system environment):
+
+```shell
+# hello is not available
+› hello
+hello: command not found
+
+# Create an environment with the 'hello' package and run it
+› nix run nixpkgs#hello
+Hello, world!
+```
+
+Since `nix run` directly executes the Nix package, the package specified as the argument must generate an executable program.
+
+According to the `nix run --help` documentation, `nix run` executes the command `<out>/bin/<name>`, where `<out>` is the root directory of the derivation and `<name>` is selected in the following order:
+
+- The `meta.mainProgram` attribute of the derivation
+- The `pname` attribute of the derivation
+- The content of the `name` attribute of the derivation with the version number removed
+
+For example, in the case of the 'hello' package we tested earlier, `nix run` actually executes the program `$out/bin/hello`.
+
+Here are two more examples with detailed explanations of the relevant parameters:
+
+```bash
+# Explanation of the command:
+#   `nixpkgs#ponysay` means the 'ponysay' package in the 'nixpkgs' flake.
+#   `nixpkgs` is a flake registry id, and Nix will find the corresponding GitHub repository address
+#   from <https://github.com/NixOS/flake-registry/blob/master/flake-registry.json>.
+# Therefore, this command creates a new environment, installs, and runs the 'ponysay' package provided by the 'nixpkgs' flake.
+#   Note: It has been mentioned earlier that a Nix package is one of the outputs of a flake.
+echo "Hello Nix" | nix run "nixpkgs#ponysay"
+
+# This command has the same effect as the previous one, but it uses the complete flake URI instead of the flake registry id.
+echo "Hello Nix" | nix run "github:NixOS/nixpkgs/nixos-unstable#ponysay"
+```
+
+## Common Use Cases for `nix run` and `nix shell`
+
+These commands are commonly used for running temporary commands. For example, if I want to clone my configuration repository using Git on a new NixOS host without Git installed, I can use the following command:
+
+```bash
+nix run nixpkgs#git clone git@github.com:ryan4yin/nix-config.git
+```
+
+Alternatively, you can use the following command:
+
+```bash
+nix shell nixpkgs#git 
+git clone git@github.com:ryan4yin/nix-config.git
+```
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
+
