@@ -240,7 +240,7 @@ To customize the cache source, we must add the related configuration in `flake.n
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
       # Replace the official cache with a mirror located in China
-      "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
 

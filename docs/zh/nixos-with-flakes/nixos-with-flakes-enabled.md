@@ -227,7 +227,7 @@ Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓�
     experimental-features = [ "nix-command" "flakes" ];
     substituters = [
       # replace official cache with a mirror located in China
-      "https://mirrors.bfsu.edu.cn/nix-channels/store"
+      "https://mirrors.ustc.edu.cn/nix-channels/store"
       "https://cache.nixos.org/"
     ];
 
