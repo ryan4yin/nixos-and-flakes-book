@@ -22,8 +22,10 @@ The `inputs` section in `flake.nix` is an attribute set used to specify the depe
     directory-example.url = "path:/path/to/repo";
 
     # If the data source is not a flake, set flake=false.
-    # `flake=false` is usually used to include additional source code, configuration files, etc.
-    # In Nix code, you can directly reference files within it using "${inputs.bar}/xxx/xxx" notation.
+    # `flake=false` is usually used to include additional source code,
+    #   configuration files, etc.
+    # In Nix code, you can directly reference files within
+    #   it using "${inputs.bar}/xxx/xxx" notation.
     # For example, import "${inputs.bar}/xxx/xxx.nix" to import a specific nix file,
     # or use "${inputs.bar}/xx/xx" as a path parameter for certain options.
     bar = {
