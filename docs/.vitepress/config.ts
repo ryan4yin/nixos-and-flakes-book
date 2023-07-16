@@ -155,7 +155,7 @@ function themeConfigEnglish() {
               link: "/best-practices/simplify-nixos-related-commands.md",
             },
             {
-              text: "Debug with nix repl",
+              text: "Debugging Derivations and Nix Expressions",
               link: "/best-practices/debugging.md",
             },
           ],
@@ -328,7 +328,7 @@ function themeConfigChinese() {
               link: "/zh/best-practices/simplify-nixos-related-commands.md",
             },
             {
-              text: "使用 nix repl 查看源码、调试配置",
+              text: "调试 Nix 软件包与 Nix 表达式",
               link: "/zh/best-practices/debugging.md",
             },
           ],
