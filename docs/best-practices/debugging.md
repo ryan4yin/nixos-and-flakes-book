@@ -1,10 +1,12 @@
-# 通过 `nix repl` 查看源码、调试配置
+# Debugging Derivations and Nix Expressions
 
-前面我们已经使用 `nix repl '<nixpkgs>'` 看过很多次源码了，这是一个非常强大的工具，可以帮助我们理解 Nix 的工作原理。
+## Debugging with `nix repl`
 
-要学会用 `nix repl`，最好先看看它的 help 信息：
+We have frequently used nix repl `<nixpkgs>` throughout this guide to examine the source code. It is a powerful tool that helps us understand how things work in Nix.
 
-```
+Let's take a closer look at the help message of nix repl:
+
+```shell
 › nix repl -f '<nixpkgs>'
 Welcome to Nix 2.13.3. Type :? for help.
 
@@ -33,24 +35,23 @@ The following commands are available:
   :te [bool]    Enable, disable or toggle showing traces for errors
 ```
 
-我最常用的命令是 `:lf <ref>` 跟 `:e <expr>`.
+There are a couple of expressions that I frequently use: `:lf <ref>` and `:e <expr>`.
 
-`:e <expr>` 非常直观，所以这里不再赘述，我们来看看 `:lf <ref>`：
+The `:e <expr>` command is very intuitive, so I won't go into detail about it. Instead, let's focus on `:lf <ref>`:
 
 ```nix
-# 进入我的 nix 配置目录（建议替换成你自己的配置目录）
+# cd into my nix-config repo(you should replace it with your own nix-config repo)
 › cd ~/nix-config/
 
-# 进入 nix repl 解释器
+# enter nix repl
 › nix repl
 Welcome to Nix 2.13.3. Type :? for help.
 
-# 将我的 nix 配置作为一个 flake 加载到当前作用域中
+# load my nix flake and add it to scope
 nix-repl> :lf .
 Added 16 variables.
 
-# 按 <TAB> 看看当前作用域中有哪些变量，果然 nixosConfigurations inputs outputs 跟 packages 都在里面
-# 这意味着我们可以很方便地检查这些配置的内部状态
+# press <TAB> to see what we have in scope
 nix-repl><TAB>
 # ......omit some outputs
 __isInt                          nixosConfigurations
@@ -60,7 +61,8 @@ __isString                       outputs
 __langVersion                    packages
 # ......omit some outputs
 
-# 看看 inputs 里都有些啥
+
+# check what's in inputs
 nix-repl> inputs.<TAB>
 inputs.agenix            inputs.nixpkgs
 inputs.darwin            inputs.nixpkgs-darwin
@@ -69,21 +71,20 @@ inputs.hyprland          inputs.nixpkgs-wayland
 inputs.nil
 inputs.nixos-generators
 
-# 看看 inputs.nil.packages 里都有些啥
+# check what's in inputs.nil
 nix-repl> inputs.nil.packages.
 inputs.nil.packages.aarch64-darwin
 inputs.nil.packages.aarch64-linux
 inputs.nil.packages.x86_64-darwin
 inputs.nil.packages.x86_64-linux
 
-# 看看 outputs 里都有些啥
+# check the outputs of my nix flake
 nix-repl> outputs.nixosConfigurations.<TAB>
 outputs.nixosConfigurations.ai
 outputs.nixosConfigurations.aquamarine
 outputs.nixosConfigurations.kana
 outputs.nixosConfigurations.ruby
 
-# 看看 ai 的配置都有些啥
 nix-repl> outputs.nixosConfigurations.ai.<TAB>
 outputs.nixosConfigurations.ai._module
 outputs.nixosConfigurations.ai._type
@@ -109,6 +110,11 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.activation
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.activationPackage
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.emptyActivationPath
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.enableDebugInfo
+outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.enableNixpkgsReleaseCheck
+outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.extraActivationPath
+outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.extraBuilderCommands
+outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.extraOutputsToInstall
+outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.extraProfileCommands
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file
 # ......omit other outputs
 
@@ -120,12 +126,12 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariab
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.TERM
 # ......omit other outputs
 
-# 看看 `TERM` 这个环境变量的值是啥
+# check the value of `TERM`
 nix-repl> outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.sessionVariables.TERM
 "xterm-256color"
 
 
-# 看下我使用 `home.file` 定义的所有文件
+# check all files defined by `home.file`
 nix-repl> outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file.<TAB>
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..bash_profile
 outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..bashrc
@@ -136,4 +142,20 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/
 #......
 ```
 
-能看到，通过 `nix repl` 加载好我的 flake 配置后，就能很方便地检查所有的配置项了，这对于调试非常有用。
+As you can see, after loading your Nix flake into the REPL, you can check every attribute of the flake. This capability is very convenient for debugging purposes.
+
+
+## Debugging functions provided by nixpkgs
+
+TODO
+
+## Debugging by using `NIX_DEBUG` in derivation
+
+TODO
+
+## References
+
+- [How to make nix build display all commands executed by make?](https://www.reddit.com/r/NixOS/comments/14stdgy/how_to_make_nix_build_display_all_commands/)
+  - use `NIX_DEBUG=7` in derivation
+- [Collection of functions useful for debugging broken nix expressions.](https://github.com/NixOS/nixpkgs/blob/master/lib/debug.nix)
+
