@@ -8,12 +8,21 @@
     # 以 GitHub 仓库为数据源，指定使用 master 分支，这是最常见的 input 格式
     nixpkgs.url = "github:Mic92/nixpkgs/master";
     # Git URL，可用于任何基于 https/ssh 协议的 Git 仓库
-    git-example.url = "git+https://git.somehost.tld/user/path?ref=branch&rev=fdc8ef970de2b4634e1b3dca296e1ed918459a9e";
-    # 上面的例子会复制 .git 到本地, 如果数据量较大，建议使用 shallow=1 参数避免复制 .git
+    git-example.url = "git+https://git.somehost.tld/user/path?ref=branch";
+    # 同样是拉取 Git 仓库，但使用 ssh 协议 + 密钥认证，同时使用了 shallow=1 参数避免复制 .git
+    ssh-git-example.url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1";
+    # 当然也可以直接依赖本地的 git 仓库
     git-directory-example.url = "git+file:/path/to/repo?shallow=1";
+    # 使用 `dir` 参数指定某个子目录
+    nixpkgs.url = "github:foo/bar?dir=shu";
     # 本地文件夹 (如果使用绝对路径，可省略掉前缀 'path:')
     directory-example.url = "path:/path/to/repo";
+
     # 如果数据源不是一个 flake，则需要设置 flake=false
+    # `flake=false` 通常被用于引入一些额外的源代码、配置文件等
+    # 在 nix 代码中可以直接通过 "${inputs.bar}/xxx/xxx" 的方式来引用其中的文件
+    # 比如说通过 `import "${inputs.bar}/xxx/xxx.nix"` 来导入其中的 nix 文件
+    # 或者直接将 "${inputs.bar}/xx/xx" 当作某些 option 的路径参数使用
     bar = {
       url = "github:foo/bar/branch";
       flake = false;
@@ -32,9 +41,6 @@
       url = "github:vlaci/nix-doom-emacs?rev=238b18d7b2c8239f676358634bfb32693d3706f3";
       flake = false;
     };
-
-    # 使用 `dir` 参数指定某个子目录
-    nixpkgs.url = "github:foo/bar?dir=shu";
   };
 
   outputs = { self, ... }@inputs: { ... };

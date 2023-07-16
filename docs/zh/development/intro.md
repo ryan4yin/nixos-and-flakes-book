@@ -246,49 +246,53 @@ Hello, world!
 
 这种用法的主要应用场景是调试某个 Nix 包的构建过程，或者在某个 Nix 包的构建环境中执行一些命令。
 
-## `nix shell` 与 `nix run`
+## `nix build`
 
-与 `nix develop` 相比，这两个命令就简单且好理解很多了。
+`nix build` 用于构建一个软件包，并在当前目录下创建一个名为 `result` 的符号链接，链接到该构建结果。
 
-`nix shell` 用于进入到一个含有指定 Nix 包的环境并为它打开一个交互式 shell：
+一个示例：
 
-```shell
-# hello 不存在
-› hello
-hello: command not found
-
-# 进入到一个含有 hello 的 shell 环境
-› nix shell nixpkgs#hello
-
-# hello 可以用了
-› hello
-Hello, world!
+```bash
+# 构建 `nixpkgs` flake 中的 `ponysay` 这个包
+nix build "nixpkgs#ponysay"
+# 使用构建出来的 ponysay 命令
+› ./result/bin/ponysay 'hey buddy!'
+ ____________ 
+< hey buddy! >
+ ------------ 
+     \                                  
+      \                                 
+       \                                
+       ▄▄  ▄▄ ▄ ▄                       
+    ▀▄▄▄█▄▄▄▄▄█▄▄▄                      
+   ▀▄███▄▄██▄██▄▄██                     
+  ▄██▄███▄▄██▄▄▄█▄██                    
+ █▄█▄██▄█████████▄██                    
+  ▄▄█▄█▄▄▄▄▄████████                    
+ ▀▀▀▄█▄█▄█▄▄▄▄▄█████         ▄   ▄      
+    ▀▄████▄▄▄█▄█▄▄██       ▄▄▄▄▄█▄▄▄    
+    █▄██▄▄▄▄███▄▄▄██    ▄▄▄▄▄▄▄▄▄█▄▄    
+    ▀▄▄██████▄▄▄████    █████████████   
+       ▀▀▀▀▀█████▄▄ ▄▄▄▄▄▄▄▄▄▄██▄█▄▄▀   
+            ██▄███▄▄▄▄█▄▄▀  ███▄█▄▄▄█▀  
+            █▄██▄▄▄▄▄████   ███████▄██  
+            █▄███▄▄█████    ▀███▄█████▄ 
+            ██████▀▄▄▄█▄█    █▄██▄▄█▄█▄ 
+           ███████ ███████   ▀████▄████ 
+           ▀▀█▄▄▄▀ ▀▀█▄▄▄▀     ▀██▄▄██▀█
+                                ▀  ▀▀█  
 ```
 
-`nix run` 则是创建一个含有指定 Nix 包的环境，并在该环境中直接运行该 Nix 包（临时运行该程序，不将它安装到系统环境中）：
+## 其他命令
 
-```shell
-# hello 不存在
-› hello
-hello: command not found
+其他还有些 `nix flake init` 之类的命令，请自行查阅 [New Nix Commands][New Nix Commands] 学习研究，这里就不详细介绍了。
 
-# 创建一个含有 hello 的环境并运行它
-› nix run nixpkgs#hello
-Hello, world!
-```
-
-因为 `nix run` 会直接将 Nix 包运行起来，所以作为其参数的 Nix 包必须能生成一个可执行程序。
-
-根据 `nix run --help` 的说明，`nix run` 会执行 `<out>/bin/<name>` 这个命令，其中 `<out>` 是一个 Derivation 的根目录，`<name>` 则按如下顺序进行选择尝试：
-
-- Derivation 的 `meta.mainProgram` 属性
-- Derivation 的 `pname` 属性
-- Derivation 的 `name` 属性中去掉版本号后的内容
-
-比如说我们上面测试的包 hello，`nix run` 实际会执行 `$out/bin/hello` 这个程序。
 
 ## References
 
 - [pkgs.mkShell - nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
 - [A minimal nix-shell](https://fzakaria.com/2021/08/02/a-minimal-nix-shell.html)
 - [One too many shell, Clearing up with nix' shells nix shell and nix-shell - Yannik Sander](https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/)
+
+
+[New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html

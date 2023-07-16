@@ -1,6 +1,50 @@
 # 新一代 Nix 命令行工具的使用 {#flake-commands-usage}
 
-在启用了 `nix-command` & `flakes` 功能后，我们就可以使用 Nix 提供的新一代 Nix 命令行工具 [New Nix Commands][New Nix Commands] 了，下面列举下其中常用命令的用法：
+在启用了 `nix-command` & `flakes` 功能后，我们就可以使用 Nix 提供的新一代 Nix 命令行工具 [New Nix Commands][New Nix Commands] 了，
+这里主要介绍 `nix shell` 与 `nix run` 两个命令，其他重要的命令（如 `nix shell` `nix build`）将在「在 NixOS 上进行开发工作」一章中再详细介绍。
+
+## `nix shell`
+
+`nix shell` 用于进入到一个含有指定 Nix 包的环境并为它打开一个交互式 shell：
+
+```shell
+# hello 不存在
+› hello
+hello: command not found
+
+# 进入到一个含有 hello 的 shell 环境
+› nix shell nixpkgs#hello
+
+# hello 可以用了
+› hello
+Hello, world!
+```
+
+## `nix run`
+
+`nix run` 则是创建一个含有指定 Nix 包的环境，并在该环境中直接运行该 Nix 包（临时运行该程序，不将它安装到系统环境中）：
+
+```shell
+# hello 不存在
+› hello
+hello: command not found
+
+# 创建一个含有 hello 的环境并运行它
+› nix run nixpkgs#hello
+Hello, world!
+```
+
+因为 `nix run` 会直接将 Nix 包运行起来，所以作为其参数的 Nix 包必须能生成一个可执行程序。
+
+根据 `nix run --help` 的说明，`nix run` 会执行 `<out>/bin/<name>` 这个命令，其中 `<out>` 是一个 Derivation 的根目录，`<name>` 则按如下顺序进行选择尝试：
+
+- Derivation 的 `meta.mainProgram` 属性
+- Derivation 的 `pname` 属性
+- Derivation 的 `name` 属性中去掉版本号后的内容
+
+比如说我们上面测试的包 hello，`nix run` 实际会执行 `$out/bin/hello` 这个程序。
+
+再给两个示例，并详细说明下相关参数：
 
 ```bash
 # 解释下这条指令涉及的参数：
@@ -14,25 +58,22 @@ echo "Hello Nix" | nix run "nixpkgs#ponysay"
 
 # 这条命令和上面的命令作用是一样的，只是使用了完整的 flake URI，而不是 flakeregistry id。
 echo "Hello Nix" | nix run "github:NixOS/nixpkgs/nixos-unstable#ponysay"
+```
 
-# 这条命令的作用是使用 zero-to-nix 这个 flake 中名 `devShells.example` 的 outptus 来创建一个开发环境，
-# 然后在这个环境中打开一个 bash shell。
-nix develop "github:DeterminateSystems/zero-to-nix#example"
 
-# 除了使用远程 flake uri 之外，你也可以使用当前目录下的 flake 来创建一个开发环境。
-mkdir my-flake && cd my-flake
-# 通过模板初始化一个 flake
-nix flake init --template "github:DeterminateSystems/zero-to-nix#javascript-dev"
-# 使用当前目录下的 flake 创建一个开发环境，并打开一个 bash shell
-nix develop
-# 或者如果你的 flake 有多个 devShell 输出，你可以指定使用名为 example 的那个
-nix develop .#example
+## `nix run` 与 `nix shell` 的常见用途
 
-# 构建 `nixpkgs` flake 中的 `bat` 这个包
-# 并在当前目录下创建一个名为 `result` 的符号链接，链接到该构建结果文件夹。
-mkdir build-nix-package && cd build-nix-package
-nix build "nixpkgs#bat"
-# 构建一个本地 flake 和 nix develop 是一样的，不再赘述
+那显然就是用来跑些临时命令，比如说我在新 NixOS 主机上恢复环境，但是还没有装 Git，我可以直接用如下命令临时使用 Git 克隆我的配置仓库：
+
+```bash
+nix run nixpkgs#git clone git@github.com:ryan4yin/nix-config.git
+```
+
+或者也可以这样：
+
+```bash
+nix shell nixpkgs#git 
+git clone git@github.com:ryan4yin/nix-config.git
 ```
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
