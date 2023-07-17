@@ -49,6 +49,10 @@ Before adding a pull request, please see the [contributing guidelines](/.github/
 
 Thank you to [all the people](https://github.com/ryan4yin/nixos-and-flakes-book/graphs/contributors) who already contributed to this project!
 
+## References
+
+- The cover is based on the image from anime "[The Rolling Girls](https://en.m.wikipedia.org/wiki/The_Rolling_Girls)"
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
