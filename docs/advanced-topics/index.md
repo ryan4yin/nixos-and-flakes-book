@@ -33,4 +33,4 @@ There are many other valuable community projects worth exploring. Here are a few
 
 These projects offer additional functionality and tools that can enhance your NixOS experience.
 
-For more information, see the [awesome-nix](https://github.com/nix-community/).
+For more information, see the [awesome-nix](https://github.com/nix-community/awesome-nix).
