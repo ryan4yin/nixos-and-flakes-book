@@ -12,7 +12,7 @@
 
 - [flake-parts](https://github.com/hercules-ci/flake-parts): 通过 Module 模块系统简化配置的编写与维护。
 - [flake-utils-plus](https://github.com/gytis-ivaskevicius/flake-utils-plus):同样是用于简化 Flake 配置的第三方包，不过貌似更强大些
-- [digga][digga]: 一个大而全的 Flake 模板，揉合了各种实用 Nix 工具包的功能，不过结构比较复杂，需要一定经验才能玩得转。
+- [digga][https://github.com/divnix/digga]: 一个大而全的 Flake 模板，揉合了各种实用 Nix 工具包的功能，不过结构比较复杂，需要一定经验才能玩得转。
 - ......
 
 以及其他许多实用的社区项目可探索，我比较关注的有这几个：
@@ -24,8 +24,14 @@
 - [lanzaboote](https://github.com/nix-community/lanzaboote): 启用 secure boot
 - [impermanence](https://github.com/nix-community/impermanence): 用于配置无状态系统。可用它持久化你指定的文件或文件夹，同时再将 /home 目录挂载为 tmpfs 或者每次启动时用工具擦除一遍。这样所有不受 impermanence 管理的数据都将成为临时数据，如果它们导致了任何问题，重启下系统这些数据就全部还原到初始状态了！
 - [colmena](https://github.com/zhaofengli/colmena): NixOS 主机部署工具
+- [devbox](https://github.com/jetpack-io/devbox): 一个基于 Nix 的轻量级开发环境管理工具，类似 earthly，目标是统一开发环境与部署环境，使得开发环境与部署环境一致
+- [nixpacks](https://github.com/railwayapp/nixpacks): 一个将任何代码自动打包为 OCI 容器镜像的工具，类似 buildpacks
 - ...
 
-想了解更多内容，可以看看 [awesome-nix](https://github.com/nix-community/).
+想了解更多内容，可以看看 [awesome-nix](https://github.com/nix-community/awesome-nix).
 
-[digga]: https://github.com/divnix/digga
+
+也可以加入中文社区的NixOS 讨论群参与讨论:
+
+- Telegram: <https://t.me/nixos_zhcn>
+- Matrix: <https://matrix.to/#/#nixos_zhcn:matrix.org>

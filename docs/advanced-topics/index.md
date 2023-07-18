@@ -27,6 +27,9 @@ There are many other valuable community projects worth exploring. Here are a few
 - [nixos-generators](https://github.com/nix-community/nixos-generators): A tool to generate ISO/qcow2/... from NixOS configurations.
 - [lanzaboote](https://github.com/nix-community/lanzaboote): Enables secure boot for NixOS.
 - [impermanence](https://github.com/nix-community/impermanence): Helps make NixOS stateless and improves system reproducibility.
+- [devbox](https://github.com/jetpack-io/devbox): Lightweight, repeatable dev environments without container woes, internally powered by nix, similar to earthly.
+- [nixpacks](https://github.com/railwayapp/nixpacks): Nixpacks takes a source directory and produces an OCI compliant image that can be deployed anywhere, similar to buildpacks.
+- ...
 
 These projects offer additional functionality and tools that can enhance your NixOS experience.
 
