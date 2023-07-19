@@ -83,7 +83,8 @@ cat flake.nix
   # outputs 即 flake 的所有输出，其中的 nixosConfigurations 即 NixOS 系统配置
   # flake 有很多用途，也可以有很多不同的 outputs，nixosConfigurations 只是其中一种
   #
-  # outputs 的参数都是 inputs 中定义的依赖项，可以通过它们的名称来引用。
+  # outputs 是一个函数，它的参数都在 inputs 中定义，可以通过 inputs 中定义的名称来引用。
+  # 比如这里的输入参数 `nixpkgs`，就是上面 inputs 中的 `nixpkgs`
   # 不过 self 是个例外，这个特殊参数指向 outputs 自身（自引用），以及 flake 根目录
   # 这里的 @ 语法将函数的参数 attribute set 取了个别名，方便在内部使用
   outputs = { self, nixpkgs, ... }@inputs: {
