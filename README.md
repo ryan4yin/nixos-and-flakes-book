@@ -4,9 +4,9 @@
 
 Want to know NixOS & Flakes in detail? Looking for a beginner-friendly tutorial? Then you've come to the right place!
 
-An unofficial and opinionated NixOS & Flakes :book: for beginners: https://nixos-and-flakes.thiscute.world
+An unofficial and opinionated NixOS & Flakes :book: for beginners: https://nixos-and-flakes.thiscute.world/introduction/
 
-中文版: https://nixos-and-flakes.thiscute.world/zh/
+中文版: https://nixos-and-flakes.thiscute.world/zh/introduction/
 
 ## Feedback and Discussion
 
