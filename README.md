@@ -8,6 +8,9 @@ An unofficial and opinionated NixOS & Flakes :book: for beginners: https://nixos
 
 中文版: https://nixos-and-flakes.thiscute.world/zh/introduction/
 
+> If you're using macOS, [ryan4yin/nix-darwin-kickstart](https://github.com/ryan4yin/nix-darwin-kickstart) may be a good starting point for you,
+> you can learn how to use Nix with this book and the content of that repository.
+
 ## Feedback and Discussion
 
 Want to discuss the content of this book? Have any questions? Please feel free to open an issue or join the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions).

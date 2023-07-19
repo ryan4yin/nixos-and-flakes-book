@@ -13,3 +13,5 @@ NixOS 的安装步骤很简单，这里不多介绍，仅列一下我觉得比�
 2. 国内镜像源：
     1. <https://mirrors.ustc.edu.cn/help/nix-channels.html>
     2. <https://mirrors.tuna.tsinghua.edu.cn/help/nix/> 
+
+> 如果你使用的是 MacOS，可以通过 [ryan4yin/nix-darwin-kickstart](https://github.com/ryan4yin/nix-darwin-kickstart) 结合本书的内容来学习使用 Nix.
