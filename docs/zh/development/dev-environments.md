@@ -10,6 +10,9 @@
 
 - [cachix/devenv](https://github.com/cachix/devenv)
 
+如果你连任何一行 nix 代码都不想写，只想以最小的代价获得一个可复现的开发环境，这里也有一个或许能符合你需求的工具：
+
+- [jetpack-io/devbox](https://github.com/jetpack-io/devbox)
 
 ## Python 开发环境
 

@@ -6,9 +6,17 @@ Luckily, some people in the community have done this for us. The following repos
 
 - [dev-templates](https://github.com/the-nix-way/dev-templates)
 
-If you think the structure of `flake.nix` is still too complicated and want a simpler way, you can also consider using the following project, which encapsulates Nix more thoroughly and provides users with a simpler definition:
+If you think the structure of `flake.nix` is still too complicated and want a simpler way, 
+you can consider using the following project,
+which encapsulates Nix more thoroughly and provides users with a simpler definition:
 
 - [cachix/devenv](https://github.com/cachix/devenv)
+
+
+If you don't want to write a single line of nix code and just want to get a reproducible development environment with minimal cost, 
+here's a tool that might meet your needs:
+
+- [jetpack-io/devbox](https://github.com/jetpack-io/devbox)
 
 ## Dev Environment for Python
 
