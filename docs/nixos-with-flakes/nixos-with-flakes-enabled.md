@@ -128,10 +128,11 @@ Note that the copied template cannot be used directly. You need to modify it to 
         #  lib:     the nixpkgs function library, which provides many
         #             useful functions for operating Nix expressions:
         #             https://nixos.org/manual/nixpkgs/stable/#id-1.4
-        #  config:  all config options of the current flake
+        #  config:  all config options of the current flake, every useful
         #  options: all options defined in all NixOS Modules
         #             in the current flake
-        #  pkgs:   a collection of all packages defined in nixpkgs.
+        #  pkgs:   a collection of all packages defined in nixpkgs,
+        #            plus a set of functions related to packaging.
         #            you can assume its default value is
         #            `nixpkgs.legacyPackages."${system}"` for now.
         #            can be customed by `nixpkgs.pkgs` option

@@ -120,9 +120,9 @@ cat flake.nix
         #
         #  lib:     nixpkgs 自带的函数库，提供了许多操作 Nix 表达式的实用函数
         #           详见 https://nixos.org/manual/nixpkgs/stable/#id-1.4
-        #  config:  当前 flake 的所有 config 参数的集何
+        #  config:  当前 flake 的所有 config 参数的集合，比较常用
         #  options: 当前 flake 中所有 NixOS Modules 中定义的所有参数的集合
-        #  pkgs:    一个包含所有 nixpkgs 包的集合
+        #  pkgs:    一个包含所有 nixpkgs 包的集合，它也提供了许多相关的工具函数
         #           入门阶段可以认为它的默认值为 `nixpkgs.legacyPackages."${system}"`
         #           可通过 `nixpkgs.pkgs` 这个 option 来自定义 pkgs 的值
         #  modulesPath: 默认 nixpkgs 的内置 Modules 文件夹路径，
