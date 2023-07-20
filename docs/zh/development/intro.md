@@ -118,6 +118,59 @@ stdenv.mkDerivation ({
 
 建个空文件夹，将上面的配置保存为 `flake.nix`，然后执行 `nix develop`（或者更精确点，可以用 `nix develop .#default`），你会发现你已经进入了一个 nodejs 18 的开发环境，可以使用 `node` `npm` `pnpm` `yarn` 等命令了。而且刚进入时，`shellHook` 也被执行了，输出了当前 nodejs 的版本。
 
+
+
+## 在开发环境中使用 zhs/fhish 等其他 shell
+
+`pkgs.mkShell` 默认使用 `bash`，但是你也可以通过在 `shellHook` 中添加 `exec <your-shell>` 来使用 `zsh` 或者 `fish` 等其他 shell。
+
+示例如下：
+
+```nix
+{
+  description = "A Nix-flake-based Node.js development environment";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+  };
+
+  outputs = { self , nixpkgs ,... }: let
+    # system should match the system you are running on
+    # system = "x86_64-linux";
+    system = "x86_64-darwin";
+  in {
+    devShells."${system}".default = let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          (self: super: rec {
+            nodejs = super.nodejs-18_x;
+            pnpm = super.nodePackages.pnpm;
+            yarn = (super.yarn.override { inherit nodejs; });
+          })
+        ];
+      };
+    in pkgs.mkShell {
+      # create an environment with nodejs-18_x, pnpm, and yarn
+      packages = with pkgs; [
+        node2nix
+        nodejs
+        pnpm
+        yarn
+        nushell
+      ];
+
+      shellHook = ''
+        echo "node `${pkgs.nodejs}/bin/node --version`"
+        exec nu
+      '';
+    };
+  };
+}
+```
+
+使用上面的 `flake.nix` 配置，`nix develop` 将进入一个 nodejs 18 的开发环境，同时使用 `nushell` 作为交互式 shell.
+
 ## 进入任何 Nix 包的构建环境
 
 现在再来看看 `nix develop`，先读下 `nix develop --help` 输出的帮助文档：
