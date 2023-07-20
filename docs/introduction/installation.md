@@ -10,4 +10,4 @@ This book primarily focuses on the usage of NixOS and Flakes. Therefore, we will
 The installation process of NixOS is straightforward, but we won't delve into the specifics here. For more information, please visit the official download site at <https://nixos.org/download.html>.
 
 > If you're using macOS, [ryan4yin/nix-darwin-kickstart](https://github.com/ryan4yin/nix-darwin-kickstart) may be a good starting point for you,
-> you can learn how to use Nix with this book and the content of that repository.
+> you can learn how to use Nix with this book and take nix-darwin-kickstart as a start point to build your own Nix configuration.
