@@ -4,6 +4,14 @@ The flakes experimental feature is a major development for Nix, it introduces a 
 
 Flakes is one of the most significant changes the nix project has ever seen.[^2]
 
+In simple terms, if you've worked with some JavaScript/Go/Rust/Python, you should be familiar with files like `package.json`/`go.mod`/`Cargo.toml`/`pyproject.toml`. In these programming languages, these files are used to describe the dependencies between software packages and how to build projects.
+
+Similarly, the package managers in these programming languages also use files like `package-lock.json`/`go.sum`/`Cargo.lock`/`poetry.lock` to lock the versions of dependencies, ensuring the reproducibility of projects.
+
+Flakes borrow ideas from these package managers to enhance the reproducibility, composability, and usability of the Nix ecosystem.
+Flakes introduce `flake.nix`, similar to `package.json`, to describe the dependencies between Nix packages and how to build projects. 
+Additionally, it provides `flake.lock`, akin to `package-lock.json`, to lock the versions of dependencies, ensuring project reproducibility.
+
 ## A Word of Caution about Flakes <Badge type="danger" text="caution" />
 
 The benefits of Flakes are evident, and the entire NixOS community has embraced it wholeheartedly. Currently, more than half of the users utilize Flakes[^3], providing assurance that Flakes will not be deprecated.

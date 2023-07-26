@@ -5,6 +5,15 @@ Flakes 实验特性是 Nix 项目的一项重大进展，它引入了一种管�
 
 Flakes 特性是 Nix 项目中最有意义的变化之一。[^2]
 
+简单的说，如果你写过点 JavaScript/Go/Rust/Python，那你应该对 `package.json`/`go.mod`/`Cargo.toml`/`pyproject.toml` 这些文件不陌生，
+在这些编程语言中，这些文件用来描述软件包之间的依赖关系，以及如何构建项目。
+同样的，这些编程语言的包管理器还通过 `package-lock.json`/`go.sum`/`Cargo.lock`/`poetry.lock` 这些文件来锁定依赖的版本，以保证项目的可复现性。
+
+Flakes 就是从上述这类编程语言的包管理器中借鉴了一些思想，以提高 Nix 生态系统中的可复现性、可组合性和可用性。
+Flakes 提供了 `flake.nix`，它类似 `package.json`，用来描述 Nix 包之间的依赖关系，以及如何构建项目。
+同时它还提供了 `flake.lock`，这是一个类似 `package-lock.json` 的文件，用来锁定依赖的版本，以保证项目的可复现性。
+
+
 ## 注意事项 <Badge type="danger" text="caution" />
 
 Flakes 带来的好处是显而易见的，整个 NixOS 社区都很喜欢它，目前超过半数的用户已经在大量使用 Flakes[^3]，因此我们可以相当确定 Flakes 不会被废弃。
