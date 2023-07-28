@@ -73,11 +73,16 @@ function themeConfigEnglish() {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "Home", link: "/" },
+        { text: "Preface", link: "/preface.md" },
         { text: "Get Started", link: "/introduction/index.md" },
         { text: "Best Practices", link: "/best-practices/intro.md" },
       ],
 
       sidebar: [
+        {
+          text: "Preface",
+          items: [{ text: "Preface", link: "/preface.md" }],
+        },
         {
           text: "Get Started",
           items: [
@@ -245,11 +250,16 @@ function themeConfigChinese() {
       // https://vitepress.dev/reference/default-theme-config
       nav: [
         { text: "首页", link: "/zh/" },
+        { text: "前言", link: "/zh/preface.md" },
         { text: "开始使用", link: "/zh/introduction/index.md" },
         { text: "最佳实践", link: "/zh/best-practices/intro.md" },
       ],
 
       sidebar: [
+        {
+          text: "前言",
+          items: [{ text: "前言", link: "/zh/preface.md" }],
+        },
         {
           text: "开始使用",
           items: [
