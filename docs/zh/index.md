@@ -13,7 +13,10 @@ hero:
     alt: NixOS Flakes
   actions:
     - theme: brand
-      text: 开始使用
+      text: 前言
+      link: /zh/preface.md
+    - theme: brand
+      text: 开始学习
       link: /zh/introduction/index.md
     - theme: alt
       text: "前往 GitHub 仓库"

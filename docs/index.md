@@ -13,6 +13,9 @@ hero:
     alt: NixOS Flakes
   actions:
     - theme: brand
+      text: Preface
+      link: /preface.md
+    - theme: brand
       text: Get Started
       link: /introduction/index.md
     - theme: alt
