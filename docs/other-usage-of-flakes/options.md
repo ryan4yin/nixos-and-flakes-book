@@ -1,4 +1,4 @@
-# Nix option difinitions
+# Nix option definitions
 
 TODO
 
