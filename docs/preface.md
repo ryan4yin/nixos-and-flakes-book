@@ -6,7 +6,10 @@ NixOS is a highly distinctive Linux distribution built upon the Nix package mana
 
 One of NixOS's major advantages over other distributions lies in its reproducibility, allowing users to replicate consistent system environments across multiple machines, thanks to its declarative configuration.
 
-While NixOS is powerful, its strength also comes with increased system complexity, making it more challenging for newcomers. On the one hand, the knowledge accumulated on other Linux distributions is not easily transferable to NixOS. On the other hand, NixOS has long been criticized for its scattered and outdated official and community documentation, often deterring newcomers. These issues have troubled many NixOS beginners.
+While NixOS is powerful, its strength also comes with increased system complexity, making it more challenging for newcomers. 
+On the one hand, the knowledge accumulated on other Linux distributions is not easily transferable to NixOS. 
+On the other hand, NixOS has long been criticized for its scattered and outdated official and community documentation.
+These issues have troubled many NixOS beginners.
 
 Speaking of the experimental feature of the Nix package manager called Flakes. Inspired by package managers like npm and cargo, Flakes use `flake.nix` to record all external dependencies and `flake.lock` to lock their versions. This significantly enhances the reproducibility and composability of the Nix package manager and NixOS configurations. Flakes' advantages have made it widely popular within the community. According to official surveys, over half of the new Nix repositories created on GitHub now utilize Flakes, making the traditional Nix configuration method less prevalent.
 
