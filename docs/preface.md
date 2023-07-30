@@ -1,45 +1,49 @@
-# About This Book
+# Preface
 
 ## The Pain of NixOS Beginners - Documentation and Flakes
 
-NixOS is a highly distinctive Linux distribution built on top of the Nix package manager, with a design philosophy vastly different from traditional distributions like Ubuntu, CentOS, ArchLinux, etc.
+NixOS is a highly distinctive Linux distribution built upon the Nix package manager, with a design philosophy that sets it apart from traditional distributions like Ubuntu, CentOS, Arch Linux and others.
 
-The biggest advantage of NixOS compared to other distributions lies in its reproducibility, which means it can consistently reproduce the same system environment across multiple machines, and its declarative configuration.
+One of NixOS's major advantages over other distributions lies in its reproducibility, allowing users to replicate consistent system environments across multiple machines, thanks to its declarative configuration.
 
-NixOS is powerful, but its power also brings an increase in system complexity, making it more challenging for newcomers. Many experiences gained from using other Linux distributions are difficult to apply on NixOS. Furthermore, NixOS has long been criticized for its scattered and outdated official and community documentation, which has discouraged beginners.
+While NixOS is powerful, its strength also comes with increased system complexity, making it more challenging for newcomers. On the one hand, the knowledge accumulated on other Linux distributions is not easily transferable to NixOS. On the other hand, NixOS has long been criticized for its scattered and outdated official and community documentation, often deterring newcomers. These issues have troubled many NixOS beginners.
 
-Speaking of Nix package manager's experimental feature called Flakes, it takes inspiration from the design philosophies of npm, cargo and other package managers. Flakes utilize `flake.nix` to record all external dependencies and `flake.lock` to pin the versions of those dependencies, greatly enhancing the reproducibility and composability of the Nix package manager and NixOS configurations. Due to its numerous benefits, Flakes have been widely adopted in the community, and according to official surveys, over half of the new Nix repositories on GitHub now use Flakes.
+Speaking of the experimental feature of the Nix package manager called Flakes. Inspired by package managers like npm and cargo, Flakes use `flake.nix` to record all external dependencies and `flake.lock` to lock their versions. This significantly enhances the reproducibility and composability of the Nix package manager and NixOS configurations. Flakes' advantages have made it widely popular within the community. According to official surveys, over half of the new Nix repositories created on GitHub now utilize Flakes, making the traditional Nix configuration method less prevalent.
 
-However, on the other hand, Flakes being an experimental feature introduces uncertainties, and to maintain stability, the official documentation barely covers any content related to Flakes. This has left many Nix/NixOS users confused. They see everyone using Flakes and want to learn it, but they have no proper starting point, leading them to gather scattered information, dig into Nixpkgs source code, and seek guidance from experienced individuals.
+However, on the flip side, Flakes, being an experimental feature, comes with uncertainties. To maintain stability, the official documentation barely covers any Flakes-related content. This has left many Nix/NixOS users feeling confused. They see everyone using Flakes and want to learn it too, but find nowhere to start, often having to piece together scattered information, search through Nixpkgs source code, or seek help from more experienced users.
 
 ## The Origin of This Book
 
-When I dived into NixOS in April this year (2023), I fell in love with its design philosophy. Later, a friend recommended I explore the experimental feature Flakes. After comparing Flakes with the traditional NixOS configuration approach, I realized that only NixOS with Flakes fulfilled my expectations. So, I completely ignored the traditional Nix configuration and began learning to configure my NixOS system using Flakes. The most significant difficulty I encountered was the scarcity and fragmentation of Flakes documentation. A large portion of the available documentation focused on traditional Nix configuration methods. To avoid stumbling into issues later, I documented many scattered notes while learning.
+This book originated from my scattered notes when I first started with NixOS.
 
-After gaining some experience, in early May of this year, I switched my main PC to NixOS and then organized and refined the notes I had written for about half a month. I published them on my blog[^1] and shared them in the NixOS Chinese community. My friends in the Chinese community praised the content, and upon their suggestion, I translated the article into English and shared it on Reddit, receiving strong positive feedback[^2].
+In April of this year (2023), when I got into NixOS, I fell in love with its design philosophy. At the recommendation of a friend, I learned about Nix's Flakes experimental feature. After comparing Flakes with the traditional NixOS configuration method, I realized that only a Flakes-enabled NixOS met my expectations. Consequently, I completely ignored the traditional Nix configuration approach and directly learned to configure my NixOS system using Flakes during my initial steps.
 
-The continuous stream of positive feedback after sharing my notes was exhilarating, and it motivated me to keep iterating on the content. As I kept updating it, the content grew to over 20,000 words, making the reading experience less than ideal. Consequently, based on readers' suggestions[^3], I migrated the content to a GitHub repository and set up a dedicated documentation site to facilitate reading and contributions.
+Throughout my learning process, I found that there were very few beginner-friendly Flakes resources. The vast majority of documentation focused on the traditional Nix configuration approach, forcing me to extract the information I needed from various sources such as the NixOS Wiki, Zero to Nix, Nixpkgs Manual, and Nixpkgs source code while disregarding any non-Flakes-related content. This learning journey was quite convoluted and painful. To prevent future stumbling, I diligently documented numerous scattered notes as I progressed.
 
-Thus, a bilingual open-source book was born, and I named it <NixOS & Flakes Book>, with the Chinese title being "NixOS & Flakes: A Beginner's Guide."
+With some experience under my belt, in early May of this year, I switched my main PC to NixOS. After organizing and refining my NixOS newcomer notes, I published them on my blog[^1] and shared them in the NixOS Chinese community. The Chinese community responded positively, and based on their advice, I translated the article into English and shared it on Reddit, receiving strong feedback[^2].
 
-The content of this open-source book has been continuously refined through my experience using NixOS and interactions with readers. The sense of achievement from positive feedback has been the driving force behind my updates, and feedback from readers has been immensely helpful in its evolution. Initially, I just wanted to share my NixOS tinkering experiences, and the content was relatively casual. I never expected it to become an open-source book, with foreign readership even surpassing that in China, and it has garnered many stars—a completely unforeseen outcome.
+The positive reception of this shared document encouraged me and drove me to continue improving it. Through continuous updates, the content of this document expanded to over 20,000 words. Some readers suggested that the reading experience could be improved, leading me to their suggestions[^3]. As a result, I migrated the article's content to a GitHub repository, established a dedicated documentation site, and adjusted the presentation to make it more aligned with a beginner's guide rather than a personal notebook.
 
-I want to express my gratitude to all friends who contributed and provided suggestions for this book and to all readers for their support and encouragement. Without all of you, the content of this book might have remained on my personal blog, never reaching its current form.
+And so, a bilingual open-source book was born, which I named "<NixOS & Flakes Book>" with the Chinese title "NixOS & Flakes 新手指南" ("NixOS & Flakes Beginner's Guide").
 
-I hope this book can help more people enjoy the pleasures of NixOS and contribute to the NixOS community by encouraging more people to join in its development.
+This open-source book's content evolved step by step as I used NixOS and engaged with readers. The sense of accomplishment from readers' positive feedback has been my greatest motivation for updates. Some readers' feedback has been immensely helpful in its "evolution." Initially, I only wanted to share my experiences with NixOS in a somewhat casual manner, but it unexpectedly turned into an open-source book. Its readership abroad even surpassed that within my own country, and it garnered many stars - a result I never anticipated.
 
-The book's content is still continuously updated, and there is much room for improvement. I welcome everyone to suggest and contribute on [GitHub](https://github.com/ryan4yin/nixos-and-flakes-book).
+I am grateful to all friends who have contributed to this book and offered suggestions, and I appreciate all the support and encouragement from the readers. Without all of you, this book's content might have remained confined to my personal blog, and it wouldn't have reached its current form.
 
-## Characteristics of This Book
+My hope is that this book can help more people, enabling them to experience the joys of NixOS. I also wish for this book to benefit the NixOS community by encouraging more people to contribute to its development.
 
-1. Focuses on NixOS and Flakes, abandoning the traditional Nix configuration approach.
-2. Beginner-friendly, with content explained from the perspective of NixOS beginners who have some experience with Linux and programming.
-3. Step-by-step learning for a gradual understanding.
-4. Coherent and well-organized content, forming a structured system. Readers can read the book progressively or quickly find the information they need.
+The content of this book is continually being updated, with much room for improvement. I welcome everyone to provide suggestions and contribute on [GitHub](https://github.com/ryan4yin/nixos-and-flakes-book).
 
-## Historical Feedback and Related Discussions
+## The Features of This Book
 
-English feedback and discussions:
+1. Focused on NixOS and Flakes, disregarding the traditional Nix configuration approach.
+2. Beginner-friendly, with explanations from the perspective of NixOS newcomers who have some experience with Linux usage and programming.
+3. Step-by-step, progressive learning.
+4. Coherent content, well-organized, and structured. Readers can either read the book gradually or quickly find the information they need.
+
+## Historical Feedback and Discussions on This Book
+
+English feedback and related discussions:
 
 - [[2023-05-11] NixOS & Nix Flakes - A Guide for Beginners - Reddit](https://www.reddit.com/r/NixOS/comments/13dxw9d/nixos_nix_flakes_a_guide_for_beginners/)
 - [[2023-06-22] Updates: NixOS & Nix Flakes - A Guide for Beginners - Reddit](https://www.reddit.com/r/NixOS/comments/14fvz1q/updates_nixos_nix_flakes_a_guide_for_beginners/)
