@@ -4,7 +4,7 @@
 
 NixOS is a highly distinctive Linux distribution built upon the Nix package manager, with a design philosophy that sets it apart from traditional distributions like Ubuntu, CentOS, Arch Linux and others.
 
-One of NixOS's major advantages over other distributions lies in its reproducibility, allowing users to replicate consistent system environments across multiple machines, thanks to its declarative configuration.
+One of NixOS's major advantages over other distributions lies in its reproducibility and declarative configuration, allowing users to replicate consistent system environments across multiple machines.
 
 While NixOS is powerful, its strength also comes with increased system complexity, making it more challenging for newcomers. 
 On the one hand, the knowledge accumulated on other Linux distributions is not easily transferable to NixOS. 
