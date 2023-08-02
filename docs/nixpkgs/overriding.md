@@ -1,6 +1,6 @@
 # Overriding
 
-In Nix, you can customize Nix packages in `pkgs` by using the `override` function, which allows you to define custom build parameters and returns a new derivation with the overridden values. Let's take a look at an example:
+In Nix, you can customize Nix packages in `pkgs` by using the `override` attribute (It seems like a function, but we don't call funtions that way on nix), which allows you to define custom build parameters and returns a new derivation with the overridden values. Let's take a look at an example:
 
 ```nix
 pkgs.fcitx5-rime.override { rimeDataPkgs = [ ./rime-data-flypy ]; }
