@@ -251,7 +251,7 @@ Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓�
 }
 ```
 
-添加完新 substituters 后，它仍然不会失效，这时直接部署配置，会出现这个 warning：
+添加完新 substituters 后，它仍然不会生效，这时直接部署配置，会出现这个 warning：
 
 ```
 ...
