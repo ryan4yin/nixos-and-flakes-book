@@ -267,4 +267,26 @@ To customize the cache source, we must add the related configuration in `flake.n
 }
 ```
 
-After making the modifications, run `sudo nixos-rebuild switch` to apply the updates.
+After adding the new substituters, it still won't take effect. In this case, when directly deploying the configuration, you'll encounter the following error:
+
+```
+...
+warning: ignoring untrusted substituter 'https://mirrors.ustc.edu.cn/nix-channels/store', you are not a trusted user.
+...
+```
+
+This is a security limitation of Nix, where only trusted users can properly use the set substituters. Therefore, we need to add our own user to the trusted list. Add the following configuration to any NixOS module:
+
+```nix{3-4}
+{
+  # ... (other configurations omitted)
+
+  nix.trustedUsers = [ "ryan" ];  # Add your own username to the trusted list
+
+  # ... (other configurations omitted)
+}
+```
+
+Now, to apply the configuration and make it effective, use `sudo nixos-rebuild switch`. 
+Nix will prioritize searching for cached packages from the domestic mirror source after the switch.
+

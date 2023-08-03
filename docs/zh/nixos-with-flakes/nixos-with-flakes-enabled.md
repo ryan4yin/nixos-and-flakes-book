@@ -249,7 +249,26 @@ Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓�
     # 省略若干配置...
   };
 }
-
 ```
 
-改完后使用 `sudo nixos-rebuild switch` 应用配置即可生效，后续所有的包都会优先从国内镜像源查找缓存。
+添加完新 substituters 后，它仍然不会失效，这时直接部署配置，会这个报错：
+
+```
+...
+warning: ignoring untrusted substituter 'https://mirrors.ustc.edu.cn/nix-channels/store', you are not a trusted user.
+...
+```
+
+这是 Nix 的安全限制，只有可信用户才能正常使用这里设置好的 substituters，所以我们还需要将自己的用户添加到可信列表中。在任一 NixOS Module 中添加如下配置：
+
+```nix{3-4}
+{
+  # 省略若干配置...
+
+  nix.trustedUsers = [ "ryan" ];  # 将自己的用户名添加到可信列表中
+
+  # 省略若干配置...
+}
+```
+
+现在再使用 `sudo nixos-rebuild switch` 应用配置即可生效，后续所有的包都会优先从国内镜像源查找缓存。
