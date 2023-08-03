@@ -265,7 +265,7 @@ warning: ignoring untrusted substituter 'https://mirrors.ustc.edu.cn/nix-channel
 {
   # 省略若干配置...
 
-  nix.trustedUsers = [ "ryan" ];  # 将自己的用户名添加到可信列表中
+  nix.settings.trusted-users = [ "ryan" ];  # 将自己的用户名添加到可信列表中
 
   # 省略若干配置...
 }

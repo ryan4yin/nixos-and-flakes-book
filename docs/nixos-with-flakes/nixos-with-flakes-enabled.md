@@ -281,7 +281,7 @@ This is a security limitation of Nix, where only trusted users can properly use 
 {
   # ... (other configurations omitted)
 
-  nix.trustedUsers = [ "ryan" ];  # Add your own username to the trusted list
+  nix.settings.trusted-users = [ "ryan" ];  # Add your own username to the trusted list
 
   # ... (other configurations omitted)
 }
