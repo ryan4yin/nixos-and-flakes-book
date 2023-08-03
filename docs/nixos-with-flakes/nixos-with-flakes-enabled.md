@@ -267,7 +267,7 @@ To customize the cache source, we must add the related configuration in `flake.n
 }
 ```
 
-After adding the new substituters, it still won't take effect. In this case, when directly deploying the configuration, you'll encounter the following error:
+After adding the new substituters, it still won't take effect. In this case, when directly deploying the configuration, you'll encounter the following warnings:
 
 ```
 ...
