@@ -160,6 +160,10 @@ function themeConfigEnglish() {
               link: "/best-practices/simplify-nixos-related-commands.md",
             },
             {
+              text: "Remote Deployment",
+              link: "/best-practices/remote-deployment.md",
+            },
+            {
               text: "Debugging Derivations and Nix Expressions",
               link: "/best-practices/debugging.md",
             },
@@ -336,6 +340,10 @@ function themeConfigChinese() {
             {
               text: "使用 Makefile 简化常用命令",
               link: "/zh/best-practices/simplify-nixos-related-commands.md",
+            },
+            {
+              text: "远程部署 Nix 配置",
+              link: "/zh/best-practices/remote-deployment.md",
             },
             {
               text: "调试 Nix 软件包与 Nix 表达式",
