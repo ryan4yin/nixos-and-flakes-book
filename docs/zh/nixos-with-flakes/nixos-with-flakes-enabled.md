@@ -209,11 +209,12 @@ cat flake.nix
 
 改好后再 `sudo nixos-rebuild switch` 部署，就能安装好 helix 程序了，可直接在终端使用 `hx` 命令测试验证。
 
-## 为 Flake 添加国内 cache 源 {#add-cache-source-for-flake}
+## 为 Flake 添加自定义 cache 源 {#add-cache-source-for-flake}
 
-> 注意：这里介绍的手段只能加速部分包的下载，许多 inputs 数据源仍然会从 Github 拉取，另外如果找不到缓存，会执行本地构建，这通常仍然需要从国外下载源码与构建依赖，因此仍然会很慢。为了完全解决速度问题，仍然建议使用旁路由等局域网全局代理方案。
+> 注意：这里介绍的手段只能加速部分包的下载，许多 inputs 数据源仍然会从 Github 拉取。
+> 另外如果找不到缓存，会执行本地构建，这通常仍然需要从国外下载源码与构建依赖，因此仍然会很慢。为了完全解决速度问题，仍然建议使用旁路由等局域网全局代理方案。
 
-Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓存构建结果提供给用户，但是在国内访问这个 cache 地址非常地慢，如果没有全局代理的话，基本上是无法使用的。
+Nix 为了加快包构建速度，提供了 <https://cache.nixos.org> 提前缓存构建结果提供给用户，但是在国内访问这个 cache 地址非常地慢，如果没有局域网全局代理的话，基本上是无法使用的。
 另外 Flakes 的数据源基本都是某个 Github 仓库，在国内从 Github 下载 Flakes 数据源也同样非常非常慢。
 
 在旧的 NixOS 配置方式中，可以通过 `nix-channel` 命令添加国内的 cache 镜像源以提升下载速度，但是 Nix Flakes 会尽可能地避免使用任何系统级别的配置跟环境变量，以确保其构建结果不受环境的影响，因此在使用了 Flakes 后 `nix-channel` 命令就失效了。
@@ -272,3 +273,32 @@ warning: ignoring untrusted substituter 'https://mirrors.ustc.edu.cn/nix-channel
 ```
 
 现在再使用 `sudo nixos-rebuild switch` 应用配置即可生效，后续所有的包都会优先从国内镜像源查找缓存。
+
+## 通过本地 HTTP 代理加速包下载 {#use-local-http-proxy-to-speed-up-nix-package-download}
+
+虽然前面提到了，旁路由可以完全解决 NixOS 的包下载速度问题，但是旁路由的配置比较麻烦，而且经常需要额外的软路由设备支持。
+
+更多的用户会希望能直接通过本机运行的 HTTP 代理来加速包下载，这里介绍下怎么设置。
+
+直接在 Terminal 中使用 `export HTTPS_PROXY=http://127.0.0.1:7890` 这类方式是无法生效的，因为 nix 实际干活的是一个叫 `nix-daemon` 的后台进程，而不是直接在 Terminal 中执行的命令。
+
+要让 nix-daemon 使用代理，需要修改它的 systemd 配置，方法如下：
+
+```bash
+sudo mkdir /run/systemd/system/nix-daemon.service.d/
+cat << EOF >/run/systemd/system/nix-daemon.service.d/override.conf  
+[Service]
+Environment="http_proxy=socks5h://localhost:7891"
+Environment="https_proxy=socks5h://localhost:7891"
+Environment="all_proxy=socks5h://localhost:7891"
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart nix-daemon
+```
+
+使用此方案，每次重启系统可能都需要重新执行一遍上述命令，因为 `/run` 目录是临时文件系统，重启后会被清空。
+
+## 参考 
+
+- [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
+
