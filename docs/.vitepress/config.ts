@@ -1,5 +1,8 @@
+import { createRequire } from 'module';
 import { generateSitemap as sitemap } from "sitemap-ts";
 import { PageData, defineConfig } from "vitepress";
+
+const require = createRequire(import.meta.url)
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
