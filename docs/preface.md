@@ -35,7 +35,7 @@ I am grateful to all friends who have contributed to this book and offered sugge
 
 My hope is that this book can help more people, enabling them to experience the joys of NixOS. I also wish for this book to benefit the NixOS community by encouraging more people to contribute to its development.
 
-The content of this book is continually being updated, with much room for improvement. I welcome everyone to provide suggestions and contribute on [GitHub](https://github.com/ryan4yin/nixos-and-flakes-book).
+The content of this book is continually being updated, with much room for improvement. Any suggestions are welcome, and contributions to the content on [GitHub](https://github.com/ryan4yin/nixos-and-flakes-book) are also highly encouraged.
 
 ## The Features of This Book
 
@@ -43,6 +43,16 @@ The content of this book is continually being updated, with much room for improv
 2. Beginner-friendly, with explanations from the perspective of NixOS newcomers who have some experience with Linux usage and programming.
 3. Step-by-step, progressive learning.
 4. Coherent content, well-organized, and structured. Readers can either read the book gradually or quickly find the information they need.
+
+## Donation
+
+If you find this book helpful, please consider donating to support its development.
+
+- Patreon: <https://patreon.com/ryan4yin>
+- Buy me a coffee: <https://buymeacoffee.com/ryan4yin>
+- 爱发电: <https://afdian.net/a/ryan4yin>
+- Ethereum: `0xB74Aa43C280cDc8d8236952400bF6427E4390855`
+
 
 ## Historical Feedback and Discussions on This Book
 

@@ -55,6 +55,15 @@ Nixpkgs 源码等各种资料中提取出我需要的信息，同时还要忽略
 2. step-by-step，渐进式地学习
 3. 内容连贯，组织良好，比较成体系。读者既可以渐进式地阅读本书，也可以快速定位自己需要的信息
 
+## 捐赠
+
+如果你觉得这本书对你有帮助，请考虑捐赠以支持它的开发。
+
+- Patreon: <https://patreon.com/ryan4yin>
+- Buy me a coffee: <https://buymeacoffee.com/ryan4yin>
+- 爱发电: <https://afdian.net/a/ryan4yin>
+- Ethereum: `0xB74Aa43C280cDc8d8236952400bF6427E4390855`
+
 ## 本书的历史反馈与相关讨论
 
 英文反馈与相关讨论：
