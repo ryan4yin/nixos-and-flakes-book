@@ -30,6 +30,8 @@ However, as Flakes is still an experimental feature, it is not enabled by defaul
     wget
     curl
   ];
+  # Set default editor to vim
+  environment.variables.EDITOR = "vim";
 
   # Omit the rest of the configuration...
 }

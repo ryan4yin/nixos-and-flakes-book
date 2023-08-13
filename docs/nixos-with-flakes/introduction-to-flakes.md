@@ -49,6 +49,7 @@ I delved into some details regarding Flakes:
 - [[RFC 0136] A Plan to Stabilize Flakes and the New CLI Incrementally](https://github.com/NixOS/rfcs/pull/136): A plan to incrementally stabilize Flakes and the new CLI, still a work in progress.
 - [Why Are Flakes Still Experimental? - NixOS Discourse](https://discourse.nixos.org/t/why-are-flakes-still-experimental/29317): A post discussing why Flakes are still considered experimental.
 - [Flakes Are Such an Obviously Good Thing - Graham Christensen](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/): An article emphasizing the advantages of Flakes while suggesting areas for improvement in its design and development process.
+- [ teaching Nix 3 CLI and Flakes #281 - nix.dev](https://github.com/NixOS/nix.dev/issues/281): An issue about "Teaching Nix 3 CLI and Flakes" in nix.dev, and the conclusion is that we should not promote unstable features in nix.dev.
 - [Draft: 1-year Roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9): A roadmap provided by the NixOS Foundation, which includes plans regarding the stabilization of Flakes.
 
 After reviewing these resources, it seems likely that Flakes will be stabilized within one or two years, possibly accompanied by some breaking changes.

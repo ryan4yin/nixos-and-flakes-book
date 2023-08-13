@@ -29,6 +29,8 @@
     wget
     curl
   ];
+  # 将默认编辑器设置为 vim
+  environment.variables.EDITOR = "vim";
 
   # 省略其他配置......
 }
