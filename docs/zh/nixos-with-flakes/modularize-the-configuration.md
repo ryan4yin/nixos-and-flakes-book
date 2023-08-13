@@ -126,7 +126,7 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
 
 这几个函数在模块化 NixOS 配置中非常有用，因为你可以在低层级的模块（base module）中设置默认值，然后在高层级的模块（high-level module）中设置优先级更高的值。
 
-举个例子，我在这里定义了一个默认值：<https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-server.nix#L30>
+举个例子，我在这里定义了一个默认值：<https://github.com/ryan4yin/nix-config/blob/c515ea9/modules/nixos/core-server.nix#L32>
 
 ```nix{6}
 { lib, pkgs, ... }:
@@ -140,7 +140,7 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
 }
 ```
 
-然后在桌面机器的配置中，我强制覆盖了默认值： <https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-desktop.nix#L15>
+然后在桌面机器的配置中，我强制覆盖了默认值： <https://github.com/ryan4yin/nix-config/blob/c515ea9/modules/nixos/core-desktop.nix#L18>
 
 ```nix{10}
 { lib, pkgs, ... }:

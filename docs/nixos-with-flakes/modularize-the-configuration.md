@@ -120,7 +120,7 @@ The lower the `priority` value, the higher the actual priority. As a result, `li
 
 Using these functions can be very helpful for modularizing the configuration. You can set default values in a low-level module (base module) and force values in a high-level module.
 
-For example, in my configuration at [ryan4yin/nix-config/blob/main/modules/nixos/core-server.nix#L30](https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-server.nix#L30), I define default values like this:
+For example, in my configuration at [ryan4yin/nix-config/blob/c515ea9/modules/nixos/core-server.nix](https://github.com/ryan4yin/nix-config/blob/c515ea9/modules/nixos/core-server.nix#L32), I define default values like this:
 
 ```nix{6}
 { lib, pkgs, ... }:
@@ -134,7 +134,7 @@ For example, in my configuration at [ryan4yin/nix-config/blob/main/modules/nixos
 }
 ```
 
-Then, for my desktop machine, I override the value in [ryan4yin/nix-config/blob/main/modules/nixos/core-desktop.nix#L15](https://github.com/ryan4yin/nix-config/blob/main/modules/nixos/core-desktop.nix#L15) like this:
+Then, for my desktop machine, I override the value in [ryan4yin/nix-config/blob/c515ea9/modules/nixos/core-desktop.nix](https://github.com/ryan4yin/nix-config/blob/c515ea9/modules/nixos/core-desktop.nix#L18) like this:
 
 ```nix{10}
 { lib, pkgs, ... }:
