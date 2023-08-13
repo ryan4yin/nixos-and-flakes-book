@@ -1,4 +1,4 @@
-# 自定义 NIX_PATH 与 Flake Registry {#custom-nix-path-and-flake-registry}
+# 自定义 NIX_PATH 与 Flake Registry 
 
 ## NIX_PATH 介绍 {#nix-path-introduction}
 
@@ -19,7 +19,7 @@ Flake Registry 是一个 Flake 注册中心，它可以帮助我们在使用 `ni
 比如说我们执行 `nix run nixpkgs#ponysay hello`，nix 会自动从上述 json 文件中找到 `nixpkgs` 对应的 github 仓库地址，然后下载这个仓库，再通过其中的 `flake.nix` 查找对应的 `ponysay` 包并运行它。
 
 
-## 自定义 NIX_PATH 与 Flake Registry {#custom-nix-path-and-flake-registry}
+## 自定义 NIX_PATH 与 Flake Registry {#custom-nix-path-and-flake-registry-2}
 
 前面说明了 `NIX_PATH` 与 Flake Registry 的作用。
 在日常使用中，我们一般都会希望能在执行 `nix repl '<nixpkgs>'`, `nix run nixpkgs#ponysay hello` 等命令时，使用的 nixpkgs 与系统一致，这就需要我们自定义 `NIX_PATH` 与 Flake Registry。

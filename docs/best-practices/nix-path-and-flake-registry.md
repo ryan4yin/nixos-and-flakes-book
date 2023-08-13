@@ -1,4 +1,4 @@
-# Custom NIX_PATH and Flake Registry {#custom-nix-path-and-flake-registry}
+# Custom NIX_PATH and Flake Registry 
 
 ## Introduction to NIX_PATH {#nix-path-introduction}
 
@@ -18,7 +18,7 @@ By default, Nix looks up the corresponding GitHub repository address for this ID
 
 For instance, if we execute `nix run nixpkgs#ponysay hello`, Nix will automatically retrieve the GitHub repository address for `nixpkgs` from the aforementioned JSON file. It then downloads the repository, locates the `flake.nix` within, and runs the corresponding `ponysay` package.
 
-## Custom NIX_PATH and Flake Registry {#custom-nix-path-and-flake-registry}
+## Custom NIX_PATH and Flake Registry {#custom-nix-path-and-flake-registry-1}
 
 The roles of `NIX_PATH` and the Flake Registry have been explained earlier.
 In daily use, we typically want the `nixpkgs` used in commands like `nix repl '<nixpkgs>'`, `nix run nixpkgs#ponysay hello` to match the system's `nixpkgs`. This requires us to customize the `NIX_PATH` and Flake Registry.
