@@ -59,9 +59,7 @@ You can write your own overlays following this example. Import the configuration
 
 In the previous example, all overlays were written in a single Nix file, which can become difficult to maintain over time. To address this, we can manage overlays in a modular way.
 
-Start by creating an `overlays` folder in your
-
- Git repository to store all overlay configurations. Inside this folder, create a `default.nix` file with the following content:
+Start by creating an `overlays` folder in your Git repository to store all overlay configurations. Inside this folder, create a `default.nix` file with the following content:
 
 ```nix
 # import all nix files in the current folder, and execute them with args as parameters
