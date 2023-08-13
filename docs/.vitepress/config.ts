@@ -160,6 +160,10 @@ function themeConfigEnglish() {
               link: "/best-practices/simplify-nixos-related-commands.md",
             },
             {
+              text: "Custom NIX_PATH and Flake Registry",
+              link: "/best-practices/nix-path-and-flake-registry.md",
+            },
+            {
               text: "Remote Deployment",
               link: "/best-practices/remote-deployment.md",
             },
@@ -340,6 +344,10 @@ function themeConfigChinese() {
             {
               text: "使用 Makefile 简化常用命令",
               link: "/zh/best-practices/simplify-nixos-related-commands.md",
+            },
+            {
+              text: "自定义 NIX_PATH 与 Flake Registry",
+              link: "/zh/best-practices/nix-path-and-flake-registry.md",
             },
             {
               text: "远程部署 Nix 配置",
