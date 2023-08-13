@@ -30,7 +30,11 @@ $ tree
 
 我们可以借助 `imports` 参数，将 `home.nix` 与 `configuration.nix` 拆分成多个 `.nix` 文件。
 
-比如我之前的 i3wm 系统配置 [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2)，结构如下：
+推荐一个非常好的模块化配置的例子，可以参考一下：
+
+- [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)
+
+再举个更复杂一点的例子，如下是我之前 i3wm 配置的目录结构 [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2)：
 
 ```shell
 ├── flake.lock
@@ -85,7 +89,7 @@ $ tree
 └── wallpaper.jpg    # 桌面壁纸，在 i3wm 配置中被引用
 ```
 
-详细结构与内容，请移步前面提供的 github 仓库链接，这里就不多介绍了。
+Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，摸索出适合你自己的目录结构。其中关键点就是通过 `imports` 参数导入其他 `.nix` 文件。
 
 ## `lib.mkOverride`, `lib.mkDefault` and `lib.mkForce`
 
@@ -251,3 +255,4 @@ nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackag
 
 - [Nix modules: Improving Nix's discoverability and usability ](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
 - [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/doc/module-system/module-system.chapter.md)
+- [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)

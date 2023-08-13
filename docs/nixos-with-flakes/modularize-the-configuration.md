@@ -20,7 +20,7 @@ The functions of these four files are:
 
 By modifying these files, you can declaratively change the system and home directory status.
 
- However, as the configuration grows, relying solely on `configuration.nix` and `home.nix` can lead to bloated and difficult-to-maintain files. A better solution is to use the Nix module system to split the configuration into multiple Nix modules and write them in a classified manner.
+However, as the configuration grows, relying solely on `configuration.nix` and `home.nix` can lead to bloated and difficult-to-maintain files. A better solution is to use the Nix module system to split the configuration into multiple Nix modules and write them in a classified manner.
 
 The Nix module system provides a parameter, `imports`, which accepts a list of `.nix` files and merges all the configuration defined in these files into the current Nix module. Note that `imports` will not simply overwrite duplicate configuration but handle it more reasonably. For example, if `program.packages = [...]` is defined in multiple modules, then `imports` will merge all `program.packages` defined in all Nix modules into one list. Attribute sets can also be merged correctly. The specific behavior can be explored by yourself.
 
@@ -28,7 +28,11 @@ The Nix module system provides a parameter, `imports`, which accepts a list of `
 
 With the help of `imports`, we can split `home.nix` and `configuration.nix` into multiple Nix modules defined in different `.nix` files.
 
-For example, [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2) is the configuration of my previous NixOS system with the i3 window manager. Its structure is as follows:
+Here is a nice starter example of modularizing the configuration, Highly recommended:
+
+- [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)
+
+A more complicated example, [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2) is the configuration of my previous NixOS system with the i3 window manager. Its structure is as follows:
 
 ```shell
 ├── flake.lock
@@ -83,7 +87,7 @@ For example, [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config
 └── wallpaper.jpg    # wallpaper
 ```
 
-For more details, you can refer to the [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2) repository.
+There is no need to follow the above structure, you can organize your configuration in any way you like. The key is to use `imports` to import all the submodules into the main module.
 
 ## `lib.mkOverride`, `lib.mkDefault`, and `lib.mkForce`
 
