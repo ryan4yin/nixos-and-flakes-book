@@ -6,7 +6,7 @@ On any Linux platform, there are two ways to do cross-platform compilation. For 
    - The disadvantage is that you cannot use the NixOS binary cache, and you need to compile everything yourself (cross-compilation also has a cache, but there is basically nothing in it).
    - The advantages are that you don't need to emulate the instruction set, and the performance is high.
 2. Use QEMU to emulate the `aarch64` architecture and then compile the program in the emulator.
-   - The disadvantage is that the instruction set is emulated, and the performance is low.
+   - The disadvantage is that the instruction set is emulated, and the performance is poor.
    - The advantage is that you can use the NixOS binary cache, and you don't need to compile everything yourself.
 
 If you use method one, you don't need to enable `binfmt_misc`, but you need to execute the compilation through the cross-compilation toolchain.
@@ -62,7 +62,7 @@ pkgsCross.mmix
 
 If you want to set `pkgs` to a cross-compilation toolchain globally in a flake, you only need to add a Module in `flake.nix`, as shown below:
 
-```nix
+```nix{15-20}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -99,7 +99,7 @@ The second method is to cross-compile through the emulated system. This method d
 
 To use this method, first your building machine needs to enable the binfmt_misc module in the configuration. If your building machine is NixOS, add the following configuration to your NixOS Module to enable the simulated build system of `aarch64-linux` and `riscv64-linux` architectures:
 
-```nix
+```nix{6}
 { ... }:
 {
   # ......
@@ -113,7 +113,7 @@ To use this method, first your building machine needs to enable the binfmt_misc 
 
 As for `flake.nix`, its setting method is very simple, even simpler than the setting of cross-compilation, as shown below:
 
-```nix
+```nix{11}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -189,7 +189,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
 
 So how to use this method in Flakes? The example `flake.nix` is as follows:
 
-```nix
+```nix{13-20}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -222,7 +222,7 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
 
 To avoid this problem, a better way is to create a new `pkgs` instance, and only use this instance when building the packages we want to modify. The example `flake.nix` is as follows:
 
-```nix
+```nix{10-19,34-37}
 {
   description = "NixOS running on LicheePi 4A";
 

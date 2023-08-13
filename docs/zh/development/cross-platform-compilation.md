@@ -63,7 +63,7 @@ pkgsCross.mmix
 
 如果想将一个 flake 全局的 `pkgs` 设置为交叉编译工具链，只需要在 `flake.nix` 中添加一个 Module，示例如下：
 
-```nix
+```nix{14-20}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -100,7 +100,7 @@ pkgsCross.mmix
 
 要使用这种方法，首先你的构建机需要在配置中启用 binfmt_misc 模块，如果你的构建机是 NixOS，将如下配置添加到你的 NixOS Module 即可启用 `aarch64-linux` 与 `riscv64-linux` 两种架构的模拟构建系统：
 
-```nix
+```nix{6}
 { ... }:
 {
   # ......
@@ -114,7 +114,7 @@ pkgsCross.mmix
 
 至于 `flake.nix`，它的设置方法非常简单，比前面交叉编译的设置还要简单，示例如下：
 
-```nix
+```nix{11}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -189,7 +189,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
 
 那么如何在 Flakes 中使用这种方法呢？示例 `flake.nix` 内容如下:
 
-```nix
+```nix{13-20}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -222,7 +222,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
 
 为了避免这个问题，更好的办法是创建一个新的 `pkgs` 实例，仅在构建我们想修改的包时才使用这个实例，`flake.nix` 示例如下：
 
-```nix
+```nix{10-19,34-37}
 {
   description = "NixOS running on LicheePi 4A";
 
