@@ -1,8 +1,8 @@
-import { createRequire } from 'module';
+import { createRequire } from "module";
 import { generateSitemap as sitemap } from "sitemap-ts";
 import { PageData, defineConfig } from "vitepress";
 
-const require = createRequire(import.meta.url)
+const require = createRequire(import.meta.url);
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -33,6 +33,13 @@ export default defineConfig({
     };
   },
 
+  head: [
+    ["meta", { name: "theme-color", content: "#5f67ee" }],
+    ["meta", { name: "og:type", content: "website" }],
+    ["meta", { name: "og:site_name", content: "NixOS & Flakes Book" }],
+    ["meta", { name: "og:image", content: "/nixos-anflakes-book.webp" }],
+  ],
+
   // markdown options
   markdown: {
     theme: "material-theme-palenight",
@@ -45,6 +52,21 @@ export default defineConfig({
   },
 
   themeConfig: {
+    footer: {
+      message: "Released under the MIT License.",
+      copyright: "Copyright © 2023-present Ryan Yin",
+    },
+
+    search: {
+      provider: "local",
+      // provider: 'algolia',
+      // options: {
+      //   appId: '747LJ10EI7',
+      //   apiKey: '658db5f2bf056f83458cacf5dd58ec80',
+      //   indexName: 'nixos-and-flakes-book'
+      // }
+    },
+
     editLink: {
       pattern:
         "https://github.com/ryan4yin/nixos-and-flakes-book/edit/main/docs/:path",
