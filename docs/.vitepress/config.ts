@@ -34,10 +34,42 @@ export default defineConfig({
   },
 
   head: [
+    ["link", { rel: "icon", href: "/favicon-32x32.png" }],
     ["meta", { name: "theme-color", content: "#5f67ee" }],
     ["meta", { name: "og:type", content: "website" }],
     ["meta", { name: "og:site_name", content: "NixOS & Flakes Book" }],
-    ["meta", { name: "og:image", content: "/nixos-anflakes-book.webp" }],
+    [
+      "meta",
+      {
+        name: "og:image",
+        content:
+          "https://nixos-and-flakes.thiscute.world/nixos-and-flakes-book.webp",
+      },
+    ],
+    [
+      "meta",
+      {
+        name: "twitter:image",
+        content:
+          "https://nixos-and-flakes.thiscute.world/nixos-and-flakes-book.webp",
+      },
+    ],
+
+    [
+      "script",
+      {
+        async: "",
+        src: "https://www.googletagmanager.com/gtag/js?id=G-N90909Y4XL",
+      },
+    ],
+    [
+      "script",
+      {},
+      `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-N90909Y4XL');`,
+    ],
   ],
 
   // markdown options
