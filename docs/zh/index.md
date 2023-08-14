@@ -32,32 +32,20 @@ hero:
 <style>
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #bd34fe 30%, #41d1ff);
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #4565d8 40%, #41d1ff);
 
-  --vp-home-hero-image-background-image: linear-gradient(-60deg, #bd34fe 40%, #47caff 60%);
-  --vp-home-hero-image-filter: blur(40px);
+  --vp-home-hero-image-background-image: linear-gradient(-60deg, #41d1ff 40%, #0fffc1);
 }
 
 .image-bg {
-  position: absolute;
-  content: "";
-  top: 5vw;
-  left: 0;
-  right: 0;
-  z-index: -1;
-  height: 100%;
-  width: 100%;
-  margin: 0 auto;
   transform: scale(0.75);
   -webkit-filter: blur(5vw);
   -moz-filter: blur(5vw);
   -ms-filter: blur(5vw);
   filter: blur(5vw);
-  background: linear-gradient(270deg, #0fffc1, #7e0fff);
   background-size: 200% 200%;
   animation: animateGlow 10s ease infinite;
 }
-
 
 @keyframes animateGlow {
   0% {
