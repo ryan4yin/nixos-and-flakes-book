@@ -2,6 +2,11 @@
 
 Nix 本身的设计就很适合远程部署，Nix 社区也有许多专门用于远程部署的工具，比如说 [NixOps](https://github.com/NixOS/nixops) 与 [colmena](https://github.com/zhaofengli/colmena)。另外我们前面已经用了很多次的官方工具 `nixos-rebuild`，它拥有一定的远程部署能力。
 
+此外在多架构场景下，远程部署还可以充分利用 Nix 的多架构支持，比如说在 x86_64 主机上交叉编译 aarch64/aarch64 的 NixOS 系统配置，然后通过 SSH 远程部署到对应的主机上。
+我最近遇到的一个场景是，我本地交叉编译了一块 RISCV64 开发板的 NixOS 系统镜像，那么我本地已经拥有了交叉编译该系统的所有编译缓存。
+但是由于 NixOS 官方几乎没有 RISCV64 的二进制缓存，我直接在开发板上执行任何未预装的程序（比如 `nix run nixpkgs#cowsay hello`）都会导致大量的编译，这会耗费我数小时的时间，是难以接受的。
+而改用远程部署的话，我就能充分利用上本机的高性能 CPU 与大量编译缓存，体验就很好了。
+
 这里我简单介绍下如何使用 colmena 与 `nixos-rebuild` 进行远程部署。
 
 ## 准备工作

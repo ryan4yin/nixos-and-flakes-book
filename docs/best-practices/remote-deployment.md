@@ -2,6 +2,12 @@
 
 Nix's inherent design is well-suited for remote deployment, and the Nix community offers several tools tailored for this purpose, such as [NixOps](https://github.com/NixOS/nixops) and [colmena](https://github.com/zhaofengli/colmena). Additionally, the official tool we've used extensively, `nixos-rebuild`, possesses some remote deployment capabilities too.
 
+In addition, within multi-architecture scenarios, remote deployment can optimally leverage Nix's multi-architecture support. For example, you can cross-compile an aarch64/riscv64 NixOS system on an x86_64 host, followed by remote deployment onto the corresponding hosts via SSH.
+
+Recently, I encountered a situation where I cross-compiled a NixOS system image for a RISCV64 SBC on my local machine. Consequently, I already possessed all the compilation caches for building this system locally. However, due to the lack of official binary caches for RISCV64 architecture, executing any uninstalled program directly on the development board (e.g., `nix run nixpkgs#cowsay hello`) triggered extensive compilations. This process consumed hours, which was quite unacceptable.
+
+By adopting remote deployment, I could fully harness the computational power of my local high-performance CPU and the extensive compilation caches. This switch vastly improved my experience and significantly mitigated the previously time-consuming compilation issue.
+
 Let me briefly guide you through using colmena or `nixos-rebuild` for remote deployment.
 
 ## Prerequisites
