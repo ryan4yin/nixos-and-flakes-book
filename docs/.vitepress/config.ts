@@ -202,6 +202,7 @@ function themeConfigEnglish() {
             { text: "callPackage", link: "/nixpkgs/callpackage.md" },
             { text: "Overridding", link: "/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/nixpkgs/overlays.md" },
+            { text: "Mutiple Nixpkgs Instances", link: "/nixpkgs/multiple-nixpkgs.md" },
           ],
         },
         {
@@ -388,6 +389,7 @@ function themeConfigChinese() {
             { text: "callPackage", link: "/zh/nixpkgs/callpackage.md" },
             { text: "Overridding", link: "/zh/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
+            { text: "多 Nixpkgs 实例", link: "/nixpkgs/multiple-nixpkgs.md" },
           ],
         },
         {
