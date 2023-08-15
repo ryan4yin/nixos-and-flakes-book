@@ -22,7 +22,7 @@ It's advisable to use the `root` user for deployment as it's more convenient and
 Assuming we intend to deploy remotely using the root user, the initial step involves configuring SSH public key authentication for the root user on the remote host.
 To accomplish this, simply add the following content to any NixOS Module in the remote host's Nix configuration (e.g., `configuration.nix`), then rebuild the system:
 
-```nix
+```nix{6-9}
 # configuration.nix
 {
 
@@ -49,7 +49,7 @@ ssh-add ~/.ssh/your-private-key
 
 In your system's `flake.nix`, add a new outputs named `colmena`. A simple example is shown below:
 
-```nix
+```nix{11-34}
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
