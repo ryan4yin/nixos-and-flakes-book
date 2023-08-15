@@ -16,7 +16,7 @@ NixOS 的配置文件就像是程序的**源代码**，只要源代码没丢，�
 
 ## Nix 与 Ansible 等传统的系统运维工具相比有何优劣？
 
-Nix 不仅可用于管理桌面电脑的环境，也有很多人用它批量管理云服务器，Nix 官方的 [NixOps](https://github.com/NixOS/nixops) 与社区的 [deploy-rs](https://github.com/serokell/deploy-rs) 都是专为这个场景开发的工具。
+Nix 不仅可用于管理桌面电脑的环境，也有很多人用它批量管理云服务器，Nix 官方的 [NixOps](https://github.com/NixOS/nixops) 与社区的 [colmena](https://github.com/zhaofengli/colmena) 都是专为这个场景开发的工具。
 
 Nix 与 Ansible 这类被广泛应用的传统工具比，主要优势就在：
 

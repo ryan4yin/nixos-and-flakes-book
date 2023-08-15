@@ -1,61 +1,130 @@
 # 远程部署
 
-社区的一些工具，比如 [NixOps](https://github.com/NixOS/nixops), [deploy-rs](https://github.com/serokell/deploy-rs), 跟 [colmena](https://github.com/zhaofengli/colmena)，都可以用来部署 NixOS 配置到远程主机，但是都太复杂了，所以先全部跳过。
+Nix 本身的设计就很适合远程部署，Nix 社区也有许多专门用于远程部署的工具，比如说 [NixOps](https://github.com/NixOS/nixops) 与 [colmena](https://github.com/zhaofengli/colmena)。另外我们前面已经用了很多次的官方工具 `nixos-rebuild`，它拥有一定的远程部署能力。
 
-实际上我们前面使用了多次的 NixOS 本机部署命令 `nixos-rebuild`，这个工具也支持通过 ssh 协议进行远程部署，非常方便。
+这里我简单介绍下如何使用 colmena 与 `nixos-rebuild` 进行远程部署。
 
-美中不足的是，`nixos-rebuild` 不支持使用密码认证进行部署，所以要想使用它进行远程部署，我们需要：
+## 准备工作
 
-1. 为远程主机配置 ssh 公钥认证。
-2. 为了避免 sudo 密码认证失败，需要使用 `root` 用户进行部署，或者给用户授予 sudo 权限不需要密码认证。
-   1. 相关 issue: <https://github.com/NixOS/nixpkgs/issues/118655>
+在进行远程部署之前，需要做一些准备工作：
 
-在搞定上面两点后，我们就可以使用 `nixos-rebuild` 进行远程部署了：
+1. 为了防止 sudo 密码验证失败，要么以 `root` 用户身份部署，要么为用户授予免密码验证的 sudo 权限。
+2. 为远程主机配置 SSH 公钥身份验证。
 
-```bash
-# 1. 首先将本地的 ssh 私钥加载到 ssh-agent 中，以便后续使用
-ssh-add ~/.ssh/ai-idols
+建议使用 `root` 用户进行部署，因为这更方便且不需要额外的配置，没有令人头疼的 sudo 权限问题。
 
-# 2. 将 NixOS 配置部署到远程主机，使用第一步添加的 ssh key 进行认证，用户名默认为 `$USER`
-nixos-rebuild --flake .#aquamarine --target-host 192.168.4.1 --build-host 192.168.4.1 switch --use-remote-sudo --verbose
+假设我们现在要通过 root 用户进行远程部署，首先需要在远程主机上为该用户配置 SSH 公钥身份验证。
+直接在远程主机的 Nix 配置的任一 NixOS Module 中（比如 `configuration.nix`）添加如下内容，然后重新构建系统即可：
+
+```nix
+# configuration.nix
+{
+
+  # ...
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    # TODO 替换为您自己的 SSH 公钥。
+    "ssh-ed25519 AAAAC3Nxxxxx ryan@xxx"
+  ];
+
+  # ...
+}
 ```
 
-上面的命令会将 NixOS 配置部署到 `aquamarine` 这台主机上，参数解释如下：
+然后还需要提前在本机上将用于登录的 SSH 私钥添加到 SSH agent，以便在部署配置时进行身份验证：
 
-1. `--target-host`: 设置远程主机的 ip 地址
-2. `--build-host` 指定了构建 NixOS 配置的主机，这里设置为跟 `--target-host` 相同，表示在远程主机上构建配置。
-3. `--use-remote-sudo` 表示部署需要用到远程主机的 sudo 权限，如果不设置这个参数，部署会失败。
+```bash
+ssh-add ~/.ssh/your-private-key
+```
 
-如果你希望在本地构建配置，然后再部署到远程主机，可以命令中的 `--build-host aquamarinr` 替换为 `--build-host localhost`。
+## 通过 `colmena` 进行部署
 
-另外如果你不想直接使用 ip 地址，可以在 `~/.ssh/config` 或者 `/etc/ssh/ssh_config` 中定义一些主机别名，比如：
+`colmena` 不能直接使用我们已经熟悉的 `nixosConfigurations.xxx` 进行远程部署，它自定义了一个名为 `colmena` 的 flake outputs 来进行远程部署，
+其内容结构与 `nixosConfigurations.xxx` 类似但不完全相同。
 
-> 当然如下这份配置也完全可以通过 Nix 来管理，这个就留给读者自己去实现了。
+在你系统的 `flake.nix` 中添加一个新的名为 `colmena` 的 outputs，一个简单的例子如下：
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+
+    # ...
+  };
+  outputs = { self, nixpkgs }: {
+    # ...
+
+    # 新增这个 outputs，colmena 会读取这个 outputs 中的内容进行远程部署
+    colmena = {
+      meta = {
+        nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+
+        # 这个参数的功能与 `nixosConfigurations.xxx` 中的 `sepcialArgs` 一致，
+        # 都是用于传递自定义参数到所有子模块。
+        specialArgs = {
+          inherit nixpkgs;
+        };
+      };
+
+      # 主机名 = "nixos-test"
+      "nixos-test" = { name, nodes, ... }: {
+        # 与远程部署相关的参数
+        deployment.targetHost = "192.168.5.42"; # 远程主机的 IP 地址
+        deployment.targetUser = "root";  # 远程主机的用户名
+
+        # 此参数的功能与 `nixosConfigurations.xxx` 中的 `modules` 一致
+        # 都是用于导入所有子模块。
+        imports = [
+          ./configuration.nix
+        ];
+      };
+    };
+  };
+}
+```
+
+现在，您可以将配置部署到设备上：
+
+```bash
+nix run nixpkgs#colmena apply 
+```
+
+更复杂的用法，请参阅 colmena 的官方文档 <https://colmena.cli.rs/unstable/introduction.html>
+
+## 通过 `nixos-rebuild` 进行部署
+
+用 `nixos-rebuild` 进行远程部署的好处在于，它的工作方式与部署到本地主机完全相同，只需要多传几个参数，指定下远程主机的 IP 地址、用户名等信息即可。
+
+例如，使用以下命令将 flake 中的 `nixosConfigurations.nixos-test` 这份配置部署到远程主机：
+
+```bash
+nixos-rebuild switch --flake .#nixos-text \
+  --target-host root@192.168.4.1 --build-host localhost --verbose
+```
+
+上述命令将会构建并部署 nixos-test 的配置到 IP 为 `192.168.4.1` 的服务器，系统构建过程将在本机执行。
+
+如果你希望在远程主机上构建系统，只需要将 `--build-host localhost` 替换为 `--build-host root@192.168.4.1`。
+
+如果你觉得到处写 IP 地址不太合适，也可以在本地主机的 `~/.ssh/config` 或 `/etc/ssh/ssh_config` 中定义主机别名。例如：
+
+> SSH 配置可以完全通过 Nix 配置生成，这个任务就留给读者自己完成了。
 
 ```bash
 › cat ~/.ssh/config
 
 # ......
 
-Host ai
-  HostName 192.168.5.100
-  Port 22
-
 Host aquamarine
-  HostName 192.168.5.101
+  HostName 192.168.4.1
   Port 22
 
-Host ruby
-  HostName 192.168.5.102
-  Port 22
-
-Host kana
-  HostName 192.168.5.103
-  Port 22
+# ......
 ```
 
-这样我们就可以使用主机别名进行部署了：
+然后就可以直接使用主机别名进行部署了：
 
 ```bash
-nixos-rebuild --flake .#aquamarine --target-host aquamarine --build-host aquamarine switch --use-remote-sudo --verbose
+nixos-rebuild switch --flake .#nixos-test --target-host root@aquamarine --build-host root@aquamarine --verbose
 ```
+

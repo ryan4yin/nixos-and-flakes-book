@@ -14,7 +14,7 @@ Dynamic data mentioned above, along with the contents in the user's home directo
 
 Although we cannot achieve complete system reproducibility, the `/home` directory, being an important user directory, contains many necessary configuration files. A significant community project called [home-manager](https://github.com/nix-community/home-manager) is designed to manage user-level packages and configuration files within the user's home directory.
 
-Due to Nix's features, such as being declarative and reproducible, Nix is not limited to managing desktop environments but is also extensively used for managing development environments, compilation environments, cloud virtual machines, and container image construction. [NixOps](https://github.com/NixOS/nixops) from the official Nix project and [deploy-rs](https://github.com/serokell/deploy-rs) from the community are both operational tools based on Nix.
+Due to Nix's features, such as being declarative and reproducible, Nix is not limited to managing desktop environments but is also extensively used for managing development environments, compilation environments, cloud virtual machines, and container image construction. [NixOps](https://github.com/NixOS/nixops) from the official Nix project and [colmena](https://github.com/zhaofengli/colmena) from the community are both operational tools based on Nix.
 
 ## Why NixOS?
 

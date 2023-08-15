@@ -1,56 +1,130 @@
 # Remote Deployment
 
-Deploying NixOS configuration to remote hosts can be accomplished using tools like [NixOps](https://github.com/NixOS/nixops), [deploy-rs](https://github.com/serokell/deploy-rs), and [colmena](https://github.com/zhaofengli/colmena). However, if you prefer a simpler approach, you can use the built-in remote deployment capability of `nixos-rebuild` with SSH protocol.
+Nix's inherent design is well-suited for remote deployment, and the Nix community offers several tools tailored for this purpose, such as [NixOps](https://github.com/NixOS/nixops) and [colmena](https://github.com/zhaofengli/colmena). Additionally, the official tool we've used extensively, `nixos-rebuild`, possesses some remote deployment capabilities too.
 
-Before using `nixos-rebuild` for remote deployment, there are a few prerequisites:
+Let me briefly guide you through using colmena or `nixos-rebuild` for remote deployment.
 
-1. Configure SSH public key authentication for the remote hosts.
-2. To prevent sudo password verification failures, either deploy as the `root` user or grant the user sudo permission without password verification.
-   - Related issue: <https://github.com/NixOS/nixpkgs/issues/118655>
+## Prerequisites
 
-Once the above configurations are in place, you can deploy the configuration to the server using the following command:
+Before embarking on remote deployment, a few preparatory steps are necessary:
 
-```bash
-# 1. Add the SSH key to ssh-agent first
-ssh-add ~/.ssh/ai-idols
+1. To prevent sudo password verification failures, either deploy as the `root` user or grant the user sudo permission without password verification.
+2. Configure SSH public key authentication for the remote hosts.
 
-# 2. Deploy the configuration to the remote host, using the SSH key added in step 1.
-#    The username defaults to `$USER`, in my case, it's `ryan`.
-nixos-rebuild --flake .#aquamarine --target-host 192.168.4.1 --build-host 192.168.4.1 switch --use-remote-sudo --verbose
+It's advisable to use the `root` user for deployment as it's more convenient and avoids the complexities of sudo permissions.
+
+Assuming we intend to deploy remotely using the root user, the initial step involves configuring SSH public key authentication for the root user on the remote host.
+To accomplish this, simply add the following content to any NixOS Module in the remote host's Nix configuration (e.g., `configuration.nix`), then rebuild the system:
+
+```nix
+# configuration.nix
+{
+
+  # ...
+
+  users.users.root.openssh.authorizedKeys.keys = [
+    # TODO Replace with your own SSH public key.
+    "ssh-ed25519 AAAAC3Nxxxxx ryan@xxx"
+  ];
+
+  # ...
+}
 ```
 
-The command above will build and deploy the configuration to the `aquamarine` server, and the build process will also execute on `aquamarine`. The `--use-remote-sudo` option indicates that sudo permission is required on the remote server for deploying the configuration.
+Furthermore, you'll need to add the SSH private key to the SSH agent on your local machine for authentication during remote deployment:
 
-If you prefer to build the configuration locally and deploy it to the remote server, replace `--build-host aquamarine` with `--build-host localhost`. Additionally, instead of using the IP address directly, you can define host aliases in `~/.ssh/config` or `/etc/ssh/ssh_config`. For example:
+```bash
+ssh-add ~/.ssh/your-private-key
+```
 
-> The SSH config can be generated entirely through Nix configuration, and this task is left to you.
+## Deploy through `colmena`
+
+`colmena` doesn't directly use the familiar `nixosConfigurations.xxx` for remote deployment. Instead, it customizes a flake outputs named `colmena`. Although its structure is similar to `nixosConfigurations.xxx`, it's not identical.
+
+In your system's `flake.nix`, add a new outputs named `colmena`. A simple example is shown below:
+
+```nix
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+
+    # ...
+  };
+  outputs = { self, nixpkgs }: {
+    # ...
+
+    # Add this output, colmena will read its contents for remote deployment
+    colmena = {
+      meta = {
+        nixpkgs = import nixpkgs { system = "x86_64-linux"; };
+
+        # This parameter functions similarly to `sepcialArgs` in `nixosConfigurations.xxx`,
+        # used for passing custom arguments to all submodules.
+        specialArgs = {
+          inherit nixpkgs;
+        };
+      };
+
+      # Host name = "nixos-test"
+      "nixos-test" = { name, nodes, ... }: {
+        # Parameters related to remote deployment
+        deployment.targetHost = "192.168.5.42"; # Remote host's IP address
+        deployment.targetUser = "root";  # Remote host's username
+
+        # This parameter functions similarly to `modules` in `nixosConfigurations.xxx`,
+        # used for importing all submodules.
+        imports = [
+          ./configuration.nix
+        ];
+      };
+    };
+  };
+}
+```
+
+Now you can deploy your configuration to the device:
+
+```bash
+nix run nixpkgs#colmena apply 
+```
+
+For more advanced usage, refer to colmena's official documentation at <https://colmena.cli.rs/unstable/introduction.html>
+
+## Deploy through `nixos-rebuild`
+
+Using `nixos-rebuild` for remote deployment has the advantage of being similar to deploying to a local host. It only requires a few additional parameters to specify the remote host's IP address, username, and other details.
+
+For instance, to deploy the configuration defined in the `nixosConfigurations.nixos-test` of your flake to a remote host, use the following command:
+
+```bash
+nixos-rebuild switch --flake .#nixos-text \
+  --target-host root@192.168.4.1 --build-host localhost --verbose
+```
+
+The above command will build and deploy the configuration of `nixos-test` to a server with IP `192.168.4.1`. The system build process will occur locally.
+
+If you prefer to build the configuration on the remote host, replace `--build-host localhost` with `--build-host root@192.168.4.1`.
+
+To avoid repeatedly using IP addresses, you can define host aliases in your local machine's `~/.ssh/config` or `/etc/ssh/ssh_config`. For example:
+
+> Generating the SSH configuration entirely through Nix configuration is possible, and this task is left to you.
 
 ```bash
 › cat ~/.ssh/config
 
 # ......
 
-Host ai
-  HostName 192.168.5.100
-  Port 22
-
 Host aquamarine
-  HostName 192.168.5.101
+  HostName 192.168.4.1
   Port 22
 
-Host ruby
-  HostName 192.168.5.102
-  Port 22
-
-Host kana
-  HostName 192.168.5.103
-  Port 22
+# ......
 ```
 
-You can then use the host aliases to deploy the configuration:
+With this setup, you can use host aliases for deployment:
 
 ```bash
-nixos-rebuild --flake .#aquamarine --target-host aquamarine --build-host aquamarine switch --use-remote-sudo --verbose
+nixos-rebuild switch --flake .#nixos-test --target-host root@aquamarine --build-host root@aquamarine --verbose
 ```
 
-This allows for more convenient deployment using the defined host aliases.
+This offers a more convenient way to deploy using the defined host aliases.
