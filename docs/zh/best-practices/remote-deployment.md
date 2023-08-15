@@ -16,7 +16,7 @@ Nix 本身的设计就很适合远程部署，Nix 社区也有许多专门用于
 假设我们现在要通过 root 用户进行远程部署，首先需要在远程主机上为该用户配置 SSH 公钥身份验证。
 直接在远程主机的 Nix 配置的任一 NixOS Module 中（比如 `configuration.nix`）添加如下内容，然后重新构建系统即可：
 
-```nix
+```nix{6-9}
 # configuration.nix
 {
 
@@ -44,7 +44,7 @@ ssh-add ~/.ssh/your-private-key
 
 在你系统的 `flake.nix` 中添加一个新的名为 `colmena` 的 outputs，一个简单的例子如下：
 
-```nix
+```nix{11-34}
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
