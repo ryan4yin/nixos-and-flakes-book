@@ -389,7 +389,7 @@ function themeConfigChinese() {
             { text: "callPackage", link: "/zh/nixpkgs/callpackage.md" },
             { text: "Overridding", link: "/zh/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
-            { text: "多 Nixpkgs 实例", link: "/nixpkgs/multiple-nixpkgs.md" },
+            { text: "多 Nixpkgs 实例", link: "/zh/nixpkgs/multiple-nixpkgs.md" },
           ],
         },
         {
