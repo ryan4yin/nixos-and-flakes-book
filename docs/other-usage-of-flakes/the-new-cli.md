@@ -62,13 +62,13 @@ echo "Hello Nix" | nix run "github:NixOS/nixpkgs/nixos-unstable#ponysay"
 
 ## Common Use Cases for `nix run` and `nix shell`
 
-These commands are commonly used for running temporary commands. For example, if I want to clone my configuration repository using Git on a new NixOS host without Git installed, I can use the following command:
+These commands are commonly used for running programs temporarily. For example, if I want to clone my configuration repository using Git on a new NixOS host without Git installed, I can use the following command:
 
 ```bash
 nix run nixpkgs#git clone git@github.com:ryan4yin/nix-config.git
 ```
 
-Alternatively, you can use the following command:
+Alternatively, I can use `nix shell` to enter an environment with Git and then run the `git clone` command:
 
 ```bash
 nix shell nixpkgs#git 
