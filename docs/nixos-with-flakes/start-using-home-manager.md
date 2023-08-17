@@ -224,9 +224,9 @@ To find the options we can use in `home.nix`, referring to the following documen
 
 ## Home Manager vs NixOS
 
-When it comes to managing software packages and configurations, you often have the choice of using either NixOS modules (`configuration.nix`) or Home Manager (`home.nix`). This poses a dilemma: **What are the differences between putting packages or configuration files in NixOS modules versus Home Manager configurations, and how should you decide?**
+When it comes to managing software packages and configurations, you often have the choice of using either NixOS modules (`configuration.nix`) or Home Manager (`home.nix`). This poses a dilemma: **What are the differences between putting packages or configuration in NixOS modules vs Home Manager modules, and how should you decide?**
 
-First, let's understand the differences. Packages and configuration files installed through NixOS modules are global to the entire system. Global configurations are typically stored in `/etc`, and globally installed packages are linked accordingly. Regardless of the user you switch to, you can access and use these packages and configurations.
+First, let's understand the differences. Packages and configuration installed through NixOS modules are global to the entire system. Global configurations are typically stored in `/etc`, and globally installed packages are linked accordingly. Regardless of the user you switch to, you can access and use these packages and configurations.
 
 On the other hand, everything installed through Home Manager is specific to the corresponding user. Once you switch to another user, those configurations and packages become unavailable.
 
