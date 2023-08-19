@@ -120,7 +120,7 @@ stdenv.mkDerivation ({
 
 
 
-## 在开发环境中使用 zhs/fhish 等其他 shell
+## 在开发环境中使用 zsh/fish 等其他 shell
 
 `pkgs.mkShell` 默认使用 `bash`，但是你也可以通过在 `shellHook` 中添加 `exec <your-shell>` 来使用 `zsh` 或者 `fish` 等其他 shell。
 
