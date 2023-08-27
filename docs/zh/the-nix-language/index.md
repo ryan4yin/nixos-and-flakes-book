@@ -6,6 +6,8 @@ Nix 是一门比较简单的函数式语言，在已有一定编程基础的情�
 
 先把语法过一遍，有个大概的印象就行，后面需要用到时再根据右侧目录回来复习。
 
+>注：本人经验有限，如下内容不一定包含了所有 Nix 语言的语法，请以官方文档 [Nix Language](https://nixos.org/manual/nix/stable/language/values) 为准。
+
 ## 基础数据类型一览 {#basic-data-types}
 
 下面通过一个 attribute set （这类似 json 或者其他语言中的 map/dict）来简要说明所有基础数据类型：
@@ -213,6 +215,49 @@ Nix 会在看到 `<nixpkgs>` 这类三角括号语法时，会在 `NIX_PATH` 环
   multi-line
   string
 ''
+```
+
+## 多行字符串的转义 {#multi-line-string-escape}
+
+在单行字符串中，Nix 的转义语法与许多其他语言相同，`"` `\` `${` 以及其他 `\n` `\t` 等特殊字符，都可直接使用 `\` 进行转义，比如：
+
+```nix
+"this is a \"string\" \\"  # 结果是: this is a "string" \
+```
+
+但在多行字符串中，情况会有点特殊。Nix 规定在多行字符串中需要使用两个单引号 `''` 来转义。
+
+比如如下表示输出原始字符 `${a}`，而不是字符串插值：
+
+```nix
+let
+  a = "1";
+in
+''the value of a is:
+  ''${a}
+''  # 结果是 "the value of a is ''${a}"
+```
+
+其他 `\n` `\t` 等特殊字符的转义也类似，必须使用两个单引号来转义，如
+
+```nix
+''
+  this is a
+  multi-line
+  string
+  ''\n
+''
+```
+
+如果我们希望在字符串中使用原始字符 `''`，则需要再为它添加一个 `'`，比如：
+
+```nix
+let
+  a = "1";
+in
+''the value of a is:
+  '''${a}'''
+''  # 结果是 "the value of a is ''1''"
 ```
 
 ## 函数 {#nix-function}
