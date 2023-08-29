@@ -154,9 +154,7 @@ Then, for my desktop machine, I override the value in [ryan4yin/nix-config/blob/
 
 ## `lib.mkOrder`, `lib.mkBefore`, and `lib.mkAfter`
 
-In addition to `lib.mkDefault` and `lib.mkForce`, there are also `lib.mkBefore` and `lib.mkAfter`, which are used to set the merge order of \*\*list
-
--type options\*\*. These functions further contribute to the modularization of the configuration.
+In addition to `lib.mkDefault` and `lib.mkForce`, there are also `lib.mkBefore` and `lib.mkAfter`, which are used to set the merge order of **list-type options**. These functions further contribute to the modularization of the configuration.
 
 As mentioned earlier, when you define multiple values with the same **override priority**, Nix will throw an error. However, by using `lib.mkOrder`, `lib.mkBefore`, or `lib.mkAfter`, you can define multiple values with the same override priority, and they will be merged in the order you specify.
 
