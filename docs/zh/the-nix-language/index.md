@@ -391,7 +391,7 @@ Store Object 的存放路径格式为 `/nix/store/<hash>-<name>`，其中 `<hash
 `/nix/store` 是一个特殊的文件路径，它被称为 Store，存放所有的 Store Objects，这个路径被设置为只读，只有 Nix 本身才能修改这个路径下的内容，以保证系统的可复现性。
 
 Derivation 实质上只是一个 attribute set，Nix 底层会使用内置函数 `builtins.derivation` 将这个 attribute set 构建为一个 Store Object。
-我们实际编写 Derivation 时，通常使用的是 `stdenv.mkDerivation`，它只前述内置函数 `builtins.derivation` 的 Nix 语言 wrapper，屏蔽了底层的细节，简化了用法。
+我们实际编写 Derivation 时，通常使用的是 `stdenv.mkDerivation`，它是前述内置函数 `builtins.derivation` 的 Nix 语言 wrapper，屏蔽了底层的细节，简化了用法。
 
 一个简单的 Derivation 如下，它声明了一个名为 hello 的应用程序（摘抄自 [nixpkgs/pkgs/hello](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/misc/hello/default.nix)）：
 
