@@ -146,7 +146,7 @@ cat flake.nix
 
 这里我们定义了一个名为 `nixos-test` 的系统，它的配置文件为 `./configuration.nix`，这个文件就是我们之前的配置文件，这样我们仍然可以沿用旧的配置。
 
-现在执行 `sudo nixos-rebuild switch` 应用配置，系统应该没有任何变化，因为我们仅仅是切换到了 Nix Flakes，配置内容与之前还是一致的。
+现在执行 `sudo nixos-rebuild switch --flake /etc/nixos#nixos-test` 应用配置，系统应该没有任何变化，因为我们仅仅是切换到了 Nix Flakes，配置内容与之前还是一致的。
 
 ## 通过 Flakes 来管理系统软件 {#manage-system-software-with-flakes}
 
