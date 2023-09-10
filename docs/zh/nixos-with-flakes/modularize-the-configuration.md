@@ -34,7 +34,7 @@ $ tree
 
 - [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)
 
-再举个更复杂一点的例子，如下是我之前 i3wm 配置的目录结构 [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2)：
+再举个更复杂一点的例子，如下是我之前 i3wm 配置的目录结构 [ryan4yin/nix-config/i3-kickstarter](https://github.com/ryan4yin/nix-config/tree/i3-kickstarter)：
 
 ```shell
 ├── flake.lock

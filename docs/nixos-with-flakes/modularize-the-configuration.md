@@ -32,7 +32,7 @@ Here is a nice starter example of modularizing the configuration, Highly recomme
 
 - [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)
 
-A more complicated example, [ryan4yin/nix-config/v0.0.2](https://github.com/ryan4yin/nix-config/tree/v0.0.2) is the configuration of my previous NixOS system with the i3 window manager. Its structure is as follows:
+A more complicated example, [ryan4yin/nix-config/i3-kickstarter](https://github.com/ryan4yin/nix-config/tree/i3-kickstarter) is the configuration of my previous NixOS system with the i3 window manager. Its structure is as follows:
 
 ```shell
 ├── flake.lock
