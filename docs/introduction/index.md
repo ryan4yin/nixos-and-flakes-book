@@ -2,7 +2,7 @@
 
 # Introduction to Nix & NixOS
 
-Nix is a declarative package manager that enables users to declare the desired system state in configuration files(declarative configuration), and it takes responsibility for achieving that state.
+Nix is a declarative package manager that enables users to declare the desired system state in configuration files (declarative configuration), and it takes responsibility for achieving that state.
 
 > In simple terms, "declarative configuration" means that users only need to declare the desired outcome. For instance, if you declare that you want to replace the i3 window manager with sway, Nix will assist you in achieving that goal. You don't have to worry about the underlying details, such as which packages sway requires for installation, which i3-related packages need to be uninstalled, or the necessary adjustments to system configuration and environment variables for sway. Nix automatically handles these details for the user (provided that the Nix packages related to sway and i3 are properly designed).
 
