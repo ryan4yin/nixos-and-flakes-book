@@ -65,7 +65,7 @@ In essence, `pkgs.callPackage` is used as `pkgs.callPackage fn args`, where `fn`
 3. Then, `pkgs.callPackge fn args` extracts the parameters of the `fn` function from the merged attribute set and uses them to execute the function.
 4. The result of the function execution is a Derivation, which is a Nix package.
 
-What can a Nix file or function, used as an argument to `pkgs.callPackge`, look like? You can examine examples we've used before: `hello.nix`, `fcitx5-rime.nix`, `vscode/with-extensions.nix`, and `firefox/common.nix`. All of them can be imported using `pkgs.callPackage`.
+What can a Nix file or function, used as an argument to `pkgs.callPackge`, look like? You can examine examples we've used before in [Nixpkgs's Advanced Usage - Introduction](./intro.md): `hello.nix`, `fcitx5-rime.nix`, `vscode/with-extensions.nix`, and `firefox/common.nix`. All of them can be imported using `pkgs.callPackage`.
 
 For instance, if you've defined a custom NixOS kernel configuration in `kernel.nix` and made the development branch name and kernel source code configurable:
 

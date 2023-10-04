@@ -102,7 +102,7 @@ nix-repl> import ./hello.nix pkgs
 3. 再之后，`pkgs.callPackge fn args` 会从上一步得到的 attribute set 中提取出 `fn` 函数的参数，并使用它们来执行 `fn` 函数。
 4. 函数执行结果是一个 Derivation，也就是一个 Nix 包。
 
-那可以作为 `pkgs.callPackge` 参数的 nix 文件具体长啥样呢，可以去看看我们前面举例过的 `hello.nix` `fcitx5-rime.nix` `vscode/with-extensions.nix` `firefox/common.nix`，它们都可以被 `pkgs.callPackage` 导入。
+那可以作为 `pkgs.callPackge` 参数的 nix 文件具体长啥样呢，可以去看看我们前面在 [Nixpkgs 高级用法 - 简介](./intro.md) 中举例过的 `hello.nix` `fcitx5-rime.nix` `vscode/with-extensions.nix` `firefox/common.nix`，它们都可以被 `pkgs.callPackage` 导入。
 
 比如说我们自定义了一个 NixOS 内核配置 `kernel.nix`，并且将开发版名称与内核源码作为了可变更参数：
 
