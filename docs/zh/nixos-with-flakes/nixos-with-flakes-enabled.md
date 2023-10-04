@@ -118,7 +118,7 @@ cat flake.nix
         # 那么它的参数就是当前的 NixOS Module 的参数.
         #
         # 根据 Nix Wiki 对 Nix modules 的描述，默认情况下，
-        # Nix Module 函数的参数可以有这几个：
+        # Nix Module 函数的默认参数有几个：
         #
         #  lib:     nixpkgs 自带的函数库，提供了许多操作 Nix 表达式的实用函数
         #           详见 https://nixos.org/manual/nixpkgs/stable/#id-1.4
@@ -131,8 +131,10 @@ cat flake.nix
         #               常用于从 nixpkgs 中导入一些额外的模块
         #               这个参数通常都用不到，我只在制作 iso 镜像时用到过
         #
-        # 如果需要传其他非默认参数，就得使用 specialArgs，你可以取消注释如下这行来启用该参数
-        # specialArgs = inputs  # 将 inputs 中的参数传入所有子模块
+        # 上述默认参数都由 Nixpkgs 自动生成。而如果你需要将其他非默认参数传递到子模块，
+        # 就得使用 specialArgs 手动设定这些参数，你可以取消注释如下这行来启用该参数：
+        #
+        # specialArgs = {...};  # 将 inputs 中的参数传入所有子模块
         modules = [
           # 这里导入之前我们使用的 configuration.nix，这样旧的配置文件仍然能生效
           # 注: configuration.nix 本身也是一个 Nix Module，因此可以直接在这里导入
@@ -147,6 +149,12 @@ cat flake.nix
 这里我们定义了一个名为 `nixos-test` 的系统，它的配置文件为 `./configuration.nix`，这个文件就是我们之前的配置文件，这样我们仍然可以沿用旧的配置。
 
 现在执行 `sudo nixos-rebuild switch --flake /etc/nixos#nixos-test` 应用配置，系统应该没有任何变化，因为我们仅仅是切换到了 Nix Flakes，配置内容与之前还是一致的。
+
+上述代码的注释已经非常详细了，这里再着重说明几点： 
+
+1. `lib` `pkgs` `config` 等默认参数都由 Nixpkgs 自动生成，并可被自动注入到子模块，无需在此处额外声明。
+1. `specialArgs = {...};` 这里省略了 attribute set 的内容，其中的内容会被通过名称匹配的方式自动注入到子模块中。
+    1. 常见用法比如直接写 `specialArgs = inputs;`，这样所有 inputs 中的 flake 数据源就都可以在子模块中使用了。
 
 ## 通过 Flakes 来管理系统软件 {#manage-system-software-with-flakes}
 
