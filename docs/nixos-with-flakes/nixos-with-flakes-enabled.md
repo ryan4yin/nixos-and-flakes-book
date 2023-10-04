@@ -200,7 +200,7 @@ First, we need to add Helix as an input in `flake.nix`:
         system = "x86_64-linux";
 
         # Set all input parameters as specialArgs of all sub-modules
-        # so that we can use the `helix` input in sub-modules
+        # so that we can use the `helix`(an attribute in inputs) in sub-modules directly.
         specialArgs = inputs;
         modules = [
           ./configuration.nix
