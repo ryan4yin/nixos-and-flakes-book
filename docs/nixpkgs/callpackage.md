@@ -1,24 +1,73 @@
 # `pkgs.callPackage`
 
-In the previous section, we used the `import xxx.nix` syntax to import Nix files. This syntax simply returns the execution result of the file without any further processing.
+`pkgs.callPackage` is used to parameterize the construction of Nix Derivation. To understand its purpose, let's first consider how we would define a Nix package (also known as a Derivation) without using `pkgs.callPackage`.
 
-Another method to import Nix files is `pkgs.callPackage`. Its syntax is `pkgs.callPackage xxx.nix { ... }`. However, unlike `import`, the Nix file imported by `pkgs.callPackage` must be a Derivation or a function that returns a Derivation. The result of `pkgs.callPackage` is also a Derivation, which represents a software package.
+## 1. Without `pkgs.callPackage`
 
-So, what does a Nix file that can be used as a parameter for `pkgs.callPackage` look like? You can refer to the `hello.nix`, `fcitx5-rime.nix`, `vscode/with-extensions.nix`, and `firefox/common.nix` files mentioned earlier. All of these files can be imported using `pkgs.callPackage`.
+We can define a Nix package using code like this:
 
-When the `xxx.nix` file used in `pkgs.callPackage xxx.nix {...}` is a function (most Nix packages follow this pattern), the execution flow is as follows:
+```nix
+pkgs.writeShellScriptBin "hello" ''echo "hello, ryan!"''
+```
 
-1. `pkgs.callPackage xxx.nix {...}` first imports `xxx.nix` to obtain the function defined within it. This function usually has parameters like `lib`, `stdenv`, `fetchurl`, and sometimes additional custom parameters with default values.
+To verify this, you can use `nix repl`, and you'll see that the result is indeed a Derivation:
 
-2. Then, `pkgs.callPackage` searches for a value matching the parameter names from the current environment. Parameters like `lib`, `stdenv`, and `fetchurl` are defined in nixpkgs and will be found in this step.
+```shell
+› nix repl -f '<nixpkgs>'
+Welcome to Nix 2.13.5. Type :? for help.
 
-3. Next, `pkgs.callPackage` merges its second parameter, `{...}`, with the attribute set obtained in the previous step. It then passes this merged set as the parameter to the function imported from `xxx.nix` for execution.
+Loading installable ''...
+Added 19203 variables.
 
-4. Finally, the result of the function execution is a Derivation.
+nix-repl> pkgs.writeShellScriptBin "hello" '' echo "hello, xxx!" ''
+«derivation /nix/store/zhgar12vfhbajbchj36vbbl3mg6762s8-hello.drv»
+```
 
-The common use case for `pkgs.callPackage` is to import customized Nix packages and use them in Nix Modules.
+While the definition of this Derivation is quite concise, most Derivations in nixpkgs are much more complex. In previous sections, we introduced and extensively used the `import xxx.nix` method to import Nix expressions from other Nix files, which can enhance code maintainability.
 
-For example, let's say we have a customized NixOS kernel configuration file named `kernel.nix`, which uses the SBC's name and kernel source as its variable parameters:
+1. To enhance maintainability, you can store the definition of the Derivation in a separate file, e.g., `hello.nix`.
+   1. However, the context within `hello.nix` itself doesn't include the `pkgs` variable, so you'll need to modify its content to pass `pkgs` as a parameter to `hello.nix`.
+2. In places where you need to use this Derivation, you can import it using `import ./hello.nix pkgs` and use `pkgs` as a parameter to execute the function defined within.
+
+Let's continue to verify this using `nix repl`, and you'll see that the result is still a Derivation:
+
+```shell
+› cat hello.nix          
+pkgs:
+  pkgs.writeShellScriptBin "hello" '' echo "hello, xxx!" ''
+
+› nix repl -f '<nixpkgs>'
+Welcome to Nix 2.13.5. Type :? for help.
+
+warning: Nix search path entry '/nix/var/nix/profiles/per-user/root/channels' does not exist, ignoring
+Loading installable ''...
+Added 19203 variables.
+
+nix-repl> import ./hello.nix pkgs
+«derivation /nix/store/zhgar12vfhbajbchj36vbbl3mg6762s8-hello.drv»
+```
+
+## 2. Using `pkgs.callPackage`
+
+In the previous example without `pkgs.callPackage`, we directly passed `pkgs` as a parameter to `hello.nix`. However, this approach has some drawbacks:
+
+1. All other dependencies of the `hello` Derivation are tightly coupled with `pkgs`.
+   1. If we need custom dependencies, we have to modify either `pkgs` or the content of `hello.nix`, which can be cumbersome.
+2. In cases where `hello.nix` becomes complex, it's challenging to determine which Derivations from `pkgs` it relies on, making it difficult to analyze the dependencies between Derivations.
+
+`pkgs.callPackage`, as a tool for parameterizing the construction of Derivations, addresses these issues. Let's take a look at its source code and comments [nixpkgs/lib/customisation.nix#L101-L121](https://github.com/NixOS/nixpkgs/blob/fe138d3/lib/customisation.nix#L101-L121):
+
+In essence, `pkgs.callPackage` is used as `pkgs.callPackage fn args`, where `fn` is a Nix file or function, and `args` is an attribute set. Here's how it works:
+
+1. `pkgs.callPackge fn args` first checks if `fn` is a function or a file. If it's a file, it imports the function defined within.
+   1. After this step, you have a function, typically with parameters like `lib`, `stdenv`, `fetchurl`, and possibly some custom parameters.
+2. Next, `pkgs.callPackge fn args` merges `args` with the `pkgs` attribute set. If there are conflicts, the parameters in `args` will override those in `pkgs`.
+3. Then, `pkgs.callPackge fn args` extracts the parameters of the `fn` function from the merged attribute set and uses them to execute the function.
+4. The result of the function execution is a Derivation, which is a Nix package.
+
+What can a Nix file or function, used as an argument to `pkgs.callPackge`, look like? You can examine examples we've used before: `hello.nix`, `fcitx5-rime.nix`, `vscode/with-extensions.nix`, and `firefox/common.nix`. All of them can be imported using `pkgs.callPackage`.
+
+For instance, if you've defined a custom NixOS kernel configuration in `kernel.nix` and made the development branch name and kernel source code configurable:
 
 ```nix
 {
@@ -36,16 +85,16 @@ For example, let's say we have a customized NixOS kernel configuration file name
 
   inherit src lib stdenv;
 
-  # File path to the generated kernel config file (`.config` generated by make menuconfig)
+  # file path to the generated kernel config file(the `.config` generated by make menuconfig)
   #
-  # Here, we use a special usage to generate a file path from a string.
+  # here is a special usage to generate a file path from a string
   configfile = ./. + "${boardName}_config";
 
   allowImportFromDerivation = true;
 })
 ```
 
-We can use `pkgs.callPackage ./kernel.nix {}` in any Nix Module to import and replace any of its parameters:
+You can use `pkgs.callPackage ./hello.nix {}` in any Nix module to import and use it, replacing any of its parameters as needed:
 
 ```nix
 { lib, pkgs, pkgsKernel, kernel-src, ... }:
@@ -56,16 +105,27 @@ We can use `pkgs.callPackage ./kernel.nix {}` in any Nix Module to import and re
   boot = {
     # ......
     kernelPackages = pkgs.linuxPackagesFor (pkgs.callPackage ./pkgs/kernel {
-        src = kernel-src;  # The kernel source is passed as a `specialArgs` and injected into this module.
-        boardName = "licheepi4a";  # The board name, used to generate the kernel config file path.
+        src = kernel-src;  # kernel source is passed as a `specialArgs` and injected into this module.
+        boardName = "licheepi4a";  # the board name, used to generate the kernel config file path.
     });
 
   # ......
 }
 ```
 
-In the example above, we use `pkgs.callPackage` to pass different `src` and `boardName` parameters to the function defined in `kernel.nix`. This allows us to generate different kernel packages. By changing the parameters passed to `pkgs.callPackage`, `kernel.nix` can adapt to different kernel sources and development boards.
+As shown above, by using `pkgs.callPackage`, you can pass different `src` and `boardName` values to the `kernel.nix` function to generate different kernel packages. This allows you to adapt the same `kernel.nix` to different kernel source code and development boards.
+
+The advantages of `pkgs.callPackage` are:
+
+1. Derivation definitions are parameterized, and all dependencies of the Derivation are the function parameters in its definition. This makes it easy to analyze dependencies between Derivations.
+2. All dependencies and other custom parameters of the Derivation can be easily replaced by using the second parameter of `pkgs.callPackage`, greatly enhancing Derivation reusability.
+3. While achieving the above two functionalities, it does not increase code complexity, as all dependencies in `pkgs` can be automatically injected.
+
+So it's always recommended to use `pkgs.callPackage` to define Derivations.
 
 ## References
 
 - [Chapter 13. Callpackage Design Pattern - Nix Pills](https://nixos.org/guides/nix-pills/callpackage-design-pattern.html)
+- [callPackage, a tool for the lazy - The Summer of Nix](https://summer.nixos.org/blog/callpackage-a-tool-for-the-lazy/)
+- [Document what callPackage does and its preconditions - Nixpkgs Issues](https://github.com/NixOS/nixpkgs/issues/36354)
+
