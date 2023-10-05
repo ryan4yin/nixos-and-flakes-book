@@ -249,11 +249,11 @@ function themeConfigEnglish() {
               link: "/other-usage-of-flakes/the-new-cli.md",
             },
             {
-              text: "Nix Options",
+              text: "[WIP]Nix Options",
               link: "/other-usage-of-flakes/options.md",
             },
             {
-              text: "Testing",
+              text: "[WIP]Testing",
               link: "/other-usage-of-flakes/testing.md",
             },
           ],
@@ -270,7 +270,7 @@ function themeConfigEnglish() {
               link: "/development/dev-environments.md",
             },
             {
-              text: "Packaging 101",
+              text: "[WIP]Packaging 101",
               link: "/development/packaging-101.md",
             },
             {
@@ -282,7 +282,7 @@ function themeConfigEnglish() {
               link: "/development/distributed-building.md",
             },
             {
-              text: "Kernel Development",
+              text: "[WIP]Kernel Development",
               link: "/development/kernel-development.md",
             },
           ],
@@ -435,11 +435,11 @@ function themeConfigChinese() {
               link: "/zh/other-usage-of-flakes/the-new-cli.md",
             },
             {
-              text: "Nix Options",
+              text: "[WIP]Nix Options",
               link: "/zh/other-usage-of-flakes/options.md",
             },
             {
-              text: "Testing",
+              text: "[WIP]Testing",
               link: "/zh/other-usage-of-flakes/testing.md",
             },
           ],
@@ -456,7 +456,7 @@ function themeConfigChinese() {
               link: "/zh/development/dev-environments.md",
             },
             {
-              text: "软件打包",
+              text: "[WIP]软件打包",
               link: "/zh/development/packaging-101.md",
             },
             {
@@ -468,7 +468,7 @@ function themeConfigChinese() {
               link: "/zh/development/distributed-building.md",
             },
             {
-              text: "内核开发",
+              text: "[WIP]内核开发",
               link: "/zh/development/kernel-development.md",
             },
           ],
