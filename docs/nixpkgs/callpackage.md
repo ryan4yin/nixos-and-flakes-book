@@ -27,7 +27,7 @@ While the definition of this Derivation is quite concise, most Derivations in ni
 
 1. To enhance maintainability, you can store the definition of the Derivation in a separate file, e.g., `hello.nix`.
    1. However, the context within `hello.nix` itself doesn't include the `pkgs` variable, so you'll need to modify its content to pass `pkgs` as a parameter to `hello.nix`.
-2. In places where you need to use this Derivation, you can import it using `import ./hello.nix pkgs` and use `pkgs` as a parameter to execute the function defined within.
+2. In places where you need to use this Derivation, you can use `import ./hello.nix pkgs` to import `hello.nix` and use `pkgs` as a parameter to execute the function defined within.
 
 Let's continue to verify this using `nix repl`, and you'll see that the result is still a Derivation:
 
@@ -56,6 +56,41 @@ In the previous example without `pkgs.callPackage`, we directly passed `pkgs` as
 2. In cases where `hello.nix` becomes complex, it's challenging to determine which Derivations from `pkgs` it relies on, making it difficult to analyze the dependencies between Derivations.
 
 `pkgs.callPackage`, as a tool for parameterizing the construction of Derivations, addresses these issues. Let's take a look at its source code and comments [nixpkgs/lib/customisation.nix#L101-L121](https://github.com/NixOS/nixpkgs/blob/fe138d3/lib/customisation.nix#L101-L121):
+
+
+```nix
+  /* Call the package function in the file `fn` with the required
+    arguments automatically.  The function is called with the
+    arguments `args`, but any missing arguments are obtained from
+    `autoArgs`.  This function is intended to be partially
+    parameterised, e.g.,
+
+      callPackage = callPackageWith pkgs;
+      pkgs = {
+        libfoo = callPackage ./foo.nix { };
+        libbar = callPackage ./bar.nix { };
+      };
+
+    If the `libbar` function expects an argument named `libfoo`, it is
+    automatically passed as an argument.  Overrides or missing
+    arguments can be supplied in `args`, e.g.
+
+      libbar = callPackage ./bar.nix {
+        libfoo = null;
+        enableX11 = true;
+      };
+  */
+  callPackageWith = autoArgs: fn: args:
+    let
+      f = if lib.isFunction fn then fn else import fn;
+      fargs = lib.functionArgs f;
+
+      # All arguments that will be passed to the function
+      # This includes automatic ones and ones passed explicitly
+      allArgs = builtins.intersectAttrs fargs autoArgs // args;    
+
+    # ......
+```
 
 In essence, `pkgs.callPackage` is used as `pkgs.callPackage fn args`, where `fn` is a Nix file or function, and `args` is an attribute set. Here's how it works:
 
@@ -113,7 +148,7 @@ You can use `pkgs.callPackage ./hello.nix {}` in any Nix module to import and us
 }
 ```
 
-As shown above, by using `pkgs.callPackage`, you can pass different `src` and `boardName` values to the `kernel.nix` function to generate different kernel packages. This allows you to adapt the same `kernel.nix` to different kernel source code and development boards.
+As shown above, by using `pkgs.callPackage`, you can pass different `src` and `boardName` to the function defined in `kernel.nix`, to generate different kernel packages. This allows you to adapt the same `kernel.nix` to different kernel source code and development boards.
 
 The advantages of `pkgs.callPackage` are:
 
