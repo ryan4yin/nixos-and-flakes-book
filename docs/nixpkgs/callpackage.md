@@ -92,7 +92,7 @@ In the previous example without `pkgs.callPackage`, we directly passed `pkgs` as
     # ......
 ```
 
-In essence, `pkgs.callPackage` is used as `pkgs.callPackage fn args`, where `fn` is a Nix file or function, and `args` is an attribute set. Here's how it works:
+In essence, `pkgs.callPackage` is used as `pkgs.callPackage fn args`, where the place holder `fn` is a Nix file or function, and `args` is an attribute set. Here's how it works:
 
 1. `pkgs.callPackge fn args` first checks if `fn` is a function or a file. If it's a file, it imports the function defined within.
    1. After this step, you have a function, typically with parameters like `lib`, `stdenv`, `fetchurl`, and possibly some custom parameters.
