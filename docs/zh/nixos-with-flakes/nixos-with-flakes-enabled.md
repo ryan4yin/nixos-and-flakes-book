@@ -219,6 +219,8 @@ cat flake.nix
 
 改好后再 `sudo nixos-rebuild switch` 部署，就能安装好 helix 程序了，可直接在终端使用 `hx` 命令测试验证。
 
+> 如果你的系统 Hostname 不是 `nixos-test`，你需要在 `flake.nix` 中修改 `nixosConfigurations` 的名称，或者使用 `--flake /etc/nixos#nixos-test` 来指定配置名称。
+
 ## 为 Flake 添加自定义 cache 源 {#add-cache-source-for-flake}
 
 > 注意：这里介绍的手段只能加速部分包的下载，许多 inputs 数据源仍然会从 Github 拉取。
@@ -283,6 +285,8 @@ warning: ignoring untrusted substituter 'https://mirrors.ustc.edu.cn/nix-channel
 ```
 
 现在再使用 `sudo nixos-rebuild switch` 应用配置即可生效，后续所有的包都会优先从国内镜像源查找缓存。
+
+> 如果你的系统 Hostname 不是 `nixos-test`，你需要在 `flake.nix` 中修改 `nixosConfigurations` 的名称，或者使用 `--flake /etc/nixos#nixos-test` 来指定配置名称。
 
 ## 通过本地 HTTP 代理加速包下载 {#use-local-http-proxy-to-speed-up-nix-package-download}
 

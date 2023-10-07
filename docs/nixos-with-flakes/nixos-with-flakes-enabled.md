@@ -237,6 +237,8 @@ Next, update `configuration.nix` to install `helix` from the `helix` input:
 
 To deploy the changes, run `sudo nixos-rebuild switch`. After that, you can start the Helix editor by running the `hx` command.
 
+> If your system's hostname is not `nixos-test`, you need to modify the name of `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#nixos-test` to specify the configuration name.
+
 ## Adding Custom Cache Mirrors
 
 > If you don't need to customize the cache mirror, you can safely skip this section.
@@ -300,4 +302,6 @@ This is a security limitation of Nix, where only trusted users can properly use 
 
 Now, to apply the configuration and make it effective, use `sudo nixos-rebuild switch`. 
 Nix will prioritize searching for cached packages from the domestic mirror source after the switch.
+
+> If your system's hostname is not `nixos-test`, you need to modify the name of `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#nixos-test` to specify the configuration name.
 
