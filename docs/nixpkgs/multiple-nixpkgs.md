@@ -54,8 +54,8 @@ We have learned in our study of Nix syntax:
 > The `import` expression takes a path to another Nix file as an argument and returns the execution result of that Nix file.
 > If the argument to `import` is a folder path, it returns the execution result of the `default.nix` file within that folder.
 
-`nixpkgs` is a flake with a `default.nix` file in its root directory. So, `import nixpkgs` essentially returns the execution result of [nixpkgs/default.nix](https://github.com/NixOS/nixpkgs/blob/master/default.nix).
-Starting from this file, you can find that the implementation of `import nixpkgs` is in [pkgs/top-level/impure.nix](https://github.com/NixOS/nixpkgs/blob/master/pkgs/top-level/impure.nix), as excerpted below:
+`nixpkgs` is a flake with a `default.nix` file in its root directory. So, `import nixpkgs` essentially returns the execution result of [nixpkgs/default.nix](https://github.com/NixOS/nixpkgs/blob/f3d9f46/default.nix).
+Starting from this file, you can find that the implementation of `import nixpkgs` is in [pkgs/top-level/impure.nix](https://github.com/NixOS/nixpkgs/blob/f3d9f46/pkgs/top-level/impure.nix), as excerpted below:
 
 ```nix
 # ... skipping some lines

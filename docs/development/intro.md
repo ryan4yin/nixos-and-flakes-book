@@ -12,7 +12,7 @@ In the following sections, we'll introduce how the development environment works
 
 We can create a development environment using `pkgs.mkShell { ... }` and open an interactive Bash shell of this development environment using `nix develop`.
 
-To see how `pkgs.mkShell` works, let's take a look at [its source code](https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/mkshell/default.nix).
+To see how `pkgs.mkShell` works, let's take a look at [its source code](https://github.com/NixOS/nixpkgs/blob/f3d9f46/pkgs/build-support/mkshell/default.nix).
 
 ```nix
 { lib, stdenv, buildEnv }:

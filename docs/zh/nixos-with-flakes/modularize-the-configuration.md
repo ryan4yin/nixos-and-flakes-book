@@ -254,5 +254,5 @@ nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackag
 ## References
 
 - [Nix modules: Improving Nix's discoverability and usability ](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
-- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/doc/module-system/module-system.chapter.md)
+- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/eab660d/doc/module-system/module-system.chapter.md)
 - [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)
