@@ -277,7 +277,7 @@ warning: ignoring untrusted substituter 'https://mirrors.ustc.edu.cn/nix-channel
 
 这是 Nix 的安全限制，只有可信用户才能正常使用这里设置好的 substituters，所以我们还需要将自己的用户添加到可信列表中。在任一 NixOS Module 中添加如下配置：
 
-```nix{3-4}
+```nix{4-5}
 {
   # 省略若干配置...
 

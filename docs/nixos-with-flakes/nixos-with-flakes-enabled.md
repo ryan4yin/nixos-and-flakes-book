@@ -294,7 +294,7 @@ warning: ignoring untrusted substituter 'https://mirrors.ustc.edu.cn/nix-channel
 
 This is a security limitation of Nix, where only trusted users can properly use the set substituters. Therefore, we need to add our own user to the trusted list. Add the following configuration to any NixOS module:
 
-```nix{3-4}
+```nix{4-5}
 {
   # ... (other configurations omitted)
 
