@@ -74,7 +74,6 @@ export default defineConfig({
 
   // markdown options
   markdown: {
-    theme: "material-theme-palenight",
     lineNumbers: true,
 
     config: (md) => {
