@@ -16,7 +16,8 @@ Let's take a look at an example module that loads overlays. This module can be u
 
 {
   nixpkgs.overlays = [
-    # Overlay 1: Use `self` and `super` to express the inheritance relationship
+    # Overlay 1: Use `self` and `super` to express
+    # the inheritance relationship
     (self: super: {
       google-chrome = super.google-chrome.override {
         commandLineArgs =
@@ -24,7 +25,8 @@ Let's take a look at an example module that loads overlays. This module can be u
       };
     })
 
-    # Overlay 2: Use `final` and `prev` to express the relationship between the new and the old
+    # Overlay 2: Use `final` and `prev` to express
+    # the relationship between the new and the old
     (final: prev: {
       steam = prev.steam.override {
         extraPkgs = pkgs: with pkgs; [
@@ -62,14 +64,19 @@ In the previous example, all overlays were written in a single Nix file, which c
 Start by creating an `overlays` folder in your Git repository to store all overlay configurations. Inside this folder, create a `default.nix` file with the following content:
 
 ```nix
-# import all nix files in the current folder, and execute them with args as parameters
-# The return value is a list of all execution results, which is the list of overlays
+# import all nix files in the current folder,
+# and execute them with args as parameters
+# The return value is a list of all execution results, 
+# which is the list of overlays
 
 args:
-# execute and import all overlay files in the current directory with the given args
+# execute and import all overlay files in the current
+# directory with the given args
 builtins.map
-  (f: (import (./. + "/${f}") args))  # execute and import the overlay file
-  (builtins.filter          # find all overlay files in the current directory
+  # execute and import the overlay file
+  (f: (import (./. + "/${f}") args))
+  # find all overlay files in the current directory
+  (builtins.filter
     (f: f != "default.nix")
     (builtins.attrNames (builtins.readDir ./.)))
 ```
@@ -82,8 +89,11 @@ Next, write your overlay configurations in the `overlays` folder. For example, y
 { pkgs, config, lib, ... }:
 
 (self: super: {
-  rime-data = ./rime-data-flypy;  # Customized rime-data package
-  fcitx5-rime = super.fcitx5-rime.override { rimeDataPkgs = [ ./rime-data-flypy ]; };
+  # Customized rime-data package
+  rime-data = ./rime-data-flypy;
+  fcitx5-rime = super.fcitx5-rime.override {
+    rimeDataPkgs = [ ./rime-data-flypy ];
+  };
 })
 ```
 

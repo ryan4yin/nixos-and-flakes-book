@@ -15,10 +15,9 @@ To find out which parameters of a specific package can be overridden, there are 
 
 By using these methods, you can discover the input parameters of a package and determine which ones can be modified using `override`.
 
-For example, let's take a look at the source code of `pkgs.hello`:
+For example, let's take a look at the source code of [pkgs.hello](https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/misc/hello/default.nix):
 
 ```nix
-# https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/applications/misc/hello/default.nix
 { callPackage
 , lib
 , stdenv

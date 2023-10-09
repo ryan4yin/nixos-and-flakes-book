@@ -53,7 +53,8 @@
     })
 
     # overlay3 - 也可以将 overlay 定义在其他文件中
-    # 这里 overlay3.nix 中的内容格式与上面的一致，都是 `final: prev: { xxx = prev.xxx.override { ... }; }`
+    # 这里 overlay3.nix 中的内容格式与上面的一致
+    # 都是 `final: prev: { xxx = prev.xxx.override { ... }; }`
     (import ./overlays/overlay3.nix)
   ];
 }
@@ -74,23 +75,29 @@ args:
   # import 当前文件夹下所有的 nix 文件，并以 args 为参数执行它们
   # 返回值是一个所有执行结果的列表，也就是 overlays 的列表
   builtins.map
-  (f: (import (./. + "/${f}") args))  # map 的第一个参数，是一个 import 并执行 nix 文件的函数
-  (builtins.filter          # map 的第二个参数，它返回一个当前文件夹下除 default.nix 外所有 nix 文件的列表
+  # map 的第一个参数，是一个 import 并执行 nix 文件的函数
+  (f: (import (./. + "/${f}") args))
+  # map 的第二个参数，它返回一个当前文件夹下除 default.nix 外所有 nix 文件的列表
+  (builtins.filter
     (f: f != "default.nix")
     (builtins.attrNames (builtins.readDir ./.)))
 ```
 
 后续所有 overlays 配置都添加到 `overlays` 文件夹中，一个示例配置 `overlays/fcitx5/default.nix` 内容如下：
 
+> 这里参考了 https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix
+
 ```nix
 # 为了不使用默认的 rime-data，改用我自定义的小鹤音形数据，这里需要 override
-## 参考 https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix
 {pkgs, config, lib, ...}:
 
 (self: super: {
-  # 小鹤音形配置，配置来自 flypy.com 官方网盘的鼠须管配置压缩包「小鹤音形“鼠须管”for macOS.zip」
+  # 小鹤音形配置，配置来自 flypy.com 官方网盘的
+  # 鼠须管配置压缩包「小鹤音形“鼠须管”for macOS.zip」
   rime-data = ./rime-data-flypy;
-  fcitx5-rime = super.fcitx5-rime.override { rimeDataPkgs = [ ./rime-data-flypy ]; };
+  fcitx5-rime = super.fcitx5-rime.override {
+    rimeDataPkgs = [ ./rime-data-flypy ];
+  };
 })
 ```
 
