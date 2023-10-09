@@ -85,13 +85,15 @@ cat flake.nix
   # outputs 即 flake 的所有输出，其中的 nixosConfigurations 即 NixOS 系统配置
   # flake 有很多用途，也可以有很多不同的 outputs，nixosConfigurations 只是其中一种
   #
-  # outputs 是一个函数，它的参数都在 inputs 中定义，可以通过 inputs 中定义的名称来引用。
+  # outputs 是一个函数，它的参数都在 inputs 中定义，可以通过 inputs 中定义的
+  # 名称来引用。
   # 比如这里的输入参数 `nixpkgs`，就是上面 inputs 中的 `nixpkgs`
   # 不过 self 是个例外，这个特殊参数指向 outputs 自身（自引用），以及 flake 根目录
   # 这里的 @ 语法将函数的参数 attribute set 取了个别名，方便在内部使用
   outputs = { self, nixpkgs, ... }@inputs: {
-    # 名为 nixosConfigurations 的 outputs 会在执行 `sudo nixos-rebuild switch`
-    # 时被使用，默认情况下上述命令会使用与主机 hostname 同名的 nixosConfigurations
+    # 名为 nixosConfigurations 的 outputs 会在执行
+    # `sudo nixos-rebuild switch` 时被使用
+    # 默认情况下上述命令会使用与主机 hostname 同名的 nixosConfigurations
     # 但是也可以通过 `--flake /path/to/flake/direcotry#nixos-test` 来指定
     # 在 flakes 配置文件夹中执行如下命令即可部署此配置：
     #     sudo nixos-rebuild switch --flake .#nixos-test
@@ -131,8 +133,9 @@ cat flake.nix
         #               常用于从 nixpkgs 中导入一些额外的模块
         #               这个参数通常都用不到，我只在制作 iso 镜像时用到过
         #
-        # 上述默认参数都由 Nixpkgs 自动生成。而如果你需要将其他非默认参数传递到子模块，
-        # 就得使用 specialArgs 手动设定这些参数，你可以取消注释如下这行来启用该参数：
+        # 上述默认参数都由 Nixpkgs 自动生成。而如果你需要将其他非默认参数传递到
+        # 子模块，就得使用 specialArgs 手动设定这些参数，
+        # 你可以取消注释如下这行来启用该参数：
         #
         # specialArgs = {...};  # 将 inputs 中的参数传入所有子模块
         modules = [
@@ -278,7 +281,8 @@ warning: ignoring untrusted substituter 'https://mirrors.ustc.edu.cn/nix-channel
 {
   # 省略若干配置...
 
-  nix.settings.trusted-users = [ "ryan" ];  # 将自己的用户名添加到可信列表中
+  # 将自己的用户名添加到可信列表中
+  nix.settings.trusted-users = [ "ryan" ];
 
   # 省略若干配置...
 }
