@@ -232,8 +232,48 @@ On the other hand, everything installed through Home Manager is specific to the 
 
 Based on these characteristics, here is a general recommended approach:
 
-- NixOS modules: Install core system components and other software packages required by almost all users, including the root user.
-  - For example, if you want a package to be accessible even when you switch to the root user, or if you want a configuration to take effect for the root user as well, you should install it through a NixOS module.
+- NixOS modules: Install core system components and other software packages/configurations required by all users.
+  - For example, if you want a package to be accessible even when you switch to the root user, or if you want a configuration to take effect globally on the system, you should install it through a NixOS module.
 - Home Manager: Use Home Manager to install all other configurations and software specific to individual users.
 
-In summary, NixOS modules are suitable for installing system-wide components and packages that need to be accessible to multiple users, while Home Manager is ideal for managing user-specific configurations and software.
+## How to use packages installed by Home Manager with privileged access?
+
+The first thing that comes to mind is to switch to `root`, but then any packages installed by the current user through `home.nix` will be unavailable.
+let's take `kubectl` as an example(it's pre-installed via `home.nix`):
+
+```sh
+# 1. kubectl is available
+› kubectl | head
+kubectl controls the Kubernetes cluster manager.
+
+ Find more information at: https://kubernetes.io/docs/reference/kubectl/
+......
+
+# 2. switch user to `root`
+› sudo su
+
+# 3. kubectl is no longer available
+> kubectl
+Error: nu::shell::external_command
+
+  × External command failed
+   ╭─[entry #1:1:1]
+ 1 │ kubectl
+   · ───┬───
+   ·    ╰── executable was not found
+   ╰────
+  help: No such file or directory (os error 2)
+
+
+/home/ryan/nix-config> exit
+```
+
+But it's possible to run those packages with privileged access without switching to `root`,  by using `sudo`, we temporarily grant the current user privileged access to system resources:
+
+```sh
+› sudo kubectl
+kubectl controls the Kubernetes cluster manager.
+...
+```
+
+
