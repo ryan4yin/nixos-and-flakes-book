@@ -25,13 +25,26 @@ jobs:
           pnpm install
           pnpm export-pdf
         '
+    # # For debugging, upload the pdfs as artifacts
     # - uses: actions/upload-artifact@v3
     #   with:
     #     name: pdf
     #     path: '*.pdf'
+    - name: Generate changelog
+      run: |
+        # Get the previous tag
+        git fetch --tags
+        PREVIOUS_TAG=$(git tag --sort=-creatordate | head -n 2 | tail -n 1)
+        # Generate the changelog
+        git log --pretty=format:"%h %s" $PREVIOUS_TAG..HEAD > CHANGELOG
+
+        echo "Changelog from $PREVIOUS_TAG to HEAD:"
+        cat CHANGELOG
     - name: Release PDF
       uses: softprops/action-gh-release@v1
       if: startsWith(github.ref, 'refs/tags/')
       with:
+        generate_release_notes: true
+        body_path: CHANGELOG
         files: |
           nixos-and-flakes-book.pdf
