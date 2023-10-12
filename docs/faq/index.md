@@ -2,7 +2,7 @@
 
 ## What is the difference between NixOS rollback capability and btrfs/zfs system snapshot rollback?
 
-The difference lies in the nature of the snapshots. System snapshots created with btrfs/zfs are non-reproducible, meaning they do not include the "knowledge" of how to build the snapshot from scratch and are therefore **unexplainable**.
+The difference lies in the nature of the snapshots. System snapshots created with btrfs/zfs does not contain the 'knowledge' of how to build this snapshot from scratch, it is **uninterpretable**, and its content is strongly correlated with the current hardware environment, making it difficult to reproduce on other machines.
 
 On the other hand, NixOS configuration is a piece of "knowledge" that can build an identical OS from scratch. It is **explainable** and can be automatically built with just a few simple commands. The NixOS configuration serves as documentation of all the changes made to your OS and is also used to automatically build the OS itself.
 
@@ -16,9 +16,11 @@ Nix is not only used for managing desktop environments but is also widely employ
 
 When compared to widely used traditional tools like Ansible, Nix has the following main advantages:
 
-1. Nix's declarative configuration shields users from underlying details, allowing them to focus on their core requirements and providing a highly convenient system customization capability. Traditional tools like Ansible require users to handle all implementation details themselves.
-   1. If you have experience with declarative configuration tools such as Terraform or Kubernetes, you should easily understand this point. The benefits of declarative configuration become more significant as the complexity of requirements increases.
-2. Nix declares its target state through declarative configuration, and Nix Flakes locks all dependency hashes, version numbers, data sources, and other information in a version lock file called `flake.lock`. This greatly enhances the reproducibility of the system. In contrast, traditional tools like Ansible have poor reproducibility, which is why Docker is so popular—it provides a **completely consistent runtime environment** at a lower cost than traditional operational tools like Ansible.
+1. One of the biggest problems with this Anisble is that each deployment is based on incremental changes to the current state of the system. The current state of the system, like the snapshots mentioned above, is not interpretable and is difficult to reproduce. NixOS declares the target state of the system through its configuration files, so that the deployment result is independent of the current state of the system, and repeated deployments will not cause any problems.
+2. Nix Flakes uses a version lock file `flake.lock` to lock the hash value, version number, data source and other information of all dependencies, which greatly improves the reproducibility of the system. Traditional tools like Ansible don't have this feature, so they're not very reproducible.
+   1. This is why Docker is so popular - it provides, at a fraction of the cost, a **reproducible system environment on a wide range of machines** that traditional Ops tools like Ansible don't. 1.
+1. Nix provides a high degree of ease of system customization by shielding the underlying implementation details with a layer of declarative abstraction so that users only need to care about their core requirements. Tools like Ansible have much weaker abstractions.
+   1. If you've ever used a declarative configuration tool like terraform/kubernetes, this should be easy to understand. The more complex the requirements, the greater the benefit of declarative configuration.
 
 ## What are the advantages of Nix compared to Docker container technology?
 
