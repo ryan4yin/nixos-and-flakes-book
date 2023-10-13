@@ -9,7 +9,8 @@ However, by default, NixOS places the configuration in `/etc/nixos`, which requi
 For example, you can place your flake in `~/nixos-config` and create a symbolic link in `/etc/nixos` as follows:
 
 ```shell
-sudo cp -r /etc/nixos /etc/nixos.bak  # Backup the original configuration
+# delete and backup the old configuration
+sudo mv /etc/nixos /etc/nixos.bak
 sudo ln -s /etc/nixos ~/nixos-config
 
 # Deploy the flake.nix located at the default location (/etc/nixos)
@@ -21,9 +22,10 @@ This way, you can use Git to manage the configuration in `~/nixos-config`. The c
 Another approach is to delete `/etc/nixos` directly and specify the configuration file path each time you deploy it:
 
 ```shell
-sudo cp -r /etc/nixos /etc/nixos.bak
-cd ~/nixos-config
+# delete and backup the old configuration
+sudo mv /etc/nixos /etc/nixos.bak
 
+cd ~/nixos-config
 # `--flake .#nixos-test` deploys the flake.nix located in
 # the current directory, and the nixosConfiguration's name is `nixos-test`
 sudo nixos-rebuild switch --flake .#nixos-test
