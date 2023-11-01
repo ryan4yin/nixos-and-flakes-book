@@ -130,7 +130,7 @@ Note that the copied template cannot be used directly. You need to modify it to 
         #  lib:     the nixpkgs function library, which provides many
         #             useful functions for operating Nix expressions:
         #             https://nixos.org/manual/nixpkgs/stable/#id-1.4
-        #  config:  all config options of the current flake, every useful
+        #  config:  all config options of the current flake, very useful
         #  options: all options defined in all NixOS Modules
         #             in the current flake
         #  pkgs:   a collection of all packages defined in nixpkgs,
