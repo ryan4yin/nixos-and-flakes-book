@@ -4,7 +4,7 @@
 
 - **Declarative Configuration, OS as Code**
   - NixOS uses declarative configuration to manage the entire system environment. These configurations can be managed directly with Git, allowing the system to be restored to any historical state as long as the configuration files are preserved (provided the desired states are declared in the Nix configuration).
-  - Nix Flakes further enhance reproducibility by utilizing a `flake.lock` version lock file, which records the data source addresses, hash values, and other relevant information for all dependencies. This design greatly improves Nix's reproducibility and ensures consistent build results. It draws inspiration from package management designs in programming languages like Cargo and NPM.
+  - Nix Flakes further enhance reproducibility by utilizing a `flake.lock` version lock file, which records the data source addresses, hash values, and other relevant information for all dependencies. This design greatly improves Nix's reproducibility and ensures consistent build results. It draws inspiration from package management designs in programming languages like Cargo and npm.
 - **Highly Convenient System Customization Capability**
   - With just a few configuration changes, various components of the system can be easily replaced. Nix encapsulates all the underlying complex operations within Nix packages, providing users with a concise set of declarative parameters.
   - Modifications are safe and switching between different desktop environments (such as GNOME, KDE, i3, and sway) is straightforward, with minimal pitfalls.
