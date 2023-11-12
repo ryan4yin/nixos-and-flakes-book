@@ -277,7 +277,7 @@ function themeConfigEnglish() {
               link: "/development/cross-platform-compilation.md",
             },
             {
-              text: "Distribution Building",
+              text: "Distributed Building",
               link: "/development/distributed-building.md",
             },
             {
