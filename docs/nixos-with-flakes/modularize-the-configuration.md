@@ -51,11 +51,11 @@ This modules loads two other modules in the imports section, namely `special-fon
 }
 ```
 
-Both import statemnets above are equivalent in the parameters they receive:
+Both import statements above are equivalent in the parameters they receive:
 
 - Statement `(1)` imports the function in `special-fonts-1.nix` and calls it by passing `{config = config; pkgs = pkgs}`. Basically using the return value of the call (another partial configuration [attritbute set]) inside the `imports` list.
 
-- Statement `(2)` defines a path to a module, whose function Nix will load *automatically* when assembling the configuration `config`. It will pass all matching arguments from the function in `packages.nix` to the loaded function in `special-fonts-2.nix` which results in  `import ./special-fonts-2.nix {config = config; pkgs = pkgs}`.
+- Statement `(2)` defines a path to a module, whose function Nix will load _automatically_ when assembling the configuration `config`. It will pass all matching arguments from the function in `packages.nix` to the loaded function in `special-fonts-2.nix` which results in `import ./special-fonts-2.nix {config = config; pkgs = pkgs}`.
 
 Here is a nice starter example of modularizing the configuration, Highly recommended:
 
