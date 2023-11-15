@@ -26,7 +26,36 @@ The Nix module system provides a parameter, `imports`, which accepts a list of `
 
 > I only found a description of `imports` in [Nixpkgs-Unstable Official Manual - evalModules Parameters](https://nixos.org/manual/nixpkgs/unstable/#module-system-lib-evalModules-parameters): `A list of modules. These are merged together to form the final configuration.` It's a bit ambiguous...
 
-With the help of `imports`, we can split `home.nix` and `configuration.nix` into multiple Nix modules defined in different `.nix` files.
+With the help of `imports`, we can split `home.nix` and `configuration.nix` into multiple Nix modules defined in different `.nix` files. Lets look at an example module `packages.nix`:
+
+```nix
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    (import ./special-fonts-1.nix {inherit config pkgs}) # (1)
+    ./special-fonts-2.nix # (2)
+  ];
+
+  fontconfig.enable = true;
+}
+```
+
+This modules loads two other modules in the imports section, namely `special-fonts-1.nix` and `special-fonts-2.nix`. Both files are modules them self and look similar to this.
+
+```nix
+{ config, pkgs, ...}: {
+    # Configuration stuff ...
+}
+```
+
+Both import statemnets above are equivalent in the parameters they receive:
+
+- Statement `(1)` imports the function in `special-fonts-1.nix` and calls it by passing `{config = config; pkgs = pkgs}`. Basically using the return value of the call (another partial configuration [attritbute set]) inside the `imports` list.
+
+- Statement `(2)` defines a path to a module, whose function Nix will load *automatically* when assembling the configuration `config`. It will pass all matching arguments from the function in `packages.nix` to the loaded function in `special-fonts-2.nix` which results in  `import ./special-fonts-2.nix {config = config; pkgs = pkgs}`.
 
 Here is a nice starter example of modularizing the configuration, Highly recommended:
 
