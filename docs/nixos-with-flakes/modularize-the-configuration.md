@@ -35,7 +35,7 @@ With the help of `imports`, we can split `home.nix` and `configuration.nix` into
   ...
 }: {
   imports = [
-    (import ./special-fonts-1.nix {inherit config pkgs}) # (1)
+    (import ./special-fonts-1.nix {inherit config pkgs;}) # (1)
     ./special-fonts-2.nix # (2)
   ];
 
