@@ -42,6 +42,15 @@ The following are classic Nix commands and associated concepts that are no longe
 
 > NOTE: `nix-env -qa` may still be useful in some cases, as it returns all packages installed in the system.
 
+## Flakes Tutorials
+
+I won't go into too much detail here, please refer to the following documents:
+
+- [Nix Flakes, Part 1: An introduction and tutorial (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-05-25-flakes/)
+- [Nix Flakes, Part 2: Evaluation caching (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-06-25-eval-cache/)
+- [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
+- [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
+
 ## When Will Flakes Be Stabilized?
 
 I delved into some details regarding Flakes:

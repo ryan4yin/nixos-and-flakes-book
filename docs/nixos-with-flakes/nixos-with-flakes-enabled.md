@@ -310,3 +310,4 @@ Nix will prioritize searching for cached packages from the domestic mirror sourc
 
 > If your system's hostname is not `nixos-test`, you need to modify the name of `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#nixos-test` to specify the configuration name.
 
+

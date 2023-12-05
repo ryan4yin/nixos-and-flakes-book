@@ -47,6 +47,15 @@ Nix 于 2020 年推出了 `nix-command` & `flakes` 两个新特性，它们提�
 
 > 可能也就 `nix-env -qa` 这个命令偶尔还会有些用了，它返回当前系统下安装的所有软件包。
 
+## Flakes 入门
+
+我就不多介绍了，请直接参考如下文档：
+
+- [Nix Flakes, Part 1: An introduction and tutorial (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-05-25-flakes/)
+- [Nix Flakes, Part 2: Evaluation caching (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-06-25-eval-cache/)
+- [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
+- [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
+
 ## Flakes 何时会成为稳定特性？ {#when-will-flakes-stablized}
 
 我深入了解了下 Flakes 现状与未来计划相关的资料，大概有这些：
