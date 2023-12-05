@@ -74,8 +74,8 @@ Note that the copied template cannot be used directly. You need to modify it to 
     # The most widely used is `github:owner/name/reference`,
     # which represents the GitHub repository URL + branch/commit-id/tag.
 
-    # Official NixOS package source, using nixos-unstable branch here
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Official NixOS package source, using nixos-23.11 branch here
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";

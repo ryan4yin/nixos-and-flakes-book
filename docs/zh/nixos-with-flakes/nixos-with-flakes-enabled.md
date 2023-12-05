@@ -70,8 +70,8 @@ cat flake.nix
     #     github:owner/name/reference
     # 即 github 仓库地址 + branch/commit-id/tag
 
-    # NixOS 官方软件源，这里使用 nixos-unstable 分支
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # NixOS 官方软件源，这里使用 nixos-23.11 分支
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     # home-manager，用于管理用户配置
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
