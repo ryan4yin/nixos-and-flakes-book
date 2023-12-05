@@ -68,7 +68,7 @@ pkgsCross.mmix
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -119,7 +119,7 @@ pkgsCross.mmix
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -194,7 +194,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11-small";
   };
 
   outputs = { self, nixpkgs, ... }:
@@ -227,7 +227,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11-small";
   };
 
   outputs = { self, nixpkgs, ... }: let

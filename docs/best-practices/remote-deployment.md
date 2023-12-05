@@ -52,7 +52,7 @@ In your system's `flake.nix`, add a new outputs named `colmena`. A simple exampl
 ```nix{11-34}
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
     # ...
   };
