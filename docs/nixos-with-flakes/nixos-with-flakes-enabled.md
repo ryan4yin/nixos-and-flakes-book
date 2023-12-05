@@ -78,7 +78,7 @@ Note that the copied template cannot be used directly. You need to modify it to 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # home-manager, used for managing user configuration
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with
       # the `inputs.nixpkgs` of the current flake,
@@ -193,8 +193,8 @@ First, we need to add Helix as an input in `flake.nix`:
   inputs = {
     # ...
 
-    # Helix editor, using version 23.05
-    helix.url = "github:helix-editor/helix/23.05";
+    # Helix editor, version - 23.10
+    helix.url = "github:helix-editor/helix/23.10";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {

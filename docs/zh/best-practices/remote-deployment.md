@@ -52,7 +52,7 @@ ssh-add ~/.ssh/your-private-key
 ```nix{11-34}
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
 
     # ...
   };

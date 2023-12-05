@@ -76,7 +76,7 @@ Here is a `flake.nix` that defines a development environment with Node.js 18 ins
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
   };
 
   outputs = { self , nixpkgs ,... }: let
@@ -127,7 +127,7 @@ Here is an example:
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
   };
 
   outputs = { self , nixpkgs ,... }: let

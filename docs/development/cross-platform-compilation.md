@@ -67,7 +67,7 @@ If you want to set `pkgs` to a cross-compilation toolchain globally in a flake, 
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -118,7 +118,7 @@ As for `flake.nix`, its setting method is very simple, even simpler than the set
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -194,7 +194,7 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11-small";
   };
 
   outputs = { self, nixpkgs, ... }:
@@ -227,7 +227,7 @@ To avoid this problem, a better way is to create a new `pkgs` instance, and only
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11-small";
   };
 
   outputs = { self, nixpkgs, ... }: let

@@ -74,7 +74,7 @@ cat flake.nix
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     # home-manager，用于管理用户配置
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.05";
+      url = "github:nix-community/home-manager/release-23.11";
       # `follows` 是 inputs 中的继承语法
       # 这里使 sops-nix 的 `inputs.nixpkgs` 与当前 flake 的
       # `inputs.nixpkgs` 保持一致，避免依赖的 nixpkgs 版本不一致导致问题
@@ -175,8 +175,8 @@ cat flake.nix
   inputs = {
     # ......
 
-    # helix editor, use tag 23.05
-    helix.url = "github:helix-editor/helix/23.05";
+    # helix editor, use tag 23.10
+    helix.url = "github:helix-editor/helix/23.10";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {

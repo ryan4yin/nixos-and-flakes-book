@@ -196,7 +196,7 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
   description = "Ryan's NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {

@@ -15,8 +15,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     # 最新 stable 分支的 nixpkgs，用于回退个别软件包的版本
-    # 当前最新版本为 23.05
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.05";
+    # 当前最新版本为 23.11
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-23.11";
 
     # 另外也可以使用 git commit hash 来锁定版本，这是最彻底的锁定方式
     nixpkgs-fd40cef8d.url = "github:nixos/nixpkgs/fd40cef8d797670e203a27a91e4b8e6decf0b90c";

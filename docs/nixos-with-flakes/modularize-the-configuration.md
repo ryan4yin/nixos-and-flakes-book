@@ -217,7 +217,7 @@ To test the usage of `lib.mkBefore` and `lib.mkAfter`, let's create a simple Fla
   description = "Ryan's NixOS Flake";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
