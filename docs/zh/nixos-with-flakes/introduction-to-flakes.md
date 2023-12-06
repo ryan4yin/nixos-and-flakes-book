@@ -60,7 +60,8 @@ Nix 于 2020 年推出了 `nix-command` & `flakes` 两个新特性，它们提�
 
 我深入了解了下 Flakes 现状与未来计划相关的资料，大概有这些：
 
-- [[RFC 0136] A plan to stabilize Flakes and the new CLI incrementally](https://github.com/NixOS/rfcs/pull/136): 一份渐进式地将 Flakes 与 new CLI 两个实验性特性推向稳定的 RFC，目前还在讨论中。
+- [[RFC 0136] A Plan to Stabilize Flakes and the New CLI Incrementally](https://github.com/NixOS/rfcs/pull/136): 一份渐进式地将 Flakes 与 new CLI 两个实验性特性推向稳定的 RFC，已 Merge.
+- [CLI stabilization effort](https://github.com/NixOS/nix/issues/7701): 一份追踪 New CLI 稳定化工作进度的 Issue.
 - [Why are flakes still experimental? - NixOS Discourse](https://discourse.nixos.org/t/why-are-flakes-still-experimental/29317): 最近的一次关于 Flakes 稳定性的讨论，可以看到大家的疑惑，以及社区对 Flakes 的态度。
 - [Flakes are such an obviously good thing - Graham Christensen](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/): NixOS 社区成员的文章，记录了他对 Flakes 的看法，以及对社区当初添加 Flakes 特性时的不当举措的懊悔。
 - [ teaching Nix 3 CLI and Flakes #281 - nix.dev](https://github.com/NixOS/nix.dev/issues/281): 社区关于是否应该在 NixOS 官方文档中介绍 Flakes 的讨论，当前结论是官方文档不应该推广使用 unstable 功能。
