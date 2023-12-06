@@ -37,3 +37,77 @@ Regarding the first point of "managing the development and build environments," 
 In other words, Nix provides a development experience that is closest to the host machine, with no strong isolation. Developers can use familiar development and debugging tools in this environment, and their past development experience can be seamlessly migrated. On the other hand, if Dev Containers are used, developers may encounter various issues related to filesystem communication, network environment, user permissions, and the inability to use GUI debugging tools due to strong isolation.
 
 If we decide to use Nix to manage all development environments, then building Docker containers based on Nix would provide the highest level of consistency. Additionally, adopting a unified technological architecture for all environments significantly reduces infrastructure maintenance costs. This answers the second point mentioned earlier: when managing development environments with Nix as a prerequisite, using NixOS for container base images and cloud servers offers distinct advantages.
+
+## error: collision between `...` and `...`
+
+This error occurs when you installed two packages that depend on the same library but with different versions in the same environment(home module or nixos module).
+
+For example, if you have the following configuration:
+
+```nix
+{
+   # as a nixos module
+   # environment.systemPackages = with pkgs; [
+   #
+   # or as a home manager module
+   home.packages = with pkgs; [
+     lldb
+
+     (python311.withPackages (ps:
+       with ps; [
+         ipython
+         pandas
+         requests
+         pyquery
+         pyyaml
+       ]
+     ))
+   ];
+}
+```
+
+this will cause the following error:
+
+```bash
+error: builder for '/nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv' failed with exit code 25;
+       last 1 log lines:
+       > error: collision between `/nix/store/kvq0gvz6jwggarrcn9a8ramsfhyh1h9d-lldb-14.0.6/lib/python3.11/site-packages/six.py' a
+nd `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.11/site-packages/six.py'
+       For full logs, run 'nix log /nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv'.
+```
+
+Here are some solutions:
+
+1. Split the two packages into two different environments. For example, you can install `lldb` via `environment.systemPackages` and `python311` via `home.packages`.
+2. Different versions of Python3 are treated as different packages, so you can change your custom Python3 version to `python310` to avoid the conflict. 
+2. Use `override` to override the version of the library used by the package to be consistent with the version used by the other package.
+
+  ```nix
+  {
+    # as a nixos module
+    # environment.systemPackages = with pkgs; [
+    #
+    # or as a home manager module
+    home.packages = let
+      cusotom-python3 = (pkgs.python311.withPackages (ps:
+        with ps; [
+          ipython
+          pandas
+          requests
+          pyquery
+          pyyaml
+        ]
+      ));
+    in
+      with pkgs; [
+        # override the version of python3
+        # NOTE: This will trigger a rebuild of lldb, it takes time
+        (lldb.override {
+          python3 = cusotom-python3;
+        })
+  
+        cusotom-python3
+    ];
+  }
+  ```
+
