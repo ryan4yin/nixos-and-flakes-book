@@ -54,8 +54,8 @@
 > `import` 表达式以其他 Nix 文件的路径作为参数，返回该 Nix 文件的执行结果。
 > `import` 的参数如果为文件夹路径，那么会返回该文件夹下的 `default.nix` 文件的执行结果。
 
-`nixpkgs` 是一个 Git 仓库，它的根目录下刚好有一个 `default.nix` 文件，那么答案就呼之欲出了：`import nixpkgs` 就是返回 [nixpkgs/default.nix](https://github.com/NixOS/nixpkgs/blob/f3d9f46/default.nix) 文件的执行结果。
-从这个文件开始探索，就能找到 `import nixpkgs` 的实现代码是 [pkgs/top-level/impure.nix](https://github.com/NixOS/nixpkgs/blob/f3d9f46/pkgs/top-level/impure.nix)，这里截取部分内容：
+`nixpkgs` 是一个 Git 仓库，它的根目录下刚好有一个 `default.nix` 文件，那么答案就呼之欲出了：`import nixpkgs` 就是返回 [nixpkgs/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/default.nix) 文件的执行结果。
+从这个文件开始探索，就能找到 `import nixpkgs` 的实现代码是 [pkgs/top-level/impure.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/top-level/impure.nix)，这里截取部分内容：
 
 ```nix
 # ... skip some lines

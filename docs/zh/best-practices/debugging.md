@@ -153,6 +153,6 @@ TODO
 
 - [How to make nix build display all commands executed by make?](https://www.reddit.com/r/NixOS/comments/14stdgy/how_to_make_nix_build_display_all_commands/)
   - use `NIX_DEBUG=7` in derivation
-- [Collection of functions useful for debugging broken nix expressions.](https://github.com/NixOS/nixpkgs/blob/f3d9f46/lib/debug.nix)
+- [Collection of functions useful for debugging broken nix expressions.](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/lib/debug.nix)
 
 

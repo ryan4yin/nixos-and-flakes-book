@@ -38,7 +38,7 @@ stdenv.mkDerivation rec {
 ```
 
 除了覆写参数，还可以通过 `overrideAttrs` 来覆写使用 `stdenv.mkDerivation` 构建的 Derivation 的属性。
-以 [pkgs.hello](https://github.com/NixOS/nixpkgs/blob/f3d9f46/pkgs/applications/misc/hello/default.nix) 为例，首先通过前述方法查看这个包的源码：
+以 [pkgs.hello](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/applications/misc/hello/default.nix) 为例，首先通过前述方法查看这个包的源码：
 
 ```nix
 { callPackage

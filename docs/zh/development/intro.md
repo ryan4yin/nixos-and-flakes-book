@@ -16,7 +16,7 @@
 
 为了更好的使用上述两个功能，我们先来看看它们的原理。
 
-[`pkgs.mkShell` 的源码](https://github.com/NixOS/nixpkgs/blob/f3d9f46/pkgs/build-support/mkshell/default.nix)如下：
+[`pkgs.mkShell` 的源码](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/build-support/mkshell/default.nix)如下：
 
 ```nix
 { lib, stdenv, buildEnv }:
