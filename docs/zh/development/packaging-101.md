@@ -19,3 +19,10 @@ TODO
 - Useful tools:
   - [nurl](https://github.com/nix-community/nurl): Generate Nix fetcher calls from repository URLs
   - [nix-init](https://github.com/nix-community/nix-init): Generate Nix packages from URLs with hash prefetching, dependency inference, license detection, and more
+- Source Code:
+  - [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/trivial-builders/default.nix#L21-L49)
+  - [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
+  - FHS related
+    - [pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix): `pkgs.buildFHSEnvBubblewrap`
+    - [pkgs/build-support/build-fhsenv-chroot/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix): `pkgs.buildFHSEnvChroot`
+
