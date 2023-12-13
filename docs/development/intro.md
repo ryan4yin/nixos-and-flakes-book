@@ -121,21 +121,13 @@ Here is a `flake.nix` that defines a development environment with Node.js 18 ins
     devShells."${system}".default = let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (self: super: rec {
-            nodejs = super.nodejs-18_x;
-            pnpm = super.nodePackages.pnpm;
-            yarn = (super.yarn.override { inherit nodejs; });
-          })
-        ];
       };
     in pkgs.mkShell {
-      # create an environment with nodejs-18_x, pnpm, and yarn
+      # create an environment with nodejs_18, pnpm, and yarn
       packages = with pkgs; [
-        node2nix
-        nodejs
-        pnpm
-        yarn
+        nodejs_18
+        nodePackages.pnpm
+        (yarn.override { nodejs = nodejs_18; })
       ];
 
       shellHook = ''
@@ -172,21 +164,13 @@ Here is an example:
     devShells."${system}".default = let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (self: super: rec {
-            nodejs = super.nodejs-18_x;
-            pnpm = super.nodePackages.pnpm;
-            yarn = (super.yarn.override { inherit nodejs; });
-          })
-        ];
       };
     in pkgs.mkShell {
-      # create an environment with nodejs-18_x, pnpm, and yarn
+      # create an environment with nodejs_18, pnpm, and yarn
       packages = with pkgs; [
-        node2nix
-        nodejs
-        pnpm
-        yarn
+        nodejs_18
+        nodePackages.pnpm
+        (yarn.override { nodejs = nodejs_18; })
         nushell
       ];
 
@@ -228,16 +212,10 @@ Example:
     packages."${system}".dev = let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (self: super: rec {
-            nodejs = super.nodejs_20;
-            pnpm = super.nodePackages.pnpm;
-          })
-        ];
       };
       packages = with pkgs; [
-          nodejs
-          pnpm
+          nodejs_20
+          nodePackages.pnpm
           nushell
       ];
     in pkgs.runCommand "dev-shell" {
@@ -255,6 +233,37 @@ Example:
 ```
 
 Then execute `nix run .#dev`, you will enter a nushell session, where you can use the `node` `pnpm` command normally, and the node version is 20.
+
+The wrapper generated in this way is an executable file, which does not actually depend on the `nix run` or `nix shell` command.
+
+For example, we can directly install this wrapper through NixOS's `environment.systemPackages`, and then execute it directly:
+
+```nix
+{pkgs, lib, ...}{
+
+  environment.systemPackages = [
+    # Install the wrapper into the system
+    (let
+      packages = with pkgs; [
+          nodejs_20
+          nodePackages.pnpm
+          nushell
+      ];
+    in pkgs.runCommand "dev-shell" {
+      # Dependencies that should exist in the runtime environment
+      buildInputs = packages;
+      # Dependencies that should only exist in the build environment
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+    } ''
+      mkdir -p $out/bin/
+      ln -s ${pkgs.nushell}/bin/nu $out/bin/dev-shell
+      wrapProgram $out/bin/dev-shell --prefix PATH : ${pkgs.lib.makeBinPath packages}
+    '';)
+  ];
+}
+```
+
+Add the above configuration to any NixOS Module, then deploy it with `sudo nixos-rebuild switch`, and you can enter the development environment directly with the `dev-shell` command, which is the special feature of `pkgs.runCommand` compared to `pkgs.mkShell`.
 
 Related source code:
 

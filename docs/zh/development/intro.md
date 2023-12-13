@@ -10,7 +10,6 @@
 
 在本章中我们先学习一下 Nix Flakes 开发环境的实现原理，后面的章节再按使用场景介绍一些更具体的内容。
 
-
 ## 通过 `nix shell` 创建开发环境
 
 在 NixOS 上，最简单的创建开发环境的方法是使用 `nix shell`，它会创建一个含有指定 Nix 包的 shell 环境。
@@ -127,21 +126,13 @@ stdenv.mkDerivation ({
     devShells."${system}".default = let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (self: super: rec {
-            nodejs = super.nodejs-18_x;
-            pnpm = super.nodePackages.pnpm;
-            yarn = (super.yarn.override { inherit nodejs; });
-          })
-        ];
       };
     in pkgs.mkShell {
       # create an environment with nodejs-18_x, pnpm, and yarn
       packages = with pkgs; [
-        node2nix
-        nodejs
-        pnpm
-        yarn
+        nodejs_18
+        nodePackages.pnpm
+        (yarn.override { nodejs = nodejs_18; })
       ];
 
       shellHook = ''
@@ -153,7 +144,6 @@ stdenv.mkDerivation ({
 ```
 
 建个空文件夹，将上面的配置保存为 `flake.nix`，然后执行 `nix develop`（或者更精确点，可以用 `nix develop .#default`），首先会打印出当前 nodejs 的版本，之后 `node` `pnpm` `yarn` 等命令就都能正常使用了。
-
 
 ## 在开发环境中使用 zsh/fish 等其他 shell
 
@@ -177,21 +167,13 @@ stdenv.mkDerivation ({
     devShells."${system}".default = let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (self: super: rec {
-            nodejs = super.nodejs-18_x;
-            pnpm = super.nodePackages.pnpm;
-            yarn = (super.yarn.override { inherit nodejs; });
-          })
-        ];
       };
     in pkgs.mkShell {
-      # create an environment with nodejs-18_x, pnpm, and yarn
+      # create an environment with nodejs_18, pnpm, and yarn
       packages = with pkgs; [
-        node2nix
-        nodejs
-        pnpm
-        yarn
+        nodejs_18
+        nodePackages.pnpm
+        (yarn.override { nodejs = nodejs_18; })
         nushell
       ];
 
@@ -232,16 +214,10 @@ stdenv.mkDerivation ({
     packages."${system}".dev = let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (self: super: rec {
-            nodejs = super.nodejs_20;
-            pnpm = super.nodePackages.pnpm;
-          })
-        ];
       };
       packages = with pkgs; [
-          nodejs
-          pnpm
+          nodejs_20
+          nodePackages.pnpm
           nushell
       ];
     in pkgs.runCommand "dev-shell" {
@@ -258,13 +234,41 @@ stdenv.mkDerivation ({
 }
 ```
 
-然后执行 `nix run .#dev`，就能进入一个 nushell session，可以在其中正常使用 `node` `pnpm` 命令，且 node 版本为 20.
+然后执行 `nix run .#dev`，就能进入一个 nushell session，可以在其中正常使用 `node` `pnpm` 命令.
+
+这种方式生成的 wrapper 是一个可执行文件，它实际不依赖 `nix run` 命令，比如说我们可以直接通过 NixOS 的 `environment.systemPackages` 来安装这个 wrapper，然后直接执行它：
+
+```nix
+{pkgs, lib, ...}{
+
+  environment.systemPackages = [
+    # 将 dev-shell 安装到系统环境中
+    (let
+      packages = with pkgs; [
+          nodejs_20
+          nodePackages.pnpm
+          nushell
+      ];
+    in pkgs.runCommand "dev-shell" {
+      # Dependencies that should exist in the runtime environment
+      buildInputs = packages;
+      # Dependencies that should only exist in the build environment
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+    } ''
+      mkdir -p $out/bin/
+      ln -s ${pkgs.nushell}/bin/nu $out/bin/dev-shell
+      wrapProgram $out/bin/dev-shell --prefix PATH : ${pkgs.lib.makeBinPath packages}
+    '';)
+  ];
+}
+```
+
+将上述配置添加到任一 NixOS Module 中，再通过 `sudo nixos-rebuild switch` 部署后，就能直接通过 `dev-shell` 命令进入到该开发环境，这就是 `pkgs.runCommand` 相比 `pkgs.mkShell` 的特别之处。
 
 相关源代码：
 
 - [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/trivial-builders/default.nix#L21-L49)
 - [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
-
 
 ## 进入任何 Nix 包的构建环境
 
@@ -405,36 +409,35 @@ Hello, world!
 nix build "nixpkgs#ponysay"
 # 使用构建出来的 ponysay 命令
 › ./result/bin/ponysay 'hey buddy!'
- ____________ 
+ ____________
 < hey buddy! >
- ------------ 
-     \                                  
-      \                                 
-       \                                
-       ▄▄  ▄▄ ▄ ▄                       
-    ▀▄▄▄█▄▄▄▄▄█▄▄▄                      
-   ▀▄███▄▄██▄██▄▄██                     
-  ▄██▄███▄▄██▄▄▄█▄██                    
- █▄█▄██▄█████████▄██                    
-  ▄▄█▄█▄▄▄▄▄████████                    
- ▀▀▀▄█▄█▄█▄▄▄▄▄█████         ▄   ▄      
-    ▀▄████▄▄▄█▄█▄▄██       ▄▄▄▄▄█▄▄▄    
-    █▄██▄▄▄▄███▄▄▄██    ▄▄▄▄▄▄▄▄▄█▄▄    
-    ▀▄▄██████▄▄▄████    █████████████   
-       ▀▀▀▀▀█████▄▄ ▄▄▄▄▄▄▄▄▄▄██▄█▄▄▀   
-            ██▄███▄▄▄▄█▄▄▀  ███▄█▄▄▄█▀  
-            █▄██▄▄▄▄▄████   ███████▄██  
-            █▄███▄▄█████    ▀███▄█████▄ 
-            ██████▀▄▄▄█▄█    █▄██▄▄█▄█▄ 
-           ███████ ███████   ▀████▄████ 
+ ------------
+     \
+      \
+       \
+       ▄▄  ▄▄ ▄ ▄
+    ▀▄▄▄█▄▄▄▄▄█▄▄▄
+   ▀▄███▄▄██▄██▄▄██
+  ▄██▄███▄▄██▄▄▄█▄██
+ █▄█▄██▄█████████▄██
+  ▄▄█▄█▄▄▄▄▄████████
+ ▀▀▀▄█▄█▄█▄▄▄▄▄█████         ▄   ▄
+    ▀▄████▄▄▄█▄█▄▄██       ▄▄▄▄▄█▄▄▄
+    █▄██▄▄▄▄███▄▄▄██    ▄▄▄▄▄▄▄▄▄█▄▄
+    ▀▄▄██████▄▄▄████    █████████████
+       ▀▀▀▀▀█████▄▄ ▄▄▄▄▄▄▄▄▄▄██▄█▄▄▀
+            ██▄███▄▄▄▄█▄▄▀  ███▄█▄▄▄█▀
+            █▄██▄▄▄▄▄████   ███████▄██
+            █▄███▄▄█████    ▀███▄█████▄
+            ██████▀▄▄▄█▄█    █▄██▄▄█▄█▄
+           ███████ ███████   ▀████▄████
            ▀▀█▄▄▄▀ ▀▀█▄▄▄▀     ▀██▄▄██▀█
-                                ▀  ▀▀█  
+                                ▀  ▀▀█
 ```
 
 ## 其他命令
 
 其他还有些 `nix flake init` 之类的命令，请自行查阅 [New Nix Commands][New Nix Commands] 学习研究，这里就不详细介绍了。
-
 
 ## References
 
