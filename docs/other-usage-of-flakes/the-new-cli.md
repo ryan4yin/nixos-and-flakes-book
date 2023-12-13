@@ -13,12 +13,23 @@ The `nix shell` command allows you to enter an environment with the specified Ni
 › hello
 hello: command not found
 
-# Enter an environment with the 'hello' package
-› nix shell nixpkgs#hello
+# Enter an environment with the 'hello' and `cowsay` package
+› nix shell nixpkgs#hello nixpkgs#cowsay
 
 # hello is now available
 › hello
 Hello, world!
+
+# ponysay is also available
+› cowsay "Hello, world!"
+ _______
+< hello >
+ -------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
 ```
 
 ## `nix run`

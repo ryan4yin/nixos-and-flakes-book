@@ -10,7 +10,43 @@
 
 在本章中我们先学习一下 Nix Flakes 开发环境的实现原理，后面的章节再按使用场景介绍一些更具体的内容。
 
+
+## 通过 `nix shell` 创建开发环境
+
+在 NixOS 上，最简单的创建开发环境的方法是使用 `nix shell`，它会创建一个含有指定 Nix 包的 shell 环境。
+
+示例：
+
+```shell
+# hello 不存在
+› hello
+hello: command not found
+
+# 进入到一个含有 hello 与 cowsay 的 shell 环境
+# 可以指定多个包，用空格分隔
+› nix shell nixpkgs#hello nixpkgs#cowsay
+
+# hello 可以用了
+› hello
+Hello, world!
+
+# cowsay 也可以用了
+› cowsay "Hello, world!"
+ _______
+< hello >
+ -------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
+
+`nix shell` 非常适合用于临时试用一些软件包或者快速创建一个干净的环境。
+
 ## 创建与使用开发环境
+
+`nix shell` 用起来非常简单，但它并不够灵活，对于更复杂的开发环境管理，我们需要使用 `pkgs.mkShell` 与 `nix develop`。
 
 在 Nix Flakes 中，我们可以通过 `pkgs.mkShell { ... }` 来定义一个项目环境，通过 `nix develop` 来打开一个该开发环境的交互式 Bash Shell.
 
@@ -116,8 +152,7 @@ stdenv.mkDerivation ({
 }
 ```
 
-建个空文件夹，将上面的配置保存为 `flake.nix`，然后执行 `nix develop`（或者更精确点，可以用 `nix develop .#default`），你会发现你已经进入了一个 nodejs 18 的开发环境，可以使用 `node` `npm` `pnpm` `yarn` 等命令了。而且刚进入时，`shellHook` 也被执行了，输出了当前 nodejs 的版本。
-
+建个空文件夹，将上面的配置保存为 `flake.nix`，然后执行 `nix develop`（或者更精确点，可以用 `nix develop .#default`），首先会打印出当前 nodejs 的版本，之后 `node` `pnpm` `yarn` 等命令就都能正常使用了。
 
 
 ## 在开发环境中使用 zsh/fish 等其他 shell
@@ -170,6 +205,66 @@ stdenv.mkDerivation ({
 ```
 
 使用上面的 `flake.nix` 配置，`nix develop` 将进入一个 nodejs 18 的开发环境，同时使用 `nushell` 作为交互式 shell.
+
+## 通过 `pkgs.runCommand` 创建开发环境
+
+`pkgs.mkShell` 创建的 derivation 不能直接使用，必须通过 `nix develop` 进入到该环境中。
+
+实际上我们也可以通过 `pkgs.stdenv.mkDerivation` 来创建一个包含所需软件包的 shell wrapper, 这样就能直接通过执行运行该 wrapper 来进入到该环境中。
+
+直接使用 `mkDerivation` 略显繁琐，Nixpkgs 提供了一些更简单的函数来帮助我们创建这类 wrapper，比如 `pkgs.runCommand`.
+
+示例：
+
+```nix
+{
+  description = "A Nix-flake-based Node.js development environment";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+  };
+
+  outputs = { self , nixpkgs ,... }: let
+    # system should match the system you are running on
+    # system = "x86_64-linux";
+    system = "x86_64-darwin";
+  in {
+    packages."${system}".dev = let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          (self: super: rec {
+            nodejs = super.nodejs_20;
+            pnpm = super.nodePackages.pnpm;
+          })
+        ];
+      };
+      packages = with pkgs; [
+          nodejs
+          pnpm
+          nushell
+      ];
+    in pkgs.runCommand "dev-shell" {
+      # Dependencies that should exist in the runtime environment
+      buildInputs = packages;
+      # Dependencies that should only exist in the build environment
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+    } ''
+      mkdir -p $out/bin/
+      ln -s ${pkgs.nushell}/bin/nu $out/bin/dev-shell
+      wrapProgram $out/bin/dev-shell --prefix PATH : ${pkgs.lib.makeBinPath packages}
+    '';
+  };
+}
+```
+
+然后执行 `nix run .#dev`，就能进入一个 nushell session，可以在其中正常使用 `node` `pnpm` 命令，且 node 版本为 20.
+
+相关源代码：
+
+- [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/trivial-builders/default.nix#L21-L49)
+- [pkgs/build-support/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
+
 
 ## 进入任何 Nix 包的构建环境
 
@@ -346,6 +441,6 @@ nix build "nixpkgs#ponysay"
 - [pkgs.mkShell - nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
 - [A minimal nix-shell](https://fzakaria.com/2021/08/02/a-minimal-nix-shell.html)
 - [One too many shell, Clearing up with nix' shells nix shell and nix-shell - Yannik Sander](https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/)
-
+- [Shell Scripts - NixOS Wiki](https://nixos.wiki/wiki/Shell_Scripts)
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html

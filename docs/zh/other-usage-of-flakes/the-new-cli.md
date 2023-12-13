@@ -12,13 +12,27 @@
 › hello
 hello: command not found
 
-# 进入到一个含有 hello 的 shell 环境
-› nix shell nixpkgs#hello
+# 进入到一个含有 hello 与 cowsay 的 shell 环境
+# 可以指定多个包，用空格分隔
+› nix shell nixpkgs#hello nixpkgs#cowsay
 
 # hello 可以用了
 › hello
 Hello, world!
+
+# cowsay 也可以用了
+› cowsay "Hello, world!"
+ _______
+< hello >
+ -------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
 ```
+
+`nix shell` 非常适合用于临时试用一些软件包或者快速创建一个干净的环境。
 
 ## `nix run`
 

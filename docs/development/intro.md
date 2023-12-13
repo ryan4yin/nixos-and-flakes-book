@@ -8,7 +8,41 @@ You should NOT install the development environment of each language in the globa
 
 In the following sections, we'll introduce how the development environment works in NixOS.
 
+## Createing a Custom Shell Environment with `nix shell`
+
+The simplest way to create a development environment is to use `nix shell`. `nix shell` will create a shell environment with the specified Nix package installed.
+
+Here's an example:
+
+```shell
+# hello is not available
+› hello
+hello: command not found
+
+# Enter an environment with the 'hello' and `cowsay` package
+› nix shell nixpkgs#hello nixpkgs#cowsay
+
+# hello is now available
+› hello
+Hello, world!
+
+# ponysay is also available
+› cowsay "Hello, world!"
+ _______
+< hello >
+ -------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+```
+
+`nix shell` is very useful when you just want to try out some packages or quickly create a clean environment.
+
 ## Creating a Development Environment
+
+`nix shell` is simple and easy to use, but it's not very flexible, for a more complex development environment, we need to use `pkgs.mkShell` and `nix develop`.
 
 We can create a development environment using `pkgs.mkShell { ... }` and open an interactive Bash shell of this development environment using `nix develop`.
 
@@ -112,7 +146,7 @@ Here is a `flake.nix` that defines a development environment with Node.js 18 ins
 }
 ```
 
-Create an empty folder, save the above configuration as `flake.nix`, and then execute `nix develop` (or more precisely, you can use `nix develop .#default`), you will find that you have entered a nodejs 18 development environment, you can use `node` `npm` `pnpm` `yarn` and other commands. And when you just entered, `shellHook` was also executed, outputting the current version of nodejs.
+Create an empty folder, save the above configuration as `flake.nix`, and then execute `nix develop` (or more precisely, you can use `nix develop .#default`), the current version of nodejs will be outputed, and now you can use `node` `pnpm` `yarn` seamlessly.
 
 
 ## Using zsh/fish/... instead of bash
@@ -166,6 +200,66 @@ Here is an example:
 ```
 
 With the above configuration, `nix develop` will enter the REPL environment of nushell.
+
+
+## Creating a Development Environment with `pkgs.runCommand`
+
+The derivation created by `pkgs.mkShell` cannot be used directly, but must be accessed via `nix develop`.
+
+It is actually possible to create a shell wrapper containing the required packages via `pkgs.stdenv.mkDerivation`, which can then be run directly into the environment by executing the wrapper.
+
+Using `mkDerivation` directly is a bit cumbersome, and Nixpkgs provides some simpler functions to help us create such wrappers, such as `pkgs.runCommand`.
+
+Example:
+
+```nix
+{
+  description = "A Nix-flake-based Node.js development environment";
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+  };
+
+  outputs = { self , nixpkgs ,... }: let
+    # system should match the system you are running on
+    # system = "x86_64-linux";
+    system = "x86_64-darwin";
+  in {
+    packages."${system}".dev = let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          (self: super: rec {
+            nodejs = super.nodejs_20;
+            pnpm = super.nodePackages.pnpm;
+          })
+        ];
+      };
+      packages = with pkgs; [
+          nodejs
+          pnpm
+          nushell
+      ];
+    in pkgs.runCommand "dev-shell" {
+      # Dependencies that should exist in the runtime environment
+      buildInputs = packages;
+      # Dependencies that should only exist in the build environment
+      nativeBuildInputs = [ pkgs.makeWrapper ];
+    } ''
+      mkdir -p $out/bin/
+      ln -s ${pkgs.nushell}/bin/nu $out/bin/dev-shell
+      wrapProgram $out/bin/dev-shell --prefix PATH : ${pkgs.lib.makeBinPath packages}
+    '';
+  };
+}
+```
+
+Then execute `nix run .#dev`, you will enter a nushell session, where you can use the `node` `pnpm` command normally, and the node version is 20.
+
+Related source code:
+
+- [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/trivial-builders/default.nix#L21-L49)
+- [pkgs/build-support/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
 
 
 ## Enter the build environment of any Nix package
