@@ -30,6 +30,7 @@ Flake Registry 是一个 Flake 注册中心，它可以帮助我们在使用 `ni
 {
   # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
   nix.registry.nixpkgs.flake = nixpkgs;
+  nix.channel.enable = false;  # disable nix-channel, we use flakes instead.
 
   # make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
   environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";

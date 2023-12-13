@@ -29,6 +29,7 @@ In your NixOS configuration, adding the following module will achieve the mentio
 {
   # Make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
   nix.registry.nixpkgs.flake = nixpkgs;
+  nix.channel.enable = false;  # disable nix-channel, we use flakes instead.
 
   # Make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
   environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
