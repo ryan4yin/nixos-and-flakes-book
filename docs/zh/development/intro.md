@@ -234,7 +234,7 @@ stdenv.mkDerivation ({
 }
 ```
 
-然后执行 `nix run .#dev`，就能进入一个 nushell session，可以在其中正常使用 `node` `pnpm` 命令.
+然后执行 `nix run .#dev` 或者 `nix shell .#dev --command 'dev-shell'`，就能进入一个 nushell session，可以在其中正常使用 `node` `pnpm` 命令.
 
 这种方式生成的 wrapper 是一个可执行文件，它实际不依赖 `nix run` 命令，比如说我们可以直接通过 NixOS 的 `environment.systemPackages` 来安装这个 wrapper，然后直接执行它：
 

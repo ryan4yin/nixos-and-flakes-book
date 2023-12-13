@@ -232,7 +232,7 @@ Example:
 }
 ```
 
-Then execute `nix run .#dev`, you will enter a nushell session, where you can use the `node` `pnpm` command normally, and the node version is 20.
+Then execute `nix run .#dev` or `nix shell .#dev --command 'dev-shell'`, you will enter a nushell session, where you can use the `node` `pnpm` command normally, and the node version is 20.
 
 The wrapper generated in this way is an executable file, which does not actually depend on the `nix run` or `nix shell` command.
 
