@@ -4,9 +4,7 @@
 
 NixOS configuration, being a set of text files, is well-suited for version control with Git. This allows easy rollback to a previous version in case of issues.
 
-One thing to note: **Any changes that are not committed and added to the Git staging area will be ignored by Nix after the configuration is managed using Git! So make sure your changes have been added to the staging area or committed before deploying.**
-
-However, by default, NixOS places the configuration in `/etc/nixos`, which requires root permissions for modification, making it inconvenient for daily use. Thankfully, Flakes can help solve this problem by allowing you to place your flake anywhere you prefer.
+By default, NixOS places the configuration in `/etc/nixos`, which requires root permissions for modification, making it inconvenient for daily use. Thankfully, Flakes can help solve this problem by allowing you to place your flake anywhere you prefer.
 
 For example, you can place your flake in `~/nixos-config` and create a symbolic link in `/etc/nixos` as follows:
 
