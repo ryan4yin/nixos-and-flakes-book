@@ -2,6 +2,8 @@
 
 ## 通过 `nix repl` 查看源码、调试配置
 
+> 注：如果你禁用了 `NIX_PATH`，那么 `<nixpkgs>` 这样的语法将无法使用，你需要改用 `nix repl -f flake:nixpkgs` 来加载 nixpkgs。
+
 前面我们已经使用 `nix repl '<nixpkgs>'` 看过很多次源码了，这是一个非常强大的工具，可以帮助我们理解 Nix 的工作原理。
 
 要学会用 `nix repl`，最好先看看它的 help 信息：

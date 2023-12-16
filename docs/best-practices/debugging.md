@@ -2,6 +2,8 @@
 
 ## Debugging with `nix repl`
 
+> NOTE: If you have disabled `NIX_PATH`, you won't be able to use syntax like `<nixpkgs>`. Instead, you should use `nix repl -f flake:nixpkgs` to load nixpkgs.
+
 We have frequently used nix repl `<nixpkgs>` throughout this guide to examine the source code. It is a powerful tool that helps us understand how things work in Nix.
 
 Let's take a closer look at the help message of nix repl:
