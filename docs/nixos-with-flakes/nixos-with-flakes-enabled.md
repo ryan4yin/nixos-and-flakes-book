@@ -116,15 +116,15 @@ Note that the copied template cannot be used directly. You need to modify it to 
         # The Nix module system can modularize configuration,
         # improving the maintainability of configuration.
         #
-        # Each parameter in the `modules` is a Nix Module, and
+        # Each parameter in the `modules` is a Nixpkgs Module, and
         # there is a partial introduction to it in the nixpkgs manual:
         #    <https://nixos.org/manual/nixpkgs/unstable/#module-system-introduction>
         # It is said to be partial because the documentation is not
         # complete, only some simple introductions.
         # such is the current state of Nix documentation...
         #
-        # A Nix Module can be an attribute set, or a function that
-        # returns an attribute set. By default, if a Nix Module is a
+        # A Nixpkgs Module can be an attribute set, or a function that
+        # returns an attribute set. By default, if a Nixpkgs Module is a
         # function, this function have the following default parameters:
         #
         #  lib:     the nixpkgs function library, which provides many
@@ -155,7 +155,7 @@ Note that the copied template cannot be used directly. You need to modify it to 
         modules = [
           # Import the configuration.nix here, so that the
           # old configuration file can still take effect.
-          # Note: configuration.nix itself is also a Nix Module,
+          # Note: configuration.nix itself is also a Nixpkgs Module,
           ./configuration.nix
         ];
       };

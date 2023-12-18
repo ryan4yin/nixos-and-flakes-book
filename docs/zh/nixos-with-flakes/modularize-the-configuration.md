@@ -251,6 +251,8 @@ nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackag
 
 > 虽然单纯调整 `systemPackages` 的顺序没什么用，但是在其他地方可能会有用...
 
+> 对模块系统更深入的介绍，参见 [模块系统与自定义 options](../other-usage-of-flakes/module-system.md).
+
 ## References
 
 - [Nix modules: Improving Nix's discoverability and usability ](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)

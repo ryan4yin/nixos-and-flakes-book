@@ -252,8 +252,8 @@ function themeConfigEnglish() {
               link: "/other-usage-of-flakes/the-new-cli.md",
             },
             {
-              text: "[WIP]Nix Options",
-              link: "/other-usage-of-flakes/options.md",
+              text: "Module System & Custom Options",
+              link: "/other-usage-of-flakes/module-system.md",
             },
             {
               text: "[WIP]Testing",
@@ -442,8 +442,8 @@ function themeConfigChinese() {
               link: "/zh/other-usage-of-flakes/the-new-cli.md",
             },
             {
-              text: "[WIP]Nix Options",
-              link: "/zh/other-usage-of-flakes/options.md",
+              text: "模块系统与自定义 options",
+              link: "/zh/other-usage-of-flakes/module-system.md",
             },
             {
               text: "[WIP]Testing",

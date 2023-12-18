@@ -274,6 +274,8 @@ As you can see, the order of `systemPackages` is `git -> curl -> default package
 
 > Although adjusting the order of `systemPackages` may not be useful in practice, it can be helpful in other scenarios.
 
+> For a deeper introduction to the module system, see [Module System & Custom Options](../other-usage-of-flakes/module-system.md).
+
 ## References
 
 - [Nix modules: Improving Nix's discoverability and usability](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)

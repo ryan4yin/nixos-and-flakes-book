@@ -110,17 +110,17 @@ cat flake.nix
 
         # Nix 模块系统可将配置模块化，提升配置的可维护性
         #
-        # modules 中每个参数，都是一个 Nix Module
+        # modules 中每个参数，都是一个 Nixpkgs Module
         # nixpkgs manual 中有半份介绍它的文档：
         #   <https://nixos.org/manual/nixpkgs/unstable/#module-system-introduction>
         # 说半份是因为它的文档不全，只有一些简单的介绍（Nix 文档现状...）
         #
-        # Nix Module 可以是一个 attribute set，
+        # Nixpkgs Module 可以是一个 attribute set，
         # 也可以是一个返回 attribute set 的函数，如果是函数，
         # 那么它的参数就是当前的 NixOS Module 的参数.
         #
         # 根据 Nix Wiki 对 Nix modules 的描述，默认情况下，
-        # Nix Module 函数的默认参数有几个：
+        # Nixpkgs Module 函数的默认参数有几个：
         #
         #  lib:     nixpkgs 自带的函数库，提供了许多操作 Nix 表达式的实用函数
         #           详见 https://nixos.org/manual/nixpkgs/stable/#id-1.4
@@ -140,7 +140,7 @@ cat flake.nix
         # specialArgs = {...};  # 将 inputs 中的参数传入所有子模块
         modules = [
           # 这里导入之前我们使用的 configuration.nix，这样旧的配置文件仍然能生效
-          # 注: configuration.nix 本身也是一个 Nix Module，因此可以直接在这里导入
+          # 注: configuration.nix 本身也是一个 Nixpkgs Module，因此可以直接在这里导入
           ./configuration.nix
         ];
       };

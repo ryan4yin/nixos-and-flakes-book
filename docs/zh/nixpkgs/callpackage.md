@@ -131,7 +131,7 @@ nix-repl> import ./hello.nix pkgs
 })
 ```
 
-那么就可以在任意 Nix Module 中使用 `pkgs.callPackage ./hello.nix {}` 来导入并使用它，并且替换它的任意参数。
+那么就可以在任意 Nixpkgs Module 中使用 `pkgs.callPackage ./hello.nix {}` 来导入并使用它，并且替换它的任意参数。
 
 ```nix
 { lib, pkgs, pkgsKernel, kernel-src, ... }:
