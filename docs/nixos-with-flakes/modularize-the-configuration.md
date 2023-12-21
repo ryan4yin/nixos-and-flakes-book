@@ -185,6 +185,8 @@ Then, for my desktop machine, I override the value in [ryan4yin/nix-config/blob/
 
 In addition to `lib.mkDefault` and `lib.mkForce`, there are also `lib.mkBefore` and `lib.mkAfter`, which are used to set the merge order of **list-type options**. These functions further contribute to the modularization of the configuration.
 
+> I haven't found the official documentation for list-type options, but I simply understand that they are types whose merge results are related to the order of merging. According to this understanding, both `list` and `string` types are list-type options, and these functions can indeed be used on these two types in practice.
+
 As mentioned earlier, when you define multiple values with the same **override priority**, Nix will throw an error. However, by using `lib.mkOrder`, `lib.mkBefore`, or `lib.mkAfter`, you can define multiple values with the same override priority, and they will be merged in the order you specify.
 
 To examine the source code of `lib.mkBefore`, you can run `nix repl -f '<nixpkgs>'` and then enter `:e lib.mkBefore`. To learn more about `nix repl`, type `:?` for the help information:
@@ -210,69 +212,86 @@ Therefore, `lib.mkBefore` is a shorthand for `lib.mkOrder 500`, and `lib.mkAfter
 
 To test the usage of `lib.mkBefore` and `lib.mkAfter`, let's create a simple Flake project:
 
-```shell{16-29}
-# Create flake.nix with the following content
-› cat <<EOF | sudo tee flake.nix
+```nix{10-38}
+# flake.nix
 {
-  description = "Ryan's NixOS Flake";
-
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-  };
-
-  outputs = { self, nixpkgs, ... }@inputs: {
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "nixos-test" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
         modules = [
-          # Demo module 1: insert 'git' at the head of the list
-          ({lib, pkgs, ...}: {
-            environment.systemPackages = lib.mkBefore [pkgs.git];
+          ({lib, ...}: {
+            programs.bash.shellInit = lib.mkBefore ''
+              echo 'insert before default'
+            '';
+            programs.zsh.shellInit = lib.mkBefore "echo 'insert before default';";
+            nix.settings.substituters = lib.mkBefore [
+              "https://nix-community.cachix.org"
+            ];
           })
 
-          # Demo module 2: insert 'vim' at the tail of the list
-          ({lib, pkgs, ...}: {
-            environment.systemPackages = lib.mkAfter [pkgs.vim];
+          ({lib, ...}: {
+            programs.bash.shellInit = lib.mkAfter ''
+              echo 'insert after default'
+            '';
+            programs.zsh.shellInit = lib.mkAfter "echo 'insert after default';";
+            nix.settings.substituters = lib.mkAfter [
+              "https://ryan4yin.cachix.org"
+            ];
           })
 
-          # Demo module 3: simply add 'curl' to the list
-          ({lib, pkgs, ...}: {
-            environment.systemPackages = with pkgs; [curl];
+          ({lib, ...}: {
+            programs.bash.shellInit = ''
+              echo 'this is default'
+            '';
+            programs.zsh.shellInit = "echo 'this is default';";
+            nix.settings.substituters = [
+              "https://nix-community.cachix.org"
+            ];
           })
         ];
       };
     };
   };
 }
-EOF
-
-# Create flake.lock
-› nix flake update
-
-# Enter the nix repl environment
-› nix repl
-Welcome to Nix 2.13.3. Type :? for help.
-
-# Load the flake we just created
-nix-repl> :lf .
-Added 9 variables.
-
-# Check the order of systemPackages
-nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackages
-[ «derivation /nix/store/0xvn7ssrwa0ax646gl4hwn8cpi05zl9j-git-2.40.1.drv»
-  «derivation /nix/store/7x8qmbvfai68sf73zq9szs5q78mc0kny-curl-8.1.1.drv»
-  «derivation /nix/store/bly81l03kh0dfly9ix2ysps6kyn1hrjl-nixos-container.drv»
-  ......
-  ......
-  «derivation /nix/store/qpmpv
-
-q5azka70lvamsca4g4sf55j8994-vim-9.0.1441.drv» ]
 ```
 
-As you can see, the order of `systemPackages` is `git -> curl -> default packages -> vim`, which matches the order we defined in `flake.nix`.
+The flake above contains the usage of `lib.mkBefore` and `lib.mkAfter` on multiline strings, single-line strings, and lists. Let's test the results:
 
-> Although adjusting the order of `systemPackages` may not be useful in practice, it can be helpful in other scenarios.
+```bash
+# Example 1: multiline string merging
+› echo $(nix eval .#nixosConfigurations.nixos-test.config.programs.bash.shellInit)
+trace: warning: system.stateVersion is not set, defaulting to 23.11. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersio
+n.
+"echo 'insert before default'
+
+echo 'this is default'
+
+if [ -z \"$__NIXOS_SET_ENVIRONMENT_DONE\" ]; then
+ . /nix/store/60882lm9znqdmbssxqsd5bgnb7gybaf2-set-environment
+fi
+
+
+
+echo 'insert after default'
+"
+
+# example 2: single-line string merging
+› echo $(nix eval .#nixosConfigurations.nixos-test.config.programs.zsh.shellInit) 
+"echo 'insert before default';
+echo 'this is default';
+echo 'insert after default';"
+
+# Example 3: list merging
+› nix eval .#nixosConfigurations.nixos-test.config.nix.settings.substituters      
+[ "https://nix-community.cachix.org" "https://nix-community.cachix.org" "https://cache.nixos.org/" "https://ryan4yin.cachix.org" ]
+
+```
+
+As you can see, `lib.mkBefore` and `lib.mkAfter` can define the order of merging of multiline strings, single-line strings, and lists. The order of merging is the same as the order of definition.
+
 
 > For a deeper introduction to the module system, see [Module System & Custom Options](../other-usage-of-flakes/module-system.md).
 

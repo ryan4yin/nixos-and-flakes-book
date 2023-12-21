@@ -162,6 +162,8 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
 
 `lib.mkBefore` 跟 `lib.mkAfter` 用于设置**列表类型**的合并顺序，它们跟 `lib.mkDefault` 和 `lib.mkForce` 一样，也被用于模块化配置。
 
+> 列表类型的定义我没找到官方文档，但我简单理解，应该就是合并结果与合并先后顺序有关的类型。按这个理解，list 跟 string 类型都是列表类型，实际测试这几个函数也确实能用在这两个类型上。
+
 前面说了如果你定义了多个优先级相同的值，Nix 会报错说存在参数冲突，需要你手动解决。
 
 但是如果你定义的是**列表类型**的值，Nix 就不会报错了，因为 Nix 会把你定义的多个值合并成一个列表，而 `lib.mkBefore` 跟 `lib.mkAfter` 就是用于设置这个列表的合并顺序的。
@@ -189,67 +191,86 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
 
 为了更直观地理解这两个函数，现在来创建一个 flake 测试下：
 
-```shell{16-29}
-# 使用如下内容创建一个 flake.nix 文件
-› cat <<EOF | sudo tee flake.nix
+```nix{10-38}
+# flake.nix
 {
-  description = "Ryan's NixOS Flake";
-
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-  };
-
-  outputs = { self, nixpkgs, ... }@inputs: {
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "nixos-test" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
         modules = [
-          # demo module 1, 在列表头插入 git
-          ({lib, pkgs, ...}: {
-            environment.systemPackages = lib.mkBefore [pkgs.git];
+          ({lib, ...}: {
+            programs.bash.shellInit = lib.mkBefore ''
+              echo 'insert before default'
+            '';
+            programs.zsh.shellInit = lib.mkBefore "echo 'insert before default';";
+            nix.settings.substituters = lib.mkBefore [
+              "https://nix-community.cachix.org"
+            ];
           })
 
-          # demo module 2, 在列表尾插入 vim
-          ({lib, pkgs, ...}: {
-            environment.systemPackages = lib.mkAfter [pkgs.vim];
+          ({lib, ...}: {
+            programs.bash.shellInit = lib.mkAfter ''
+              echo 'insert after default'
+            '';
+            programs.zsh.shellInit = lib.mkAfter "echo 'insert after default';";
+            nix.settings.substituters = lib.mkAfter [
+              "https://ryan4yin.cachix.org"
+            ];
           })
 
-          # demo module 3, 添加 curl，但是不设置优先级
-          ({lib, pkgs, ...}: {
-            environment.systemPackages = with pkgs; [curl];
+          ({lib, ...}: {
+            programs.bash.shellInit = ''
+              echo 'this is default'
+            '';
+            programs.zsh.shellInit = "echo 'this is default';";
+            nix.settings.substituters = [
+              "https://nix-community.cachix.org"
+            ];
           })
         ];
       };
     };
   };
 }
-EOF
-
-# 生成 flake.lock
-› nix flake update
-
-# 进入 nix REPL 解释器
-› nix repl
-Welcome to Nix 2.13.3. Type :? for help.
-
-# 将我们刚刚创建好的 flake 加载到当前作用域中
-nix-repl> :lf .
-Added 9 variables.
-
-# 检查下 systemPackages 的顺序，看看跟我们预期的是否一致
-nix-repl> outputs.nixosConfigurations.nixos-test.config.environment.systemPackages
-[ «derivation /nix/store/0xvn7ssrwa0ax646gl4hwn8cpi05zl9j-git-2.40.1.drv»
-  «derivation /nix/store/7x8qmbvfai68sf73zq9szs5q78mc0kny-curl-8.1.1.drv»
-  «derivation /nix/store/bly81l03kh0dfly9ix2ysps6kyn1hrjl-nixos-container.drv»
-  ......
-  ......
-  «derivation /nix/store/qpmpvq5azka70lvamsca4g4sf55j8994-vim-9.0.1441.drv» ]
 ```
 
-能看到 `systemPackages` 的顺序是 `git -> curl -> default packages -> vim`，跟我们预期的一致。`lib.mkBefore [pkgs.git]` 确实是将 `git` 插入到了列表头，而 `lib.mkAfter [pkgs.vim]` 则是将 `vim` 插入到了列表尾。
+上面的例子包含了在多行字符串、单行字符串，以及列表三种类型上应用 `lib.mkBefore` 和 `lib.mkAfter`，下面测试下结果：
 
-> 虽然单纯调整 `systemPackages` 的顺序没什么用，但是在其他地方可能会有用...
+```bash
+# 示例一：多行字符串合并
+› echo $(nix eval .#nixosConfigurations.nixos-test.config.programs.bash.shellInit)
+trace: warning: system.stateVersion is not set, defaulting to 23.11. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersio
+n.
+"echo 'insert before default'
+
+echo 'this is default'
+
+if [ -z \"$__NIXOS_SET_ENVIRONMENT_DONE\" ]; then
+ . /nix/store/60882lm9znqdmbssxqsd5bgnb7gybaf2-set-environment
+fi
+
+
+
+echo 'insert after default'
+"
+
+# 示例二：单行字符串合并
+› echo $(nix eval .#nixosConfigurations.nixos-test.config.programs.zsh.shellInit) 
+"echo 'insert before default';
+echo 'this is default';
+echo 'insert after default';"
+
+# 示例三：列表合并
+› nix eval .#nixosConfigurations.nixos-test.config.nix.settings.substituters      
+[ "https://nix-community.cachix.org" "https://nix-community.cachix.org" "https://cache.nixos.org/" "https://ryan4yin.cachix.org" ]
+
+```
+
+可以看到，`lib.mkBefore` 会将后面的值插入到前面，而 `lib.mkAfter` 会将后面的值插入到前面。
+
 
 > 对模块系统更深入的介绍，参见 [模块系统与自定义 options](../other-usage-of-flakes/module-system.md).
 
