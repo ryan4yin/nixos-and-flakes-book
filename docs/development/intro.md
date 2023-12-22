@@ -444,7 +444,9 @@ There are other commands like `nix flake init`, which you can explore in [New Ni
 
 - [pkgs.mkShell - nixpkgs manual](https://nixos.org/manual/nixpkgs/stable/#sec-pkgs-mkShell)
 - [A minimal nix-shell](https://fzakaria.com/2021/08/02/a-minimal-nix-shell.html)
+- [Wrapping packages - NixOS Cookbook](https://nixos.wiki/wiki/Nix_Cookbook#Wrapping_packages)
 - [One too many shell, Clearing up with nix' shells nix shell and nix-shell - Yannik Sander](https://blog.ysndr.de/posts/guides/2021-12-01-nix-shells/)
+- [Shell Scripts - NixOS Wiki](https://nixos.wiki/wiki/Shell_Scripts)
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
 
