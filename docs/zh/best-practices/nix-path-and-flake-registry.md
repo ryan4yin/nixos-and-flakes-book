@@ -27,14 +27,16 @@ Flake Registry 是一个 Flake 注册中心，它可以帮助我们在使用 `ni
 在你的 NixOS 配置中，添加如下 module 即可实现上述需求：
 
 ```nix
-{
+{lib, nixpkgs, ...}: {
   # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
   nix.registry.nixpkgs.flake = nixpkgs;
-  nix.channel.enable = false;  # disable nix-channel, we use flakes instead.
+  nix.channel.enable = false; # remove nix-channel related tools & configs, we use flakes instead.
 
-  # make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
+  # but NIX_PATH is still used by many useful tools, so we set it to the same value as the one used by this flake.
+  # Make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
   environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
-  nix.nixPath = ["/etc/nix/inputs"];
+  # https://github.com/NixOS/nix/issues/9574
+  nix.settings.nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
 }
 ```
 
