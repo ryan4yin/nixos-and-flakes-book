@@ -8,7 +8,7 @@ You should NOT install the development environment of each language in the globa
 
 In the following sections, we'll introduce how the development environment works in NixOS.
 
-## Createing a Custom Shell Environment with `nix shell`
+## Creating a Custom Shell Environment with `nix shell`
 
 The simplest way to create a development environment is to use `nix shell`. `nix shell` will create a shell environment with the specified Nix package installed.
 
