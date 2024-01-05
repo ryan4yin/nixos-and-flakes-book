@@ -235,7 +235,7 @@ let
 in
 ''the value of a is:
   ''${a}
-''  # 结果是 "the value of a is ''${a}"
+''  # 结果是 "the value of a is ${a}"
 ```
 
 其他 `\n` `\t` 等特殊字符的转义也类似，必须使用两个单引号来转义，如
