@@ -4,7 +4,7 @@ When managing our Dotfiles with Home Manager, a common challenge arises – each
 
 Take my Neovim/Emacs configurations as an example; I frequently make high-frequency modifications to them, sometimes dozens or hundreds of times a day. If each modification necessitates waiting for `nixos-rebuild` to run for several seconds, it becomes a significant time drain.
 
-Fortunately, with the solution outlined in [Simplifying NixOS Commands using Justfile](./en/best-practices/simplify-nixos-related-commands.md), we can expedite testing and verification of frequently modified Dotfiles by adding specific configurations to the `Justfile`.
+Fortunately, with the solution outlined in [Simplifying NixOS Commands using Justfile](./best-practices/simplify-nixos-related-commands.md), we can expedite testing and verification of frequently modified Dotfiles by adding specific configurations to the `Justfile`.
 
 For instance, I've added the following content to my Justfile:
 
