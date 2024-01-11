@@ -3,8 +3,12 @@
 在使用了 Nix Flakes 后，要更新系统也很简单，先更新 flake.lock 文件，然后部署即可。在配置文件夹中执行如下命令：
 
 ```shell
-# 更新 flake.lock
+# 更新 flake.lock（更新所有依赖项）
 nix flake update
+
+# 或者也可以只更新特定的依赖项，比如只更新 home-manager:
+nix flake lock --update-input home-manager
+
 # 部署系统
 sudo nixos-rebuild switch --flake .
 ```

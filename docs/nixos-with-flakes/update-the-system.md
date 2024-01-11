@@ -6,6 +6,9 @@ With Flakes, updating the system is straightforward. Simply execute the followin
 # Update flake.lock
 nix flake update
 
+# Or replace only the specific input, such as home-manager:
+nix flake lock --update-input home-manager
+
 # Apply the updates
 sudo nixos-rebuild switch --flake .
 ```
