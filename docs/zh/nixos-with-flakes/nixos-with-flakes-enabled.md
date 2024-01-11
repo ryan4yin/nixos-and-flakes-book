@@ -229,6 +229,16 @@ cat flake.nix
 
 > 如果你的系统 Hostname 不是 `nixos-test`，你需要在 `flake.nix` 中修改 `nixosConfigurations` 的名称，或者使用 `--flake /etc/nixos#nixos-test` 来指定配置名称。
 
+另外，如果你只是想尝试一下 Helix 的最新版本，再决定要不要真正地将它安装到系统里，有更简单的办法，一行命令就行：
+
+> 同样，想使用最新版本的话，源码编译基本是免不了的，这会需要一些时间。
+
+```bash
+nix run github:helix-editor/helix/master
+```
+
+我们会在后面的 [新一代 Nix 命令行工具的使用](/other-usage-of-flakes/the-new-cli.md) 中详细介绍 `nix run` 的用法。
+
 ## 使用其他 Flakes 包提供的功能
 
 其实这才是 Flakes 最主要的功能，一个 Flake 可以依赖其他 Flakes，从而使用它们提供的功能——就如同我们在写 TypeScript/Go/Rust 等程序时使用其他 Library 提供的功能一样。
