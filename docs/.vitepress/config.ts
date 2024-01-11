@@ -205,7 +205,10 @@ function themeConfigEnglish() {
             { text: "callPackage", link: "/nixpkgs/callpackage.md" },
             { text: "Overridding", link: "/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/nixpkgs/overlays.md" },
-            { text: "Mutiple Nixpkgs Instances", link: "/nixpkgs/multiple-nixpkgs.md" },
+            {
+              text: "Mutiple Nixpkgs Instances",
+              link: "/nixpkgs/multiple-nixpkgs.md",
+            },
           ],
         },
         {
@@ -219,6 +222,10 @@ function themeConfigEnglish() {
             {
               text: "Simplify NixOS-related Commands",
               link: "/best-practices/simplify-nixos-related-commands.md",
+            },
+            {
+              text: "Accelerating Dotfiles Debugging",
+              link: "/best-practices/accelerating-dotfiles-debugging.md",
             },
             {
               text: "Custom NIX_PATH and Flake Registry",
@@ -396,7 +403,10 @@ function themeConfigChinese() {
             { text: "callPackage", link: "/zh/nixpkgs/callpackage.md" },
             { text: "Overridding", link: "/zh/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
-            { text: "多 Nixpkgs 实例", link: "/zh/nixpkgs/multiple-nixpkgs.md" },
+            {
+              text: "多 Nixpkgs 实例",
+              link: "/zh/nixpkgs/multiple-nixpkgs.md",
+            },
           ],
         },
         {
@@ -410,6 +420,10 @@ function themeConfigChinese() {
             {
               text: "使用 Makefile 简化常用命令",
               link: "/zh/best-practices/simplify-nixos-related-commands.md",
+            },
+            {
+              text: "Accelerating Dotfiles Debugging",
+              link: "/zh/best-practices/accelerating-dotfiles-debugging.md",
             },
             {
               text: "自定义 NIX_PATH 与 Flake Registry",

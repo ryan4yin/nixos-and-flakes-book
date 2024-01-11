@@ -6,7 +6,9 @@ Alternatively, you can also use similar tools like Makefile or [cargo-make](http
 
 Below is an example of how my Justfile looks:
 
-```justfile
+> The latest Justfile I'm using: [ryan4yin/nix-config/Justfile](https://github.com/ryan4yin/nix-config/blob/main/Justfile)
+
+```Makefile
 # just is a command runner, Justfile is very similar to Makefile, but simpler.
 
 ############################################################################

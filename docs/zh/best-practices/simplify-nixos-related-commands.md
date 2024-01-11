@@ -5,9 +5,11 @@
 我使用了 [just](https://github.com/casey/just) 来管理我的 flake 配置相关的命令，简化使用。
 你也可以使用其他类似的工具来干这个活（比如说 Makefile 或 [cargo-make](https://github.com/sagiegurari/cargo-make)），这里我仅介绍下我的用法以供参考。
 
-我的 Justfile 大概内容截取如下（最新版本见 [ryan4yin/nix-config/Justfile](https://github.com/ryan4yin/nix-config/blob/main/Justfile)）：
+我的 Justfile 大概内容截取如下：
 
-```justfile
+> 我使用的 Justfile 最新版: [ryan4yin/nix-config/Justfile](https://github.com/ryan4yin/nix-config/blob/main/Justfile)
+
+```Makefile
 # just is a command runner, Justfile is very similar to Makefile, but simpler.
 
 ############################################################################
