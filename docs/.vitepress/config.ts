@@ -422,7 +422,7 @@ function themeConfigChinese() {
               link: "/zh/best-practices/simplify-nixos-related-commands.md",
             },
             {
-              text: "Accelerating Dotfiles Debugging",
+              text: "加速 Dotfiles 的调试",
               link: "/zh/best-practices/accelerating-dotfiles-debugging.md",
             },
             {
