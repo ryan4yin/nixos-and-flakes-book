@@ -220,7 +220,7 @@ After the installation, all user-level packages and configuration can be managed
 
 To find the options we can use in `home.nix`, referring to the following documents:
 
-- [Home Manager - Appendix A. Configuration Options](https://nix-community.github.io/home-manager/options.html): A list of all options, it is recommended to search for keywords in it.
+- [Home Manager - Appendix A. Configuration Options](https://nix-community.github.io/home-manager/options.xhtml): A list of all options, it is recommended to search for keywords in it.
   - [Home Manager Option Search](https://mipmip.github.io/home-manager-option-search/) is another option search tool with better UI.
 - [home-manager](https://github.com/nix-community/home-manager): Some options are not listed in the official documentation, or the documentation is not clear enough, you can directly search and read the corresponding source code in this home-manager repo.
 

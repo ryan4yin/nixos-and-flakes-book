@@ -16,7 +16,7 @@ The functions of these four files are:
 - `flake.lock`: An automatically generated version-lock file that records all input sources, hash values, and version numbers of the entire flake to ensure reproducibility.
 - `flake.nix`: The entry file that will be recognized and deployed when executing `sudo nixos-rebuild switch`. See [Flakes - NixOS Wiki](https://nixos.wiki/wiki/Flakes) for all options of flake.nix.
 - `configuration.nix`: Imported as a Nix module in flake.nix, all system-level configuration is currently written here. See [Configuration - NixOS Manual](https://nixos.org/manual/nixos/unstable/index.html#ch-configuration) for all options of configuration.nix.
-- `home.nix`: Imported by Home-Manager as the configuration of the user `ryan` in flake.nix, containing all of `ryan`'s configuration and managing `ryan`'s home folder. See [Appendix A. Configuration Options - Home-Manager](https://nix-community.github.io/home-manager/options.html) for all options of home.nix.
+- `home.nix`: Imported by Home-Manager as the configuration of the user `ryan` in flake.nix, containing all of `ryan`'s configuration and managing `ryan`'s home folder. See [Appendix A. Configuration Options - Home-Manager](https://nix-community.github.io/home-manager/options.xhtml) for all options of home.nix.
 
 By modifying these files, you can declaratively change the system and home directory status.
 

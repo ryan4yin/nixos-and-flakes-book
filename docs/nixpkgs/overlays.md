@@ -6,7 +6,7 @@ In traditional Nix environments, overlays can be configured globally using the `
 
 When using Flakes to configure NixOS, both Home Manager and NixOS provide the `nixpkgs.overlays` option to define overlays. You can refer to the following documentation for more details:
 
-- [Home Manager docs - `nixpkgs.overlays`](https://nix-community.github.io/home-manager/options.html#opt-nixpkgs.overlays)
+- [Home Manager docs - `nixpkgs.overlays`](https://nix-community.github.io/home-manager/options.xhtml#opt-nixpkgs.overlays)
 - [Nixpkgs source code - `nixpkgs.overlays`](https://github.com/NixOS/nixpkgs/blob/30d7dd7e7f2cba9c105a6906ae2c9ed419e02f17/nixos/modules/misc/nixpkgs.nix#L169)
 
 Let's take a look at an example module that loads overlays. This module can be used as a Home Manager module or a NixOS module, as the definitions are the same:
