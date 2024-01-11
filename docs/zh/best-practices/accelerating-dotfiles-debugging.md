@@ -11,17 +11,16 @@
 > 我使用的 Justfile 最新版: [ryan4yin/nix-config/Justfile](https://github.com/ryan4yin/nix-config/blob/main/Justfile)
 
 ```Makefile
-
 ###############################################################
 # Quick Test - Neovim
 ###############################################################
 
-nvim-test:
-  rm -rf $"($env.HOME)/.config/astronvim/lua/user"
-  rsync -avz --copy-links --chmod=D2755,F744 home/base/desktop/editors/neovim/astronvim_user/ $"($env.HOME)/.config/astronvim/lua/user"
 
 nvim-clean:
-  rm -rf $"($env.HOME)/.config/astronvim/lua/user"
+  rm -rf ${HOME}.config/astronvim/lua/user
+
+nvim-test: nvim-clean
+  rsync -avz --copy-links --chmod=D2755,F744 home/base/desktop/editors/neovim/astronvim_user/ ${HOME}/.config/astronvim/lua/user
 ```
 
 然后在需要快速测试 Neovim 配置时，每次修改完配置后，跑一下 `just nvim-test`，我的配置就更新了。
