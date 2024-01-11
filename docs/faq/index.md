@@ -18,7 +18,7 @@ When compared to widely used traditional tools like Ansible, Nix has the followi
 
 1. One of the biggest problems with this Anisble is that each deployment is based on incremental changes to the current state of the system. The current state of the system, like the snapshots mentioned above, is not interpretable and is difficult to reproduce. NixOS declares the target state of the system through its configuration files, so that the deployment result is independent of the current state of the system, and repeated deployments will not cause any problems.
 2. Nix Flakes uses a version lock file `flake.lock` to lock the hash value, version number, data source and other information of all dependencies, which greatly improves the reproducibility of the system. Traditional tools like Ansible don't have this feature, so they're not very reproducible.
-   1. This is why Docker is so popular - it provides, at a fraction of the cost, a **reproducible system environment on a wide range of machines** that traditional Ops tools like Ansible don't. 1.
+   1. This is why Docker is so popular - it provides, at a fraction of the cost, a **reproducible system environment on a wide range of machines** that traditional Ops tools like Ansible don't.
 1. Nix provides a high degree of ease of system customization by shielding the underlying implementation details with a layer of declarative abstraction so that users only need to care about their core requirements. Tools like Ansible have much weaker abstractions.
    1. If you've ever used a declarative configuration tool like terraform/kubernetes, this should be easy to understand. The more complex the requirements, the greater the benefit of declarative configuration.
 
