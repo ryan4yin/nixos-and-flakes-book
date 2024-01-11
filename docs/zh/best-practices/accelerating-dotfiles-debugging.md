@@ -4,7 +4,7 @@
 
 以我的 Neovim/Emacs 配置为例，我日常修改它们的频率非常高，有时候一天要改几十上百次，如果每次修改都要等 `nixos-rebuild` 跑个几十秒，这简直是在浪费时间。
 
-幸运的是，在有了 [使用 Justfile 简化 NixOS 相关命令](./zh/best-practices/simplify-nixos-related-commands.md) 这个方案后，我们可以通过往 `Justfile` 里添加些配置来实现快速的测试验证这些需要频繁修改的 Dotfiles.
+幸运的是，在有了 [使用 Justfile 简化 NixOS 相关命令](./best-practices/simplify-nixos-related-commands.md) 这个方案后，我们可以通过往 `Justfile` 里添加些配置来实现快速的测试验证这些需要频繁修改的 Dotfiles.
 
 比如我现在添加了这些 Justfile 内容：
 
