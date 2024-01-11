@@ -6,15 +6,15 @@ Nix provides an official cache server, [https://cache.nixos.org](https://cache.n
 
 ## Why Add Custom Cache Servers {#why-add-custom-cache-servers}
 
-> Note: The methods introduced here can only accelerate the download of packages; many `inputs` data sources will still be fetched from GitHub. Also, if the cache is not found, local builds will be executed, which typically requires downloading source code and building dependencies from gitub or somewhre else, may making it slow. To completely address the speed issue, it is still recommended to use solutions such as a local global proxy like a bypass route.
+> Note: The methods introduced here can only accelerate the download of packages; many `inputs` data sources will still be fetched from GitHub. Also, if the cache is not found, local builds will be executed, which typically requires downloading source code and building dependencies from GitHub or somewhere else, may making it slow. To completely address the speed issue, it is still recommended to use solutions such as a local global proxy like a bypass route.
 
 Two reasons:
 
+2. Add cache servers for some third-party projects, such as the nix-community cache server [https://nix-community.cachix.org](https://nix-community.cachix.org), which can significantly improve the build speed of these third-party projects.
 1. Adding a mirrored cache server to accelerate downloads.
-   1. The access speed of the official cache server in China is very slow. Without a local global proxy, it is almost unusable. Adding Chinese Nix cache mirrors like ustc/sjtu/tuna can alleviate this issue.
-2. In addition to mirrors, there are also cache servers for some third-party projects, such as the nix-community cache server [https://nix-community.cachix.org](https://nix-community.cachix.org), which can significantly improve the build speed of these third-party projects.
-
-## How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
+   1. The access speed of the official cache server in China is slow. Without a local global proxy, it is almost unusable. Adding Chinese Nix cache mirrors like ustc/sjtu/tuna can alleviate this issue.
+ 
+How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
 
 In Nix, you can configure cache servers using the following options:
 
