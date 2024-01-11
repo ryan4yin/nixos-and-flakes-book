@@ -248,3 +248,13 @@ After that, you can start the Helix editor by running the `hx` command.
 
 > If your system's hostname is not `nixos-test`, you need to modify the name of `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#nixos-test` to specify the configuration name.
 
+
+## Leveraging Features from Other Flakes Packages
+
+In fact, this is the primary functionality of Flakes — a Flake can depend on other Flakes, allowing it to utilize the features they provide. It's akin to how we incorporate functionalities from other libraries when writing programs in TypeScript, Go, Rust, and other programming languages.
+
+The example above, using the latest version from the official Helix Flake, illustrates this functionality. More use cases will be discussed later, and here are a few examples referenced for future mention:
+
+- [Getting Started with Home Manager](./start-using-home-manager.md): This introduces the community's Home-Manager as a dependency, enabling direct utilization of the features provided by this Flake.
+- [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): Here, different versions of Nixpkgs are introduced as dependencies, allowing for flexible selection of packages from various versions of Nixpkgs.
+
