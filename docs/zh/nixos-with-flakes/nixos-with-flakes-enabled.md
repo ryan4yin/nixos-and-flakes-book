@@ -158,12 +158,14 @@ cat flake.nix
 1. `lib` `pkgs` `config` 等默认参数都由 Nixpkgs 自动生成，并可被自动注入到子模块，无需在此处额外声明。
 1. `specialArgs = {...};` 这里省略了 attribute set 的内容，其中的内容会被通过名称匹配的方式自动注入到子模块中。
     1. 常见用法比如直接写 `specialArgs = inputs;`，这样所有 inputs 中的 flake 数据源就都可以在子模块中使用了。
+    2. 如果你不希望把默认参数与 `inputs` 中的数据源混合到一起，可以改用 `specialArgs = {inherit inputs;};`（即 `specialArgs = {inputs = inputs;};`）.
 
 ## 通过 Flakes 来管理系统软件 {#manage-system-software-with-flakes}
 
 切换完毕后，我们就可以通过 Flakes 来管理系统了。管系统最常见的需求就是装软件，我们在前面已经见识过如何通过 `environment.systemPackages` 来安装 `pkgs` 中的包，这些包都来自官方的 nixpkgs 仓库。
 
-现在我们学习下如何通过 Flakes 安装其他来源的软件包，这比直接安装 nixpkgs 要灵活很多，最显而易见的好处是你可以很方便地设定软件的版本。
+现在我们学习下如何通过 Flakes 安装其他来源的软件包，这比直接安装 nixpkgs 要灵活很多，最主要的用途是用来使用 Nixpkgs 中还未添加的某个包的新版本。
+
 以 [helix](https://github.com/helix-editor/helix) 编辑器为例，我们首先需要在 `flake.nix` 中添加 helix 这个 inputs 数据源：
 
 ```nix{10,20}
@@ -175,8 +177,8 @@ cat flake.nix
   inputs = {
     # ......
 
-    # helix editor, use tag 23.10
-    helix.url = "github:helix-editor/helix/23.10";
+    # helix editor, use the master branch
+    helix.url = "github:helix-editor/helix/master";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -220,7 +222,10 @@ cat flake.nix
 }
 ```
 
-改好后再 `sudo nixos-rebuild switch` 部署，就能安装好 helix 程序了，可直接在终端使用 `hx` 命令测试验证。
+改好后再 `sudo nixos-rebuild switch` 部署，就能安装好 Helix 程序了。
+这次部署用时会比以往长挺多，主要是 Nix 会需要使用 master 分支的源码编译整个 Helix.
+
+部署完毕后，可直接在终端使用 `hx` 命令测试验证。
 
 > 如果你的系统 Hostname 不是 `nixos-test`，你需要在 `flake.nix` 中修改 `nixosConfigurations` 的名称，或者使用 `--flake /etc/nixos#nixos-test` 来指定配置名称。
 

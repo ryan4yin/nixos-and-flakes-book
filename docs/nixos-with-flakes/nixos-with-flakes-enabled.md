@@ -175,12 +175,15 @@ The comments in the above code are already quite detailed, but let's emphasize a
 2. In `specialArgs = {...};`, the content of the attribute set is omitted here. Its contents are automatically injected into submodules through name matching.
    
    1. A common usage, for instance, is to directly write `specialArgs = inputs;`, enabling all data sources from the `inputs` attribute set to be used in the submodules.
+   2. If you do not want to mixed all the data sources in `inputs` with the defaults, use `specialArgs = {inherit inputs;};`(akin `specialArgs = {inputs = inputs;};`) instead.
 
 ## Managing System Packages with Flakes
 
 After the switch, we can manage the system using Flakes. One common requirement is installing packages. We have previously seen how to install packages using `environment.systemPackages` from the official `nixpkgs` repository.
 
-Now let's learn how to install packages from other sources using Flakes. This provides greater flexibility, particularly when it comes to specifying software versions. Let's use [Helix](https://github.com/helix-editor/helix) editor as an example.
+Now let's learn how to install packages from other sources using Flakes. This is really useful when you want to use a newer version of some package that is not added into Nixpkgs yet.
+
+Let's use [Helix](https://github.com/helix-editor/helix) editor as an example.
 
 First, we need to add Helix as an input in `flake.nix`:
 
@@ -193,8 +196,8 @@ First, we need to add Helix as an input in `flake.nix`:
   inputs = {
     # ...
 
-    # Helix editor, version - 23.10
-    helix.url = "github:helix-editor/helix/23.10";
+    # Helix editor, the master branch
+    helix.url = "github:helix-editor/helix/master";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -239,7 +242,9 @@ Next, update `configuration.nix` to install `helix` from the `helix` input:
 }
 ```
 
-To deploy the changes, run `sudo nixos-rebuild switch`. After that, you can start the Helix editor by running the `hx` command.
+To deploy the changes, run `sudo nixos-rebuild switch`, this will take a while to compile the latest Helix.
+
+After that, you can start the Helix editor by running the `hx` command.
 
 > If your system's hostname is not `nixos-test`, you need to modify the name of `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#nixos-test` to specify the configuration name.
 
