@@ -237,7 +237,7 @@ cat flake.nix
 nix run github:helix-editor/helix/master
 ```
 
-我们会在后面的 [新一代 Nix 命令行工具的使用](/other-usage-of-flakes/the-new-cli.md) 中详细介绍 `nix run` 的用法。
+我们会在后面的 [新一代 Nix 命令行工具的使用](/zh/other-usage-of-flakes/the-new-cli.md) 中详细介绍 `nix run` 的用法。
 
 ## 使用其他 Flakes 包提供的功能
 
