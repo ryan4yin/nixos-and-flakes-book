@@ -6,6 +6,8 @@
 
 NixOS 的配置文件是纯文本，因此跟普通的 dotfiles 一样可以使用 Git 管理，这样可以方便的回滚到历史版本，或者在多台机器上同步配置。
 
+> 注意：使用 Git 后，所有未被 Git 跟踪的文件都会被 Nix 忽略，如果发现 Nix 报错说某某文件 not found，或许是因为你没 `git add` 它
+
 另外一点是，Nix Flakes 配置也不一定需要放在 `/etc/nixos` 目录下，可以放在任意目录下，只要在部署时指定正确的路径即可。
 
 > 我们在前面第 3 小节的代码注释中有说明过，可以通过 `sudo nixos-rebuild switch --flake .#xxx` 的 `--flake` 参数指定 Flakes 配置的文件夹路径，并通过 `#` 后面的值来指定使用的 outputs 名称。
