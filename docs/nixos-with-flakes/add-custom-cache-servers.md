@@ -6,7 +6,7 @@ Nix provides an official cache server, [https://cache.nixos.org](https://cache.n
 
 ## Why Add Custom Cache Servers {#why-add-custom-cache-servers}
 
-> Note: The methods introduced here can only accelerate the download of packages; many `inputs` data sources will still be fetched from GitHub. Also, if the cache is not found, local builds will be executed, which typically requires downloading source code and building dependencies from GitHub or somewhere else, may making it slow. To completely address the speed issue, it is still recommended to use solutions such as a local global proxy like a bypass route.
+> Note: The methods introduced here can only accelerate the download of packages; many `inputs` data sources will still be fetched from GitHub. Also, if the cache is not found, local builds will be executed, which typically requires downloading source code and building dependencies from GitHub or somewhere else, which may make it slow. To completely address the speed issue, it is still recommended to use solutions such as a local global proxy like a bypass route.
 
 Two reasons:
 
