@@ -29,7 +29,7 @@ To my delight, NixOS has exceeded my expectations. The most astonishing aspect i
 The rollback capability and reproducibility of NixOS has instilled a great deal of confidence in me—I no longer fear breaking the system. I've even ventured into experimenting with new things on NixOS, such as the hyprland compositor. Previously, on EndeavourOS, I wouldn't have dared to tinker with such novel compositors, as any system mishaps would have entailed significant manual troubleshooting using various workarounds.
 
 As I get more and more involved with NixOS and Nix, I find it also very suitable for synchronously managing the configuration of multiple hosts. 
-Currently my personal [ryan4yin/nix-config] (https://github.com/ryan4yin/nix-config) synchronously manages the configuration of many hosts: 
+Currently my personal [nix-config](https://github.com/ryan4yin/nix-config) synchronously manages the configuration of many hosts: 
 
 - Desktop computers
   - 1 Macbook Pro 2020 (Intel amd64). 
