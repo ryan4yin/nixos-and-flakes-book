@@ -1,5 +1,14 @@
 # Other Useful Tips
 
+## Show detailed error messages
+
+You can always try to add `--show-trace -L` to the `nixos-rebuild` command to get the detailed error message if you encounter any errors during the deployment. e.g.
+
+```bash
+cd /etc/nixos
+sudo nixos-rebuild switch --flake .#myhost --show-trace -L
+```
+
 ## Managing the Configuration with Git
 
 NixOS configuration, being a set of text files, is well-suited for version control with Git. This allows easy rollback to a previous version in case of issues.
@@ -87,7 +96,7 @@ The following configuration can be added to your NixOS configuration to help red
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 1w";
- };
+  };
 
   # Optimize storage
   # You can also manually optimize the store via:

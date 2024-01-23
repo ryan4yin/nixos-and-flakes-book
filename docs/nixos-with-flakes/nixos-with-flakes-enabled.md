@@ -248,6 +248,8 @@ After that, you can start the Helix editor by running the `hx` command.
 
 > If your system's hostname is not `nixos-test`, you need to modify the name of `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#nixos-test` to specify the configuration name.
 
+> You can always try to add `--show-trace -L` to the `nixos-rebuild` command to get the detailed error message if you encounter any errors during the deployment.
+
 Furthermore, if you merely want to experiment with the latest version of Helix before deciding whether to install it system-wide, there's a simpler way – just a single command:
 
 > Similarly, if you wish to use the latest version, compiling from source is usually unavoidable and may take some time.

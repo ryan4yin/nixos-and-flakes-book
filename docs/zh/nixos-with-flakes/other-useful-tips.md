@@ -1,5 +1,14 @@
 # NixOS 的其他实用技巧
 
+## 查看详细错误信息
+
+如果你在部署配置时遇到了任何错误，都可以尝试在 `nixos-rebuild` 命令后面添加 `--show-trace -L` 参数来获取详细的错误信息。举例如下：
+
+```bash
+cd /etc/nixos
+sudo nixos-rebuild switch --flake .#myhost --show-trace -L
+```
+
 ## 使用 Git 管理 NixOS 配置 {#git-manage-nixos-config}
 
 > 这里不介绍 Git 本身的使用，如果不熟悉 Git 的话，可以先找资料学习一下 Git.

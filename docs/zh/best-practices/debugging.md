@@ -1,5 +1,13 @@
 # 调试 Derivation 跟 Nix 表达式
 
+## 查看详细错误信息
+
+如果你在部署配置时遇到了任何错误，都可以尝试在 `nixos-rebuild` 命令后面添加 `--show-trace -L` 参数来获取详细的错误信息。举例如下：
+
+```bash
+sudo nixos-rebuild switch --flake .#myhost --show-trace -L
+```
+
 ## 通过 `nix repl` 查看源码、调试配置
 
 > 注：如果你禁用了 `NIX_PATH`，那么 `<nixpkgs>` 这样的语法将无法使用，你需要改用 `nix repl -f flake:nixpkgs` 来加载 nixpkgs。

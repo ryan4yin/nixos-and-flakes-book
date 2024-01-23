@@ -62,6 +62,8 @@ In this configuration, we declare our intention to enable the openssh service, a
 
 To deploy the modified configuration, run `sudo nixos-rebuild switch`. This command will apply the changes, generate a new system environment, and set it as the default. You can now log in to the system using SSH with the configured SSH keys.
 
+> You can always try to add `--show-trace -L` to the `nixos-rebuild` command to get the detailed error message if you encounter any errors during the deployment.
+
 Remember that any reproducible changes to the system can be made by modifying the `/etc/nixos/configuration.nix` file and deploying the changes with `sudo nixos-rebuild switch`.
 
 To find configuration options and documentation:

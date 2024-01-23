@@ -229,6 +229,8 @@ cat flake.nix
 
 > 如果你的系统 Hostname 不是 `nixos-test`，你需要在 `flake.nix` 中修改 `nixosConfigurations` 的名称，或者使用 `--flake /etc/nixos#nixos-test` 来指定配置名称。
 
+> 如果你在部署配置时遇到了任何错误，都可以尝试在 `nixos-rebuild` 命令后面添加 `--show-trace -L` 参数来获取详细的错误信息。举例如下：
+
 另外，如果你只是想尝试一下 Helix 的最新版本，再决定要不要真正地将它安装到系统里，有更简单的办法，一行命令就行：
 
 > 同样，想使用最新版本的话，源码编译基本是免不了的，这会需要一些时间。

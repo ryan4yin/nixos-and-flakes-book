@@ -67,6 +67,8 @@ NixOS 的系统配置路径为 `/etc/nixos/configuration.nix`，它包含系统�
 
 现在运行 `sudo nixos-rebuild switch` 部署修改后的配置，之后就可以通过 ssh 密钥远程登录到我的这台主机了。
 
+> 如果你在部署配置时遇到了任何错误，都可以尝试在 `nixos-rebuild` 命令后面添加 `--show-trace -L` 参数来获取详细的错误信息。举例如下：
+
 这就是 NixOS 默认的声明式系统配置，要对系统做任何可复现的变更，都只需要修改 `/etc/nixos/configuration.nix` 文件，然后运行 `sudo nixos-rebuild switch` 部署变更即可。
 
 `/etc/nixos/configuration.nix` 的所有配置项，可以在这几个地方查到：

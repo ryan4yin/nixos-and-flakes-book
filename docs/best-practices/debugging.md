@@ -1,5 +1,13 @@
 # Debugging Derivations and Nix Expressions
 
+## Show detailed error messages
+
+You can always try to add `--show-trace -L` to the `nixos-rebuild` command to get the detailed error message if you encounter any errors during the deployment. e.g.
+
+```bash
+sudo nixos-rebuild switch --flake .#myhost --show-trace -L
+```
+
 ## Debugging with `nix repl`
 
 > NOTE: If you have disabled `NIX_PATH`, you won't be able to use syntax like `<nixpkgs>`. Instead, you should use `nix repl -f flake:nixpkgs` to load nixpkgs.
