@@ -231,6 +231,8 @@ Nix 提供了 [`extra-` 前缀](https://nixos.org/manual/nix/stable/command-ref/
 
 ## 通过本地 HTTP 代理加速包下载 {#use-local-http-proxy-to-speed-up-nix-package-download}
 
+> 参考了 Issue: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
+
 虽然前面提到了，旁路由可以完全解决 NixOS 的包下载速度问题，但是旁路由的配置比较麻烦，而且经常需要额外的软路由设备支持。
 
 更多的用户会希望能直接通过本机运行的 HTTP 代理来加速包下载，这里介绍下怎么设置。
@@ -253,6 +255,6 @@ sudo systemctl restart nix-daemon
 
 使用此方案，每次重启系统可能都需要重新执行一遍上述命令，因为 `/run` 目录是临时文件系统，重启后会被清空。
 
-## 参考
+> 使用一些商用代理或公共代理时你可能会遇到 GitHub 下载时报 HTTP 403 错误（[nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)），
+> 可尝试通过更换代理服务器或者设置 [access-tokens](https://github.com/NixOS/nix/issues/6536) 来解决。
 
-- [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)

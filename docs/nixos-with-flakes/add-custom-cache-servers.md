@@ -227,6 +227,8 @@ In other words, you can use it like this:
 ```
 ## Using Local HTTP Proxy to Accelerate Package Downloads {#use-local-http-proxy-to-speed-up-nix-package-download}
 
+> Related: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
+
 While it has been mentioned earlier that a bypass route can completely solve the NixOS package download speed issue, configuring a bypass route is relatively cumbersome and often requires additional support from a software routing device.
 
 Many users may prefer to directly accelerate package downloads through a locally running HTTP proxy. Here's how to set it up.
@@ -249,6 +251,6 @@ sudo systemctl restart nix-daemon
 
 Using this approach, you might need to execute the above commands every time the system is restarted because the `/run` directory is a temporary file system that gets cleared upon a restart.
 
-## Reference
+> You may encounter HTTP 403 errors when downloading from GitHub using some commercial or public proxies, such as [nixos-and-flakes-book/issues/74]](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74),
+> You can try to solve this by changing the proxy server or setting [access-tokens](https://github.com/NixOS/nix/issues/6536)
 
-- [Roaming Laptop: Network Proxy Configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
