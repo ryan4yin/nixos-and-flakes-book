@@ -33,13 +33,6 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
     "Xft.dpi" = 172;
   };
 
-  # basic configuration of git, please change to your own
-  programs.git = {
-    enable = true;
-    userName = "Ryan Yin";
-    userEmail = "xiaoyin_c@qq.com";
-  };
-
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
     # here is some command line tools I use frequently
@@ -108,6 +101,13 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
     pciutils # lspci
     usbutils # lsusb
   ];
+
+  # basic configuration of git, please change to your own
+  programs.git = {
+    enable = true;
+    userName = "Ryan Yin";
+    userEmail = "xiaoyin_c@qq.com";
+  };
 
   # starship - an customizable prompt for any shell
   programs.starship = {
