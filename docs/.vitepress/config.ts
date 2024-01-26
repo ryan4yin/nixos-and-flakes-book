@@ -203,7 +203,7 @@ function themeConfigEnglish() {
           items: [
             { text: "Introduction", link: "/nixpkgs/intro.md" },
             { text: "callPackage", link: "/nixpkgs/callpackage.md" },
-            { text: "Overridding", link: "/nixpkgs/overriding.md" },
+            { text: "Overriding", link: "/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/nixpkgs/overlays.md" },
             {
               text: "Mutiple Nixpkgs Instances",
