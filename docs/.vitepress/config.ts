@@ -206,7 +206,7 @@ function themeConfigEnglish() {
             { text: "Overriding", link: "/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/nixpkgs/overlays.md" },
             {
-              text: "Mutiple Nixpkgs Instances",
+              text: "Multiple Nixpkgs Instances",
               link: "/nixpkgs/multiple-nixpkgs.md",
             },
           ],
