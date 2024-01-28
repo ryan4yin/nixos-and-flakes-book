@@ -175,7 +175,7 @@ The comments in the above code are already quite detailed, but let's emphasize a
 2. In `specialArgs = {...};`, the content of the attribute set is omitted here. Its contents are automatically injected into submodules through name matching.
    
    1. A common usage, for instance, is to directly write `specialArgs = inputs;`, enabling all data sources from the `inputs` attribute set to be used in the submodules.
-   2. If you do not want to mixed all the data sources in `inputs` with the defaults, use `specialArgs = {inherit inputs;};`(akin `specialArgs = {inputs = inputs;};`) instead.
+   2. If you do not want to get all the data sources in `inputs` mixed with the defaults, use `specialArgs = {inherit inputs;};`(akin to `specialArgs = {inputs = inputs;};`) instead.
 
 ## Managing System Packages with Flakes
 
