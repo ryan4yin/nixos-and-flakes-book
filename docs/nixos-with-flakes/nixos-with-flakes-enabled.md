@@ -149,9 +149,9 @@ Note that the copied template cannot be used directly. You need to modify it to 
         # to the submodules, 
         # you'll have to manually configure these parameters using
         # `specialArgs`. 
-        # you must use `specialArgs` by uncomment the following line:
+        # you must use `specialArgs` by uncommenting the following line:
         #
-        # specialArgs = {...};  # pass custom arguments into all sub module.
+        # specialArgs = {...};  # pass custom arguments into all submodules.
         modules = [
           # Import the configuration.nix here, so that the
           # old configuration file can still take effect.
