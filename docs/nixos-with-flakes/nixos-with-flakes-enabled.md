@@ -125,7 +125,7 @@ Note that the copied template cannot be used directly. You need to modify it to 
         #
         # A Nixpkgs Module can be an attribute set, or a function that
         # returns an attribute set. By default, if a Nixpkgs Module is a
-        # function, this function have the following default parameters:
+        # function, this function has the following default parameters:
         #
         #  lib:     the nixpkgs function library, which provides many
         #             useful functions for operating Nix expressions:
