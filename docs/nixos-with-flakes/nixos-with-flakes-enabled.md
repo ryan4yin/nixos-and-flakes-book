@@ -125,7 +125,7 @@ Note that the copied template cannot be used directly. You need to modify it to 
         #
         # A Nixpkgs Module can be an attribute set, or a function that
         # returns an attribute set. By default, if a Nixpkgs Module is a
-        # function, this function have the following default parameters:
+        # function, this function has the following default parameters:
         #
         #  lib:     the nixpkgs function library, which provides many
         #             useful functions for operating Nix expressions:
@@ -149,9 +149,9 @@ Note that the copied template cannot be used directly. You need to modify it to 
         # to the submodules, 
         # you'll have to manually configure these parameters using
         # `specialArgs`. 
-        # you must use `specialArgs` by uncomment the following line:
+        # you must use `specialArgs` by uncommenting the following line:
         #
-        # specialArgs = {...};  # pass custom arguments into all sub module.
+        # specialArgs = {...};  # pass custom arguments into all submodules.
         modules = [
           # Import the configuration.nix here, so that the
           # old configuration file can still take effect.
@@ -175,7 +175,7 @@ The comments in the above code are already quite detailed, but let's emphasize a
 2. In `specialArgs = {...};`, the content of the attribute set is omitted here. Its contents are automatically injected into submodules through name matching.
    
    1. A common usage, for instance, is to directly write `specialArgs = inputs;`, enabling all data sources from the `inputs` attribute set to be used in the submodules.
-   2. If you do not want to mixed all the data sources in `inputs` with the defaults, use `specialArgs = {inherit inputs;};`(akin `specialArgs = {inputs = inputs;};`) instead.
+   2. If you do not want to get all the data sources in `inputs` mixed with the defaults, use `specialArgs = {inherit inputs;};`(akin to `specialArgs = {inputs = inputs;};`) instead.
 
 ## Managing System Packages with Flakes
 
