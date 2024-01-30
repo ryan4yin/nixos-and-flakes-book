@@ -22,7 +22,7 @@ Overall, I strongly recommend everyone to use Flakes, especially since this book
 
 ## Nix Flakes and Classic Nix
 
-> Currently the New CLI is strongly bound to the Flakes feature, so I will use the term "Flakes" to refer to the New CLI & Flakes feature in this book.
+> Currently the New CLI is strongly bound to the Flakes feature(although there is aleardy a clear plan to split them now), so I will use the term "Flakes" to refer to the New CLI & Flakes feature in this book.
 
 Since the `nix-command` and `flakes` features are still experimental, the official documentation lacks detailed coverage, and the community's documentation on them is also scattered. From the perspective of reproducibility, ease of management, and maintenance, the classic Nix package structure and CLI are no longer recommended. Therefore, I will not delve into the usage of classic Nix. Beginners are advised to start with `nix-command` and `flakes` while disregarding any content related to classic Nix.
 
