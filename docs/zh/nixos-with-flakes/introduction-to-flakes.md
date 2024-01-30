@@ -24,6 +24,9 @@ Flakes 带来的好处是显而易见的，整个 NixOS 社区都很喜欢它，
 
 ## Flakes 与传统的 Nix
 
+
+> 当前 New CLI 与 Flakes 特性是强绑定的（虽然现在已经有明确的拆分计划），因此在本书中我会使用 Flakes 来指代 New CLI 与 Flakes 两项特性。
+
 Nix 于 2020 年推出了 `nix-command` & `flakes` 两个新特性，它们提供了全新的命令行工具、标准的 Nix 包结构定义、类似 cargo/npm 的 `flake.lock` 版本锁文件等等。这两个特性极大地增强了 Nix 的能力，因此虽然至今（2023/5/5）它们仍然是实验性特性，但是已经被 Nix 社区广泛使用。
 
 但由于 `nix-command` & `flakes` 仍然是实验性特性，官方文档基本不包含任何介绍它们的内容，同时社区关于 Flakes 的文档也相当分散且不完整。
@@ -41,7 +44,7 @@ Nix 于 2020 年推出了 `nix-command` & `flakes` 两个新特性，它们提�
 4. `nix-build`: 用于构建 Nix 包，它会将构建结果放到 `/nix/store` 路径下，但是不会记录到 Nix 的声明式配置中。
    1. 在 Nix Flakes 中对应的命令为 `nix build`
 5. `nix-collect-garbage`: 垃圾回收指令，用于清理 `/nix/store` 中未被使用的 Store Objects.
-   1. 在 Nix Flakes 中对应的命令为 `nix store gc --debug`.
+   1. 在 Nix Flakes 中有个相似的指令 `nix store gc --debug`，但它不会清理 profile 生成的历史版本，因此此命令暂无替代。
 6. 以及其他使用地较少的命令，就不一一列出了.
    1. 详细的命令对比列表可以看看 [Try to explain nix commands](https://qiita-com.translate.goog/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en)
 

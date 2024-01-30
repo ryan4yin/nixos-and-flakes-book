@@ -22,6 +22,8 @@ Overall, I strongly recommend everyone to use Flakes, especially since this book
 
 ## Nix Flakes and Classic Nix
 
+> Currently the New CLI is strongly bound to the Flakes feature, so I will use the term "Flakes" to refer to the New CLI & Flakes feature in this book.
+
 Since the `nix-command` and `flakes` features are still experimental, the official documentation lacks detailed coverage, and the community's documentation on them is also scattered. From the perspective of reproducibility, ease of management, and maintenance, the classic Nix package structure and CLI are no longer recommended. Therefore, I will not delve into the usage of classic Nix. Beginners are advised to start with `nix-command` and `flakes` while disregarding any content related to classic Nix.
 
 The following are classic Nix commands and associated concepts that are no longer necessary after enabling `nix-command` and `flakes`. When searching for information, you can safely ignore them:
@@ -36,7 +38,7 @@ The following are classic Nix commands and associated concepts that are no longe
 4. `nix-build`: `nix-build` builds Nix packages and places the build results in `/nix/store`, but it does not record them in Nix's declarative configuration.
    1. In Flakes, `nix-build` is replaced by `nix build`.
 5. `nix-collect-garbage`: Garbage collection command used to clean up unused Store Objects in `/nix/store`.
-   1. In Nix Flakes, the corresponding command is `nix store gc --debug`.
+   1. There is a smimilar command in Flakes, `nix store gc`, but it do not clean the profile generations.
 6. And other less commonly used commands are not listed here.
    1. You can refer to the detailed command comparison list in [Try to explain nix commands](https://qiita.com/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en).
 
