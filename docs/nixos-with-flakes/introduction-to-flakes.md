@@ -9,7 +9,7 @@ In simple terms, if you've worked with some JavaScript/Go/Rust/Python, you shoul
 Similarly, the package managers in these programming languages also use files like `package-lock.json`/`go.sum`/`Cargo.lock`/`poetry.lock` to lock the versions of dependencies, ensuring the reproducibility of projects.
 
 Flakes borrow ideas from these package managers to enhance the reproducibility, composability, and usability of the Nix ecosystem.
-Flakes introduce `flake.nix`, similar to `package.json`, to describe the dependencies between Nix packages and how to build projects. 
+Flakes introduce `flake.nix`, similar to `package.json`, to describe the dependencies between Nix packages and how to build projects.
 Additionally, it provides `flake.lock`, akin to `package-lock.json`, to lock the versions of dependencies, ensuring project reproducibility.
 
 ## A Word of Caution about Flakes <Badge type="danger" text="caution" />
@@ -19,30 +19,6 @@ The benefits of Flakes are evident, and the entire NixOS community has embraced 
 :warning: However, it's important to note that **Flakes is still an experimental feature**. Some issues persist, and there is a possibility of introducing breaking changes during the stabilization process. The extent of these breaking changes remains uncertain.
 
 Overall, I strongly recommend everyone to use Flakes, especially since this book revolves around NixOS and Flakes. However, it's crucial to be prepared for potential problems that may arise due to forthcoming breaking changes.
-
-## Nix Flakes and Classic Nix
-
-> Currently the New CLI is strongly bound to the Flakes feature(although there is aleardy a clear plan to split them now), so I will use the term "Flakes" to refer to the New CLI & Flakes feature in this book.
-
-Since the `nix-command` and `flakes` features are still experimental, the official documentation lacks detailed coverage, and the community's documentation on them is also scattered. From the perspective of reproducibility, ease of management, and maintenance, the classic Nix package structure and CLI are no longer recommended. Therefore, I will not delve into the usage of classic Nix. Beginners are advised to start with `nix-command` and `flakes` while disregarding any content related to classic Nix.
-
-The following are classic Nix commands and associated concepts that are no longer necessary after enabling `nix-command` and `flakes`. When searching for information, you can safely ignore them:
-
-1. `nix-channel`: `nix-channel` manages software package versions through stable/unstable/test channels, similar to other package management tools such as apt/yum/pacman.
-   1. In Flakes, the functionality of `nix-channel` is entirely replaced by the `inputs` section in `flake.nix`.
-2. `nix-env`: `nix-env` is a core command-line tool for classic Nix used to manage software packages in the user environment.
-   1. It installs packages from the data sources added by `nix-channel`, causing the installed package's version to be influenced by the channel. Packages installed with `nix-env` are not automatically recorded in Nix's declarative configuration and are completely independent of its control, making them challenging to reproduce on other machines. Therefore, it is not recommended to use this tool.
-   2. The corresponding command in Flakes is `nix profile`. Personally, I don't recommend it for beginners either.
-3. `nix-shell`: `nix-shell` creates a temporary shell environment, which is useful for development and testing.
-   1. In Flakes, this tool is divided into three sub-commands: `nix develop`, `nix shell`, and `nix run`. We will discuss these three commands in detail in the "[Development](../development/intro.md)" chapter.
-4. `nix-build`: `nix-build` builds Nix packages and places the build results in `/nix/store`, but it does not record them in Nix's declarative configuration.
-   1. In Flakes, `nix-build` is replaced by `nix build`.
-5. `nix-collect-garbage`: Garbage collection command used to clean up unused Store Objects in `/nix/store`.
-   1. There is a smimilar command in Flakes, `nix store gc`, but it do not clean the profile generations.
-6. And other less commonly used commands are not listed here.
-   1. You can refer to the detailed command comparison list in [Try to explain nix commands](https://qiita.com/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en).
-
-> NOTE: `nix-env -qa` may still be useful in some cases, as it returns all packages installed in the system.
 
 ## Flakes Tutorials
 
@@ -64,7 +40,34 @@ I delved into some details regarding Flakes:
 - [ teaching Nix 3 CLI and Flakes #281 - nix.dev](https://github.com/NixOS/nix.dev/issues/281): An issue about "Teaching Nix 3 CLI and Flakes" in nix.dev, and the conclusion is that we should not promote unstable features in nix.dev.
 - [Draft: 1-year Roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9): A roadmap provided by the NixOS Foundation, which includes plans regarding the stabilization of Flakes.
 
-After reviewing these resources, it seems likely that Flakes will be stabilized within one or two years, possibly accompanied by some breaking changes.
+After reviewing these resources, it seems that Flakes may be(or may not...) stabilized within two years, possibly accompanied by some breaking changes.
+
+## the New CLI and the Classic CLI
+
+Nix introduced two experimental features, `nix-command` and `flakes`, in the year 2020.
+These features bring forth a new command-line interface (referred to as the New CLI), a standardized Nix package structure definition (known as the Flakes feature), and features like `flake.lock`, similar to version lock files in cargo/npm.
+Despite being experimental as of February 1, 2024, these features have gained widespread adoption within the Nix community due to their significant enhancement of Nix capabilities.
+
+The current Nix New CLI (the `nix-command` experimental feature) is tightly coupled with the Flakes experimental feature.
+While there are ongoing efforts to explicitly separate them, using Flakes essentially requires the use of the New CLI.
+In this book, serving as a beginner's guide to NixOS and Flakes, it is necessary to introduce the differences between the New CLI, which Flakes relies on, and the old CLI.
+
+Here, we list the old Nix CLI and related concepts that are no longer needed when using the New CLI and Flakes (`nix-command` and `flakes`).
+When researching, you can replace them with the corresponding New CLI commands (except for `nix-collect-garbage`, as there is currently no alternative for this command):
+
+1. `nix-channel`: `nix-channel` manages software package versions through stable/unstable/test channels, similar to other package management tools such as apt/yum/pacman.
+   1. In Flakes, The functionality of `nix-channel` is entirely replaced by the `inputs` section in `flake.nix`.
+2. `nix-env`: `nix-env` is a core command-line tool for classic Nix used to manage software packages in the user environment.
+   1. It installs packages from the data sources added by `nix-channel`, causing the installed package's version to be influenced by the channel. Packages installed with `nix-env` are not automatically recorded in Nix's declarative configuration and are completely independent of its control, making them challenging to reproduce on other machines. Therefore, it is not recommended to use this command directly.
+   2. The corresponding command in the New CLI is `nix profile`. Personally, I don't recommend it for beginners.
+3. `nix-shell`: `nix-shell` creates a temporary shell environment, which is useful for development and testing.
+   1. New CLI: This tool is divided into three sub-commands: `nix develop`, `nix shell`, and `nix run`. We will discuss these three commands in detail in the "[Development](../development/intro.md)" chapter.
+4. `nix-build`: `nix-build` builds Nix packages and places the build results in `/nix/store`, but it does not record them in Nix's declarative configuration.
+   1. New CLI: `nix-build` is replaced by `nix build`.
+5. `nix-collect-garbage`: Garbage collection command used to clean up unused Store Objects in `/nix/store`.
+   1. There is a smimilar command in the New CLI, `nix store gc --debug`, but it do not clean the profile generations, so there is currently no alternative for this command.
+6. And other less commonly used commands are not listed here.
+   1. You can refer to the detailed command comparison list in [Try to explain nix commands](https://qiita.com/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en).
 
 [^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes)
 [^2]: [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)

@@ -22,34 +22,6 @@ Flakes 带来的好处是显而易见的，整个 NixOS 社区都很喜欢它，
 
 总的来说，我仍然推荐大家使用 Flakes，毕竟这本书本身也是围绕 NixOS 与 Flakes 编写的，但是也要做好准备——未来可能需要解决一些不兼容变更带来的问题。
 
-## Flakes 与传统的 Nix
-
-
-> 当前 New CLI 与 Flakes 特性是强绑定的（虽然现在已经有明确的拆分计划），因此在本书中我会使用 Flakes 来指代 New CLI 与 Flakes 两项特性。
-
-Nix 于 2020 年推出了 `nix-command` & `flakes` 两个新特性，它们提供了全新的命令行工具、标准的 Nix 包结构定义、类似 cargo/npm 的 `flake.lock` 版本锁文件等等。这两个特性极大地增强了 Nix 的能力，因此虽然至今（2023/5/5）它们仍然是实验性特性，但是已经被 Nix 社区广泛使用。
-
-但由于 `nix-command` & `flakes` 仍然是实验性特性，官方文档基本不包含任何介绍它们的内容，同时社区关于 Flakes 的文档也相当分散且不完整。
-但是从可复现、易于管理维护的角度讲，旧的 Nix 包结构与命令行工具已经不推荐使用了，因此本书也不会介绍旧的 Nix 包结构与命令行工具的使用方法，也建议新手直接忽略掉这些旧的内容，从 `nix-command` & `flakes` 学起。
-
-这里列举下在 `nix-command` & `flakes` 中已经不需要用到的旧的 Nix 命令行工具与相关概念，在查找资料时，如果看到它们直接忽略掉就行：
-
-1. `nix-channel`: 与 apt/yum/pacman 等其他 Linux 发行版的包管理工具类似，传统的 Nix 也以 stable/unstable/test 等 channel 的形式来管理软件包的版本，可通过此命令修改 Nix 的 channel 信息。
-   1. Nix Flakes 在 `flake.nix` 中通过 `inputs` 声明依赖包的数据源，通过 `flake.lock` 锁定依赖版本，完全取代掉了 `nix-channel` 的功能。
-2. `nix-env`: 用于管理用户环境的软件包，是传统 Nix 的核心命令行工具。它从 `nix-channel` 定义的数据源中安装软件包，所以安装的软件包版本受 channel 影响。
-   1. 通过 `nix-env` 安装的包不会被自动记录到 Nix 的声明式配置中，是完全脱离掌控的，无法在其他主机上复现，因此不推荐使用。
-   2. 在 Nix Flakes 中对应的命令为 `nix profile`，我个人也不太推荐初学者尝试它.
-3. `nix-shell`: nix-shell 用于创建一个临时的 shell 环境
-   1. 这玩意儿可能有点复杂了，因此在 Nix Flakes 中它被拆分成了三个子命令 `nix develop`, `nix shell` 以及 `nix run`，我们会在「[构建开发环境](../development/intro.md)」一章详细介绍这三个命令。
-4. `nix-build`: 用于构建 Nix 包，它会将构建结果放到 `/nix/store` 路径下，但是不会记录到 Nix 的声明式配置中。
-   1. 在 Nix Flakes 中对应的命令为 `nix build`
-5. `nix-collect-garbage`: 垃圾回收指令，用于清理 `/nix/store` 中未被使用的 Store Objects.
-   1. 在 Nix Flakes 中有个相似的指令 `nix store gc --debug`，但它不会清理 profile 生成的历史版本，因此此命令暂无替代。
-6. 以及其他使用地较少的命令，就不一一列出了.
-   1. 详细的命令对比列表可以看看 [Try to explain nix commands](https://qiita-com.translate.goog/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en)
-
-> 可能也就 `nix-env -qa` 这个命令偶尔还会有些用了，它返回当前系统下安装的所有软件包。
-
 ## Flakes 入门
 
 我就不多介绍了，请直接参考如下文档：
@@ -70,7 +42,33 @@ Nix 于 2020 年推出了 `nix-command` & `flakes` 两个新特性，它们提�
 - [ teaching Nix 3 CLI and Flakes #281 - nix.dev](https://github.com/NixOS/nix.dev/issues/281): 社区关于是否应该在 NixOS 官方文档中介绍 Flakes 的讨论，当前结论是官方文档不应该推广使用 unstable 功能。
 - [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9): NixOS Fundation 的一份 Roadmap，其中提到了 Flakes 的计划：`Stabilize flakes and release Nix 3.0. Flakes are widely used (there are more GitHub repos being created with a flake.nix than a default.nix) but they’re still marked as experimental, which is not a good situation. The same applies to the new nix CLI.`
 
-读完上述内容后，个人猜测，**Flakes 可能会在未来一两年内成为稳定特性**。
+读完上述内容后，个人猜测，**Flakes 有可能（仅是可能）会在未来两年内成为稳定特性**。
+
+
+## Nix 的新 CLI 与旧的 CLI {#the-new-cli-and-the-classic-cli}
+
+Nix 于 2020 年推出了 `nix-command` & `flakes` 两个实验特性，它们提供了全新的命令行工具（即 New CLI）、标准的 Nix 包结构定义（即 Flakes 特性）、类似 cargo/npm 的 `flake.lock` 版本锁文件等等。这两个特性极大地增强了 Nix 的能力，因此虽然至今（2024/2/1）它们仍然是实验性特性，但是已经被 Nix 社区广泛使用。
+
+当前 Nix 的 New CLI（即 `nix-command` 实验特性） 与 Flakes 实验特性是强绑定的关系，虽然现在已经有明确的拆分计划正在推进中了，但要用 Flakes 基本上就必须得用 New CLI.
+而本书作为一本 NixOS & Flakes 新手指南，就有必要介绍下 Flakes 实验特性所依赖的 New CLI 与旧的 CLI 的区别。
+
+这里列举下在启用了 New CLI 与 Flakes(`nix-command` & `flakes`) 实验特性后，已经不需要用到的旧的 Nix 命令行工具与相关概念。
+在查找资料时，如果看到它们直接忽略掉就行（`nix-collect-garbage` 除外，该命令目前暂无替代）：
+
+1. `nix-channel`: 与 apt/yum/pacman 等其他 Linux 发行版的包管理工具类似，传统的 Nix 也以 stable/unstable/test 等 channel 的形式来管理软件包的版本，可通过此命令修改 Nix 的 channel 信息。
+   1. Nix Flakes 在 `flake.nix` 中通过 `inputs` 声明依赖包的数据源，通过 `flake.lock` 锁定依赖版本，完全取代掉了 `nix-channel` 的功能。
+2. `nix-env`: 用于管理用户环境的软件包，是传统 Nix 的核心命令行工具。它从 `nix-channel` 定义的数据源中安装软件包，所以安装的软件包版本受 channel 影响。
+   1. 通过 `nix-env` 安装的包不会被自动记录到 Nix 的声明式配置中，是完全脱离掌控的，无法在其他主机上复现，因此不推荐使用。
+   2. New CLI 中对应的命令为 `nix profile`，我个人不太推荐初学者直接尝试它.
+3. `nix-shell`: nix-shell 用于创建一个临时的 shell 环境
+   1. 这玩意儿可能有点复杂了，因此在 New CLI 中它被拆分成了三个子命令 `nix develop`, `nix shell` 以及 `nix run`，我们会在「[构建开发环境](../development/intro.md)」一章详细介绍这三个命令。
+4. `nix-build`: 用于构建 Nix 包，它会将构建结果放到 `/nix/store` 路径下，但是不会记录到 Nix 的声明式配置中。
+   1. 在 New CLI 中对应的命令为 `nix build`
+5. `nix-collect-garbage`: 垃圾回收指令，用于清理 `/nix/store` 中未被使用的 Store Objects.
+   1. 在 New CLI 中有个相似的指令 `nix store gc --debug`，但它不会清理 profile 生成的历史版本，因此此命令暂无替代。
+6. 以及其他使用地较少的命令，就不一一列出了.
+   1. 详细的命令对比列表可以看看 [Try to explain nix commands](https://qiita-com.translate.goog/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en)
+
 
 [^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes)
 [^2]: [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
