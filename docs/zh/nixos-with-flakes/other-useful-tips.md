@@ -11,8 +11,6 @@ sudo nixos-rebuild switch --flake .#myhost --show-trace -L
 
 ## 使用 Git 管理 NixOS 配置 {#git-manage-nixos-config}
 
-> 这里不介绍 Git 本身的使用，如果不熟悉 Git 的话，可以先找资料学习一下 Git.
-
 NixOS 的配置文件是纯文本，因此跟普通的 dotfiles 一样可以使用 Git 管理，这样可以方便的回滚到历史版本，或者在多台机器上同步配置。
 
 > 注意：使用 Git 后，所有未被 Git 跟踪的文件都会被 Nix 忽略，如果发现 Nix 报错说某某文件 not found，或许是因为你没 `git add` 它

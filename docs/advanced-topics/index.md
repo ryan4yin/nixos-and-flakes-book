@@ -2,6 +2,11 @@
 
 Once you have become familiar with NixOS, you can explore advanced topics and dive deeper into the Nix ecosystem. Here are some resources and community projects that can help you expand your knowledge:
 
+## Community
+
+- [Nix Official - Community](https://nixos.org/community/): Contains information about the Nix community, forums, realtime chat, meetups, RFCs, the official team architecture, etc.
+- [Nix Channel Status](https://status.nixos.org/): The build status of each Nix channel. 
+
 ## Documentation
 
 - [Nix Reference Manual](https://nixos.org/manual/nix/stable/package-management/profiles.html): A comprehensive guide to the Nix package manager, covering its design and usage from the command line.
@@ -16,11 +21,9 @@ Once you are comfortable with Flakes, you can explore more advanced techniques a
 
 - [flake-parts](https://github.com/hercules-ci/flake-parts): Simplifies the writing and maintenance of configurations using the Module module system.
 - [flake-utils-plus](https://github.com/gytis-ivaskevicius/flake-utils-plus): A third-party package that enhances Flake configuration and provides additional powerful features.
-- [digga](https://github.com/divnix/digga): A comprehensive Flake template that combines functionality from various useful Nix toolkits. Note that it has a complex structure and may require some experience to navigate.
 
 There are many other valuable community projects worth exploring. Here are a few examples:
 
-- [nixpak](https://github.com/nixpak/nixpak): A tool to sandbox all sorts of Nix-packaged applications, including graphical ones.
 - [nix-output-monitor](https://github.com/maralorn/nix-output-monitor): Beautifully displays the build progress of Nix packages, with additional information such as build time and build log.
 - [agenix](https://github.com/ryantm/agenix): A tool for secrets management.
 - [colmena](https://github.com/zhaofengli/colmena): Tools for NixOS deployment.
@@ -28,6 +31,7 @@ There are many other valuable community projects worth exploring. Here are a few
 - [lanzaboote](https://github.com/nix-community/lanzaboote): Enables secure boot for NixOS.
 - [impermanence](https://github.com/nix-community/impermanence): Helps make NixOS stateless and improves system reproducibility.
 - [devbox](https://github.com/jetpack-io/devbox): Lightweight, repeatable dev environments without container woes, internally powered by nix, similar to earthly.
+- [nixpak](https://github.com/nixpak/nixpak): A tool to sandbox all sorts of Nix-packaged applications, including graphical ones.
 - [nixpacks](https://github.com/railwayapp/nixpacks): Nixpacks takes a source directory and produces an OCI compliant image that can be deployed anywhere, similar to buildpacks.
 - ...
 
