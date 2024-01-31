@@ -32,7 +32,7 @@ The following are classic Nix commands and associated concepts that are no longe
    1. In Flakes, the functionality of `nix-channel` is entirely replaced by the `inputs` section in `flake.nix`.
 2. `nix-env`: `nix-env` is a core command-line tool for classic Nix used to manage software packages in the user environment.
    1. It installs packages from the data sources added by `nix-channel`, causing the installed package's version to be influenced by the channel. Packages installed with `nix-env` are not automatically recorded in Nix's declarative configuration and are completely independent of its control, making them challenging to reproduce on other machines. Therefore, it is not recommended to use this tool.
-   2. The corresponding command in Flakes is `nix profile`. Personally, I don't recommend it either.
+   2. The corresponding command in Flakes is `nix profile`. Personally, I don't recommend it for beginners either.
 3. `nix-shell`: `nix-shell` creates a temporary shell environment, which is useful for development and testing.
    1. In Flakes, this tool is divided into three sub-commands: `nix develop`, `nix shell`, and `nix run`. We will discuss these three commands in detail in the "[Development](../development/intro.md)" chapter.
 4. `nix-build`: `nix-build` builds Nix packages and places the build results in `/nix/store`, but it does not record them in Nix's declarative configuration.
