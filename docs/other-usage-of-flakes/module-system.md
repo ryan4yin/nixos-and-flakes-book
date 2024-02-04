@@ -9,11 +9,11 @@ In our previous NixOS configurations, we set various values for `options` to con
 
 The foundation of the aforementioned NixOS Modules and Home Manager Modules is a universal module system implemented in Nixpkgs, found in [lib/modules.nix][lib/modules.nix]. The official documentation for this module system is provided below (even for experienced NixOS users, understanding this can be a challenging task):
 
-- [Module System - Nixpkgs](Module System - Nixpkgs)
+- [Module System - Nixpkgs]
 
 Because the documentation for Nixpkgs' module system is lacking, it directly recommends reading another writing guide specifically for NixOS module system, which is clearer but might still be challenging for newcomers:
 
-- [Writing NixOS Modules - Nixpkgs](Writing NixOS Modules - Nixpkgs)
+- [Writing NixOS Modules - Nixpkgs]
 
 In summary, the module system is implemented by Nixpkgs and is not part of the Nix package manager. Therefore, its documentation is not included in the Nix package manager's documentation. Additionally, both NixOS and Home Manager are based on Nixpkgs' module system implementation.
 
