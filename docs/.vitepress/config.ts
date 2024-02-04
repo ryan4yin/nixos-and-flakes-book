@@ -430,7 +430,7 @@ function themeConfigChinese() {
               link: "/zh/best-practices/nix-path-and-flake-registry.md",
             },
             {
-              text: "远程部署 Nix 配置",
+              text: "远程部署 NixOS 配置",
               link: "/zh/best-practices/remote-deployment.md",
             },
             {

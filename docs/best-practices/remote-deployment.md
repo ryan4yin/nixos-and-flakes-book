@@ -14,8 +14,11 @@ Let me briefly guide you through using colmena or `nixos-rebuild` for remote dep
 
 Before embarking on remote deployment, a few preparatory steps are necessary:
 
-1. To prevent sudo password verification failures, either deploy as the `root` user or grant the user sudo permission without password verification.
+1. To prevent remote host's sudo password verification failure, choose one of the following methods:
+   1. Deploy as the remote host's `root` user.
+   2. Add `security.sudo.wheelNeedsPassword = false;` to the remote host's configuration and manually deploy once in advance to grant the user passwordless sudo permissions.. 
 2. Configure SSH public key authentication for the remote hosts.
+
 
 It's advisable to use the `root` user for deployment as it's more convenient and avoids the complexities of sudo permissions.
 
