@@ -418,7 +418,7 @@ function themeConfigChinese() {
               link: "/zh/best-practices/run-downloaded-binaries-on-nixos.md",
             },
             {
-              text: "使用 Makefile 简化常用命令",
+              text: "简化常用的 NixOS 相关命令",
               link: "/zh/best-practices/simplify-nixos-related-commands.md",
             },
             {
