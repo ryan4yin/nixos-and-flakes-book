@@ -12,7 +12,7 @@ An operating system consists of various software packages, configuration files, 
 Therefore, **NixOS primarily focuses on managing the static portion of the system state in a declarative manner**.
 Dynamic data, along with the contents in the user's home directory, remain unaffected by NixOS when rolling back to a previous generation.
 
-Although we cannot achieve complete system reproducibility, the `/home` directory, being an important user directory, contains many necessary configuration files. A significant community project called [home-manager](https://github.com/nix-community/home-manager) is designed to manage user-level packages and configuration files within the user's home directory.
+Although we cannot achieve complete system reproducibility, the `/home` directory, being an important user directory, contains many necessary configuration files - [Dotfiles](https://wiki.archlinux.org/title/Dotfiles). A significant community project called [home-manager](https://github.com/nix-community/home-manager) is designed to manage user-level packages and configuration files within the user's home directory.
 
 Due to Nix's features, such as being declarative and reproducible, Nix is not limited to managing desktop environments but is also extensively used for managing development environments, compilation environments, cloud virtual machines, and container image construction. [NixOps](https://github.com/NixOS/nixops) (an official Nix project) and [colmena](https://github.com/zhaofengli/colmena) (a community project) are both operational tools based on Nix.
 
