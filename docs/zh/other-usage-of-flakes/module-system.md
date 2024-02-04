@@ -2,10 +2,11 @@
 
 我们在前面的 NixOS 配置中通过设置各种 `options` 的值来配置 NixOS 或者 Home Manager，这些 `options` 实际都在这两个位置定义：
 
-> 如果你还使用 nix-darwin，那么它的配置也是类似的，其模块系统的实现位于 [nix-darwin/modules](https://github.com/LnL7/nix-darwin/tree/master/modules)
-
 - NixOS: [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/23.11/nixos/modules), 我们在 <https://search.nixos.org/options> 中能看到的所有 NixOS options 都是在这里定义的。
 - Home Manager: [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-23.11/modules): 可在 <https://nix-community.github.io/home-manager/options.xhtml> 中找到其所有的 options.
+
+> 如果你还使用 nix-darwin，那么它的配置也是类似的，其模块系统的实现位于 [nix-darwin/modules](https://github.com/LnL7/nix-darwin/tree/master/modules)
+
 
 而上述 NixOS Modules 跟 Home Manager Modules 的基础，是 Nixpkgs 中实现的一套通用模块系统 [lib/modules.nix][lib/modules.nix]，这套模块系统的官方文档如下（即使是对熟练使用 NixOS 的用户而言，要看懂这玩意儿也不是件容易的事...）：
 

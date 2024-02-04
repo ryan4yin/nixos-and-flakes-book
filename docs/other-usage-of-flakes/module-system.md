@@ -2,10 +2,10 @@
 
 In our previous NixOS configurations, we set various values for `options` to configure NixOS or Home Manager. These `options` are actually defined in two locations:
 
-> If you are using nix-darwin too, its configuration is similar, and its module system is implemented in [nix-darwin/modules](https://github.com/LnL7/nix-darwin/tree/master/modules).
-
 - NixOS: [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/23.11/nixos/modules), where all NixOS options visible on <https://search.nixos.org/options> are defined.
 - Home Manager: [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-23.11/modules), where you can find all its options at <https://nix-community.github.io/home-manager/options.xhtml>.
+
+> If you are using nix-darwin too, its configuration is similar, and its module system is implemented in [nix-darwin/modules](https://github.com/LnL7/nix-darwin/tree/master/modules).
 
 The foundation of the aforementioned NixOS Modules and Home Manager Modules is a universal module system implemented in Nixpkgs, found in [lib/modules.nix][lib/modules.nix]. The official documentation for this module system is provided below (even for experienced NixOS users, understanding this can be a challenging task):
 
