@@ -9,8 +9,13 @@ In simple terms, if you've worked with some JavaScript/Go/Rust/Python, you shoul
 Similarly, the package managers in these programming languages also use files like `package-lock.json`/`go.sum`/`Cargo.lock`/`poetry.lock` to lock the versions of dependencies, ensuring the reproducibility of projects.
 
 Flakes borrow ideas from these package managers to enhance the reproducibility, composability, and usability of the Nix ecosystem.
+
 Flakes introduce `flake.nix`, similar to `package.json`, to describe the dependencies between Nix packages and how to build projects.
 Additionally, it provides `flake.lock`, akin to `package-lock.json`, to lock the versions of dependencies, ensuring project reproducibility.
+
+On the other hand, Flakes experimental features did not break Nix's original design at the user level.
+The two new files `flake.nix`/`flake.lock` introduced by Flakes are just a wrapper for other Nix configurations.
+In the following chapters, we will see that Flakes features provide a new and more convenient way to manage the dependencies between Nix expressions based on Nix's original design.
 
 ## A Word of Caution about Flakes <Badge type="danger" text="caution" />
 
