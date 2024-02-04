@@ -3,6 +3,7 @@
 Since NixOS does not strictly adhere to the Filesystem Hierarchy Standard (FHS), binaries downloaded from the internet may not work directly on NixOS. However, there are various methods available to make them function properly.
 
 For a comprehensive guide that presents ten different approaches to run downloaded binaries on NixOS, I recommend reading the article [Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos) and take a look at [nix-alien](https://github.com/thiagokokada/nix-alien).
+Or if you are familiar with Docker, running the binary in a Docker container is also a good choice.
 
 Among these methods, I personally prefer creating an FHS environment to run the binary, as it proves to be both convenient and easy to use. To set up such an environment, you can add the following code to one of your Nix modules:
 
