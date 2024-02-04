@@ -43,3 +43,77 @@ Nix 与以 Docker 为代表的容器技术的应用场景也存在一定重合�
 
 而如果我们决定了使用 Nix 来管理所有的开发环境，那么在构建 Docker 容器时也基于 Nix 去构建，显然能提供最强的一致性，同时所有环境都统一了技术架构，这也能明显降低整个基础设施的维护成本。
 这就回答了前面提到的第二点，在使用 Nix 管理开发环境的前提下，容器基础镜像与云服务器都使用 NixOS 会存在明显的优势。
+
+## error: collision between `...` and `...`
+
+当你尝试在同一个 profile 中安装两个依赖于同一个库但版本不同的包时，就会出现这个错误。
+
+比如说，如果你有如下配置：
+
+```nix
+{
+   # as a nixos module
+   # environment.systemPackages = with pkgs; [
+   #
+   # or as a home manager module
+   home.packages = with pkgs; [
+     lldb
+
+     (python311.withPackages (ps:
+       with ps; [
+         ipython
+         pandas
+         requests
+         pyquery
+         pyyaml
+       ]
+     ))
+   ];
+}
+```
+
+部署这份配置时，就会出现如下错误：
+
+```bash
+error: builder for '/nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv' failed with exit code 25;
+       last 1 log lines:
+       > error: collision between `/nix/store/kvq0gvz6jwggarrcn9a8ramsfhyh1h9d-lldb-14.0.6/lib/python3.11/site-packages/six.py' a
+nd `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.11/site-packages/six.py'
+       For full logs, run 'nix log /nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv'.
+```
+
+解决方法如下：
+
+1. 将两个包拆分到两个不同的 **profiles** 中。比如说，你可以通过 `environment.systemPackages` 安装 `lldb`，通过 `home.packages` 安装 `python311`。
+2. 不同版本的 Python3 被视为不同的包，所以你可以将你的自定义 Python3 版本改为 `python310` 以避免冲突。
+2. 使用 `override` 来覆盖包使用的库的版本，使其与另一个包使用的版本一致。
+
+  ```nix
+  {
+    # as a nixos module
+    # environment.systemPackages = with pkgs; [
+    #
+    # or as a home manager module
+    home.packages = let
+      cusotom-python3 = (pkgs.python311.withPackages (ps:
+        with ps; [
+          ipython
+          pandas
+          requests
+          pyquery
+          pyyaml
+        ]
+      ));
+    in
+      with pkgs; [
+        # override the version of python3
+        # NOTE: This will trigger a rebuild of lldb, it takes time
+        (lldb.override {
+          python3 = cusotom-python3;
+        })
+  
+        cusotom-python3
+    ];
+  }
+  ```
+

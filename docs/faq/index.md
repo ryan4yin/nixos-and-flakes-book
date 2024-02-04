@@ -40,7 +40,7 @@ If we decide to use Nix to manage all development environments, then building Do
 
 ## error: collision between `...` and `...`
 
-This error occurs when you installed two packages that depend on the same library but with different versions in the same environment(home module or nixos module).
+This error occurs when you installed two packages that depend on the same library but with different versions in the same profile(home module or nixos module).
 
 For example, if you have the following configuration:
 
@@ -78,7 +78,7 @@ nd `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.1
 
 Here are some solutions:
 
-1. Split the two packages into two different environments. For example, you can install `lldb` via `environment.systemPackages` and `python311` via `home.packages`.
+1. Split the two packages into two different **profiles**. For example, you can install `lldb` via `environment.systemPackages` and `python311` via `home.packages`.
 2. Different versions of Python3 are treated as different packages, so you can change your custom Python3 version to `python310` to avoid the conflict. 
 2. Use `override` to override the version of the library used by the package to be consistent with the version used by the other package.
 
