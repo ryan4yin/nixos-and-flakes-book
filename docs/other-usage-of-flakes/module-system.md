@@ -134,7 +134,7 @@ Then, in the `config` section, based on the values declared in these three varia
   - This is achieved using `lib.mkIf`.
 - Otherwise,
   - Add `programs.foo.package` to `home.packages` to install it in the user environment.
-    - Write the value of `programs.foo.extraConfig` to `~/.config/foo/foorc`.
+  - Write the value of `programs.foo.extraConfig` to `~/.config/foo/foorc`.
 
 This way, we can import this module in another Nix file and achieve custom configuration for `foo` by setting the `options` defined here. For example:
 

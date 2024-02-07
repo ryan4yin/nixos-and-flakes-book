@@ -141,7 +141,7 @@ in {
   - 这是借助 `lib.mkIf` 实现的。
 - 否则
   - 将 `programs.foo.package` 添加到 `home.packages` 中，以将其安装到用户环境中。
-    - 将 `programs.foo.extraConfig` 的值写入到 `~/.config/foo/foorc` 中。
+  - 将 `programs.foo.extraConfig` 的值写入到 `~/.config/foo/foorc` 中。
 
 这样，我们就可以在另一个 nix 文件中导入这个模块，并通过设置这里定义的 `options` 来实现对 foo 的自定义配置了，示例：
 
