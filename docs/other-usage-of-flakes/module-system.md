@@ -80,6 +80,7 @@ The most typical usage is to, within the same Nixpkgs module, set values for oth
 It's easier to understand with a direct example:
 
 ```nix
+# ./foo.nix
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -139,6 +140,7 @@ Then, in the `config` section, based on the values declared in these three varia
 This way, we can import this module in another Nix file and achieve custom configuration for `foo` by setting the `options` defined here. For example:
 
 ```nix
+# ./bar.nix
 { config, lib, pkgs, ... }:
 
 {
@@ -165,6 +167,7 @@ The module system takes full advantage of Nix's lazy evaluation feature, which i
 Let's start with a simple example:
 
 ```nix
+# ./flake.nix
 {
   description = "NixOS Flake for Test";
 

@@ -87,6 +87,7 @@ Nixpkgs 中定义的模块，其基本结构如下：
 直接看个例子更容易理解：
 
 ```nix
+# ./foo.nix
 { config, lib, pkgs, ... }:
 
 with lib;
@@ -146,6 +147,7 @@ in {
 这样，我们就可以在另一个 nix 文件中导入这个模块，并通过设置这里定义的 `options` 来实现对 foo 的自定义配置了，示例：
 
 ```nix
+# ./bar.nix
 { config, lib, pkgs, ... }:
 
 {
@@ -172,6 +174,7 @@ in {
 先看个简单的例子：
 
 ```nix
+# ./flake.nix
 {
   description = "NixOS Flake for Test";
 
