@@ -436,6 +436,15 @@ nix build "nixpkgs#ponysay"
                                 ▀  ▀▀█  
 ```
 
+## Using `nix profile` to manage development environments and entertainment environments
+
+`nix develop` is a tool for creating and managing multiple user environments, and switch to different environments when needed.
+
+Unlike `nix develop`, `nix profile` manages the user's system environment, instead of creating a temporary shell environment.
+So it's more compatible with Jetbrains IDE / VSCode and other IDEs, and won't have the problem of not being able to use the configured development environment in the IDE.
+
+TODO
+
 ## Other Commands
 
 There are other commands like `nix flake init`, which you can explore in [New Nix Commands][New Nix Commands]. For more detailed information, please refer to the documentation.
