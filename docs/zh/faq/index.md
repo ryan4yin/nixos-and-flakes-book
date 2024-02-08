@@ -20,7 +20,7 @@ Nix 不仅可用于管理桌面电脑的环境，也有很多人用它批量管�
 
 Nix 与 Ansible 这类被广泛应用的传统工具比，主要优势就在：
 
-1. Anible 这类工具一个最大的问题就是，它每次部署都是基于系统当前状态的增量修改。而系统的当前状态就如同前面提到的系统快照，是不可解释的，也很难复现。而 NixOS 是通过配置文件声明系统的目标状态，可以做到部署结果与系统当前状态无关，重复部署也不会导致任何问题。
+1. Ansible 这类工具一个最大的问题就是，它每次部署都是基于系统当前状态的增量修改。而系统的当前状态就如同前面提到的系统快照，是不可解释的，也很难复现。而 NixOS 是通过配置文件声明系统的目标状态，可以做到部署结果与系统当前状态无关，重复部署也不会导致任何问题。
 2. Nix Flakes 通过一个版本锁文件 `flake.lock` 锁定了所有依赖的 hash 值、版本号、数据源等信息，这极大地提升了系统的可复现能力。而传统的 Ansible 等工具没有此功能，所以它们的可复现能力很差。
    1. 这也是为什么 Docker 这么受欢迎的原因——它以较低的代价提供了 Ansible 等传统运维工具提供不了的**可在各种机器上复现的系统环境**。
 1. Nix 通过一层声明式的抽象屏蔽了其底层的实现细节，使用户只需要关心自己最核心的需求，从而带来了高度便捷的系统自定义能力。而 Ansible 这类工具的抽象能力要弱得多。
@@ -95,7 +95,7 @@ nd `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.1
     #
     # or as a home manager module
     home.packages = let
-      cusotom-python3 = (pkgs.python311.withPackages (ps:
+      custom-python3 = (pkgs.python311.withPackages (ps:
         with ps; [
           ipython
           pandas
@@ -109,10 +109,10 @@ nd `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.1
         # override the version of python3
         # NOTE: This will trigger a rebuild of lldb, it takes time
         (lldb.override {
-          python3 = cusotom-python3;
+          python3 = custom-python3;
         })
   
-        cusotom-python3
+        custom-python3
     ];
   }
   ```
