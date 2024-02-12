@@ -52,7 +52,7 @@ Let's take a look at an example module that loads overlays. This module can be u
     })
 
     # Overlay 3: Define overlays in other files
-    # The content of .overlays/overlay3/default.nix is the same as above:
+    # The content of ./overlays/overlay3/default.nix is the same as above:
     # `(final: prev: { xxx = prev.xxx.override { ... }; })`
     (import ./overlay3)
   ];
