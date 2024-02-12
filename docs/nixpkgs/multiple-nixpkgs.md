@@ -5,7 +5,7 @@ In the section [Downgrade or Upgrade Packages](/nixos-with-flakes/downgrade-or-u
 1. Instantiate nixpkgs instances with different commit IDs to install various versions of software packages. This approach was used in the previous section [Downgrade or Upgrade Packages](/nixos-with-flakes/downgrade-or-upgrade-packages.md).
 
 2. If you wish to utilize overlays without affecting the default nixpkgs instance, you can instantiate a new nixpkgs instance and apply overlays to it.
-   - The `nixpkgs.overlays = [...];` mentioned in the previous section on Overlays directly modifies the global nixpkgs instance. If your overlays make changes to fundamental packages, it might impact other modules. One downside is an increase in local compilation (due to cache invalidation), and there might also be functionality issues with the affected packages.
+   - The `nixpkgs.overlays = [...];` mentioned in the previous section on Overlays directly modifies the global nixpkgs instance. If your overlays make changes to some low-level packages, it might impact other modules. One downside is an increase in local compilation (due to cache invalidation), and there might also be functionality issues with the affected packages.
 
 3. In cross-system architecture compilation, you can instantiate multiple nixpkgs instances to selectively use QEMU simulation for compilation and cross-compilation in different locations, or to add various GCC compilation parameters.
 
