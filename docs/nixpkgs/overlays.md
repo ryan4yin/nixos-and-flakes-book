@@ -91,7 +91,7 @@ One example of importing the above configuration as a NixOS module is as follows
 This is just an example. Please write your own overlays according to your needs.
 
 
-## Multiple `nixpkgs` Instances with different Overlays
+## Multiple nixpkgs Instances with different Overlays
 
 The `nixpkgs.overlays = [...];` mentioned above directly modifies the global nixpkgs instance `pkgs`. If your overlays make changes to some low-level packages, it might impact other modules. 
 One downside is an increase in local compilation (due to cache invalidation), 
