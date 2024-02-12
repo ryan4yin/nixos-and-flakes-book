@@ -1,6 +1,6 @@
 # The Ingenious Uses of Multiple nixpkgs Instances
 
-In the section [Downgrade or Upgrade Packages](/nixos-with-flakes/downgrade-or-upgrade-packages.md), we have seen how to instantiate multiple distinct nixpkgs instances using the method `import nixpkgs {...}`. There are numerous applications for this technique, some common ones include:
+In the section [Downgrade or Upgrade Packages](../nixos-with-flakes/downgrade-or-upgrade-packages.md), we have seen how to instantiate multiple distinct nixpkgs instances using the method `import nixpkgs {...}`. There are numerous applications for this technique, some common ones include:
 
 1. Instantiate nixpkgs instances with different commit IDs to install various versions of software packages. This approach was used in the previous section [Downgrade or Upgrade Packages](/nixos-with-flakes/downgrade-or-upgrade-packages.md).
 

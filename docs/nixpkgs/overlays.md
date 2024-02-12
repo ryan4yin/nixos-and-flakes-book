@@ -1,8 +1,10 @@
 # Overlays
 
-In the previous section, we learned about overriding derivations using the `override` function. 
-However, this approach will generate a new derivation and doesn't modify the original derivation in `pkgs` instance. 
-To globally modify derivations in the detault `pkgs` instance, Nix provides a feature called "overlays".
+In the previous section, we learned about overriding derivations by `pkgs.xxx.override { ... }` or `pkgs.xxx.overrideAttrs (finalAttrs: previousAttrs: { ... });`.
+However, this approach will generate a new derivation and doesn't modify the original derivation in `pkgs` instance.
+If the derivation you want to override is also used by other Nix packages, they will still use the unmodified derivation.
+
+To globally modify derivations in the detault nixpkgs instance, Nix provides a feature called "overlays".
 
 In traditional Nix environments, overlays can be configured globally using the `~/.config/nixpkgs/overlays.nix` or `~/.config/nixpkgs/overlays/*.nix` files. 
 However, with Flakes feature, to ensure system reproducibility, overlays cannot rely on configurations outside of the Git repository.

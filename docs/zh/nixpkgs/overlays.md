@@ -1,6 +1,6 @@
 # Overlays
 
-前面介绍的 override 函数会生成一个新的 Derivation，因此它不会修改 pkgs 实例中原有的 Derivation，只适合作为局部参数使用。
+前面介绍的 `pkgs.xxx.override { ... }` 跟 `pkgs.xxx.overrideAttrs (finalAttrs: previousAttrs: { ... });` 都不会修改 pkgs 实例中原有的 Derivation，而是返回一个新的 Derivation，因此它们只适合作为局部参数使用。
 但如果你需要覆写的 Derivation 还被其他 Nix 包所依赖，那其他 Nix 包使用的仍然会是未被修改的 Derivation.
 
 为了解决这个问题，Nix 提供了 overlays 这个功能。
