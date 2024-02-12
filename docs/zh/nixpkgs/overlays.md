@@ -55,7 +55,7 @@
     })
 
     # overlay3 - 也可以将 overlay 定义在其他文件中
-    # 这里 ./overlay3/default.nix 中的内容格式与上面的一致
+    # 这里 ./overlays/overlay3/default.nix 中的内容格式与上面的一致
     # 都是 `final: prev: { xxx = prev.xxx.override { ... }; }`
     (import ./overlay3)
   ];
@@ -66,7 +66,7 @@
 
 1. Overlay 1 修改了 `google-chrome` 的 Derivation，增加了一个代理服务器的命令行参数。
 2. Overlay 2 修改了 `steam` 的 Derivation，增加了额外的包和环境变量。
-3. Overlay 3 被定义在一个单独的文件 `./overlay3/default.nix` 中。
+3. Overlay 3 被定义在一个单独的文件 `./overlays/overlay3/default.nix` 中。
 
 一个将上述配置作为 NixOS Module 引入的 `flake.nix` 示例如下：
 

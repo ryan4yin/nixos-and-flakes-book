@@ -52,7 +52,7 @@ Let's take a look at an example module that loads overlays. This module can be u
     })
 
     # Overlay 3: Define overlays in other files
-    # The content of ./overlay3/default.nix is the same as above:
+    # The content of .overlays/overlay3/default.nix is the same as above:
     # `(final: prev: { xxx = prev.xxx.override { ... }; })`
     (import ./overlay3)
   ];
@@ -63,7 +63,7 @@ In the above example, we define three overlays.
 
 1. Overlay 1 modifies the `google-chrome` derivation by adding a command-line argument for a proxy server.
 2. Overlay 2 modifies the `steam` derivation by adding extra packages and environment variables.
-3. Overlay 3 is defined in a separate file `./overlay3/default.nix`.
+3. Overlay 3 is defined in a separate file `./overlays/overlay3/default.nix`.
 
 One example of importing the above configuration as a NixOS module is as follows:
 
