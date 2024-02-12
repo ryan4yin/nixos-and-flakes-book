@@ -5,6 +5,7 @@
 
 - [Nix 社区官方页](https://nixos.org/community/): 包含官方社区、论坛、RFCs、官方团队的架构以及沟通贡献渠道等信息。
 - [Nix Channel Status](https://status.nixos.org/): Nix 各 Channels 的当前的构建状态。
+- [nix-community/NUR](https://github.com/nix-community/NUR): Nixpkgs 虽然包含了大量的软件包，但是因为审核速度、许可协议等原因，总有些包并未被及时收录。NUR 则是一个去中心化的 Nix 包 仓库，任何人都可以创建自己的私人仓库并将其加入到 NUR 中以便其他人使用。如果你想要使用 Nixpkgs 中没有的包，可以尝试在这里寻找。如果你希望将自己打的 Nix 包分享给别人，可以根据 NUR 的 README 创建并分享你自己的私人 Nix 仓库。
 
 也可以加入中文社区的 NixOS 群组参与讨论:
 
@@ -29,7 +30,7 @@
 - [flake-utils-plus](https://github.com/gytis-ivaskevicius/flake-utils-plus):同样是用于简化 Flake 配置的第三方包，不过貌似更强大些
 - ......
 
-以及其他许多实用的社区项目可探索，我比较关注的有这几个：
+以及其他许多实用的社区项目可探索：
 
 - [nix-output-monitor](https://github.com/maralorn/nix-output-monitor): 美化 `nix build` 命令的输出日志，同时打印出更详细的日志信息，以及构建计时器等额外信息，强烈推荐使用！
 - [agenix](https://github.com/ryantm/agenix): secrets 管理工具

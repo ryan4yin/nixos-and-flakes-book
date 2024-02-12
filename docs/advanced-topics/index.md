@@ -6,6 +6,7 @@ Once you have become familiar with NixOS, you can explore advanced topics and di
 
 - [Nix Official - Community](https://nixos.org/community/): Contains information about the Nix community, forums, realtime chat, meetups, RFCs, the official team architecture, etc.
 - [Nix Channel Status](https://status.nixos.org/): The build status of each Nix channel. 
+- [nix-community/NUR](https://github.com/nix-community/NUR): Although Nixpkgs contains a large number of packages, some packages are not included in Nixpkgs due to reasons such as review speed and licensing agreements. NUR is a decentralized Nix package repository where anyone can create their own Nix repository and add it to NUR for others to use. If you want to use a package that is not in Nixpkgs, you can try to find it here. If you want to share your own Nix package with others, you can create and share your own Nix repository according to the README of NUR.
 
 ## Documentation
 
