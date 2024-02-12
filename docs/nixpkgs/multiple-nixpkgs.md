@@ -22,8 +22,23 @@ Let's first understand how to instantiate a non-global nixpkgs instance. The mos
     system = "x86_64-linux";
   };
 
-  # a more complex example (cross-compiling)
+  # nixpkgs with custom overlays
   pkgs-yyy = import nixpkgs {
+    system = "x86_64-linux";
+
+    overlays = [
+      (self: super: {
+        google-chrome = super.google-chrome.override {
+          commandLineArgs =
+            "--proxy-server='https=127.0.0.1:3128;http=127.0.0.1:3128'";
+        };
+        # ... other overlays
+      })
+    ];
+  };
+
+  # a more complex example (cross-compiling)
+  pkgs-zzz = import nixpkgs {
     localSystem = "x86_64-linux";
     crossSystem = {
       config = "riscv64-unknown-linux-gnu";
