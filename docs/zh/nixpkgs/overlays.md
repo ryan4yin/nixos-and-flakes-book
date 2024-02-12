@@ -84,7 +84,7 @@
         modules = [
           ./configuration.nix
           
-          # 引入 overlays Module
+          # 引入定义了 overlays 的 Module
           (import ./overlays)
         ];
       };

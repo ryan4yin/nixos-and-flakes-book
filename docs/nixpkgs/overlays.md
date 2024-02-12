@@ -79,7 +79,7 @@ One example of importing the above configuration as a NixOS module is as follows
         modules = [
           ./configuration.nix
           
-          # import the module that contains our overlays
+          # import the module that contains overlays
           (import ./overlays)
         ];
       };
