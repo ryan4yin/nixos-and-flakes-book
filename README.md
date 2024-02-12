@@ -11,9 +11,19 @@ An unofficial and opinionated NixOS & Flakes :book: for beginners: https://nixos
 > If you're using macOS, [ryan4yin/nix-darwin-kickstarter](https://github.com/ryan4yin/nix-darwin-kickstarter) may be a good starting point for you,
 > you can learn how to use Nix with this book and take nix-darwin-kickstarter as a start point to build your own Nix configuration.
 
+
 ## Feedback and Discussion
 
-Want to discuss the content of this book? Have any questions? Please feel free to open an issue or join the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions).
+I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months until now(2024-02), 
+so there must be some misconceptions or inappropriate examples in the book.
+If anyone finds anything incorrect or have any questions / suggestions, just let me know about it by open an issue or join the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions), I'm glad continue to optimize the content of this book.
+
+The reason why I wrote this little book was only because no one in the community did it for me, who was a beginner at the time, so I chose to do it myself.
+Even though I knew I could make mistakes, it was much better than do nothing.
+
+My hope is that this book can help more people, enabling them to experience the joys of NixOS.
+Hope you like it!
+
 
 ## Introduction to Flakes
 

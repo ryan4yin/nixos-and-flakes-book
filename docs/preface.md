@@ -32,10 +32,6 @@ This open-source book's content evolved step by step as I used NixOS and engaged
 
 I am grateful to all friends who have contributed to this book and offered suggestions, and I appreciate all the support and encouragement from the readers. Without all of you, this book's content might have remained confined to my personal blog, and it wouldn't have reached its current form.
 
-My hope is that this book can help more people, enabling them to experience the joys of NixOS. I also wish for this book to benefit the NixOS community by encouraging more people to contribute to its development.
-
-The content of this book is continually being updated, with much room for improvement. Any suggestions are welcome, and contributions to the content on [GitHub](https://github.com/ryan4yin/nixos-and-flakes-book) are also highly encouraged.
-
 ## The Features of This Book
 
 1. Focused on NixOS and Flakes, disregarding the traditional Nix configuration approach.
@@ -52,6 +48,17 @@ If you find this book helpful, please consider donating to support its developme
 - 爱发电: <https://afdian.net/a/ryan4yin>
 - Ethereum: `0xB74Aa43C280cDc8d8236952400bF6427E4390855`
 
+## Feedback and Discussion
+
+I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months until now(2024-02), 
+so there must be some misconceptions or complex cases in the book.
+If anyone finds anything incorrect or have any questions / suggestions, just let me know about it by open an issue or join the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions), I'm glad continue to optimize the content of this book.
+
+The reason why I wrote this little book was only because no one in the community did it for me, who was a beginner at the time, so I chose to do it myself.
+Even though I knew I could make mistakes, it was much better than do nothing.
+
+My hope is that this book can help more people, enabling them to experience the joys of NixOS.
+Hope you like it!
 
 ## Historical Feedback and Discussions on This Book
 
