@@ -1,6 +1,6 @@
 # 多 nixpkgs 实例的妙用
 
-我们在前面 [降级与升级软件包](../nixos-with-flakes/downgrade-or-upgrade-packages.md) 一节中见过，怎么通过 `import nixpkgs {...}` 这样的方法实例化多个不同的 nixpkgs 实例。
+我们在前面 [降级与升级软件包](../nixos-with-flakes/downgrade-or-upgrade-packages.md) 一节中见过，怎么通过 `import nixpkgs {...}` 这样的方法实例化多个不同的 nixpkgs 实例，再通过 `specialArgs` 在所有子模块中使用这些 nixpkgs 实例。
 这种方法有很多的用途，常见的有：
 
 1. 通过实例化 commit id 不同的 nixpkgs 实例，用于安装不同版本的软件包。前面的 [降级与升级软件包](../nixos-with-flakes/downgrade-or-upgrade-packages.md) 一节中就是这样使用的。
