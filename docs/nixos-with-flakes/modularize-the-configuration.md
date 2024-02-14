@@ -43,7 +43,7 @@ With the help of `imports`, we can split `home.nix` and `configuration.nix` into
 }
 ```
 
-This modules loads two other modules in the imports section, namely `special-fonts-1.nix` and `special-fonts-2.nix`. Both files are modules them self and look similar to this.
+This modules loads two other modules in the imports section, namely `special-fonts-1.nix` and `special-fonts-2.nix`. Both files are modules themselves and look similar to this.
 
 ```nix
 { config, pkgs, ...}: {
