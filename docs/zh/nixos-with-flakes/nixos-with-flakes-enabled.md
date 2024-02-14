@@ -72,14 +72,6 @@ cat flake.nix
 
     # NixOS 官方软件源，这里使用 nixos-23.11 分支
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    # home-manager，用于管理用户配置
-    home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
-      # `follows` 是 inputs 中的继承语法
-      # 这里使 sops-nix 的 `inputs.nixpkgs` 与当前 flake 的
-      # `inputs.nixpkgs` 保持一致，避免依赖的 nixpkgs 版本不一致导致问题
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   # outputs 即 flake 的所有输出，其中的 nixosConfigurations 即 NixOS 系统配置
