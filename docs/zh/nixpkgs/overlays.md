@@ -79,7 +79,7 @@
 
   outputs = inputs@{ nixpkgs ... }: {
     nixosConfigurations = {
-      nixos-test = nixpkgs.lib.nixosSystem {
+      my-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix

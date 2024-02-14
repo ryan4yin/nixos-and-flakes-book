@@ -34,9 +34,9 @@ sudo ln -s ~/nixos-config/ /etc/nixos
 sudo mv /etc/nixos /etc/nixos.bak  # 备份原来的配置
 cd ~/nixos-config
 
-# 通过 --flake .#nixos-test 参数指定使用当前文件夹的 flake.nix，
-# 使用的 nixosConfiguraitons 名称为 nixos-test
-sudo nixos-rebuild switch --flake .#nixos-test
+# 通过 --flake .#my-nixos 参数指定使用当前文件夹的 flake.nix，
+# 使用的 nixosConfiguraitons 名称为 my-nixos
+sudo nixos-rebuild switch --flake .#my-nixos
 ```
 
 两种方式都可以，看个人喜好。搞定之后，系统的回滚也变得非常简单，只需要切换到上一个 commit 即可：
@@ -46,7 +46,7 @@ cd ~/nixos-config
 # 回滚到上一个 commit
 git checkout HEAD^1
 # 部署
-sudo nixos-rebuild switch --flake .#nixos-test
+sudo nixos-rebuild switch --flake .#my-nixos
 ```
 
 Git 的更多操作这里就不介绍了，总之一般情况下的回滚都能直接通过 Git 完成，只在系统完全崩溃的情况下，才需要通过重启进入 grub，从上一个历史版本启动系统。

@@ -28,7 +28,7 @@ Here's an example of how you can add multiple nixpkgs inputs, each using a diffe
     ...
   }: {
     nixosConfigurations = {
-      nixos-test = nixpkgs.lib.nixosSystem rec {
+      my-nixos = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
 
         # The `specialArgs` parameter passes the
@@ -51,7 +51,7 @@ Here's an example of how you can add multiple nixpkgs inputs, each using a diffe
         };
 
         modules = [
-          ./hosts/nixos-test
+          ./hosts/my-nixos
 
           # Omit other configurations...
         ];

@@ -10,11 +10,11 @@
 
 而上述 NixOS Modules 跟 Home Manager Modules 的基础，是 Nixpkgs 中实现的一套通用模块系统 [lib/modules.nix][lib/modules.nix]，这套模块系统的官方文档如下（即使是对熟练使用 NixOS 的用户而言，要看懂这玩意儿也不是件容易的事...）：
 
-- [Module System - Nixpkgs][Module System - Nixpkgs]
+- [Module System - Nixpkgs]
 
 因为 Nixpkgs 的模块系统文档没人写，文档中直接建议读另一份专门针对 NixOS 模块系统的编写指南，确实写得清晰一些，但也很难说它对新手有多友好：
 
-- [Writing NixOS Modules - Nixpkgs][Writing NixOS Modules - Nixpkgs]
+- [Writing NixOS Modules - Nixpkgs]
 
 总之，模块系统是由 Nixpkgs 实现的，并不是 Nix 包管理器的一部分，因此它的文档也不在 Nix 包管理器的文档中。
 另外 NixOS 与 Home Manager 都是基于 Nixpkgs 的模块系统实现的。
@@ -204,7 +204,7 @@ in {
             };
 
             # 示例 1（正常）
-            config.warnings = if config.foo then ["foo"] else [];
+config.warnings = if config.foo then ["foo"] else [];
 
             # 示例 2（无限递归）
             #   error: infinite recursion encountered
@@ -255,6 +255,10 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf` 的函数，用于
 
 - [Option Declarations - NixOS][Option Declarations - NixOS]
 - [Options Types - NixOS][Options Types - NixOS]
+
+##  传递非默认参数到模块系统中
+
+我们在 [使用 Flakes 来管理你的 NixOS](../nixos-with-flakes/nixos-with-flakes-enabled.md#pass-non-default-parameters-to-submodules) 中已经介绍了如何使用 `specialArgs` 跟 `_module.args` 来传递额外的参数给其他 Modules 函数，这里不再赘述。
 
 ## References
 

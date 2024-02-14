@@ -74,8 +74,8 @@ In your system's `flake.nix`, add a new outputs named `colmena`. A simple exampl
         };
       };
 
-      # Host name = "nixos-test"
-      "nixos-test" = { name, nodes, ... }: {
+      # Host name = "my-nixos"
+      "my-nixos" = { name, nodes, ... }: {
         # Parameters related to remote deployment
         deployment.targetHost = "192.168.5.42"; # Remote host's IP address
         deployment.targetUser = "root";  # Remote host's username
@@ -103,14 +103,14 @@ For more advanced usage, refer to colmena's official documentation at <https://c
 
 Using `nixos-rebuild` for remote deployment has the advantage of being similar to deploying to a local host. It only requires a few additional parameters to specify the remote host's IP address, username, and other details.
 
-For instance, to deploy the configuration defined in the `nixosConfigurations.nixos-test` of your flake to a remote host, use the following command:
+For instance, to deploy the configuration defined in the `nixosConfigurations.my-nixos` of your flake to a remote host, use the following command:
 
 ```bash
 nixos-rebuild switch --flake .#nixos-text \
   --target-host root@192.168.4.1 --build-host localhost --verbose
 ```
 
-The above command will build and deploy the configuration of `nixos-test` to a server with IP `192.168.4.1`. The system build process will occur locally.
+The above command will build and deploy the configuration of `my-nixos` to a server with IP `192.168.4.1`. The system build process will occur locally.
 
 If you prefer to build the configuration on the remote host, replace `--build-host localhost` with `--build-host root@192.168.4.1`.
 
@@ -133,7 +133,7 @@ Host aquamarine
 With this setup, you can use host aliases for deployment:
 
 ```bash
-nixos-rebuild switch --flake .#nixos-test --target-host root@aquamarine --build-host root@aquamarine --verbose
+nixos-rebuild switch --flake .#my-nixos --target-host root@aquamarine --build-host root@aquamarine --verbose
 ```
 
 This offers a more convenient way to deploy using the defined host aliases.
