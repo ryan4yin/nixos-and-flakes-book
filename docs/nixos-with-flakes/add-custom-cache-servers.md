@@ -23,23 +23,23 @@ In Nix, you can configure cache servers using the following options:
    1. cache mirror's data are directly synchronized from the official cache server. Therefore, their public keys are the same as those of the official cache server, and you can use the public key of the official cache server without additional configuration.
    2. This entirely trust-based public key verification mechanism transfers the security responsibility to users. If users want to use a third-party cache server to speed up the build process of a certain library, they must take on the corresponding security risks and decide whether to add the public key of that cache server to `trusted-public-keys`. To completely solve this trust issue, Nix has introduced the experimental feature [ca-derivations](https://nixos.wiki/wiki/Ca-derivations), which does not depend on `trusted-public-keys` for signature verification. Interested users can explore it further.
 
-You can configure the `substituers` and `trusted-public-keys` parameters in the following ways:
+You can configure the `substituters` and `trusted-public-keys` parameters in the following ways:
 
 1. Configure in `/etc/nix/nix.conf`, a global configuration that affects all users.
-   1. You can use `nix.settings.substituers` and `nix.settings.trusted-public-keys` in any NixOS Module to declaratively generate `/etc/nix/nix.conf`.
-2. Configure in the `flake.nix` of a flake project using `nixConfig.substituers`. This configuration only affects the current flake.
+   1. You can use `nix.settings.substituters` and `nix.settings.trusted-public-keys` in any NixOS Module to declaratively generate `/etc/nix/nix.conf`.
+2. Configure in the `flake.nix` of a flake project using `nixConfig.substituters`. This configuration only affects the current flake.
 3. Temporarily set through the `--option` parameter of the `nix` command, and this configuration only applies to the current command.
 
 Among these three methods, except for the first global configuration, the other two are temporary configurations. If multiple methods are used simultaneously, later configurations will directly override earlier ones.
 
-However, there are security risks in temporarily setting `substituers`, as explained earlier regarding the deficiencies of the security verification mechanism based on `trusted-public-keys`. To set `substituers` through the second and third methods, you need to meet one of the following conditions:
+However, there are security risks in temporarily setting `substituters`, as explained earlier regarding the deficiencies of the security verification mechanism based on `trusted-public-keys`. To set `substituters` through the second and third methods, you need to meet one of the following conditions:
 
 1. The current user is included in the [`trusted-users`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-users) parameter list in `/etc/nix/nix.conf`.
-2. The `substituers` specified temporarily via `--option substituers "http://xxx"` are included in the [`trusted-substituters`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-substituters) parameter list in `/etc/nix/nix.conf`.
+2. The `substituters` specified temporarily via `--option substituters "http://xxx"` are included in the [`trusted-substituters`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-substituters) parameter list in `/etc/nix/nix.conf`.
 
 Based on the above information, the following are examples of the three configuration methods mentioned earlier.
 
-Firstly, declaratively configure system-level `substituers` and `trusted-public-keys` using `nix.settings` in `/etc/nixos/configuration.nix` or any NixOS Module:
+Firstly, declaratively configure system-level `substituters` and `trusted-public-keys` using `nix.settings` in `/etc/nixos/configuration.nix` or any NixOS Module:
 
 ```nix{7-27}
 {
@@ -50,8 +50,8 @@ Firstly, declaratively configure system-level `substituers` and `trusted-public-
   # ...
   nix.settings = {
     # given the users in this list the right to specify additional substituters via:
-    #    1. `nixConfig.substituers` in `flake.nix`
-    #    2. command line args `--options substituers http://xxx`
+    #    1. `nixConfig.substituters` in `flake.nix`
+    #    2. command line args `--options substituters http://xxx`
     trusted-users = ["ryan"];
 
     substituters = [
@@ -73,9 +73,9 @@ Firstly, declaratively configure system-level `substituers` and `trusted-public-
 }
 ```
 
-The second method is to configure `substituers` and `trusted-public-keys` using `nixConfig` in `flake.nix`:
+The second method is to configure `substituters` and `trusted-public-keys` using `nixConfig` in `flake.nix`:
 
-> As mentioned earlier, it is essential to configure `nix.settings.trusted-users` in this configuration. Otherwise, the `substituers` we set here will not take effect.
+> As mentioned earlier, it is essential to configure `nix.settings.trusted-users` in this configuration. Otherwise, the `substituters` we set here will not take effect.
 
 ```nix{5-23,43-47}
 {
@@ -122,7 +122,7 @@ The second method is to configure `substituers` and `trusted-public-keys` using 
 
           {
             # given the users in this list the right to specify additional substituters via:
-            #    1. `nixConfig.substituers` in `flake.nix`
+            #    1. `nixConfig.substituters` in `flake.nix`
             nix.settings.trusted-users = [ "ryan" ];
           }
           # omitting several configurations...
@@ -133,10 +133,10 @@ The second method is to configure `substituers` and `trusted-public-keys` using 
 }
 ```
 
-Finally, the third method involves using the following command to temporarily specify `substituers` and `trusted-public-keys` during deployment:
+Finally, the third method involves using the following command to temporarily specify `substituters` and `trusted-public-keys` during deployment:
 
 ```bash
-sudo nixos-rebuild switch --option substituers "https://nix-community.cachix.org" --option trusted-public-keys "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+sudo nixos-rebuild switch --option substituters "https://nix-community.cachix.org" --option trusted-public-keys "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
 ```
 
 Choose one of the above three methods for configuration and deployment. After a successful deployment, all subsequent packages will preferentially search for caches from domestic mirror sources.
@@ -145,11 +145,11 @@ Choose one of the above three methods for configuration and deployment. After a 
 
 ### The `extra-` Prefix for Nix Options Parameters
 
-As mentioned earlier, the `substituers` configured by the three methods will override each other, but the ideal situation should be:
+As mentioned earlier, the `substituters` configured by the three methods will override each other, but the ideal situation should be:
 
-1. At the system level in `/etc/nix/nix.conf`, configure only the most generic `substituers` and `trusted-public-keys`, such as official cache servers and domestic mirror sources.
-2. In each flake project's `flake.nix`, configure the `substituers` and `trusted-public-keys` specific to that project, such as non-official cache servers like nix-community.
-3. When building a flake project, nix should **merge** the `substituers` and `trusted-public-keys` configured in `flake.nix` and `/etc/nix/nix.conf`.
+1. At the system level in `/etc/nix/nix.conf`, configure only the most generic `substituters` and `trusted-public-keys`, such as official cache servers and domestic mirror sources.
+2. In each flake project's `flake.nix`, configure the `substituters` and `trusted-public-keys` specific to that project, such as non-official cache servers like nix-community.
+3. When building a flake project, nix should **merge** the `substituters` and `trusted-public-keys` configured in `flake.nix` and `/etc/nix/nix.conf`.
 
 Nix provides the [`extra-` prefix](https://nixos.org/manual/nix/stable/command-ref/conf-file.html?highlight=extra#file-format) to achieve this **merging** functionality.
 
@@ -196,10 +196,10 @@ In other words, you can use it like this:
 
           {
             # given the users in this list the right to specify additional substituters via:
-            #    1. `nixConfig.substituers` in `flake.nix`
+            #    1. `nixConfig.substituters` in `flake.nix`
             nix.settings.trusted-users = [ "ryan" ];
 
-            # the system-level substituers & trusted-public-keys
+            # the system-level substituters & trusted-public-keys
             nix.settings = {
               substituters = [
                 # cache mirror located in China
