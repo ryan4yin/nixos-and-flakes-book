@@ -70,7 +70,7 @@ When researching, you can replace them with the corresponding New CLI commands (
 4. `nix-build`: `nix-build` builds Nix packages and places the build results in `/nix/store`, but it does not record them in Nix's declarative configuration.
    1. New CLI: `nix-build` is replaced by `nix build`.
 5. `nix-collect-garbage`: Garbage collection command used to clean up unused Store Objects in `/nix/store`.
-   1. There is a similar command in the New CLI, `nix store gc --debug`, but it do not clean the profile generations, so there is currently no alternative for this command.
+   1. There is a similar command in the New CLI, `nix store gc --debug`, but it does not clean the profile generations, so there is currently no alternative for this command.
 6. And other less commonly used commands are not listed here.
    1. You can refer to the detailed command comparison list in [Try to explain nix commands](https://qiita.com/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en).
 
