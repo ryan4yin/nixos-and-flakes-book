@@ -249,7 +249,7 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 
 1. `lib`: **nixpkgs 自带的函数库，提供了许多操作 Nix 表达式的实用函数**
    - 详见 <https://nixos.org/manual/nixpkgs/stable/#id-1.4>
-2. `config`: 当前环境中所有 config 值的集合，有时候会用到
+2. `config`: 包含了当前环境中所有 option 的值，在后面学习模块系统时会大量使用它
 3. `options`: 当前环境中所有 Modules 中定义的所有 options 的集合
 4. `pkgs`: **一个包含所有 nixpkgs 包的集合，它也提供了许多相关的工具函数**
    - 入门阶段可以认为它的默认值为 `nixpkgs.legacyPackages."${system}"`，可通过 `nixpkgs.pkgs` 这个 option 来自定义 pkgs 的值

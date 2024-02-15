@@ -252,7 +252,7 @@ The definition is actually a Nix function, and it has five **automatically gener
 
 1. `lib`: A built-in function library included with nixpkgs, offering many practical functions for operating Nix expressions.
    - For more information, see <https://nixos.org/manual/nixpkgs/stable/#id-1.4>.
-2. `config`: A set of all config values in the current environment, which may sometimes be used.
+2. `config`: A set of all options' values in the current environment, which will be used extensively in the subsequent section on the module system.
 3. `options`: A set of all options defined in all Modules in the current environment.
 4. `pkgs`: A collection containing all nixpkgs packages, along with several related utility functions.
    - At the beginner stage, you can consider its default value to be `nixpkgs.legacyPackages."${system}"`, and the value of `nixpkgs.pkgs` can be customized through the `nixpkgs.pkgs` option.
