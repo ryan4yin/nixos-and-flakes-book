@@ -268,10 +268,10 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 这两个参数的官方文档藏得很深，而且语焉不详、晦涩难懂。读者感兴趣的话我把链接放在这里：
 
 1. `specialArgs`: NixOS Manual 跟 Nixpkgs Manual 中分别有与它有关的只言片语
-    1. Nixpkgs Manual: [Module System - Nixpkgs]
-    1. NixOS Manual: [nixpkgs/nixos-23.11/nixos/doc/manual/development/option-types.section.md#L237-L244]
+   - Nixpkgs Manual: [Module System - Nixpkgs]
+   - NixOS Manual: [nixpkgs/nixos-23.11/nixos/doc/manual/development/option-types.section.md#L237-L244]
 1. `_module.args`: 它唯一的官方文档在如下这份源码中
-    1. [nixpkgs/nixos-23.11/lib/modules.nix - _module.args]
+   - [nixpkgs/nixos-23.11/lib/modules.nix - _module.args]
 
 总之，`specialArgs` 与 `_module.args` 需要的值都是一个 attribute set，它们的功能也相同，都是将其 attribute set 中的所有参数传递到所有子模块中。
 这两者的区别在于：
@@ -383,24 +383,18 @@ NixOS 社区比较推荐优先使用 `_module.args` 这个 options，仅在无�
 
 接下来在 `configuration.nix` 中就能引用这个 flake input 数据源了：
 
-```nix{3,15}
-# Nix 会通过名称匹配，
-# 自动将 specialArgs 中的 inputs 作为函数参数注入到此函数中
+```nix{1,10}
 { config, pkgs, inputs, ... }:
-
 {
   # 省略无关配置......
-
   environment.systemPackages = with pkgs; [
     git
     vim
     wget
     curl
-
     # 这里从 helix 这个 inputs 数据源安装了 helix 程序
     inputs.helix.packages."${pkgs.system}".helix
   ];
-
   # 省略其他配置......
 }
 ```
