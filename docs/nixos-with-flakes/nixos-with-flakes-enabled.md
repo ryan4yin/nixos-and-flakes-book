@@ -332,7 +332,7 @@ Or you can achieve the same effect using the `_module.args` option:
 
 Choose one of the two methods above to modify your configuration, and then you can use the `inputs` parameter in `/etc/nixos/configuration.nix`. The module system will automatically match the `inputs` defined in `specialArgs` and inject it into all submodules that require this parameter:
 
-```nix{4}
+```nix{3}
 # Nix will match by name and automatically inject the inputs
 # from specialArgs/_module.args into the third parameter of this function
 { config, pkgs, inputs, ... }:
