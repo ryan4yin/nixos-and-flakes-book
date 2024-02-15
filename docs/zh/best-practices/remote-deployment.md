@@ -73,8 +73,8 @@ ssh-add ~/.ssh/your-private-key
         };
       };
 
-      # 主机名 = "nixos-test"
-      "nixos-test" = { name, nodes, ... }: {
+      # 主机名 = "my-nixos"
+      "my-nixos" = { name, nodes, ... }: {
         # 与远程部署相关的参数
         deployment.targetHost = "192.168.5.42"; # 远程主机的 IP 地址
         deployment.targetUser = "root";  # 远程主机的用户名
@@ -102,14 +102,14 @@ nix run nixpkgs#colmena apply
 
 用 `nixos-rebuild` 进行远程部署的好处在于，它的工作方式与部署到本地主机完全相同，只需要多传几个参数，指定下远程主机的 IP 地址、用户名等信息即可。
 
-例如，使用以下命令将 flake 中的 `nixosConfigurations.nixos-test` 这份配置部署到远程主机：
+例如，使用以下命令将 flake 中的 `nixosConfigurations.my-nixos` 这份配置部署到远程主机：
 
 ```bash
 nixos-rebuild switch --flake .#nixos-text \
   --target-host root@192.168.4.1 --build-host localhost --verbose
 ```
 
-上述命令将会构建并部署 nixos-test 的配置到 IP 为 `192.168.4.1` 的服务器，系统构建过程将在本机执行。
+上述命令将会构建并部署 my-nixos 的配置到 IP 为 `192.168.4.1` 的服务器，系统构建过程将在本机执行。
 
 如果你希望在远程主机上构建系统，只需要将 `--build-host localhost` 替换为 `--build-host root@192.168.4.1`。
 
@@ -132,6 +132,6 @@ Host aquamarine
 然后就可以直接使用主机别名进行部署了：
 
 ```bash
-nixos-rebuild switch --flake .#nixos-test --target-host root@aquamarine --build-host root@aquamarine --verbose
+nixos-rebuild switch --flake .#my-nixos --target-host root@aquamarine --build-host root@aquamarine --verbose
 ```
 

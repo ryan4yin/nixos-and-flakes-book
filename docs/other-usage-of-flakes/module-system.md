@@ -236,22 +236,26 @@ The Nixpkgs module system provides a series of functions similar to `lib.mkIf` f
 1. `lib.mkIf`: Already introduced.
 2. `lib.mkOverride` / `lib.mkDefault` / `lib.mkForce`: Previously discussed in [Modularizing NixOS Configuration](../nixos-with-flakes/modularize-the-configuration.md).
 3. `lib.mkOrder`, `lib.mkBefore`, and `lib.mkAfter`: As mentioned above.
-4. Check [Option Definitions - NixOS][Option Definitions - NixOS] for more functions related to option assignment (definition).
+4. Check [Option Definitions - NixOS] for more functions related to option assignment (definition).
 
 ## Option Declaration and Type Checking
 
 While assignment is the most commonly used feature of the module system, if you need to customize some `options`, you also need to delve into option declaration and type checking. I find this part relatively straightforward; it's much simpler than assignment, and you can understand the basics by directly referring to the official documentation. I won't go into detail here.
 
-- [Option Declarations - NixOS][Option Declarations - NixOS]
-- [Options Types - NixOS][Options Types - NixOS]
+- [Option Declarations - NixOS]
+- [Options Types - NixOS]
+
+## Passing Non-default Parameters to the Module System
+
+We have already introduced how to use `specialArgs` and `_module.args` to pass additional parameters to other Modules functions in [Managing Your NixOS with Flakes](../nixos-with-flakes/nixos-with-flakes-enabled.md#pass-non-default-parameters-to-submodules). No further elaboration is needed here.
 
 ## References
 
 - [Best resources for learning about the NixOS module system? - Discourse](https://discourse.nixos.org/t/best-resources-for-learning-about-the-nixos-module-system/1177/4)
 - [NixOS modules - NixOS Wiki](https://nixos.wiki/wiki/NixOS_modules)
 - [NixOS: config argument - NixOS Wiki](https://nixos.wiki/wiki/NixOS:config_argument)
-- [Module System - Nixpkgs][Module System - Nixpkgs]
-- [Writing NixOS Modules - Nixpkgs][Writing NixOS Modules - Nixpkgs]
+- [Module System - Nixpkgs]
+- [Writing NixOS Modules - Nixpkgs]
 
 
 [lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/23.11/lib/modules.nix#L995

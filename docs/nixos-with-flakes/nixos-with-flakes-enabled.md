@@ -1,271 +1,424 @@
 # Enabling NixOS with Flakes
 
-## Enabling Flakes Support
+## Enabling Flakes Support for NixOS {#enable-nix-flakes}
 
-Flakes provide improved reproducibility and a more organized package structure, making it easier to maintain NixOS configurations compared to the traditional approach. Therefore, it is recommended to manage NixOS using Flakes.
+Compared to the default configuration method currently used in NixOS, Flakes offers better reproducibility. Its clear package structure definition inherently supports dependencies on other Git repositories, facilitating code sharing. Therefore, this book suggests using Flakes to manage system configurations. Currently, Flakes is still an experimental feature and not enabled by default. We need to manually modify the `/etc/nixos/configuration.nix` file to enable the Flakes feature and the accompanying new nix command-line tool:
 
-However, as Flakes is still an experimental feature, it is not enabled by default. To enable Flakes, you need to modify the `/etc/nixos/configuration.nix` file as follows:
-
-```nix{15,18-19}
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running 'nixos-help').
+```nix{12,16}
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
-  # Omit the previous configuration...
+  # ......
 
-  # Enable Flakes and the new command-line tool
+  # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
   environment.systemPackages = with pkgs; [
-    # Flakes use Git to pull dependencies from data sources 
+    # Flakes clones its dependencies through the git command,
+    # so git must be installed first
     git
     vim
     wget
     curl
   ];
-  # Set default editor to vim
+  # Set the default editor to vim
   environment.variables.EDITOR = "vim";
 
-  # Omit the rest of the configuration...
+  # ......
 }
 ```
 
-To apply the changes, run `sudo nixos-rebuild switch`. After that, you can start writing the configuration for NixOS using Flakes.
+After making these changes, run `sudo nixos-rebuild switch` to apply the modifications. Then, you can use the Flakes feature to manage your system configuration. 
 
-## Switching to `flake.nix` for System Configuration
+The new nix command-line tool also offers some convenient features. For example, you can now use the `nix repl` command to open a nix interactive environment. 
+If you're interested, you can use it to review and test all the Nix syntax you've learned before.
 
-After enabling `flakes`, whenever you run `sudo nixos-rebuild switch`, it will first attempt to read the `/etc/nixos/flake.nix` file. If the file is not found, it will fallback to `/etc/nixos/configuration.nix`.
 
-To learn how to write a Flakes configuration, you can refer to the official Flakes templates provided by Nix. To check the available templates, run the following command:
+## Switching System Configuration to `flake.nix` {#switch-to-flake-nix}
+
+After enabling the Flakes feature, the `sudo nixos-rebuild switch` command will prioritize reading the `/etc/nixos/flake.nix` file, and if it's not found, it will attempt to use `/etc/nixos/configuration.nix`.
+
+You can start by using the official templates to learn how to write a flake.
+First, check what templates are available:
 
 ```bash
 nix flake show templates
 ```
 
-The `templates#full` template contains examples covering various use cases. Let's take a look at them:
+Among them, the `templates#full` template demonstrates all possible usage. Take a look at its content:
 
 ```bash
 nix flake init -t templates#full
 cat flake.nix
 ```
 
-After reviewing the example, create a file named `/etc/nixos/flake.nix` and copy the content of the example into it. From now on, all system modifications will be managed by Flakes using `/etc/nixos/flake.nix`.
-
-Note that the copied template cannot be used directly. You need to modify it to make it work. Here's an example of `/etc/nixos/flake.nix`:
+Referencing this template, create the file `/etc/nixos/flake.nix` and write the configuration content. All subsequent system modifications will be taken over by Nix Flakes. 
+Here's an example of the content:
 
 ```nix
 {
-  description = "Ryan's NixOS Flake";
-
-  # This is the standard format for flake.nix.
-  # `inputs` are the dependencies of the flake,
-  # and `outputs` function will return all the build results of the flake.
-  # Each item in `inputs` will be passed as a parameter to
-  # the `outputs` function after being pulled and built.
+  description = "A simple NixOS flake";
   inputs = {
-    # There are many ways to reference flake inputs.
-    # The most widely used is `github:owner/name/reference`,
-    # which represents the GitHub repository URL + branch/commit-id/tag.
-
-    # Official NixOS package source, using nixos-23.11 branch here
+    # NixOS official package source, using the nixos-23.11 branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    # home-manager, used for managing user configuration
-    home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
-      # The `follows` keyword in inputs is used for inheritance.
-      # Here, `inputs.nixpkgs` of home-manager is kept consistent with
-      # the `inputs.nixpkgs` of the current flake,
-      # to avoid problems caused by different versions of nixpkgs.
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
-
-  # `outputs` are all the build result of the flake.
-  #
-  # A flake can have many use cases and different types of outputs.
-  # 
-  # parameters in function `outputs` are defined in `inputs` and
-  # can be referenced by their names. However, `self` is an exception,
-  # this special parameter points to the `outputs` itself(self-reference)
-  # 
-  # The `@` syntax here is used to alias the attribute set of the
-  # inputs's parameter, making it convenient to use inside the function.
   outputs = { self, nixpkgs, ... }@inputs: {
-    nixosConfigurations = {
-      # By default, NixOS will try to refer the nixosConfiguration with
-      # its hostname, so the system named `nixos-test` will use this one.
-      # However, the configuration name can also be specified using:
-      #   sudo nixos-rebuild switch --flake /path/to/flakes/directory#<name>
-      #
-      # The `nixpkgs.lib.nixosSystem` function is used to build this
-      # configuration, the following attribute set is its parameter.
-      #
-      # Run the following command in the flake's directory to
-      # deploy this configuration on any NixOS system:
-      #   sudo nixos-rebuild switch --flake .#nixos-test
-      "nixos-test" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
-        # The Nix module system can modularize configuration,
-        # improving the maintainability of configuration.
-        #
-        # Each parameter in the `modules` is a Nixpkgs Module, and
-        # there is a partial introduction to it in the nixpkgs manual:
-        #    <https://nixos.org/manual/nixpkgs/unstable/#module-system-introduction>
-        # It is said to be partial because the documentation is not
-        # complete, only some simple introductions.
-        # such is the current state of Nix documentation...
-        #
-        # A Nixpkgs Module can be an attribute set, or a function that
-        # returns an attribute set. By default, if a Nixpkgs Module is a
-        # function, this function has the following default parameters:
-        #
-        #  lib:     the nixpkgs function library, which provides many
-        #             useful functions for operating Nix expressions:
-        #             https://nixos.org/manual/nixpkgs/stable/#id-1.4
-        #  config:  all config options of the current flake, very useful
-        #  options: all options defined in all NixOS Modules
-        #             in the current flake
-        #  pkgs:   a collection of all packages defined in nixpkgs,
-        #            plus a set of functions related to packaging.
-        #            you can assume its default value is
-        #            `nixpkgs.legacyPackages."${system}"` for now.
-        #            can be customed by `nixpkgs.pkgs` option
-        #  modulesPath: the default path of nixpkgs's modules folder,
-        #               used to import some extra modules from nixpkgs.
-        #               this parameter is rarely used,
-        #               you can ignore it for now.
-        #
-        # The default parameters mentioned above are automatically
-        # generated by Nixpkgs. 
-        # However, if you need to pass other non-default parameters
-        # to the submodules, 
-        # you'll have to manually configure these parameters using
-        # `specialArgs`. 
-        # you must use `specialArgs` by uncommenting the following line:
-        #
-        # specialArgs = {...};  # pass custom arguments into all submodules.
-        modules = [
-          # Import the configuration.nix here, so that the
-          # old configuration file can still take effect.
-          # Note: configuration.nix itself is also a Nixpkgs Module,
-          ./configuration.nix
-        ];
-      };
+    # Please replace my-nixos with your hostname
+    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        # Import the previous configuration.nix we used, so the old configuration file still takes effect
+        ./configuration.nix
+      ];
     };
   };
 }
 ```
 
-We defined a NixOS system called `nixos-test` with a configuration file at `./configuration.nix`, which is the classic configuration we modified before. Therefore, we can still make use of it.
+Here we defined a system named `my-nixos`, with its configuration file located at `/etc/nixos/` as `./configuration.nix`. This means we are still using the old configuration.
 
-To apply the configuration to a system with hostname `nixos-test`, run `sudo nixos-rebuild switch --flake /etc/nixos#nixos-test`. No changes will be made to the system because we imported the old configuration file in `/etc/nixos/flake.nix`, so the actual state we declared remains unchanged.
+Now, when you execute `sudo nixos-rebuild switch` to apply the configuration, the system should not change at all because we have simply switched to using Nix Flakes, and the configuration content remains consistent with before.
 
-The comments in the above code are already quite detailed, but let's emphasize a few points here:
+After the switch, we can manage the system through the Flakes feature. 
 
-1. Default parameters like `lib`, `pkgs`, `config`, and others are automatically generated by Nixpkgs and can be automatically injected into submodules without the need for additional declarations here.
+Currently, our flake includes these files:
 
-2. In `specialArgs = {...};`, the content of the attribute set is omitted here. Its contents are automatically injected into submodules through name matching.
-   
-   1. A common usage, for instance, is to directly write `specialArgs = inputs;`, enabling all data sources from the `inputs` attribute set to be used in the submodules.
-   2. If you do not want to get all the data sources in `inputs` mixed with the defaults, use `specialArgs = {inherit inputs;};`(akin to `specialArgs = {inputs = inputs;};`) instead.
+- `/etc/nixos/flake.nix`: The entrypoint for the flake, which is recognized and deployed when `sudo nixos-rebuild switch` is executed.
+- `/etc/nixos/flake.lock`: The automatically generated version lock file, which records the data sources, hash values, and version numbers of all inputs in the entire flake, ensuring system reproducibility.
+- `/etc/nixos/configuration.nix`: This is our previous configuration file, which is imported as a module in `flake.nix`. Currently, all system configurations are written in this file.
+- `/etc/nixos/hardware-configuration.nix`: This is the system hardware configuration file, generated by NixOS, which describes the system's hardware information.
 
-## Managing System Packages with Flakes
+Up to this point, `/etc/nixos/flake.nix` has merely been a thin wrapper around `/etc/nixos/configuration.nix`, offering no new functionality and introducing no disruptive changes. In the content of the book that follows, we will gradually see the benefits that such a wrapper brings.
 
-After the switch, we can manage the system using Flakes. One common requirement is installing packages. We have previously seen how to install packages using `environment.systemPackages` from the official `nixpkgs` repository.
+> Note: The configuration management method described in this book is NOT "Everything in a single file". It is recommended to categorize configuration content into different nix files, then introduce these configuration files in the `modules` list of `flake.nix`, and manage them with Git. 
+>
+> The benefits of this approach are better organization of configuration files and improved maintainability of the configuration. The section [Modularizing NixOS Configuration](./modularize-the-configuration.md) will explain in detail how to modularize your NixOS configuration, and [Other Useful Tips - Managing NixOS Configuration with Git](./other-useful-tips.md) will introduce several best practices for managing NixOS configuration with Git.
 
-Now let's learn how to install packages from other sources using Flakes. This is really useful when you want to use a newer version of some package that is not added into Nixpkgs yet.
 
-Let's use [Helix](https://github.com/helix-editor/helix) editor as an example.
+## `flake.nix` Configuration Explained {#flake-nix-configuration-explained}
 
-First, we need to add Helix as an input in `flake.nix`:
+Above, we created a `flake.nix` file to manage system configurations, but you might still be unclear about its structure. Let's explain the content of this file in detail.
 
-```nix{10,20}
+### 1. Flake Inputs
+
+First, let's look at the `inputs` attribute. It is an attribute set that defines all the dependencies of this flake. These dependencies will be passed as arguments to the `outputs` function after they are fetched:
+
+```nix{2-5,7}
 {
-  description = "NixOS configuration of Ryan Yin";
+  inputs = {
+    # NixOS official package source, using the nixos-23.11 branch here
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  };
 
-  # ...
+  outputs = { self, nixpkgs, ... }@inputs: {
+    # Omitting previous configurations......
+  };
+}
+```
+
+Dependencies in `inputs` has many types and definitions. 
+It can be another flake, a regular Git repository, or a local path. 
+The section [Other Usage of Flakes - Flake Inputs](../other-usage-of-flakes/inputs.md) describes common types of dependencies and their definitions in detail.
+
+Here we only define a dependency named `nixpkgs`, which is the most common way to reference in a flake, i.e., `github:owner/name/reference`. The `reference` here can be a branch name, commit-id, or tag.
+
+After `nixpkgs` is defined in `inputs`, you can use it in the parameters of the subsequent `outputs` function, which is exactly what our example does.
+
+
+### 2. Flake Outputs
+
+Now let's look at `outputs`. 
+It is a function that takes the dependencies from `inputs` as its parameters, and its return value is an attribute set, which represents the build results of the flake:
+
+```nix{11-19}
+{
+  description = "A simple NixOS flake";
 
   inputs = {
-    # ...
+    # NixOS official package source, here using the nixos-23.11 branch
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  };
 
-    # Helix editor, the master branch
+  # The `self` parameter is special, it refers to
+  # the attribute set returned by the `outputs` function itself.
+  outputs = { self, nixpkgs, ... }@inputs: {
+    # The host with the hostname `my-nixos` will use this configuration
+    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./configuration.nix
+      ];
+    };
+  };
+}
+```
+
+Flakes can have various purposes and can have different types of outputs. The section [Flake Outputs](../other-usage-of-flakes/outputs.md) provides a more detailed introduction. 
+Here, we are only using the `nixosConfigurations` type of outputs, which is used to configure NixOS systems.
+
+When we run the `sudo nixos-rebuild switch` command, it looks for the `nixosConfigurations.my-nixos` attribute (where `my-nixos` will be the hostname of your current system) in the attribute set returned by the `outputs` function of `/etc/nixos/flake.nix` and uses the definition there to configure your NixOS system.
+
+Actually, we can also customize the location of the flake and the name of the NixOS configuration instead of using the defaults. 
+This can be done by adding the `--flake` parameter to the `nixos-rebuild` command. Here's an example:
+
+```nix
+sudo nixos-rebuild switch --flake /path/to/your/flake#your-hostname
+```
+
+A brief explanation of the `--flake /path/to/your/flake#your-hostname` parameter:
+
+1. `/path/to/your/flake` is the location of the target flake. The default path is `/etc/nixos/`.
+2. `#` is a separator, and `your-hostname` is the name of the NixOS configuration. `nixos-rebuild` will default to using the hostname of your current system as the configuration name to look for.
+
+You can even directly reference a remote GitHub repository as your flake source, for example:
+
+```nix
+sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
+```
+
+### 3. Simple Introduction to `nixpkgs.lib.nixosSystem` Function {#simple-introduction-to-nixpkgs-lib-nixos-system}
+
+By default, a flake will look for a `flake.nix` file in the root directory of each of its dependencies and execute its `outputs` function. 
+The attribute set returned by this function is then passed as a parameter to the flake's own `outputs` function, allowing us to use the content provided by each dependency in our outputs. 
+
+
+In the example in this section, [nixpkgs/flake.nix] will be executed when we run `sudo nixos-rebuild switch`. We can see from its source code that its `outputs` definition includes the `lib` attribute, which is used in our example:
+
+```nix{8-13}
+{
+  inputs = {
+    # NixOS official package source, here using the nixos-23.11 branch
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+  };
+
+  outputs = { self, nixpkgs, ... }@inputs: {
+    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./configuration.nix
+      ];
+    };
+  };
+}
+```
+
+The attribute set following `nixpkgs.lib.nixosSystem` is the function's parameter. We have only set two parameters here:
+
+1. `system`: This is straightforward, it's the system architecture parameter.
+2. `modules`: This is a list of modules, where the actual NixOS system configuration is defined.
+The `/etc/nixos/configuration.nix` configuration file itself is a Nixpkgs Module, so it can be directly added to the `modules` list for use.
+
+Understanding these basics is sufficient for beginners. Exploring the `nixpkgs.lib.nixosSystem` function in detail requires a grasp of the Nixpkgs module system.
+Readers who have completed the [Modularizing NixOS Configuration](./modularize-the-configuration.md) section can return to [nixpkgs/flake.nix] to find the definition of `nixpkgs.lib.nixosSystem`, trace its source code, and study its implementation.
+
+## Nixpkgs Module Structure Explained {#simple-introduction-to-nixpkgs-module-structure}
+
+> The detailed workings of this module system will be introduced in the following [Modularizing NixOS Configuration](./modularize-the-configuration.md) section. Here, we'll just cover some basic knowledge.
+
+
+You might be wondering why the `/etc/nixos/configuration.nix` configuration file adheres to the Nixpkgs Module definition and can be referenced directly within the `flake.nix`.
+
+This is because the Nixpkgs repository contains a significant amount of NixOS implementation source code, primarily written in Nix. To manage and maintain such a large volume of Nix code and to allow users to customize various functions of their NixOS systems, a modular system for Nix code is essential.
+
+This modular system for Nix code is also implemented within the Nixpkgs repository and is primarily used for modularizing NixOS system configurations. However, it is also widely used in other contexts, such as nix-darwin and home-manager.
+Since NixOS is built on this modular system, it is only natural that its configuration files, including `/etc/nixos/configuration.nix`, are Nixpkgs Modules.
+
+Before delving into the subsequent content, it's essential to have a basic understanding of how this module system operates.
+
+Here's a simplified structure of a Nixpkgs Module:
+
+```nix
+{lib, config, options, pkgs, ...}:
+{
+  # Importing other Modules
+  imports = [
+    # ...
+    ./xxx.nix
+  ];
+  for.bar.enable = true;
+  # Other option declarations
+  # ...
+}
+```
+
+The definition is actually a Nix function, and it has five **automatically generated, automatically injected, and declaration-free parameters** provided by the module system:
+
+1. `lib`: A built-in function library included with nixpkgs, offering many practical functions for operating Nix expressions.
+   - For more information, see <https://nixos.org/manual/nixpkgs/stable/#id-1.4>.
+2. `config`: A set of all config values in the current environment, which may sometimes be used.
+3. `options`: A set of all options defined in all Modules in the current environment.
+4. `pkgs`: A collection containing all nixpkgs packages, along with several related utility functions.
+   - At the beginner stage, you can consider its default value to be `nixpkgs.legacyPackages."${system}"`, and the value of `nixpkgs.pkgs` can be customized through the `nixpkgs.pkgs` option.
+5. `modulesPath`: A parameter available only in NixOS, which is a path pointing to [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/modules).
+   - It is defined in [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/lib/eval-config-minimal.nix#L43).
+   - It is typically used to import additional NixOS modules and can be found in most NixOS auto-generated `hardware-configuration.nix` files.
+
+
+## Passing Non-default Parameters to Submodules {#pass-non-default-parameters-to-submodules}
+
+If you need to pass other non-default parameters to submodules, you will need to use some special methods to manually specify these non-default parameters.
+
+The Nixpkgs module system provides two ways to pass non-default parameters:
+
+1. The `specialArgs` parameter of the `nixpkgs.lib.nixosSystem` function
+2. Using the `_module.args` option in any module to pass parameters
+The official documentation for these two parameters is buried deep and is vague and hard to understand. If readers are interested, I will include the links here:
+1. `specialArgs`: There are scattered mentions related to it in the NixOS Manual and the Nixpkgs Manual.
+    1. Nixpkgs Manual: [Module System - Nixpkgs]
+    1. NixOS Manual: [nixpkgs/nixos-23.11/nixos/doc/manual/development/option-types.section.md#L237-L244]
+1. `_module.args`: Its only official documentation is in the source code below.
+    1. [nixpkgs/nixos-23.11/lib/modules.nix - _module.args]
+In short, `specialArgs` and `_module.args` both require an attribute set as their value, and they serve the same purpose, passing all parameters in the attribute set to all submodules. The difference between them is:
+1. The `_module.args` option can be used in any module to pass parameters to each other, which is more flexible than `specialArgs`, which can only be used in the `nixpkgs.lib.nixosSystem` function.
+1. `_module.args` is declared within a module, so it must be evaluated after all modules have been evaluated before it can be used. This means that if you use the parameters passed through `_module.args` in `imports = [ ... ];`, it will result in an `infinite recursion` error. In this case, you must use `specialArgs` instead.
+
+The NixOS community generally recommends prioritizing the use of the `_module.args` option and resorting to `specialArgs` only when `_module.args` cannot be used.
+
+Suppose you want to pass a certain dependency to a submodule for use. You can use the `specialArgs` parameter to pass the `inputs` to all submodules:
+
+```nix{13}
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    another-input.url = "github:username/repo-name/branch-name";
+  };
+
+  outputs = inputs@{ self, nixpkgs, another-input, ... }: {
+    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+
+      # Set all inputs parameters as special arguments for all submodules,
+      # so you can directly use all dependencies in inputs in submodules
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./configuration.nix
+      ];
+    };
+  };
+}
+```
+
+Or you can achieve the same effect using the `_module.args` option:
+
+```nix{14}
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    another-input.url = "github:username/repo-name/branch-name";
+  };
+  outputs = inputs@{ self, nixpkgs, another-input, ... }: {
+    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      modules = [
+        ./configuration.nix
+        {
+          # Set all inputs parameters as special arguments for all submodules,
+          # so you can directly use all dependencies in inputs in submodules
+          _module.args = { inherit inputs; };
+        }
+      ];
+    };
+  };
+}
+```
+
+Choose one of the two methods above to modify your configuration, and then you can use the `inputs` parameter in `/etc/nixos/configuration.nix`. The module system will automatically match the `inputs` defined in `specialArgs` and inject it into all submodules that require this parameter:
+
+```nix{4}
+# Nix will match by name and automatically inject the inputs
+# from specialArgs/_module.args into the third parameter of this function
+{ config, pkgs, inputs, ... }:
+{
+  # ...
+}
+```
+
+The next section will demonstrate how to use `specialArgs`/`_module.args` to install system software from other flake sources.
+
+## Installing System Software from Other Flake Sources {#install-system-packages-from-other-flakes}
+
+The most common requirement for managing a system is to install software, and we have already seen in the previous section how to install packages from the official nixpkgs repository using `environment.systemPackages`. These packages all come from the official nixpkgs repository.
+
+Now, we will learn how to install software packages from other flake sources, which is much more flexible than installing directly from nixpkgs. The main use case is to install the latest version of a software that is not yet added or updated in Nixpkgs.
+
+Taking the Helix editor as an example, here's how to compile and install the master branch of Helix directly.
+
+First, add the helix input data source to `flake.nix`:
+
+```nix{6,12,18}
+{
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+
+    # helix editor, use the master branch
     helix.url = "github:helix-editor/helix/master";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
-    nixosConfigurations = {
-      nixos-test = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      system = "x86_64-linux";
+      specialArgs = { inherit inputs; };
+      modules = [
+        ./configuration.nix
 
-        # Set all input parameters as specialArgs of all sub-modules
-        # so that we can use the `helix`(an attribute in inputs) in
-        # sub-modules directly.
-        specialArgs = inputs;
-        modules = [
-          ./configuration.nix
-        ];
-      };
+        # This module works the same as the `specialArgs` parameter we used above
+        # chose one of the two methods to use
+        # { _module.args = { inherit inputs; };}
+      ];
     };
   };
 }
 ```
 
-Next, update `configuration.nix` to install `helix` from the `helix` input:
+Next, you can reference this flake input data source in `configuration.nix`:
 
-```nix{3,14-15}
-# Nix will automatically inject `helix` from specialArgs
-# into the third parameter of this function through name matching
-{ config, pkgs, helix, ... }:
-
+```nix{3,12}
+{ config, pkgs, inputs, ... }:
 {
-  # Omit other configurations...
-
+  # ...
   environment.systemPackages = with pkgs; [
     git
     vim
     wget
     curl
-
-    # Install Helix from the `helix` input
-    helix.packages."${pkgs.system}".helix
+    # Here, the helix package is installed from the helix input data source
+    inputs.helix.packages."${pkgs.system}".helix
   ];
-
-  # Omit other configurations...
+  # ...
 }
 ```
 
-To deploy the changes, run `sudo nixos-rebuild switch`, this will take a while to compile the latest Helix.
+Make the necessary changes and deploy with `sudo nixos-rebuild switch`. The deployment will take much longer this time because Nix will compile the entire Helix program from source.
 
-After that, you can start the Helix editor by running the `hx` command.
+After deployment, you can directly test and verify the installation using the `hx` command in the terminal.
 
-> If your system's hostname is not `nixos-test`, you need to modify the name of `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#nixos-test` to specify the configuration name.
+> If you encounter any errors during deployment, you can try adding the `--show-trace -L` parameters to the `nixos-rebuild` command to get detailed error information.
 
-> You can always try to add `--show-trace -L` to the `nixos-rebuild` command to get the detailed error message if you encounter any errors during the deployment.
-
-Furthermore, if you merely want to experiment with the latest version of Helix before deciding whether to install it system-wide, there's a simpler way – just a single command:
-
-> Similarly, if you wish to use the latest version, compiling from source is usually unavoidable and may take some time.
+Additionally, if you just want to try out the latest version of Helix and decide whether to install it on your system later, there is a simpler way to do it in one command (but as mentioned earlier, compiling from source will take a long time):
 
 ```bash
 nix run github:helix-editor/helix/master
 ```
 
-We will introduce `nix run` in detail at [Usage of the New CLI](/other-usage-of-flakes/the-new-cli.md)
+We will go into more detail on the usage of `nix run` in the following section [Usage of the New CLI](../other-usage-of-flakes/the-new-cli.md).
+
 
 ## Leveraging Features from Other Flakes Packages
 
-In fact, this is the primary functionality of Flakes — a Flake can depend on other Flakes, allowing it to utilize the features they provide. It's akin to how we incorporate functionalities from other libraries when writing programs in TypeScript, Go, Rust, and other programming languages.
+In fact, this is the primary functionality of Flakes — a flake can depend on other flakes, allowing it to utilize the features they provide. It's akin to how we incorporate functionalities from other libraries when writing programs in TypeScript, Go, Rust, and other programming languages.
 
 The example above, using the latest version from the official Helix Flake, illustrates this functionality. More use cases will be discussed later, and here are a few examples referenced for future mention:
 
 - [Getting Started with Home Manager](./start-using-home-manager.md): This introduces the community's Home-Manager as a dependency, enabling direct utilization of the features provided by this Flake.
 - [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): Here, different versions of Nixpkgs are introduced as dependencies, allowing for flexible selection of packages from various versions of Nixpkgs.
 
+
+[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-23.11/flake.nix
+[nixpkgs/nixos/lib/eval-config.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/lib/eval-config.nix
+[Module System - Nixpkgs]: https://github.com/NixOS/nixpkgs/blob/23.11/doc/module-system/module-system.chapter.md
+[nixpkgs/nixos-23.11/lib/modules.nix - _module.args]: https://github.com/NixOS/nixpkgs/blob/nixos-23.11/lib/modules.nix#L122-L184
+[nixpkgs/nixos-23.11/nixos/doc/manual/development/option-types.section.md#L237-L244]: https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/doc/manual/development/option-types.section.md?plain=1#L237-L244

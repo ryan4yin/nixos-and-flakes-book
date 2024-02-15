@@ -35,9 +35,9 @@ Another approach is to delete `/etc/nixos` directly and specify the configuratio
 sudo mv /etc/nixos /etc/nixos.bak
 cd ~/nixos-config
 
-# `--flake .#nixos-test` deploys the flake.nix located in
-# the current directory, and the nixosConfiguration's name is `nixos-test`
-sudo nixos-rebuild switch --flake .#nixos-test
+# `--flake .#my-nixos` deploys the flake.nix located in
+# the current directory, and the nixosConfiguration's name is `my-nixos`
+sudo nixos-rebuild switch --flake .#my-nixos
 ```
 
 Choose the method that suits you best. Afterward, system rollback becomes simple. Just switch to the previous commit and deploy it:
@@ -47,8 +47,8 @@ cd ~/nixos-config
 # Switch to the previous commit
 git checkout HEAD^1
 # Deploy the flake.nix located in the current directory,
-# with the nixosConfiguration's name `nixos-test`
-sudo nixos-rebuild switch --flake .#nixos-test
+# with the nixosConfiguration's name `my-nixos`
+sudo nixos-rebuild switch --flake .#my-nixos
 ```
 
 More advanced Git operations are not covered here, but in general, rollback can be performed directly using Git. Only in cases of complete system crashes would you need to restart into the bootloader and boot the system from a previous historical version.

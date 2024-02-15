@@ -141,7 +141,7 @@ sudo nixos-rebuild switch --option substituters "https://nix-community.cachix.or
 
 Choose one of the above three methods for configuration and deployment. After a successful deployment, all subsequent packages will preferentially search for caches from domestic mirror sources.
 
-> If your system hostname is not `nixos-test`, you need to modify the name of `nixosConfigurations` in `flake.nix` or use `--flake /etc/nixos#nixos-test` to specify the configuration name.
+> If your system hostname is not `my-nixos`, you need to modify the name of `nixosConfigurations` in `flake.nix` or use `--flake /etc/nixos#my-nixos` to specify the configuration name.
 
 ### The `extra-` Prefix for Nix Options Parameters
 

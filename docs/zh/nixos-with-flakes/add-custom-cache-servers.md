@@ -144,7 +144,7 @@ sudo nixos-rebuild switch --option substituters "https://nix-community.cachix.or
 
 选择上述三种方案的任一一种进行配置并部署，部署成功之后，后续所有的包都会优先从国内镜像源查找缓存。
 
-> 如果你的系统 Hostname 不是 `nixos-test`，你需要在 `flake.nix` 中修改 `nixosConfigurations` 的名称，或者使用 `--flake /etc/nixos#nixos-test` 来指定配置名称。
+> 如果你的系统 Hostname 不是 `my-nixos`，你需要在 `flake.nix` 中修改 `nixosConfigurations` 的名称，或者使用 `--flake /etc/nixos#my-nixos` 来指定配置名称。
 
 ### Nix options 参数的 `extra-` 前缀
 

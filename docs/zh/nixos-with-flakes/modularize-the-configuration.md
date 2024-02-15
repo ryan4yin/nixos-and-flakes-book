@@ -14,7 +14,7 @@ $ tree
 下面分别说明下这四个文件的功能：
 
 - `flake.lock`: 自动生成的版本锁文件，它记录了整个 flake 所有输入的数据源、hash 值、版本号，确保系统可复现。
-- `flake.nix`: 入口文件，执行 `sudo nixos-rebuild switch` 时会识别并部署它。
+- `flake.nix`: flake 的入口文件，执行 `sudo nixos-rebuild switch` 时会识别并部署它。
 - `configuration.nix`: 在 flake.nix 中被作为系统模块导入，目前所有系统级别的配置都写在此文件中。
   - 此配置文件中的所有配置项，参见官方文档 [Configuration - NixOS Manual](https://nixos.org/manual/nixos/unstable/index.html#ch-configuration)
 - `home.nix`: 在 flake.nix 中被 home-manager 作为 ryan 用户的配置导入，也就是说它包含了 ryan 这个用户的所有 Home Manager 配置，负责管理其 Home 文件夹。
@@ -80,7 +80,7 @@ $ tree
 │   ├── msi-rtx4090      # PC 主机的配置
 │   │   ├── default.nix                 # 这就是之前的 configuration.nix，不过大部分内容都拆出到 modules 了
 │   │   └── hardware-configuration.nix  # 与系统硬件相关的配置，安装 nixos 时自动生成的
-│   └── nixos-test       # 测试用的虚拟机配置
+│   └── my-nixos       # 测试用的虚拟机配置
 │       ├── default.nix
 │       └── hardware-configuration.nix
 ├── modules          # 从 configuration.nix 中拆分出的一些通用配置
@@ -197,7 +197,7 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
-      "nixos-test" = nixpkgs.lib.nixosSystem {
+      "my-nixos" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
         modules = [
@@ -241,7 +241,7 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
 
 ```bash
 # 示例一：多行字符串合并
-› echo $(nix eval .#nixosConfigurations.nixos-test.config.programs.bash.shellInit)
+› echo $(nix eval .#nixosConfigurations.my-nixos.config.programs.bash.shellInit)
 trace: warning: system.stateVersion is not set, defaulting to 23.11. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersio
 n.
 "echo 'insert before default'
@@ -258,13 +258,13 @@ echo 'insert after default'
 "
 
 # 示例二：单行字符串合并
-› echo $(nix eval .#nixosConfigurations.nixos-test.config.programs.zsh.shellInit) 
+› echo $(nix eval .#nixosConfigurations.my-nixos.config.programs.zsh.shellInit) 
 "echo 'insert before default';
 echo 'this is default';
 echo 'insert after default';"
 
 # 示例三：列表合并
-› nix eval .#nixosConfigurations.nixos-test.config.nix.settings.substituters      
+› nix eval .#nixosConfigurations.my-nixos.config.nix.settings.substituters      
 [ "https://nix-community.cachix.org" "https://nix-community.cachix.org" "https://cache.nixos.org/" "https://ryan4yin.cachix.org" ]
 
 ```

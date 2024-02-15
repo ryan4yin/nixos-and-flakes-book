@@ -30,7 +30,7 @@
     ...
   }: {
     nixosConfigurations = {
-      nixos-test = nixpkgs.lib.nixosSystem rec {
+      my-nixos = nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
 
         # 核心参数是这个，将非默认的 nixpkgs 数据源传到其他 modules 中
@@ -52,7 +52,7 @@
           };
         };
         modules = [
-          ./hosts/nixos-test
+          ./hosts/my-nixos
 
           # 省略其他模块配置...
         ];
