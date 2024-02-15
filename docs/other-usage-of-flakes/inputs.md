@@ -12,7 +12,7 @@ The `inputs` section in `flake.nix` is an attribute set used to specify the depe
     git-example.url = "git+https://git.somehost.tld/user/path?ref=branch";
     # Archive File URL, needed in case your input use LFS.
     # Regular git input doesn't support LFS yet.
-    git-example.url = "https://codeberg.org/solver-orgz/treedome/archive/master.tar.gz";
+    git-example-lfs.url = "https://codeberg.org/solver-orgz/treedome/archive/master.tar.gz";
     # Similar to fetching a Git repository, but using the ssh protocol 
     # with key authentication. Also uses the shallow=1 parameter 
     # to avoid copying the .git directory.

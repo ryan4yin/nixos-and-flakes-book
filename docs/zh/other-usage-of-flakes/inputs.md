@@ -11,6 +11,9 @@
     git-example.url = "git+https://git.somehost.tld/user/path?ref=branch";
     # 同样是拉取 Git 仓库，但使用 ssh 协议 + 密钥认证，同时使用了 shallow=1 参数避免复制 .git
     ssh-git-example.url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1";
+    # Archive File URL, needed in case your input use LFS.
+    # Regular git input doesn't support LFS yet.
+    git-example-lfs.url = "https://codeberg.org/solver-orgz/treedome/archive/master.tar.gz";
     # 当然也可以直接依赖本地的 git 仓库
     git-directory-example.url = "git+file:/path/to/repo?shallow=1";
     # 使用 `dir` 参数指定某个子目录
