@@ -266,13 +266,17 @@ The Nixpkgs module system provides two ways to pass non-default parameters:
 
 1. The `specialArgs` parameter of the `nixpkgs.lib.nixosSystem` function
 2. Using the `_module.args` option in any module to pass parameters
+
 The official documentation for these two parameters is buried deep and is vague and hard to understand. If readers are interested, I will include the links here:
+
 1. `specialArgs`: There are scattered mentions related to it in the NixOS Manual and the Nixpkgs Manual.
     1. Nixpkgs Manual: [Module System - Nixpkgs]
     1. NixOS Manual: [nixpkgs/nixos-23.11/nixos/doc/manual/development/option-types.section.md#L237-L244]
 1. `_module.args`: Its only official documentation is in the source code below.
     1. [nixpkgs/nixos-23.11/lib/modules.nix - _module.args]
+
 In short, `specialArgs` and `_module.args` both require an attribute set as their value, and they serve the same purpose, passing all parameters in the attribute set to all submodules. The difference between them is:
+
 1. The `_module.args` option can be used in any module to pass parameters to each other, which is more flexible than `specialArgs`, which can only be used in the `nixpkgs.lib.nixosSystem` function.
 1. `_module.args` is declared within a module, so it must be evaluated after all modules have been evaluated before it can be used. This means that if you use the parameters passed through `_module.args` in `imports = [ ... ];`, it will result in an `infinite recursion` error. In this case, you must use `specialArgs` instead.
 
