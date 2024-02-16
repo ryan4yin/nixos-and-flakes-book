@@ -210,10 +210,10 @@ Nix 提供了 [`extra-` 前缀](https://nixos.org/manual/nix/stable/command-ref/
                 "https://mirror.sjtu.edu.cn/nix-channels/store"
                 # status: https://mirrors.ustc.edu.cn/status/
                 # "https://mirrors.ustc.edu.cn/nix-channels/store"
-          
+
                 "https://cache.nixos.org"
               ];
-          
+
               trusted-public-keys = [
                 # the default public key of cache.nixos.org, it's built-in, no need to add it here
                 "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -229,32 +229,30 @@ Nix 提供了 [`extra-` 前缀](https://nixos.org/manual/nix/stable/command-ref/
 }
 ```
 
-## 通过本地 HTTP 代理加速包下载 {#use-local-http-proxy-to-speed-up-nix-package-download}
+## 通过本地代理加速包下载 {#use-local-http-proxy-to-speed-up-nix-package-download}
 
 > 参考了 Issue: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
 
 虽然前面提到了，旁路由可以完全解决 NixOS 的包下载速度问题，但是旁路由的配置比较麻烦，而且经常需要额外的软路由设备支持。
 
-更多的用户会希望能直接通过本机运行的 HTTP 代理来加速包下载，这里介绍下怎么设置。
+更多的用户会希望能直接通过本机运行的 HTTP/Socks5 代理来加速包下载，这里介绍下怎么设置。
 
 直接在 Terminal 中使用 `export HTTPS_PROXY=http://127.0.0.1:7890` 这类方式是无法生效的，因为 nix 实际干活的是一个叫 `nix-daemon` 的后台进程，而不是直接在 Terminal 中执行的命令。
 
-要让 nix-daemon 使用代理，需要修改它的 systemd 配置，方法如下：
+nix-daemon 的实现代码是 [nixpkgs/nixos/modules/services/system/nix-daemon.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/system/nix-daemon.nix#L184-L191)，
+它通过 `systemd.services.nix-daemon.environment` 选项设置了环境变量，我们也能通过同样的手段来往 nix-daemon 的运行环境中添加代理相关的环境变量，一个示例 Module 如下：
 
-```bash
-sudo mkdir /run/systemd/system/nix-daemon.service.d/
-cat << EOF >/run/systemd/system/nix-daemon.service.d/override.conf
-[Service]
-Environment="http_proxy=socks5h://localhost:7891"
-Environment="https_proxy=socks5h://localhost:7891"
-Environment="all_proxy=socks5h://localhost:7891"
-EOF
-sudo systemctl daemon-reload
-sudo systemctl restart nix-daemon
+```nix
+{
+  systemd.services.nix-daemon.environment = {
+    # socks5h mean that the hostname is resolved by the SOCKS server
+    https_proxy = "socks5h://localhost:7891";
+    # https_proxy = "http://localhost:7890"; # or use http prctocol instead of socks5
+  };
+}
 ```
 
-使用此方案，每次重启系统可能都需要重新执行一遍上述命令，因为 `/run` 目录是临时文件系统，重启后会被清空。
+部署此配置后，可通过 `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'` 查看 nix-daemon 进程的所有环境变量，确认环境变量的设置是否生效。
 
 > 使用一些商用代理或公共代理时你可能会遇到 GitHub 下载时报 HTTP 403 错误（[nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)），
 > 可尝试通过更换代理服务器或者设置 [access-tokens](https://github.com/NixOS/nix/issues/6536) 来解决。
-
