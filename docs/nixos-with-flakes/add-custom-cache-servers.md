@@ -250,6 +250,25 @@ It sets environment variables through the `systemd.services.nix-daemon.environme
 
 After deploying this configuration, you can use `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'` to view all environment variables of the nix-daemon process and confirm whether the environment variable settings are effective.
 
+**But be aware that when the proxy server is down, the nix-daemon process will fail to download packages**.
+
+If you just want to use a proxy temporarily, you can set the proxy environment variables via the following command:
+
+```bash
+sudo mkdir /run/systemd/system/nix-daemon.service.d/
+cat << EOF >/run/systemd/system/nix-daemon.service.d/override.conf
+[Service]
+Environment="http_proxy=socks5h://localhost:7891"
+Environment="https_proxy=socks5h://localhost:7891"
+Environment="all_proxy=socks5h://localhost:7891"
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart nix-daemon
+```
+
+The settings located in `/run/systemd/system/nix-daemon.service.d/override.conf` will be automatically removed after the system is restarted, or your can easily remove it and restart the nix-daemon service to restore the original settings.
+
+
 > You may encounter HTTP 403 errors when downloading from GitHub using some commercial or public proxies, such as [nixos-and-flakes-book/issues/74]](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74),
 > You can try to solve this by changing the proxy server or setting [access-tokens](https://github.com/NixOS/nix/issues/6536)
 
