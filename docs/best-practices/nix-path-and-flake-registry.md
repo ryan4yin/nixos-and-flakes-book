@@ -20,8 +20,11 @@ For instance, if we execute `nix run nixpkgs#ponysay hello`, Nix will automatica
 
 ## Custom NIX_PATH and Flake Registry {#custom-nix-path-and-flake-registry-1}
 
+> **NOTE: Newcomers should skip this section! Disabling `nix-channel` incorrectly may lead to some headaches.**
+
 The roles of `NIX_PATH` and the Flake Registry have been explained earlier.
 In daily use, we typically want the `nixpkgs` used in commands like `nix repl '<nixpkgs>'`, `nix run nixpkgs#ponysay hello` to match the system's `nixpkgs`. This requires us to customize the `NIX_PATH` and Flake Registry.
+On the other hand, although `nix-channel` can coexist with the Flakes feature, in practice, Flakes can completely replace it, so we can also disable it.
 
 In your NixOS configuration, adding the following module will achieve the mentioned requirements:
 

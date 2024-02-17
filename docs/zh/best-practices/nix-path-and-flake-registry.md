@@ -21,8 +21,11 @@ Flake Registry 是一个 Flake 注册中心，它可以帮助我们在使用 `ni
 
 ## 自定义 NIX_PATH 与 Flake Registry {#custom-nix-path-and-flake-registry-2}
 
+> **注意：新手请先跳过这部分内容！因为配置如果抄得不对，关掉 nix-channel 可能会导致一些令人头疼的错误。**
+
 前面说明了 `NIX_PATH` 与 Flake Registry 的作用。
 在日常使用中，我们一般都会希望能在执行 `nix repl '<nixpkgs>'`, `nix run nixpkgs#ponysay hello` 等命令时，使用的 nixpkgs 与系统一致，这就需要我们自定义 `NIX_PATH` 与 Flake Registry。
+另外 `nix-channel` 虽然也能与 flakes 特性共存，但实际上 flakes 已经能够完全替代它了，所以我们也可以将其关闭。
 
 在你的 NixOS 配置中，添加如下 module 即可实现上述需求：
 
