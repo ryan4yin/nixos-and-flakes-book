@@ -7,7 +7,7 @@ Nix 提供了官方缓存服务器 <https://cache.nixos.org>，它缓存了 nixp
 ## 为什么要添加自定义缓存服务器 {#why-add-custom-cache-servers}
 
 > 注意：这里介绍的手段只能加速部分包的下载，许多 inputs 数据源仍然会从 Github 拉取。
-> 另外如果找不到缓存，会执行本地构建，这通常仍然需要从国外下载源码与构建依赖，因此仍然会很慢。为了完全解决速度问题，仍然建议使用旁路由等局域网全局代理方案。
+> 另外如果找不到缓存，会执行本地构建，这通常仍然需要从国外下载源码与构建依赖，因此仍然会很慢。为了完全解决速度问题，仍然建议使用旁路网关或 TUN 等全局代理方案。
 
 两个原因：
 
@@ -229,13 +229,13 @@ Nix 提供了 [`extra-` 前缀](https://nixos.org/manual/nix/stable/command-ref/
 }
 ```
 
-## 通过本地代理加速包下载 {#use-local-http-proxy-to-speed-up-nix-package-download}
+## 通过代理加速包下载 {#accelerate-package-downloads-via-a-proxy-server} 
 
 > 参考了 Issue: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
 
-虽然前面提到了，旁路由可以完全解决 NixOS 的包下载速度问题，但是旁路由的配置比较麻烦，而且经常需要额外的软路由设备支持。
+虽然前面提到了，旁路网关可以完全解决 NixOS 的包下载速度问题，但是旁路网关的配置比较麻烦，而且经常需要额外的硬件支持。
 
-更多的用户会希望能直接通过本机运行的 HTTP/Socks5 代理来加速包下载，这里介绍下怎么设置。
+更多的用户可能会希望能直接通过 HTTP/Socks5 代理来加速包下载，这里介绍下怎么设置。
 
 直接在 Terminal 中使用 `export HTTPS_PROXY=http://127.0.0.1:7890` 这类方式是无法生效的，因为 nix 实际干活的是一个叫 `nix-daemon` 的后台进程，而不是直接在 Terminal 中执行的命令。
 
@@ -254,7 +254,7 @@ nix-daemon 的实现代码是 [nixpkgs/nixos/modules/services/system/nix-daemon.
 
 部署此配置后，可通过 `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'` 查看 nix-daemon 进程的所有环境变量，确认环境变量的设置是否生效。
 
-**但是要注意，当代理服务器不可用时，nix-daemon 进程将无法访问任何缓存服务器**！
+**但是要注意，当代理服务器不可用时，nix-daemon 将无法访问任何缓存服务器**！所以我还是更建议使用旁路网关等透明代理方案。
 
 如果你只是临时需要使用代理，可以通过如下命令设置代理环境变量：
 
@@ -262,9 +262,7 @@ nix-daemon 的实现代码是 [nixpkgs/nixos/modules/services/system/nix-daemon.
 sudo mkdir /run/systemd/system/nix-daemon.service.d/
 cat << EOF >/run/systemd/system/nix-daemon.service.d/override.conf
 [Service]
-Environment="http_proxy=socks5h://localhost:7891"
 Environment="https_proxy=socks5h://localhost:7891"
-Environment="all_proxy=socks5h://localhost:7891"
 EOF
 sudo systemctl daemon-reload
 sudo systemctl restart nix-daemon

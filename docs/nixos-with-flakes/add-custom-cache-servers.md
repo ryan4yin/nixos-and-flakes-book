@@ -6,7 +6,7 @@ Nix provides an official cache server, [https://cache.nixos.org](https://cache.n
 
 ## Why Add Custom Cache Servers {#why-add-custom-cache-servers}
 
-> Note: The methods introduced here can only accelerate the download of packages; many `inputs` data sources will still be fetched from GitHub. Also, if the cache is not found, local builds will be executed, which typically requires downloading source code and building dependencies from GitHub or somewhere else, which may make it slow. To completely address the speed issue, it is still recommended to use solutions such as a local global proxy like a bypass route.
+> Note: The methods introduced here can only accelerate the download of packages; many `inputs` data sources will still be fetched from GitHub. Also, if the cache is not found, local builds will be executed, which typically requires downloading source code and building dependencies from GitHub or somewhere else, which may make it slow. To completely address the speed issue, it is still recommended to use solutions such as a transparent proxy running on your router or local machine.
 
 Two reasons:
 
@@ -225,50 +225,44 @@ In other words, you can use it like this:
   };
 }
 ```
-## Using Local Proxy to Accelerate Package Downloads {#use-local-http-proxy-to-speed-up-nix-package-download}
 
-> Related: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
+## Accelerate Package Downloads via a Proxy Server {#accelerate-package-downloads-via-a-proxy-server} 
 
-While it has been mentioned earlier that a bypass route can completely solve the NixOS package download speed issue, configuring a bypass route is relatively cumbersome and often requires additional support from a software routing device.
+> Referenced from Issue: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
+Although it was mentioned earlier that a transparent proxy running on your router or local machine can completely solve the issue of slow package downloads in NixOS, the configuration is rather cumbersome and often requires additional hardware.
 
-Many users may prefer to directly accelerate package downloads through a locally running HTTP/Sock5 proxy. Here's how to set it up.
+More users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy running on their machine. Here's how to set it up.
+Using methods like `export HTTPS_PROXY=http://127.0.0.1:7890` in the Terminal will not work because the actual work is done by a background process called `nix-daemon`, not by commands directly executed in the Terminal.
 
-Directly using methods like `export HTTPS_PROXY=http://127.0.0.1:7890` in the terminal won't be effective because Nix does its work in a background process called `nix-daemon`, not directly in the terminal.
-
-nix-daemon is implemented in [nixpkgs/nixos/modules/services/system/nix-daemon.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/system/nix-daemon.nix#L184-L191),
-It sets environment variables through the `systemd.services.nix-daemon.environment` option, and we can also use the same method to add proxy-related environment variables to the running environment of nix-daemon. Here's an example Module:
+The implementation code of `nix-daemon` is located at [nixpkgs/nixos/modules/services/system/nix-daemon.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/system/nix-daemon.nix#L184-L191), which sets environment variables through the `systemd.services.nix-daemon.environment` option. We can also add proxy-related environment variables to the running environment of `nix-daemon` in the same way, as shown in the following example Module:
 
 ```nix
 {
   systemd.services.nix-daemon.environment = {
-    # socks5h mean that the hostname is resolved by the SOCKS server
+    # socks5h means that the hostname is resolved by the SOCKS server
     https_proxy = "socks5h://localhost:7891";
-    # https_proxy = "http://localhost:7890"; # or use http prctocol instead of socks5
+    # https_proxy = "http://localhost:7890"; # or use http protocol instead of socks5
   };
 }
 ```
 
-After deploying this configuration, you can use `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'` to view all environment variables of the nix-daemon process and confirm whether the environment variable settings are effective.
+After deploying this configuration, you can check if the environment variables have been set by running `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'`.
 
-**But be aware that when the proxy server is down, the nix-daemon process will fail to download packages**.
+**However, be aware that when the proxy server is not available, nix-daemon will be unable to access any cache servers!** 
+Therefore, I still recommend using a transparent proxy to address acceleration issues.
 
-If you just want to use a proxy temporarily, you can set the proxy environment variables via the following command:
+If you only need to use a proxy temporarily, you can set the proxy environment variables with the following commands:
 
 ```bash
 sudo mkdir /run/systemd/system/nix-daemon.service.d/
 cat << EOF >/run/systemd/system/nix-daemon.service.d/override.conf
 [Service]
-Environment="http_proxy=socks5h://localhost:7891"
 Environment="https_proxy=socks5h://localhost:7891"
-Environment="all_proxy=socks5h://localhost:7891"
 EOF
 sudo systemctl daemon-reload
 sudo systemctl restart nix-daemon
 ```
 
-The settings located in `/run/systemd/system/nix-daemon.service.d/override.conf` will be automatically removed after the system is restarted, or your can easily remove it and restart the nix-daemon service to restore the original settings.
-
-
-> You may encounter HTTP 403 errors when downloading from GitHub using some commercial or public proxies, such as [nixos-and-flakes-book/issues/74]](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74),
-> You can try to solve this by changing the proxy server or setting [access-tokens](https://github.com/NixOS/nix/issues/6536)
+The settings in `/run/systemd/system/nix-daemon.service.d/override.conf` will be automatically deleted when the system restarts, or you can manually delete it and restart the nix-daemon service to restore the original settings.
+> When using some commercial or public proxies, you might encounter HTTP 403 errors when downloading from GitHub (as described in [nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)). In such cases, you can try changing the proxy server or setting up [access-tokens](https://github.com/NixOS/nix/issues/6536) to resolve the issue.
 
