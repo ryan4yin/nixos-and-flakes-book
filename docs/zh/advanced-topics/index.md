@@ -12,7 +12,7 @@
 - Telegram: <https://t.me/nixos_zhcn>
 - Matrix: <https://matrix.to/#/#nixos_zhcn:matrix.org>
 
-## 文档
+## 文档与视频
 
 逐渐熟悉 Nix 这一套工具链后，可以进一步读一读 Nix 的三本手册以及其他社区文档，挖掘更多的玩法：
 
@@ -21,6 +21,13 @@
 - [NixOS Manual](https://nixos.org/manual/nixos/unstable/): NixOS 系统使用手册，主要包含 Wayland/X11, GPU 等系统级别的配置说明。
 - [nix-pills](https://nixos.org/guides/nix-pills): Nix Pills 对如何使用 Nix 构建软件包进行了深入的阐述，写得比官方文档清晰易懂，而且也足够深入，值得一读。
 - [nixos-in-production](https://github.com/Gabriella439/nixos-in-production): 这是一本介绍如何在生产环境中使用 NixOS 的书籍，目前还在编写中，不过已经有了一些很棒的内容。
+
+另外 Youtube 上的 [NixOS Foundation](https://www.youtube.com/@NixOS-Foundation) 跟 [NixCon](https://www.youtube.com/@NixCon) 两个频道上也有很多官方视频，干货满满。
+如下几个视频强烈推荐一阅：
+
+- [Summer of Nix 2022 — Public Lecture Series](https://www.youtube.com/playlist?list=PLt4-_lkyRrOMWyp5G-m_d1wtTcbBaOxZk): NixOS Foundation 举办的一系列公开讲座，由 Eelco Dolstra、Armijn Hemel 等 Nix 社区核心成员主讲，内容涵盖了 Nix 的发展历程、NixOS 的历史、Nix 的未来等多个方面，干货满满。
+- [Summer of Nix 2023 — Nix Developer Dialogues](https://www.youtube.com/playlist?list=PLt4-_lkyRrOPcBuz_tjm6ZQb-6rJjU3cf): 2023 年的 Summer of Nix，一系列 Nix 社区核心成员的对话，内容包含 Nixpkgs 的演进与架构方面的挑战，探索 Nix 的模块系统，讨论 Nix 生态，Nixpkgs 中的 AI 应用，Nix 在商业领域的应用与开源经济学。
+
 
 ## 进阶技术与社区项目
 

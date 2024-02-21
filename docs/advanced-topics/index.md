@@ -8,13 +8,19 @@ Once you have become familiar with NixOS, you can explore advanced topics and di
 - [Nix Channel Status](https://status.nixos.org/): The build status of each Nix channel. 
 - [nix-community/NUR](https://github.com/nix-community/NUR): Although Nixpkgs contains a large number of packages, some packages are not included in Nixpkgs due to reasons such as review speed and licensing agreements. NUR is a decentralized Nix package repository where anyone can create their own Nix repository and add it to NUR for others to use. If you want to use a package that is not in Nixpkgs, you can try to find it here. If you want to share your own Nix package with others, you can create and share your own Nix repository according to the README of NUR.
 
-## Documentation
+## Documentation and Videos
 
 - [Nix Reference Manual](https://nixos.org/manual/nix/stable/package-management/profiles.html): A comprehensive guide to the Nix package manager, covering its design and usage from the command line.
 - [nixpkgs Manual](https://nixos.org/manual/nixpkgs/unstable/): The manual for nixpkgs, which introduces its parameters, explains how to use, modify, and package Nix packages.
 - [NixOS Manual](https://nixos.org/manual/nixos/unstable/): A user manual for NixOS, providing configuration instructions for system-level components such as Wayland/X11 and GPU.
 - [nix-pills](https://nixos.org/guides/nix-pills): "Nix Pills" is a series of guides that provide an in-depth explanation of building software packages with Nix. It offers clear and understandable explanations.
 - [nixos-in-production](https://github.com/Gabriella439/nixos-in-production): This is a work-in-progress book hosted on LeanPub about introducing and maintaining NixOS in a production environment.
+
+And there are many official videos on the [NixOS Foundation](https://www.youtube.com/@NixOS-Foundation) and [NixCon](https://www.youtube.com/@NixCon) channels on YouTube. Here are a few videos that are highly recommended:
+
+- [Summer of Nix 2022 — Public Lecture Series](https://www.youtube.com/playlist?list=PLt4-_lkyRrOMWyp5G-m_d1wtTcbBaOxZk): A series of public lectures hosted by the NixOS Foundation, presented by core members of the Nix community such as Eelco Dolstra and Armijn Hemel. The content covers the development history of Nix, the history of NixOS, and the future of Nix, among other topics.
+- [Summer of Nix 2023 — Nix Developer Dialogues](https://www.youtube.com/playlist?list=PLt4-_lkyRrOPcBuz_tjm6ZQb-6rJjU3cf): A series of dialogues between core members of the Nix community in 2023. The content includes the evolution and architectural challenges of Nixpkgs, exploration of Nix's module system, discussion of the Nix ecosystem, AI applications in Nixpkgs, and the application of Nix in the commercial field and open source economics.
+
 
 ## Advanced Techniques and Community Projects
 
