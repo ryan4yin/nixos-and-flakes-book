@@ -16,6 +16,7 @@
 
 逐渐熟悉 Nix 这一套工具链后，可以进一步读一读 Nix 的三本手册以及其他社区文档，挖掘更多的玩法：
 
+- [Eelco Dolstra - The Purely Functional Software Deployment Model - 2006](https://edolstra.github.io/pubs/phd-thesis.pdf): Eelco Dolstra 开创性的博士论文，介绍了 Nix 包管理器的设计思想。
 - [Nix Reference Manual](https://nixos.org/manual/nix/stable/package-management/profiles.html): Nix 包管理器使用手册，主要包含 Nix 包管理器的设计、命令行使用说明。
 - [nixpkgs Manual](https://nixos.org/manual/nixpkgs/unstable/): 主要介绍 Nixpkgs 的参数、Nix 包的使用、修改、打包方法。
 - [NixOS Manual](https://nixos.org/manual/nixos/unstable/): NixOS 系统使用手册，主要包含 Wayland/X11, GPU 等系统级别的配置说明。

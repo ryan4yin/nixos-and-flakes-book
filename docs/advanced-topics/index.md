@@ -10,6 +10,7 @@ Once you have become familiar with NixOS, you can explore advanced topics and di
 
 ## Documentation and Videos
 
+- [Eelco Dolstra - The Purely Functional Software Deployment Model - 2006](https://edolstra.github.io/pubs/phd-thesis.pdf): Eelco Dolstra's seminal PhD thesis about the Nix package manager, 
 - [Nix Reference Manual](https://nixos.org/manual/nix/stable/package-management/profiles.html): A comprehensive guide to the Nix package manager, covering its design and usage from the command line.
 - [nixpkgs Manual](https://nixos.org/manual/nixpkgs/unstable/): The manual for nixpkgs, which introduces its parameters, explains how to use, modify, and package Nix packages.
 - [NixOS Manual](https://nixos.org/manual/nixos/unstable/): A user manual for NixOS, providing configuration instructions for system-level components such as Wayland/X11 and GPU.
