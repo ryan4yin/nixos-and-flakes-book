@@ -30,6 +30,10 @@
 - [Summer of Nix 2023 — Nix Developer Dialogues](https://www.youtube.com/playlist?list=PLt4-_lkyRrOPcBuz_tjm6ZQb-6rJjU3cf): 2023 年的 Summer of Nix，一系列 Nix 社区核心成员的对话，内容包含 Nixpkgs 的演进与架构方面的挑战，探索 Nix 的模块系统，讨论 Nix 生态，Nixpkgs 中的 AI 应用，Nix 在商业领域的应用与开源经济学。
 
 
+另外 @NickCao 在 2021 年做的一个深入介绍 Nix 包管理器的演讲也很值得一阅：
+
+- [金枪鱼之夜：Nix - 从构建系统到配置管理](https://www.bilibili.com/video/BV13Y411p7DS/)
+
 ## 进阶技术与社区项目
 
 在对 Nix Flakes 熟悉到一定程度后，你可以尝试一些 Flakes 的进阶玩法，如下是一些比较流行的社区项目，可以试用：
