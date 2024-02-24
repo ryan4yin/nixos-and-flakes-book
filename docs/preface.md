@@ -52,7 +52,7 @@ If you find this book helpful, please consider donating to support its developme
 
 I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months until now(2024-02), 
 so there must be some misconceptions or complex cases in the book.
-If anyone finds anything incorrect or have any questions / suggestions, just let me know about it by open an issue or join the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions), I'm glad continue to optimize the content of this book.
+If anyone finds anything incorrect or have any questions / suggestions, just let me know about it by opening an issue or joining the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions). I'm happy to continue improving the content of this book.
 
 The reason why I wrote this little book was only because no one in the community did it for me, who was a beginner at the time, so I chose to do it myself.
 Even though I knew I could make mistakes, it was much better than do nothing.
