@@ -8,7 +8,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
 { config, pkgs, ... }:
 
 {
-  # TODO please change the username & home direcotry to your own
+  # TODO please change the username & home directory to your own
   home.username = "ryan";
   home.homeDirectory = "/home/ryan";
 
