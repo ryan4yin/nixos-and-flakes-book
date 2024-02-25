@@ -203,7 +203,7 @@ To examine the source code of `lib.mkBefore`, you can run `nix repl -f '<nixpkgs
   mkAfter = mkOrder 1500;
 
   # The default priority for things that don't have a priority specified.
-  defaultPriority = 100;
+  defaultPriority = 1000;
 
   # ......
 ```
