@@ -179,10 +179,8 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
     };
 
   mkBefore = mkOrder 500;
+  defaultOrderPriority = 1000;
   mkAfter = mkOrder 1500;
-
-  # The default priority for things that don't have a priority specified.
-  defaultPriority = 1000;
 
   # ......
 ```
