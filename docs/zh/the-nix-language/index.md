@@ -2,11 +2,19 @@
 
 Nix 语言是 Nix 包管理器的基础，要想玩得转 NixOS 与 Nix Flakes，享受到它们带来的诸多好处，就必须学会这门语言。
 
-Nix 是一门比较简单的函数式语言，在已有一定编程基础的情况下，过一遍这些语法用时应该在 2 个小时以内，本文假设你具有一定编程基础（也就是说写得不会很细）。
+Nix 是一门比较简单的函数式语言，在已有一定编程基础的情况下，过一遍这些语法用时应该在 2 个小时以内。
+
+本文快速介绍了一遍 Nix 的常用语法，并假设你具有一定编程基础（也就是说写得不会很细）。
+
+如果你英文尚可，也可以直接使用如下资料来学习 Nix 语言：
+
+1. [**Nix Language Basics - nix.dev**](https://nix.dev/tutorials/first-steps/nix-language): 这篇教程提供了 Nix 语言的全面概述，很适合新手阅读。
+1. [**A tour of Nix**](https://nixcloud.io/tour/?id=introduction/nix): 一份在线交互式教程，重点介绍了 Nix 的编程语言构造，以及 Nix 如何用于算法解决问题。
+1. **[Nix Language - Nix Reference Manual]**: Nix 语言的官方文档，是最权威的资料，介绍了 Nix 语言的完整语法。
 
 先把语法过一遍，有个大概的印象就行，后面需要用到时再根据右侧目录回来复习。
 
->注：如下内容有选择地介绍了 Nix 语言的常用语法，仅适合新手快速入门，**请阅读官方文档 [Nix Language](https://nixos.org/manual/nix/stable/language/values) 了解 Nix 语言的完整语法**！
+>注：如下内容有选择地介绍了 Nix 语言的常用语法，仅适合新手快速入门，**请阅读官方文档 [Nix Language - Nix Reference Manual] 了解 Nix 语言的完整语法**！
 
 ## 基础数据类型一览 {#basic-data-types}
 
@@ -443,6 +451,5 @@ stdenv.mkDerivation (finalAttrs: {
 })
 ```
 
-## 参考
 
-- [Nix language basics - nix.dev](https://nix.dev/tutorials/first-steps/nix-language)
+[Nix Language - Nix Reference Manual]: https://nixos.org/manual/nix/stable/language/
