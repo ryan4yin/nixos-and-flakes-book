@@ -13,5 +13,5 @@ To get started, I recommend reading the following resources for a quick introduc
    1. nix.dev are suitable for starter reading only, and **neither of them fully introduces the full syntax of Nix**. If you encounter a new syntax that you have not come across before, please refer to this official document.
 
 It's okay to have a rough impression of the syntax for now.
-You can come back to review the syntax when you find something you don't understand in the future.
+You can come back to review the syntax when you find something you don't understand later.
 
