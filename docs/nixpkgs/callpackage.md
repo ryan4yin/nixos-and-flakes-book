@@ -94,13 +94,13 @@ In the previous example without `pkgs.callPackage`, we directly passed `pkgs` as
 
 In essence, `pkgs.callPackage` is used as `pkgs.callPackage fn args`, where the place holder `fn` is a Nix file or function, and `args` is an attribute set. Here's how it works:
 
-1. `pkgs.callPackge fn args` first checks if `fn` is a function or a file. If it's a file, it imports the function defined within.
+1. `pkgs.callPackage fn args` first checks if `fn` is a function or a file. If it's a file, it imports the function defined within.
    1. After this step, you have a function, typically with parameters like `lib`, `stdenv`, `fetchurl`, and possibly some custom parameters.
-2. Next, `pkgs.callPackge fn args` merges `args` with the `pkgs` attribute set. If there are conflicts, the parameters in `args` will override those in `pkgs`.
-3. Then, `pkgs.callPackge fn args` extracts the parameters of the `fn` function from the merged attribute set and uses them to execute the function.
+2. Next, `pkgs.callPackage fn args` merges `args` with the `pkgs` attribute set. If there are conflicts, the parameters in `args` will override those in `pkgs`.
+3. Then, `pkgs.callPackage fn args` extracts the parameters of the `fn` function from the merged attribute set and uses them to execute the function.
 4. The result of the function execution is a Derivation, which is a Nix package.
 
-What can a Nix file or function, used as an argument to `pkgs.callPackge`, look like? You can examine examples we've used before in [Nixpkgs's Advanced Usage - Introduction](./intro.md): `hello.nix`, `fcitx5-rime.nix`, `vscode/with-extensions.nix`, and `firefox/common.nix`. All of them can be imported using `pkgs.callPackage`.
+What can a Nix file or function, used as an argument to `pkgs.callPackage`, look like? You can examine examples we've used before in [Nixpkgs's Advanced Usage - Introduction](./intro.md): `hello.nix`, `fcitx5-rime.nix`, `vscode/with-extensions.nix`, and `firefox/common.nix`. All of them can be imported using `pkgs.callPackage`.
 
 For instance, if you've defined a custom NixOS kernel configuration in `kernel.nix` and made the development branch name and kernel source code configurable:
 

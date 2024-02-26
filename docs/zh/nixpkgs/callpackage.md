@@ -96,13 +96,13 @@ nix-repl> import ./hello.nix pkgs
 
 简单的说，它的使用格式是 `pkgs.callPackage fn args`，其中 `fn` 是一个 nix 文件或者函数，`args` 是一个 attribute set，它的工作流程是：
 
-1. `pkgs.callPackge fn args` 会先判断 `fn` 是一个函数还是一个文件，如果是文件就先通过 `import xxx.nix` 导入其中定义的函数。
+1. `pkgs.callPackage fn args` 会先判断 `fn` 是一个函数还是一个文件，如果是文件就先通过 `import xxx.nix` 导入其中定义的函数。
     1. 第一步执行完毕得到的是一个函数，其参数通常会有 `lib`, `stdenv`, `fetchurl` 等参数，可能还会带有一些自定义参数。
-2. 之后，`pkgs.callPackge fn args` 会将 `args` 与 `pkgs` 这个 attribute set 合并。如果存在冲突，`args` 中的参数会覆盖 `pkgs` 中的参数。
-3. 再之后，`pkgs.callPackge fn args` 会从上一步得到的 attribute set 中提取出 `fn` 函数的参数，并使用它们来执行 `fn` 函数。
+2. 之后，`pkgs.callPackage fn args` 会将 `args` 与 `pkgs` 这个 attribute set 合并。如果存在冲突，`args` 中的参数会覆盖 `pkgs` 中的参数。
+3. 再之后，`pkgs.callPackage fn args` 会从上一步得到的 attribute set 中提取出 `fn` 函数的参数，并使用它们来执行 `fn` 函数。
 4. 函数执行结果是一个 Derivation，也就是一个 Nix 包。
 
-那可以作为 `pkgs.callPackge` 参数的 nix 文件具体长啥样呢，可以去看看我们前面在 [Nixpkgs 高级用法 - 简介](./intro.md) 中举例过的 `hello.nix` `fcitx5-rime.nix` `vscode/with-extensions.nix` `firefox/common.nix`，它们都可以被 `pkgs.callPackage` 导入。
+那可以作为 `pkgs.callPackage` 参数的 nix 文件具体长啥样呢，可以去看看我们前面在 [Nixpkgs 高级用法 - 简介](./intro.md) 中举例过的 `hello.nix` `fcitx5-rime.nix` `vscode/with-extensions.nix` `firefox/common.nix`，它们都可以被 `pkgs.callPackage` 导入。
 
 比如说我们自定义了一个 NixOS 内核配置 `kernel.nix`，并且将开发版名称与内核源码作为了可变更参数：
 

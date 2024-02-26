@@ -14,7 +14,7 @@ pkgs.fcitx5-rime.override {rimeDataPkgs = [
 
 1. 直接在 GitHub 的 nixpkgs 源码中找：[fcitx5-rime.nix](https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix)
    1. 注意要选择正确的分支，加入你用的是 nixos-unstable 分支，那就要在 nixos-unstable 分支中找。
-2. 通过 `nix repl` 交互式查看：`nix repl '<nixpkgs>'`，然后输入 `:e pkgs.fcitx5-rime`，会通过编辑器打开这个包的源码，然后就可以看到这个包的所有参数了。
+2. 通过 `nix repl` 交互式查看：`nix repl -f '<nixpkgs>'`，然后输入 `:e pkgs.fcitx5-rime`，会通过编辑器打开这个包的源码，然后就可以看到这个包的所有参数了。
 
 通过上述两种方法，都可以看到 `fcitx5-rime` 这个包拥有如下输入参数，它们都是可以通过 `override` 修改的：
 
@@ -83,7 +83,7 @@ helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
 });
 ```
 
-具体的内部参数可以通过 `nix repl '<nixpkgs>'` 然后输入 `:e stdenv.mkDerivation` 来查看其源码。
+具体的内部参数可以通过 `nix repl -f '<nixpkgs>'` 然后输入 `:e stdenv.mkDerivation` 来查看其源码。
 
 ## 参考
 
