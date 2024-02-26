@@ -6,7 +6,7 @@ Nix 是一门比较简单的函数式语言，在已有一定编程基础的情�
 
 先把语法过一遍，有个大概的印象就行，后面需要用到时再根据右侧目录回来复习。
 
->注：如下内容有选择地介绍了 Nix 语言的常用语法，仅适合新手快速入门，请阅读官方文档 [Nix Language](https://nixos.org/manual/nix/stable/language/values) 了解 Nix 语言的完整语法！
+>注：如下内容有选择地介绍了 Nix 语言的常用语法，仅适合新手快速入门，**请阅读官方文档 [Nix Language](https://nixos.org/manual/nix/stable/language/values) 了解 Nix 语言的完整语法**！
 
 ## 基础数据类型一览 {#basic-data-types}
 
