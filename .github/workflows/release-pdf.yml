@@ -21,7 +21,7 @@ jobs:
       run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
     - name: Run a command with nix develop
       run: |
-        nix develop --ignore-environment --command bash -c '
+        nix develop .#export-pdf --ignore-environment --command bash -c '
           pnpm install
           pnpm export-pdf
         '
