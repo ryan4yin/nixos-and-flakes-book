@@ -1,7 +1,7 @@
 {
   "type": "module",
   "devDependencies": {
-    "vitepress": "1.0.0-rc.40",
+    "vitepress": "1.0.0-rc.44",
     "vitepress-export-pdf": "1.0.0-beta.0"
   },
   "scripts": {
