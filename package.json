@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "markdown-it-footnote": "^4.0.0",
-    "sitemap-ts": "^1.6.1"
+    "sitemap-ts": "^1.6.1",
+    "vitepress-plugin-comment-with-giscus": "^1.1.12"
   }
 }
