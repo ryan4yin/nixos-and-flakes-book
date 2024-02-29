@@ -236,18 +236,24 @@ nix flake new example -t github:nix-community/home-manager#nixos
 
 ## Home Manager vs NixOS
 
-有许多的软件包或者软件配置, 既可以使用 NixOS Module 配置(`configuration.nix`)，也可以使用 Home Manager 配置(`home.nix`), 这带来一个选择难题: **将软件包或者配置文件写在 NixOS Module 里还是 Homa Manager 配置里面有何区别? 该如何决策?**
+有许多的软件包或者软件配置, 既可以使用 NixOS Module 配置(`configuration.nix`)，也可以使用 Home Manager 配置(`home.nix`), 这带来一个选择难题：**将软件包或者配置文件写在 NixOS Module 里还是 Homa Manager 配置里面有何区别? 该如何决策?**
 
-首先看看区别, NixOS Module 中安装的软件包跟配置文件都是整个系统全局的, 全局的配置通常会被存放在 `/etc` 中, 而全局的软件也通常被链接到全局. 不论切换到哪个用户下,
-都能正常使用该软件或配置.
+首先看看区别, NixOS Module 中安装的软件包跟配置文件都是整个系统全局的, 全局的配置通常会被存放在 `/etc` 中, 系统全局安装的软件也在任何用户环境下都可使用。
 
-而 Home Manager 安装的所有东西, 都仅在对应的用户下可用, 切换到其他用户后这些配置跟软件就都失效了.
+相对的，通过 Home Manager 安装的配置项将会被链接到对应用户的 Home 目录, 其安装的软件也仅在对应的用户环境下可用, 切换到其他用户后这些配置跟软件就都用不了了。
 
 根据这种特性, 一般的推荐用法是:
 
 - NixOS Module: 安装系统的核心组件, 以及所有用户都需要用到的其他软件包或配置
   - 比如说如果你希望某个软件包能在你切换到 root 用户时仍能正常使用, 或者使某个配置能在系统全局生效, 那就得用 NixOS Module 来安装它
 - Home Manager: 其他所有的配置与软件, 都建议用 Home Manager 来安装
+
+这样做的好处是：
+
+1. 系统层面安装的软件与后台服务常常以 root 特权用户的身份运行，尽量避免在系统层面安装不必要的软件，可以减少系统的安全风险。
+1. Home Manager 的许多配置都可以在 NixOS, macOS 以及其他 Linux 发行版上通用，尽可能选用 Home Manager 来安装软件与配置系统，可以提高配置的可移植性。
+1. 如果你需要多用户，通过 Home Manager 安装的软件与配置，可以更好地隔离不同用户的环境，避免不同用户之间的配置与软件版本冲突。
+
 
 ## 如何以特权身份使用 Home Manager 安装的软件包?
 
