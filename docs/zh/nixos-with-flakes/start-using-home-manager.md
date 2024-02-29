@@ -226,7 +226,7 @@ nix flake new example -t github:nix-community/home-manager#nixos
 
 > 如果你的系统 Hostname 不是 `my-nixos`，你需要在 `flake.nix` 中修改 `nixosConfigurations` 的名称，或者使用 `--flake /etc/nixos#my-nixos` 来指定配置名称。
 
-安装完成后，所有用户级别的程序、配置，都可以通过 `/etc/nixos/home.nix` 管理，并且执行 `sudo nixos-rebuild switch` 时也会自动应用 home-manager 的配置。
+安装完成后，所有用户级别的程序、配置，都可以通过 `/etc/nixos/home.nix` 管理，并且执行 `sudo nixos-rebuild switch` 时也会自动应用 home-manager 的配置。 （**不需要手动运行 `home-manager switch` 这个命令**!）
 
 `home.nix` 中 Home Manager 的配置项有这几种查找方式：
 
