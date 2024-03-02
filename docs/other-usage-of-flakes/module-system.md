@@ -93,8 +93,8 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs.jq;
-      defaultText = literalExpression "pkgs.foo";
+      default = pkgs.hello;
+      defaultText = literalExpression "pkgs.hello";
       description = "foo package to use.";
     };
 
@@ -150,7 +150,7 @@ This way, we can import this module in another Nix file and achieve custom confi
 
   programs.foo ={
     enable = true;
-    package = pkgs.foo;
+    package = pkgs.hello;
     extraConfig = ''
       foo baz
     '';

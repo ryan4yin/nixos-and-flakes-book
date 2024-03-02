@@ -100,8 +100,8 @@ in {
 
     package = mkOption {
       type = types.package;
-      default = pkgs.jq;
-      defaultText = literalExpression "pkgs.foo";
+      default = pkgs.hello;
+      defaultText = literalExpression "pkgs.hello";
       description = "foo package to use.";
     };
 
@@ -157,7 +157,7 @@ in {
 
   programs.foo ={
     enable = true;
-    package = pkgs.foo;
+    package = pkgs.hello;
     extraConfig = ''
       foo baz
     '';
