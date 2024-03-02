@@ -12,6 +12,8 @@ Nix 是一门比较简单的函数式语言，在已有一定编程基础的情�
 1. [**A tour of Nix**](https://nixcloud.io/tour/?id=introduction/nix): 一份在线交互式教程，重点介绍了 Nix 的编程语言构造，以及 Nix 如何用于算法解决问题。
 1. **[Nix Language - Nix Reference Manual]**: Nix 语言的官方文档，是最权威的资料，介绍了 Nix 语言的完整语法。
 
+**如果你英文尚可，我建议直接阅读 [Nix language basics - nix.dev](https://nix.dev/tutorials/nix-language) 了解 Nix 语言的基础语法，本文基本上是对它的简要翻译**。
+
 先把语法过一遍，有个大概的印象就行，后面需要用到时再根据右侧目录回来复习。
 
 >注：如下内容有选择地介绍了 Nix 语言的常用语法，仅适合新手快速入门，**请阅读官方文档 [Nix Language - Nix Reference Manual] 了解 Nix 语言的完整语法**！
@@ -292,8 +294,9 @@ a: b: a + b
 # 双参数函数，带默认值。问号后面的是参数的默认值
 { a ? 1, b ? 2 }: a + b
 
-# 带有命名 attribute set 作为参数的函数，并且使用 ... 收集其他可选参数
-# 命名 args 与 ... 可选参数通常被一起作为函数的参数定义使用
+# 以带有别名的 attribute set （named attribute set）作为参数的函数
+# 并且使用 ... 收集其他附加参数（additional attributes）
+# named attribute set 与 ... 通常被一起作为函数的参数定义使用
 args@{ a, b, ... }: a + b + args.c
 # 如下内容等价于上面的内容,
 { a, b, ... }@args: a + b + args.c
