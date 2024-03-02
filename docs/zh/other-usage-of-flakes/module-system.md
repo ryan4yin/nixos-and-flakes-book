@@ -204,7 +204,7 @@ in {
             };
 
             # 示例 1（正常）
-config.warnings = if config.foo then ["foo"] else [];
+            config.warnings = if config.foo then ["foo"] else [];
 
             # 示例 2（无限递归）
             #   error: infinite recursion encountered
