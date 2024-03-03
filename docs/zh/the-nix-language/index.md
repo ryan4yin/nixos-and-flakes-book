@@ -12,3 +12,6 @@ NixOS-CN 社区已经有了一份不错的 Nix 语言教程，我不打算重复
 
 1. 如果你英文尚可，我建议直接阅读官方的入门教程 [Nix language basics - nix.dev](https://nix.dev/tutorials/nix-language) 了解 Nix 语言的基础语法。
 2. 另外需要注意的是，NixOS-CN 的语言教程跟 nix.dev 都未介绍完整的 Nix 语法，仅适合新手快速入门。**如果你遇到任何自己未接触过的语法，请通过官方文档 [Nix Language - Nix Reference Manual] 查阅 Nix 语言的完整语法**！
+
+
+[Nix Language - Nix Reference Manual]: https://nixos.org/manual/nix/stable/language/
