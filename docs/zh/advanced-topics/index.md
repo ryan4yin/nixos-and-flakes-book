@@ -7,6 +7,10 @@
 - [Nix Channel Status](https://status.nixos.org/): Nix 各 Channels 的当前的构建状态。
 - [nix-community/NUR](https://github.com/nix-community/NUR): Nixpkgs 虽然包含了大量的软件包，但是因为审核速度、许可协议等原因，总有些包并未被及时收录。NUR 则是一个去中心化的 Nix 包 仓库，任何人都可以创建自己的私人仓库并将其加入到 NUR 中以便其他人使用。如果你想要使用 Nixpkgs 中没有的包，可以尝试在这里寻找。如果你希望将自己打的 Nix 包分享给别人，可以根据 NUR 的 README 创建并分享你自己的私人 Nix 仓库。
 
+中文社区：
+
+- [NixOS 中文社区](https://nixos-cn.org/): NixOS 中文社区的官方网站，有一些很不错的内容。
+
 也可以加入中文社区的 NixOS 群组参与讨论:
 
 - Telegram: <https://t.me/nixos_zhcn>
