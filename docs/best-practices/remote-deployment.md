@@ -17,6 +17,7 @@ Before embarking on remote deployment, a few preparatory steps are necessary:
 1. To prevent remote host's sudo password verification failure, choose one of the following methods:
     1. Deploy as the remote host's `root` user.
     2. Add `security.sudo.wheelNeedsPassword = false;` to the remote host's configuration and manually deploy once in advance to grant the user passwordless sudo permissions.. 
+        1. **This will allow user-level programs to silently obtain sudo permissions, posing a security risk**! Therefore, if you choose this method, it's advisable to create a dedicated user for remote deployment, rather than using your regular user account!
 2. Configure SSH public key authentication for the remote hosts.
 
 
