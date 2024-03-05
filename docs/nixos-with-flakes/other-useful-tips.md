@@ -76,7 +76,7 @@ sudo nix store gc --debug
 
 To find out why a package is installed, you can use the following command:
 
-1. Enter a shell with `nix-tree` available: `nix shell nixpkgs#nix-tree`
+1. Enter a shell with `nix-tree` available: `nix shell nixpkgs#nix-tree nixpkgs#ripgrep`
 1. ` nix-store --gc --print-roots | rg -v '/proc/' | rg -Po '(?<= -> ).*' | xargs -o nix-tree`
 1. `/<package-name>` to find the package you want to check.
 1. `w` to show the package is depended by which packages, and the full dependency chain.
