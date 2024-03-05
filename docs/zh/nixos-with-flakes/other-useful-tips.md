@@ -68,11 +68,15 @@ sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/sy
 sudo nix store gc --debug
 ```
 
-以及查看系统层面安装的所有软件包（这个貌似只能用 `nix-env`）：
+## 查询为什么某个包被安装了 {#why-some-packages-are-installed}
 
-```shell
-nix-env -qa
-```
+查询为什么某个包被安装，当前环境中的谁依赖了它:
+
+1. 进入一个带有 `nix-tree` 的 shell：`nix shell nixpkgs#nix-tree`
+1. ` nix-store --gc --print-roots | rg -v '/proc/' | rg -Po '(?<= -> ).*' | xargs -o nix-tree`
+1. `/<package-name>` 以查找到你想查询的包
+1. 输入 `w`，看看谁依赖了它（`why depends`），以及完整的依赖链。
+
 
 # 节约存储空间
 
