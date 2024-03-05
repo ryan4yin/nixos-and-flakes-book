@@ -72,7 +72,7 @@ sudo nix store gc --debug
 
 查询为什么某个包被安装，当前环境中的谁依赖了它:
 
-1. 进入一个带有 `nix-tree` 的 shell：`nix shell nixpkgs#nix-tree`
+1. 进入一个带有 `nix-tree` 与 `rg` 的 shell：`nix shell nixpkgs#nix-tree nixpkgs#ripgrep`
 1. ` nix-store --gc --print-roots | rg -v '/proc/' | rg -Po '(?<= -> ).*' | xargs -o nix-tree`
 1. `/<package-name>` 以查找到你想查询的包
 1. 输入 `w`，看看谁依赖了它（`why depends`），以及完整的依赖链。
