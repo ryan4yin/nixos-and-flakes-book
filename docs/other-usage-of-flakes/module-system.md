@@ -317,9 +317,10 @@ Let's look at an example directly:
           ({config, lib, enableFoo ? false, ...}: {
             imports =
               [
-                # Use lib.optionals to decide whether to import foo.nix
-                (lib.optionals (enableFoo) ./foo.nix)
-              ];
+                 # Other Modules
+              ]
+              # Use lib.optionals to decide whether to import foo.nix
+              ++ (lib.optionals (enableFoo) [./foo.nix]);
           })
         ];
       };

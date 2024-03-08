@@ -328,9 +328,10 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf` 的函数，用于
           ({config, lib, enableFoo ? false, ...}: {
             imports =
               [
-                # 通过 lib.optionals 来决定是否导入 foo.nix
-                (lib.optionals (enableFoo) ./foo.nix)
-              ];
+                 # 这里写其他模块
+              ]
+              # 通过 lib.optionals 来决定是否foo.nix
+              ++ (lib.optionals (enableFoo) [./foo.nix]);
           })
         ];
       };
