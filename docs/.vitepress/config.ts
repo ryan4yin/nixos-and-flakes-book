@@ -84,8 +84,8 @@ export default defineConfig({
 
   themeConfig: {
     footer: {
-      message: "Released under the MIT License.",
-      copyright: "Copyright © 2023-present Ryan Yin",
+      message: 'Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank">CC BY-SA 4.0</a>',
+      copyright: 'Copyright © 2023-present <a href="https://github.com/ryan4yin" target="_blank">Ryan Yin</a>',
     },
 
     search: {
