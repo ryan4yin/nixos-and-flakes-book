@@ -281,7 +281,7 @@ The official documentation for these two parameters is buried deep and is vague 
 In short, `specialArgs` and `_module.args` both require an attribute set as their value, and they serve the same purpose, passing all parameters in the attribute set to all submodules. The difference between them is:
 
 1. The `_module.args` option can be used in any module to pass parameters to each other, which is more flexible than `specialArgs`, which can only be used in the `nixpkgs.lib.nixosSystem` function.
-1. `_module.args` is declared within a module, so it must be evaluated after all modules have been evaluated before it can be used. This means that if you use the parameters passed through `_module.args` in `imports = [ ... ];`, it will result in an `infinite recursion` error. In this case, you must use `specialArgs` instead.
+1. `_module.args` is declared within a module, so it must be evaluated after all modules have been evaluated before it can be used. This means that **if you use the parameters passed through `_module.args` in `imports = [ ... ];`, it will result in an `infinite recursion` error**. In this case, you must use `specialArgs` instead.
 
 The NixOS community generally recommends prioritizing the use of the `_module.args` option and resorting to `specialArgs` only when `_module.args` cannot be used.
 
