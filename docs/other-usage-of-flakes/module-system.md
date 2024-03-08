@@ -314,7 +314,7 @@ Let's look at an example directly:
         system = "x86_64-linux";
         specialArgs = { enableFoo = true; };
         modules = [
-          ({config, lib, enableSteam ? false, ...}: {
+          ({config, lib, enableFoo ? false, ...}: {
             imports =
               [
                 # Use lib.optionals to decide whether to import foo.nix

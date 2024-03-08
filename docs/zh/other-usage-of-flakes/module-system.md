@@ -325,7 +325,7 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf` 的函数，用于
         system = "x86_64-linux";
         specialArgs = { enableFoo = true; };
         modules = [
-          ({config, lib, enableSteam ? false, ...}: {
+          ({config, lib, enableFoo ? false, ...}: {
             imports =
               [
                 # 通过 lib.optionals 来决定是否导入 foo.nix
