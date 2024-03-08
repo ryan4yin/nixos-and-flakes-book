@@ -278,7 +278,7 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 这两者的区别在于：
 
 1. 在任何 Module 中都能使用 `_module.args` 这个 option，通过它互相传递参数，这要比只能在 `nixpkgs.lib.nixosSystem` 函数中使用的 `specialArgs` 更灵活。
-1. `_module.args` 是在 Module 中声明使用的，因此必须在所有 Modules 都已经被求值后，才能使用它。这导致如果你在 `imports = [ ... ];` 中使用 `_module.args` 传递的参数，会报错 `infinite recursion`，这种场景下你必须改用 `specialArgs` 才行。
+1. `_module.args` 是在 Module 中声明使用的，因此必须在所有 Modules 都已经被求值后，才能使用它。这导致**如果你在 `imports = [ ... ];` 中使用 `_module.args` 传递的参数，会报错 `infinite recursion`，这种场景下你必须改用 `specialArgs` 才行**。
 
 NixOS 社区比较推荐优先使用 `_module.args` 这个 options，仅在无法使用 `_module.args` 时才改用 `specialArgs`。
 
