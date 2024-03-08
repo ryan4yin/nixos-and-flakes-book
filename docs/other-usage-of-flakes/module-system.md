@@ -300,6 +300,8 @@ The disadvantage of this method is that all Nix modules that require conditional
 
 The main advantage of this method is that it is much simpler than the methods previously introduced, requiring no modification to the module content, just using `lib.optionals` in `imports` to decide whether to import a module or not.
 
+> Details about how `lib.optionals` works: <https://noogle.dev/f/lib/optionals>
+
 Let's look at an example directly:
 
 ```nix

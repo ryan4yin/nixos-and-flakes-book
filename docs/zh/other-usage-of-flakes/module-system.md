@@ -311,6 +311,8 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf` 的函数，用于
 
 这种方式的主要好处是，它要比前面介绍的方法简单许多，不需要对模块内容做任何修改，只需要在 `imports` 中使用 `lib.optionals` 来决定是否导入某个模块即可。
 
+> `lib.optionals` 函数的详细文档: <https://noogle.dev/f/lib/optionals>
+
 直接看例子：
 
 ```nix
