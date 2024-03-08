@@ -1,4 +1,4 @@
-# 模块系统与自定义 options
+# 模块系统与自定义 options {#module-system}
 
 我们在前面的 NixOS 配置中通过设置各种 `options` 的值来配置 NixOS 或者 Home Manager，这些 `options` 实际都在这两个位置定义：
 
@@ -6,7 +6,6 @@
 - Home Manager: [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-23.11/modules): 可在 <https://nix-community.github.io/home-manager/options.xhtml> 中找到其所有的 options.
 
 > 如果你还使用 nix-darwin，那么它的配置也是类似的，其模块系统的实现位于 [nix-darwin/modules](https://github.com/LnL7/nix-darwin/tree/master/modules)
-
 
 而上述 NixOS Modules 跟 Home Manager Modules 的基础，是 Nixpkgs 中实现的一套通用模块系统 [lib/modules.nix][lib/modules.nix]，这套模块系统的官方文档如下（即使是对熟练使用 NixOS 的用户而言，要看懂这玩意儿也不是件容易的事...）：
 
@@ -19,7 +18,7 @@
 总之，模块系统是由 Nixpkgs 实现的，并不是 Nix 包管理器的一部分，因此它的文档也不在 Nix 包管理器的文档中。
 另外 NixOS 与 Home Manager 都是基于 Nixpkgs 的模块系统实现的。
 
-## 模块系统有什么用？
+## 模块系统有什么用？ {#what-is-module-system}
 
 我们作为一个普通用户，使用 NixOS 与 Home Manager 基于模块系统实现的各种 options 就已经能满足我们大部分的需求了。
 那么深入学习模块系统对于我们来说，还有什么好处呢？
@@ -55,7 +54,7 @@
 在深入学习模块系统之前，我再强调一下，如下内容不是必须学习与使用的，有很多 NixOS 用户并未自定义任何 `options`，只是简单地使用 `imports` 就能满足他们的需求了。
 如果你是新手，可以考虑在遇到类似上面这种，`imports` 解决不了的问题时再来学习这部分内容，这是完全 OK 的。
 
-## 基本结构与用法
+## 基本结构与用法 {#basic-structure-and-usage}
 
 Nixpkgs 中定义的模块，其基本结构如下：
 
@@ -167,7 +166,7 @@ in {
 
 上面这个例子中我们为 `options` 赋值的方式实际上是一种**缩写**，当一个模块中只声明了 `options`，而没有声明 `config` （以及其他模块系统的特殊参数）时，我们可以省略掉 `config` 前缀，直接使用 `options` 的名称进行赋值。
 
-## 模块系统的赋值与延迟求值
+## 模块系统的赋值与延迟求值 {#module-system-assignment-and-lazy-evaluation}
 
 模块系统充分利用了 Nix 的延迟求值特性，这也是它能实现参数化配置的关键。
 
@@ -177,25 +176,14 @@ in {
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-
-  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
-    home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "test" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
-          ({
-            config,
-            lib,
-            ...
-          }: {
+          ({config, lib, ...}: {
             options = {
               foo = lib.mkOption {
                 default = false;
@@ -227,14 +215,14 @@ in {
 下面分别解释说明下：
 
 1. 示例一计算流程：`config.warnings` => `config.foo` => `config`
-    1. 首先，Nix 尝试计算 `config.warnings` 的值，但发现它依赖于 `config.foo`.
-    2. 接着，Nix 尝试计算 `config.foo` 的值，它依赖于其外层的 `config`.
-    3. Nix 尝试计算 `config` 的值，`config` 中未被 `config.foo` 真正使用的内容都会被 Nix 延迟求值，因此这里不会递归依赖 `config.warnings`。
-    4. `config.foo` 求值结束，接着 `config.warnings` 被赋值，计算结束。
+   1. 首先，Nix 尝试计算 `config.warnings` 的值，但发现它依赖于 `config.foo`.
+   2. 接着，Nix 尝试计算 `config.foo` 的值，它依赖于其外层的 `config`.
+   3. Nix 尝试计算 `config` 的值，`config` 中未被 `config.foo` 真正使用的内容都会被 Nix 延迟求值，因此这里不会递归依赖 `config.warnings`。
+   4. `config.foo` 求值结束，接着 `config.warnings` 被赋值，计算结束。
 2. 示例二：`config` => `config.foo` => `config`
-    1. 首先，Nix 尝试计算 `config` 的值，但发现它依赖于 `config.foo`.
-    2. 接着，Nix 尝试计算 `config.foo` 的值，它依赖于其外层的 `config`.
-    3. Nix 尝试计算 `config` 的值，这又跳转到步骤 1，于是进入无限递归，最终报错。
+   1. 首先，Nix 尝试计算 `config` 的值，但发现它依赖于 `config.foo`.
+   2. 接着，Nix 尝试计算 `config.foo` 的值，它依赖于其外层的 `config`.
+   3. Nix 尝试计算 `config` 的值，这又跳转到步骤 1，于是进入无限递归，最终报错。
 3. 示例三：跟示例二唯一的区别是改用了 `lib.mkIf` 解决了无限递归问题。
 
 其关键就在于 `lib.mkIf` 这个函数，使用它定义的 `config` 会被 Nix 延迟求值，也就是说会在 `config.foo` 求值结束后，才会真正计算 `config = lib.mkIf ...` 的值。
@@ -246,8 +234,7 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf` 的函数，用于
 1. `lib.mkOrder`, `lib.mkBefore` 与 `lib.mkAfter`: 同上
 1. 查看 [Option Definitions - NixOS][Option Definitions - NixOS] 了解更多与 options 赋值（definition）相关的函数。
 
-
-## Options 声明与类型检查
+## Options 声明与类型检查 {#option-declarations-and-type-checking}
 
 模块系统的赋值是我们最常用的功能，而如果我们需要自定义一些 `options`，还需要深入了解下 options 的声明与类型检查。
 
@@ -256,9 +243,115 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf` 的函数，用于
 - [Option Declarations - NixOS][Option Declarations - NixOS]
 - [Options Types - NixOS][Options Types - NixOS]
 
-##  传递非默认参数到模块系统中
+## 传递非默认参数到模块系统中 {#pass-non-default-parameters-to-the-module-system}
 
 我们在 [使用 Flakes 来管理你的 NixOS](../nixos-with-flakes/nixos-with-flakes-enabled.md#pass-non-default-parameters-to-submodules) 中已经介绍了如何使用 `specialArgs` 跟 `_module.args` 来传递额外的参数给其他 Modules 函数，这里不再赘述。
+
+## 如何选择性地导入模块 {#selectively-import-modules}
+
+在上面的例子中，我们已经介绍了如何通过自定义的 options 来决定是否启用某个功能，
+但我们的代码实现都是在同一个 nix 文件中的，那么如果我们的模块是分散在不同的文件中的，该如何实现呢？
+
+我们先来看看一些常见的错误用法，然后再来介绍正确的使用方式。
+
+### 错误用法一 - 在 `config = { ... };` 中使用 `imports` {#wrong-usage-1}
+
+你最先想到的，大概是直接在 `config = { ... };` 中使用 `imports`，类似这样：
+
+```nix
+# ./flake.nix
+{
+  description = "NixOS Flake for Test";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+
+  outputs = {nixpkgs, ...}: {
+    nixosConfigurations = {
+      "test" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ({config, lib, ...}: {
+            options = {
+              foo = lib.mkOption {
+                default = false;
+                type = lib.types.bool;
+              };
+            };
+
+            config = lib.mkIf config.foo {
+              # 在 config 中使用 imports 会报错
+              imports = [
+                {warnings = ["foo"];}
+
+                # ...省略其他模块或文件路径
+              ];
+            };
+          })
+        ];
+      };
+    };
+  };
+}
+```
+
+但这样是行不通的。
+你可以尝试使用上述 `flake.nix` 运行 `nix eval .#nixosConfigurations.test.config.warnings`，会遇到报错 `error: The option 'imports' does not exist.`
+
+这是因为 `config` 是一个普通的 attribute set，而 `imports` 是模块系统的特殊参数。
+并不存在 `config.imports` 这样的 options 定义。
+
+### 正确用法一 - 为所有需要条件导入的模块定义各自的 `options` {#correct-usage-1}
+
+这是最推荐的方式。NixOS 系统中的模块都是这样实现的，在 <https://search.nixos.org/options> 中搜索 `enable` 能看到非常多的可通过 `enable` option 启用或关闭的系统模块。
+
+具体的写法已经在前面的 [基本结构与用法](#basic-structure-and-usage) 中介绍过了，这里不再赘述。
+
+它的缺点是，所有需要条件导入的 Nix 模块都要做改造，把其中的配置声明全部移到 `config = { ...};` 代码块中，代码复杂度会增加，同时也对新手不太友好。
+
+### 正确用法二 - 在 `imports = [];` 中使用 `lib.optionals` {#correct-usage-2}
+
+这种方式的主要好处是，它要比前面介绍的方法简单许多，不需要对模块内容做任何修改，只需要在 `imports` 中使用 `lib.optionals` 来决定是否导入某个模块即可。
+
+直接看例子：
+
+```nix
+# ./flake.nix
+{
+  description = "NixOS Flake for Test";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+
+  outputs = {nixpkgs, ...}: {
+    nixosConfigurations = {
+      "test" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { enableFoo = true; };
+        modules = [
+          ({config, lib, enableSteam ? false, ...}: {
+            imports =
+              [
+                # 通过 lib.optionals 来决定是否导入 foo.nix
+                (lib.optionals (enableFoo) ./foo.nix)
+              ];
+          })
+        ];
+      };
+    };
+  };
+}
+```
+
+```nix
+# ./foo.nix
+{ warnings = ["foo"];}
+```
+
+将上述两个 nix 文件保存到一个文件夹中，然后在文件夹中运行 `nix eval .#nixosConfigurations.test.config.warnings`，运行正常：
+
+```bash
+› nix eval .#nixosConfigurations.test.config.warnings
+[ "foo" ]
+```
+
+这里需要注意的一点是，**不能在 `imports =[ ... ];` 中使用由 `_module.args` 传递的参数**，我们在前面 [传递非默认参数到模块系统中 ](../nixos-with-flakes/nixos-with-flakes-enabled#pass-non-default-parameters-to-submodules) 一章中已经做过详细说明。
 
 ## References
 
@@ -267,7 +360,6 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf` 的函数，用于
 - [NixOS: config argument - NixOS Wiki](https://nixos.wiki/wiki/NixOS:config_argument)
 - [Module System - Nixpkgs][Module System - Nixpkgs]
 - [Writing NixOS Modules - Nixpkgs][Writing NixOS Modules - Nixpkgs]
-
 
 [lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/23.11/lib/modules.nix#L995
 [Module System - Nixpkgs]: https://github.com/NixOS/nixpkgs/blob/23.11/doc/module-system/module-system.chapter.md
