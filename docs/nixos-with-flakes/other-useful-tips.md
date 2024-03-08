@@ -68,7 +68,7 @@ To clean up historical versions and free up storage space, use the following com
 sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/system
 
 # Run garbage collection after wiping history
-sudo nix store gc --debug
+sudo nix-collect-garbage --delete-old
 ```
 
 

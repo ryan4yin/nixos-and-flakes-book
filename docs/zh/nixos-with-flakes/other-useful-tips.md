@@ -65,7 +65,7 @@ nix profile history --profile /nix/var/nix/profiles/system
 # 清理 7 天之前的所有历史版本
 sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/system
 # 清理历史版本并不会删除数据，还需要手动 gc 下
-sudo nix store gc --debug
+sudo nix-collect-garbage --delete-old
 ```
 
 ## 查询为什么某个包被安装了 {#why-some-packages-are-installed}
