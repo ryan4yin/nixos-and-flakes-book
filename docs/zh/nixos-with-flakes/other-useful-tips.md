@@ -2,11 +2,14 @@
 
 ## 查看详细错误信息
 
-如果你在部署配置时遇到了任何错误，都可以尝试在 `nixos-rebuild` 命令后面添加 `--show-trace -L` 参数来获取详细的错误信息。举例如下：
+如果你在部署配置时遇到了任何错误，都可以尝试在 `nixos-rebuild` 命令后面添加 `--show-trace --print-build-logs --verbose` 参数来获取详细的错误信息。举例如下：
 
 ```bash
 cd /etc/nixos
-sudo nixos-rebuild switch --flake .#myhost --show-trace -L
+sudo nixos-rebuild switch --flake .#myhost --show-trace --print-build-logs --verbose
+
+# 更简洁的版本
+sudo nixos-rebuild switch --flake .#myhost --show-trace -L -v
 ```
 
 ## 使用 Git 管理 NixOS 配置 {#git-manage-nixos-config}

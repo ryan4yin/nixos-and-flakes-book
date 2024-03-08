@@ -403,8 +403,6 @@ Make the necessary changes and deploy with `sudo nixos-rebuild switch`. The depl
 
 After deployment, you can directly test and verify the installation using the `hx` command in the terminal.
 
-> If you encounter any errors during deployment, you can try adding the `--show-trace -L` parameters to the `nixos-rebuild` command to get detailed error information.
-
 Additionally, if you just want to try out the latest version of Helix and decide whether to install it on your system later, there is a simpler way to do it in one command (but as mentioned earlier, compiling from source will take a long time):
 
 ```bash

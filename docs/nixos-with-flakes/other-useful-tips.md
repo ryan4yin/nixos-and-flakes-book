@@ -2,11 +2,14 @@
 
 ## Show detailed error messages
 
-You can always try to add `--show-trace -L` to the `nixos-rebuild` command to get the detailed error message if you encounter any errors during the deployment. e.g.
+You can always try to add `--show-trace --print-build-logs --verbose` to the `nixos-rebuild` command to get the detailed error message if you encounter any errors during the deployment. e.g.
 
 ```bash
 cd /etc/nixos
-sudo nixos-rebuild switch --flake .#myhost --show-trace -L
+sudo nixos-rebuild switch --flake .#myhost --show-trace --print-build-logs --verbose
+
+# A more concise version
+sudo nixos-rebuild switch --flake .#myhost --show-trace -L -v
 ```
 
 ## Managing the Configuration with Git
