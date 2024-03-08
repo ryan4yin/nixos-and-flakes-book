@@ -229,7 +229,7 @@ In other words, you can use it like this:
 ## Accelerate Package Downloads via a Proxy Server {#accelerate-package-downloads-via-a-proxy-server} 
 
 > Referenced from Issue: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
-Although it was mentioned earlier that a transparent proxy running on your router or local machine can completely solve the issue of slow package downloads in NixOS, the configuration is rather cumbersome and often requires additional hardware.
+Although it's mentioned earlier that a transparent proxy running on your router or local machine can completely solve the issue of slow package downloads in NixOS, the configuration is rather cumbersome and often requires additional hardware.
 
 More users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy running on their machine. Here's how to set it up.
 Using methods like `export HTTPS_PROXY=http://127.0.0.1:7890` in the Terminal will not work because the actual work is done by a background process called `nix-daemon`, not by commands directly executed in the Terminal.
