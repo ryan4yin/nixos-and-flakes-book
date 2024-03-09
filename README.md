@@ -51,7 +51,7 @@ Thank you to [all the people](https://github.com/ryan4yin/nixos-and-flakes-book/
 
 ## References
 
-- The cover is based on the image from anime "[The Rolling Girls](https://en.m.wikipedia.org/wiki/The_Rolling_Girls)"
+- The cover is based on the image from anime "[The Rolling Girls](https://en.wikipedia.org/wiki/The_Rolling_Girls)"
 - The NixOS logo is from [NixOS](https://nixos.org/)
 
 ## License
