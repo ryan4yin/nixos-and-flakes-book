@@ -139,7 +139,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
   programs.bash = {
     enable = true;
     enableCompletion = true;
-    # TODO add your cusotm bashrc here
+    # TODO add your custom bashrc here
     bashrcExtra = ''
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/go/bin"
     '';
