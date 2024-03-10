@@ -69,7 +69,7 @@ There are existing Nix packaging tools available to assist with this:
 Python dependencies must be installed through `flake.nix` because the data is located in the `/nix/store` directory,
 and these modification commands can only be executed during the Nix build phase.
 
-- [DavHau/mach-nix](https://github.com/DavHau/mach-nix)
+- [DavHau/mach-nix](https://github.com/DavHau/mach-nix) (currently unmaintained)
 - [poetry2nix](https://github.com/nix-community/poetry2nix)
 
 The advantage of these tools is that they utilize the lock mechanism of Nix Flakes to improve reproducibility.
