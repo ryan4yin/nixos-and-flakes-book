@@ -2,7 +2,9 @@
 
 The Nix language is essential for declaring configurations to be built by Nix. To fully enjoy the benefits of NixOS and Flakes, it is necessary to grasp the fundamentals of this language.
 
-The Nix language is a straightforward functional language. If you have some programming experience, it should take you less than 2 hours to grasp its basics.
+The Nix language is a straightforward "lazy" functional language. The lazy aspect means a value doesn't exist until it is used. In particular, a function return a set of values can be provided that result as input (like a snake eating its tail) provided the part of the function using the value is not responsible for also producing the part of the value it is using. If that is the case the you get a recursion error. This recursion pattern is somewhat common in NixPkgs where some functions expect their result as a `self` argument. (This is curious considering the `rec { }` offers a near similar ability.)
+
+If you have some programming experience, it should take you less than 2 hours to grasp its basics.
 
 The community already has a lot of good Nix language tutorials, so I won't remake the wheel. 
 To get started, I recommend reading the following resources for a quick introduction to the Nix language:
