@@ -157,7 +157,7 @@ According to the official documentation, if the value of the `xxx` parameter is 
 
 In other words, you can use it like this:
 
-```nix{7,13,37-58}
+```nix{7,13,37-60}
 {
   description = "NixOS configuration of Ryan Yin";
 

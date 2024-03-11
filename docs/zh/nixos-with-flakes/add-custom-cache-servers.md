@@ -160,7 +160,7 @@ Nix 提供了 [`extra-` 前缀](https://nixos.org/manual/nix/stable/command-ref/
 
 也就是说我们可以这么用：
 
-```nix{7,13,37-58}
+```nix{7,13,37-60}
 {
   description = "NixOS configuration of Ryan Yin";
 
