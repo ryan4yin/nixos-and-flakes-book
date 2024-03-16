@@ -1,20 +1,11 @@
 # Packging 101
 
-> WIP work in progress
+WIP work in progress, please refer to the following reference documents to learn Nix packaging.
 
-TODO
 
-## 1. stdenv
+## 参考文档
 
-TODO
-
-## 2. language specific frameworks
-
-TODO
-
-## References
-
-- [NixOS 系列（三）：软件打包，从入门到放弃 - LanTian](https://lantian.pub/article/modify-computer/nixos-packaging.lantian/)
+- [NixOS Series 3: Software Packaging 101](https://lantian.pub/en/article/modify-computer/nixos-packaging.lantian/)
 - [How to Learn Nix, Part 28: The standard environment](https://ianthehenry.com/posts/how-to-learn-nix/the-standard-environment/)
 - [stdenv - Nixpkgs Manual](https://github.com/NixOS/nixpkgs/tree/nixos-unstable/doc/stdenv)
 - [languages-frameworks - Nixpkgs Manual](https://github.com/NixOS/nixpkgs/tree/nixos-unstable/doc/languages-frameworks)
