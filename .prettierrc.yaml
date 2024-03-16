@@ -1,5 +1,6 @@
 # https://prettier.io/docs/en/options
 semi: false
 singleQuote: false
-printWidth: 80
+printWidth: 90
+proseWrap: always # always change wrapping in markdown text
 trailingComma: es5

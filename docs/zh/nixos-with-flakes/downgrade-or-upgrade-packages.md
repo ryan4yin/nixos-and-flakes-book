@@ -1,10 +1,15 @@
 # 降级与升级软件包 {#rollback-package-version}
 
-在使用 Nix Flakes 后，目前大家用得比较多的都是 `nixos-unstable` 分支的 nixpkgs，有时候就会遇到一些 bug，比如我最近（2023/5/6）就遇到了 [chrome/vscode 闪退的问题](https://github.com/swaywm/sway/issues/7562)。
+在使用 Nix Flakes 后，目前大家用得比较多的都是 `nixos-unstable` 分支的 nixpkgs，有时候就会
+遇到一些 bug，比如我最近（2023/5/6）就遇到了
+[chrome/vscode 闪退的问题](https://github.com/swaywm/sway/issues/7562)。
 
-这时候就需要退回到之前的版本，在 Nix Flakes 中，所有的包版本与 hash 值与其 input 数据源的 git commit 是一一对应的关系，因此回退某个包的到历史版本，就需要锁定其 input 数据源的 git commit.
+这时候就需要退回到之前的版本，在 Nix Flakes 中，所有的包版本与 hash 值与其 input 数据源的
+git commit 是一一对应的关系，因此回退某个包的到历史版本，就需要锁定其 input 数据源的 git
+commit.
 
-为了实现上述需求，首先修改 `/etc/nixos/flake.nix`，示例内容如下（主要是利用 `specialArgs` 参数）：
+为了实现上述需求，首先修改 `/etc/nixos/flake.nix`，示例内容如下（主要是利用 `specialArgs`
+参数）：
 
 ```nix{8-13,19-20,27-44}
 {
@@ -94,6 +99,11 @@
 }
 ```
 
-配置完成后，通过 `sudo nixos-rebuild switch` 部署即可将 firefox/chrome/vscode 三个软件包回退到 stable 分支的版本。
+配置完成后，通过 `sudo nixos-rebuild switch` 部署即可将 firefox/chrome/vscode 三个软件包回
+退到 stable 分支的版本。
 
-> 根据 @fbewivpjsbsby 补充的文章 [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347)，在子模块或者子 flakes 中用 `import` 来定制 `nixpkgs` 不是一个好的习惯，因为每次 `import` 都会重新求值并产生一个新的 nixpkgs 实例，在配置越来越多时会导致构建时间变长、内存占用变大。所以这里改为了在 `flake.nix` 中创建所有 nixpkgs 实例。
+> 根据 @fbewivpjsbsby 补充的文章
+> [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347)，
+> 在子模块或者子 flakes 中用 `import` 来定制 `nixpkgs` 不是一个好的习惯，因为每次 `import`
+> 都会重新求值并产生一个新的 nixpkgs 实例，在配置越来越多时会导致构建时间变长、内存占用变
+> 大。所以这里改为了在 `flake.nix` 中创建所有 nixpkgs 实例。

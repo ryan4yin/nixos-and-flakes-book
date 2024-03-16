@@ -1,8 +1,9 @@
 LICENSE.md
-dist
+dist/
 pnpm-lock.yaml
 flake.lock
 vercel.json
 cache
 temp
 .temp
+.github/

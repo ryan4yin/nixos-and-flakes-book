@@ -1,6 +1,7 @@
 # Flake Inputs
 
-The `inputs` section in `flake.nix` is an attribute set used to specify the dependencies of the current flake. There are various types of inputs, as shown in the examples below:
+The `inputs` section in `flake.nix` is an attribute set used to specify the dependencies
+of the current flake. There are various types of inputs, as shown in the examples below:
 
 ```nix
 {

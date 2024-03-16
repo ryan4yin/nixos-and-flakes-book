@@ -105,10 +105,14 @@ An example of kernel development with `flake.nix`.
 }
 ```
 
-With the above `flake.nix`, I can enter the kernel build environment with `nix develop .#kernel`, and then use `unpackPhase` to unpack the kernel source code and cd into it.
-But I can't use `make menuconfig` to configure the kernel, because the `ncurses` package is missing in this environment.
+With the above `flake.nix`, I can enter the kernel build environment with
+`nix develop .#kernel`, and then use `unpackPhase` to unpack the kernel source code and cd
+into it. But I can't use `make menuconfig` to configure the kernel, because the `ncurses`
+package is missing in this environment.
 
-To solve this problem, I add a `fhs` environment to install the `ncurses` package and other necessary packages, and then I can use `nix develop .#fhs` to enter this environment and use `make menuconfig` to configure the kernel.
+To solve this problem, I add a `fhs` environment to install the `ncurses` package and
+other necessary packages, and then I can use `nix develop .#fhs` to enter this environment
+and use `make menuconfig` to configure the kernel.
 
 ## References
 

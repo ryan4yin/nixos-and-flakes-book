@@ -26,9 +26,7 @@ export default defineConfig({
     return {
       frontmatter: {
         ...pageData.frontmatter,
-        head: [
-          ["script", { type: "application/ld+json" }, getJSONLD(pageData)],
-        ],
+        head: [["script", { type: "application/ld+json" }, getJSONLD(pageData)]],
       },
     }
   },
@@ -42,16 +40,14 @@ export default defineConfig({
       "meta",
       {
         name: "og:image",
-        content:
-          "https://nixos-and-flakes.thiscute.world/nixos-and-flakes-book.webp",
+        content: "https://nixos-and-flakes.thiscute.world/nixos-and-flakes-book.webp",
       },
     ],
     [
       "meta",
       {
         name: "twitter:image",
-        content:
-          "https://nixos-and-flakes.thiscute.world/nixos-and-flakes-book.webp",
+        content: "https://nixos-and-flakes.thiscute.world/nixos-and-flakes-book.webp",
       },
     ],
 
@@ -101,8 +97,7 @@ export default defineConfig({
     },
 
     editLink: {
-      pattern:
-        "https://github.com/ryan4yin/nixos-and-flakes-book/edit/main/docs/:path",
+      pattern: "https://github.com/ryan4yin/nixos-and-flakes-book/edit/main/docs/:path",
     },
 
     socialLinks: [
@@ -301,15 +296,11 @@ function themeConfigEnglish() {
         },
         {
           text: "Advanced Topics",
-          items: [
-            { text: "Advanced Topics", link: "/advanced-topics/index.md" },
-          ],
+          items: [{ text: "Advanced Topics", link: "/advanced-topics/index.md" }],
         },
         {
           text: "Frequently Asked Questions",
-          items: [
-            { text: "Frequently Asked Questions", link: "/faq/index.md" },
-          ],
+          items: [{ text: "Frequently Asked Questions", link: "/faq/index.md" }],
         },
       ],
     },
@@ -498,9 +489,7 @@ function themeConfigChinese() {
         },
         {
           text: "其他进阶话题",
-          items: [
-            { text: "其他进阶话题", link: "/zh/advanced-topics/index.md" },
-          ],
+          items: [{ text: "其他进阶话题", link: "/zh/advanced-topics/index.md" }],
         },
         {
           text: "常见问题 FAQ",

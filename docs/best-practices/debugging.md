@@ -2,7 +2,9 @@
 
 ## Show detailed error messages
 
-You can always try to add `--show-trace --print-build-logs --verbose` to the `nixos-rebuild` command to get the detailed error message if you encounter any errors during the deployment. e.g.
+You can always try to add `--show-trace --print-build-logs --verbose` to the
+`nixos-rebuild` command to get the detailed error message if you encounter any errors
+during the deployment. e.g.
 
 ```bash
 cd /etc/nixos
@@ -14,9 +16,11 @@ sudo nixos-rebuild switch --flake .#myhost --show-trace -L -v
 
 ## Debugging with `nix repl`
 
-> NOTE: If you have disabled `NIX_PATH`, you won't be able to use syntax like `<nixpkgs>`. Instead, you should use `nix repl -f flake:nixpkgs` to load nixpkgs.
+> NOTE: If you have disabled `NIX_PATH`, you won't be able to use syntax like `<nixpkgs>`.
+> Instead, you should use `nix repl -f flake:nixpkgs` to load nixpkgs.
 
-We have frequently used nix repl `<nixpkgs>` throughout this guide to examine the source code. It is a powerful tool that helps us understand how things work in Nix.
+We have frequently used nix repl `<nixpkgs>` throughout this guide to examine the source
+code. It is a powerful tool that helps us understand how things work in Nix.
 
 Let's take a closer look at the help message of nix repl:
 
@@ -51,7 +55,8 @@ The following commands are available:
 
 There are a couple of expressions that I frequently use: `:lf <ref>` and `:e <expr>`.
 
-The `:e <expr>` command is very intuitive, so I won't go into detail about it. Instead, let's focus on `:lf <ref>`:
+The `:e <expr>` command is very intuitive, so I won't go into detail about it. Instead,
+let's focus on `:lf <ref>`:
 
 ```nix
 # cd into my nix-config repo(you should replace it with your own nix-config repo)
@@ -156,7 +161,8 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/
 #......
 ```
 
-As you can see, after loading your Nix flake into the REPL, you can check every attribute of the flake. This capability is very convenient for debugging purposes.
+As you can see, after loading your Nix flake into the REPL, you can check every attribute
+of the flake. This capability is very convenient for debugging purposes.
 
 ## Debugging functions provided by nixpkgs
 

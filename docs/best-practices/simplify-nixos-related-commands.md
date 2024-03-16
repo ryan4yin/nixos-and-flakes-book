@@ -1,12 +1,16 @@
 # Simplifying NixOS-Related Commands
 
-To simplify NixOS-related commands, I utilize [just](https://github.com/casey/just), which proves to be very convenient.
+To simplify NixOS-related commands, I utilize [just](https://github.com/casey/just), which
+proves to be very convenient.
 
-Alternatively, you can also use similar tools like Makefile or [cargo-make](https://github.com/sagiegurari/cargo-make) for this purpose. Here, I will provide my approach as a reference.
+Alternatively, you can also use similar tools like Makefile or
+[cargo-make](https://github.com/sagiegurari/cargo-make) for this purpose. Here, I will
+provide my approach as a reference.
 
 Below is an example of how my Justfile looks:
 
-> The latest Justfile I'm using: [ryan4yin/nix-config/Justfile](https://github.com/ryan4yin/nix-config/blob/main/Justfile)
+> The latest Justfile I'm using:
+> [ryan4yin/nix-config/Justfile](https://github.com/ryan4yin/nix-config/blob/main/Justfile)
 
 ```Makefile
 # just is a command runner, Justfile is very similar to Makefile, but simpler.
@@ -77,6 +81,9 @@ idols: aqua ruby kana
 idols-debug: aqua-debug ruby-debug kana-debug
 ```
 
-By Save this `Justfile` to the root directory of your Nix flake. Then, I can use `just deploy` to deploy the configuration to my local machine, and `just idols` to deploy the configuration to all my remote servers.
+By Save this `Justfile` to the root directory of your Nix flake. Then, I can use
+`just deploy` to deploy the configuration to my local machine, and `just idols` to deploy
+the configuration to all my remote servers.
 
-This approach simplifies the execution of NixOS commands by abstracting them behind target names in the Justfile, providing a more user-friendly and convenient experience.
+This approach simplifies the execution of NixOS commands by abstracting them behind target
+names in the Justfile, providing a more user-friendly and convenient experience.

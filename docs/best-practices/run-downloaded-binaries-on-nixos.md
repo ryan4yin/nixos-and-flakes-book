@@ -1,11 +1,18 @@
 # Running Downloaded Binaries on NixOS
 
-Since NixOS does not strictly adhere to the Filesystem Hierarchy Standard (FHS), binaries downloaded from the internet may not work directly on NixOS. However, there are various methods available to make them function properly.
+Since NixOS does not strictly adhere to the Filesystem Hierarchy Standard (FHS), binaries
+downloaded from the internet may not work directly on NixOS. However, there are various
+methods available to make them function properly.
 
-For a comprehensive guide that presents ten different approaches to run downloaded binaries on NixOS, I recommend reading the article [Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos) and take a look at [nix-alien](https://github.com/thiagokokada/nix-alien).
-Or if you are familiar with Docker, running the binary in a Docker container is also a good choice.
+For a comprehensive guide that presents ten different approaches to run downloaded
+binaries on NixOS, I recommend reading the article
+[Different methods to run a non-nixos executable on Nixos](https://unix.stackexchange.com/questions/522822/different-methods-to-run-a-non-nixos-executable-on-nixos)
+and take a look at [nix-alien](https://github.com/thiagokokada/nix-alien). Or if you are
+familiar with Docker, running the binary in a Docker container is also a good choice.
 
-Among these methods, I personally prefer creating an FHS environment to run the binary, as it proves to be both convenient and easy to use. To set up such an environment, you can add the following code to one of your Nix modules:
+Among these methods, I personally prefer creating an FHS environment to run the binary, as
+it proves to be both convenient and easy to use. To set up such an environment, you can
+add the following code to one of your Nix modules:
 
 ```nix
 { config, pkgs, lib, ... }:
@@ -42,7 +49,8 @@ Among these methods, I personally prefer creating an FHS environment to run the 
 }
 ```
 
-After applying the updated configuration, you can use the `fhs` command to enter the FHS environment, and then execute the binary you downloaded, for example:
+After applying the updated configuration, you can use the `fhs` command to enter the FHS
+environment, and then execute the binary you downloaded, for example:
 
 ```shell
 # Activating FHS drops me into a shell that resembles a "normal" Linux environment.
@@ -55,7 +63,11 @@ $ fhs
 
 ## References
 
-- [Tips&Tricks for NixOS Desktop - NixOS Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]: This resource provides a collection of useful tips and tricks for NixOS desktop users.
-- [nix-alien](https://github.com/thiagokokada/nix-alien): Run unpatched binaries on Nix/NixOS
+- [Tips&Tricks for NixOS Desktop - NixOS
+  Discourse][Tips&Tricks for NixOS Desktop - NixOS Discourse]: This resource provides a
+  collection of useful tips and tricks for NixOS desktop users.
+- [nix-alien](https://github.com/thiagokokada/nix-alien): Run unpatched binaries on
+  Nix/NixOS
 
-[Tips&Tricks for NixOS Desktop - NixOS Discourse]: https://discourse.nixos.org/t/tips-tricks-for-nixos-desktop/28488
+[Tips&Tricks for NixOS Desktop - NixOS Discourse]:
+  https://discourse.nixos.org/t/tips-tricks-for-nixos-desktop/28488

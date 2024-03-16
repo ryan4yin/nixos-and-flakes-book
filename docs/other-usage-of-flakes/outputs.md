@@ -1,15 +1,27 @@
 # Flake Outputs
 
-In `flake.nix`, the `outputs` section defines the different outputs that a flake can produce during its build process. A flake can have multiple outputs simultaneously, which can include but are not limited to the following:
+In `flake.nix`, the `outputs` section defines the different outputs that a flake can
+produce during its build process. A flake can have multiple outputs simultaneously, which
+can include but are not limited to the following:
 
-- Nix packages: These are named `apps.<system>.<name>`, `packages.<system>.<name>`, or `legacyPackages.<system>.<name>`. You can build a specific package using the command `nix build .#<name>`.
-- Nix helper functions: These are named `lib.<name>` and serve as libraries for other flakes to use.
-- Nix development environments: These are named `devShells` and provide isolated development environments. They can be accessed using the command `nix develop`.
-- NixOS configurations: These are named `nixosConfiguration` and represent specific NixOS system configurations. You can activate a configuration using the command `nixos-rebuild switch --flake .#<name>`.
-- Nix templates: These are named `templates` and can be used as a starting point for creating new projects. You can generate a project using the command `nix flake init --template <reference>`.
-- Other user-defined outputs: These outputs can be defined by the user and may be used by other Nix-related tools.
+- Nix packages: These are named `apps.<system>.<name>`, `packages.<system>.<name>`, or
+  `legacyPackages.<system>.<name>`. You can build a specific package using the command
+  `nix build .#<name>`.
+- Nix helper functions: These are named `lib.<name>` and serve as libraries for other
+  flakes to use.
+- Nix development environments: These are named `devShells` and provide isolated
+  development environments. They can be accessed using the command `nix develop`.
+- NixOS configurations: These are named `nixosConfiguration` and represent specific NixOS
+  system configurations. You can activate a configuration using the command
+  `nixos-rebuild switch --flake .#<name>`.
+- Nix templates: These are named `templates` and can be used as a starting point for
+  creating new projects. You can generate a project using the command
+  `nix flake init --template <reference>`.
+- Other user-defined outputs: These outputs can be defined by the user and may be used by
+  other Nix-related tools.
 
-Here's an example excerpt from the NixOS Wiki that demonstrates the structure of the `outputs` section:
+Here's an example excerpt from the NixOS Wiki that demonstrates the structure of the
+`outputs` section:
 
 ```nix
 {
