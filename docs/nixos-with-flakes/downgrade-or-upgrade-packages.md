@@ -39,13 +39,13 @@ Here's an example of how you can add multiple nixpkgs inputs, each using a diffe
           pkgs-stable = import nixpkgs-stable {
             # Refer to the `system` parameter from
             # the outer scope recursively
-            system = system;
+            inherit system;
             # To use Chrome, we need to allow the
             # installation of non-free softwares.
             config.allowUnfree = true;
           };
           pkgs-fd40cef8d = import nixpkgs-fd40cef8d {
-            system = system;
+            inherit system;
             config.allowUnfree = true;
           };
         };

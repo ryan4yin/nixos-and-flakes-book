@@ -40,14 +40,14 @@
           # 这样能有效重用 nixpkgs 实例，避免 nixpkgs 实例泛滥。
           pkgs-stable = import nixpkgs-stable {
             # 这里递归引用了外部的 system 属性
-            system = system;
+            inherit system;
             # 为了拉取 chrome 等软件包，
             # 这里我们需要允许安装非自由软件
             config.allowUnfree = true;
           };
 
           pkgs-fd40cef8d = import nixpkgs-fd40cef8d {
-            system = system;
+            inherit system;
             config.allowUnfree = true;
           };
         };
