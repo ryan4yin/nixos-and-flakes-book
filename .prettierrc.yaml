@@ -1,0 +1,5 @@
+# https://prettier.io/docs/en/options
+semi: false
+singleQuote: false
+printWidth: 80
+trailingComma: es5
