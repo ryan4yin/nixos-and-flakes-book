@@ -64,7 +64,6 @@ Nixpkgs 源码等各种资料中提取出我需要的信息，同时还要忽略
 
 我希望这本书能帮助更多的人，让他们能够体验到 NixOS 的乐趣。希望你们喜欢它！
 
-
 ## 本书的特点
 
 1. 以 NixOS 与 Flakes 为核心进行讲解，摈弃了传统的 Nix 配置方式
@@ -88,9 +87,6 @@ Nixpkgs 源码等各种资料中提取出我需要的信息，同时还要忽略
 - [[2023-06-24] NixOS 与 Flakes | 一份非官方的新手指南 - v2ex 社区](https://www.v2ex.com/t/951190#reply9)
 - [[2023-06-24] NixOS 与 Flakes | 一份非官方的新手指南 - 0xffff 社区](https://0xffff.one/d/1547-nixos-yu-flakes-yi-fen-fei-guan)
 
-
 [^1]: [NixOS 与 Nix Flakes 新手入门](https://thiscute.world/posts/nixos-and-flake-basics/)
 [^2]: [NixOS & Nix Flakes - A Guide for Beginners - Reddit](https://www.reddit.com/r/NixOS/comments/13dxw9d/nixos_nix_flakes_a_guide_for_beginners/)
 [^3]: [Updates: NixOS & Nix Flakes - A Guide for Beginners - Reddit](https://www.reddit.com/r/NixOS/comments/14fvz1q/comment/jp4xhj3/?context=3)
-
-

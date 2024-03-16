@@ -140,13 +140,11 @@ Here is a `flake.nix` that defines a development environment with Node.js 18 ins
 
 Create an empty folder, save the above configuration as `flake.nix`, and then execute `nix develop` (or more precisely, you can use `nix develop .#default`), the current version of nodejs will be outputted, and now you can use `node` `pnpm` `yarn` seamlessly.
 
-
 ## Using zsh/fish/... instead of bash
 
 `pkgs.mkShell` uses `bash` by default, but you can also use `zsh` or `fish` by add `exec <your-shell>` into `shellHook`.
 
 Here is an example:
-
 
 ```nix
 {
@@ -184,7 +182,6 @@ Here is an example:
 ```
 
 With the above configuration, `nix develop` will enter the REPL environment of nushell.
-
 
 ## Creating a Development Environment with `pkgs.runCommand`
 
@@ -269,7 +266,6 @@ Related source code:
 
 - [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/trivial-builders/default.nix#L21-L49)
 - [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
-
 
 ## Enter the build environment of any Nix package
 
@@ -410,30 +406,30 @@ Here's an example:
 nix build "nixpkgs#ponysay"
 # Use the built 'ponysay' command
 › ./result/bin/ponysay 'hey buddy!'
- ____________ 
+ ____________
 < hey buddy! >
- ------------ 
-     \                                  
-      \                                 
-       \                                
-       ▄▄  ▄▄ ▄ ▄                       
-    ▀▄▄▄█▄▄▄▄▄█▄▄▄                      
-   ▀▄███▄▄██▄██▄▄██                     
-  ▄██▄███▄▄██▄▄▄█▄██                    
- █▄█▄██▄█████████▄██                    
-  ▄▄█▄█▄▄▄▄▄████████                    
- ▀▀▀▄█▄█▄█▄▄▄▄▄█████         ▄   ▄      
-    ▀▄████▄▄▄█▄█▄▄██       ▄▄▄▄▄█▄▄▄    
-    █▄██▄▄▄▄███▄▄▄██    ▄▄▄▄▄▄▄▄▄█▄▄    
-    ▀▄▄██████▄▄▄████    █████████████   
-       ▀▀▀▀▀█████▄▄ ▄▄▄▄▄▄▄▄▄▄██▄█▄▄▀   
-            ██▄███▄▄▄▄█▄▄▀  ███▄█▄▄▄█▀  
-            █▄██▄▄▄▄▄████   ███████▄██  
-            █▄███▄▄█████    ▀███▄█████▄ 
-            ██████▀▄▄▄█▄█    █▄██▄▄█▄█▄ 
-           ███████ ███████   ▀████▄████ 
+ ------------
+     \
+      \
+       \
+       ▄▄  ▄▄ ▄ ▄
+    ▀▄▄▄█▄▄▄▄▄█▄▄▄
+   ▀▄███▄▄██▄██▄▄██
+  ▄██▄███▄▄██▄▄▄█▄██
+ █▄█▄██▄█████████▄██
+  ▄▄█▄█▄▄▄▄▄████████
+ ▀▀▀▄█▄█▄█▄▄▄▄▄█████         ▄   ▄
+    ▀▄████▄▄▄█▄█▄▄██       ▄▄▄▄▄█▄▄▄
+    █▄██▄▄▄▄███▄▄▄██    ▄▄▄▄▄▄▄▄▄█▄▄
+    ▀▄▄██████▄▄▄████    █████████████
+       ▀▀▀▀▀█████▄▄ ▄▄▄▄▄▄▄▄▄▄██▄█▄▄▀
+            ██▄███▄▄▄▄█▄▄▀  ███▄█▄▄▄█▀
+            █▄██▄▄▄▄▄████   ███████▄██
+            █▄███▄▄█████    ▀███▄█████▄
+            ██████▀▄▄▄█▄█    █▄██▄▄█▄█▄
+           ███████ ███████   ▀████▄████
            ▀▀█▄▄▄▀ ▀▀█▄▄▄▀     ▀██▄▄██▀█
-                                ▀  ▀▀█  
+                                ▀  ▀▀█
 ```
 
 ## Using `nix profile` to manage development environments and entertainment environments
@@ -458,4 +454,3 @@ There are other commands like `nix flake init`, which you can explore in [New Ni
 - [Shell Scripts - NixOS Wiki](https://nixos.wiki/wiki/Shell_Scripts)
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
-

@@ -1,7 +1,7 @@
 # Usage of the New CLI
 
-Once you have enabled the `nix-command` and `flakes` features, you can start using the new generation Nix command-line tools provided by [New Nix Commands][New Nix Commands]. 
-In this section, we will focus on two commands: `nix shell` and `nix run`. 
+Once you have enabled the `nix-command` and `flakes` features, you can start using the new generation Nix command-line tools provided by [New Nix Commands][New Nix Commands].
+In this section, we will focus on two commands: `nix shell` and `nix run`.
 Other important commands like `nix build` will be discussed in detail in [`nix develop` & `pkgs.mkShell`](/development/intro.md)
 
 ## `nix shell`
@@ -82,9 +82,8 @@ nix run nixpkgs#git clone git@github.com:ryan4yin/nix-config.git
 Alternatively, I can use `nix shell` to enter an environment with Git and then run the `git clone` command:
 
 ```bash
-nix shell nixpkgs#git 
+nix shell nixpkgs#git
 git clone git@github.com:ryan4yin/nix-config.git
 ```
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
-

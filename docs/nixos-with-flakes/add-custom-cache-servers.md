@@ -13,7 +13,7 @@ Two reasons:
 1. Add cache servers for some third-party projects, such as the nix-community cache server [https://nix-community.cachix.org](https://nix-community.cachix.org), which can significantly improve the build speed of these third-party projects.
 2. Adding a mirrored cache server to accelerate downloads.
    1. The access speed of the official cache server in China is slow. Without a local global proxy, it is almost unusable. Adding Chinese Nix cache mirrors like ustc/sjtu/tuna can alleviate this issue.
- 
+
 ## How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
 
 In Nix, you can configure cache servers using the following options:
@@ -207,10 +207,10 @@ In other words, you can use it like this:
                 "https://mirror.sjtu.edu.cn/nix-channels/store"
                 # status: https://mirrors.ustc.edu.cn/status/
                 # "https://mirrors.ustc.edu.cn/nix-channels/store"
-          
+
                 "https://cache.nixos.org"
               ];
-          
+
               trusted-public-keys = [
                 # the default public key of cache.nixos.org, it's built-in, no need to add it here
                 "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
@@ -226,10 +226,10 @@ In other words, you can use it like this:
 }
 ```
 
-## Accelerate Package Downloads via a Proxy Server {#accelerate-package-downloads-via-a-proxy-server} 
+## Accelerate Package Downloads via a Proxy Server {#accelerate-package-downloads-via-a-proxy-server}
 
 > Referenced from Issue: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
-Although it's mentioned earlier that a transparent proxy running on your router or local machine can completely solve the issue of slow package downloads in NixOS, the configuration is rather cumbersome and often requires additional hardware.
+> Although it's mentioned earlier that a transparent proxy running on your router or local machine can completely solve the issue of slow package downloads in NixOS, the configuration is rather cumbersome and often requires additional hardware.
 
 More users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy running on their machine. Here's how to set it up.
 Using methods like `export HTTPS_PROXY=http://127.0.0.1:7890` in the Terminal will not work because the actual work is done by a background process called `nix-daemon`, not by commands directly executed in the Terminal.
@@ -248,7 +248,7 @@ The implementation code of `nix-daemon` is located at [nixpkgs/nixos/modules/ser
 
 After deploying this configuration, you can check if the environment variables have been set by running `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'`.
 
-**However, be aware that when the proxy server is not available, nix-daemon will be unable to access any cache servers!** 
+**However, be aware that when the proxy server is not available, nix-daemon will be unable to access any cache servers!**
 Therefore, I still recommend using a transparent proxy to address acceleration issues.
 
 If you only need to use a proxy temporarily, you can set the proxy environment variables with the following commands:
@@ -264,5 +264,5 @@ sudo systemctl restart nix-daemon
 ```
 
 The settings in `/run/systemd/system/nix-daemon.service.d/override.conf` will be automatically deleted when the system restarts, or you can manually delete it and restart the nix-daemon service to restore the original settings.
-> When using some commercial or public proxies, you might encounter HTTP 403 errors when downloading from GitHub (as described in [nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)). In such cases, you can try changing the proxy server or setting up [access-tokens](https://github.com/NixOS/nix/issues/6536) to resolve the issue.
 
+> When using some commercial or public proxies, you might encounter HTTP 403 errors when downloading from GitHub (as described in [nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)). In such cases, you can try changing the proxy server or setting up [access-tokens](https://github.com/NixOS/nix/issues/6536) to resolve the issue.

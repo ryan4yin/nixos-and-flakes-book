@@ -55,12 +55,11 @@ source ./env/bin/activate
 这当然是可行的，有现成的 Nix 封装工具帮我们干这个活：
 
 > 注意即使是在这俩环境中，直接跑 `pip install` 之类的安装命令仍然是会失败的，必须通过 `flake.nix` 来安装 Python 依赖！
-因为数据还是在 `/nix/store` 中，这类修改命令必须在 Nix 的构建阶段才能执行...
+> 因为数据还是在 `/nix/store` 中，这类修改命令必须在 Nix 的构建阶段才能执行...
 
 - [DavHau/mach-nix](https://github.com/DavHau/mach-nix)
 - [poetry2nix](https://github.com/nix-community/poetry2nix)
 
 这俩工具的好处是，能利用上 Nix Flakes 的锁机制来提升可复现能力，缺点是多了一层封装，底层变得更复杂了。
-
 
 最后，在一些更复杂的项目上，上述两种方案可能都行不通，这时候最佳的解决方案，就是改用容器了，比如 Docker、Podman 等，容器的限制没 Nix 这么严格，能提供最佳的兼容性。

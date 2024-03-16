@@ -5,11 +5,10 @@
 
 1. 通过实例化 commit id 不同的 nixpkgs 实例，用于安装不同版本的软件包。前面的 [降级与升级软件包](../nixos-with-flakes/downgrade-or-upgrade-packages.md) 一节中就是这样使用的。
 2. 如果希望使用 overlays，但是又不想影响到默认的 nixpkgs 实例，可以通过实例化一个新的 nixpkgs 实例，然后在这个实例上使用 overlays。
-    - 上一节 Overlays 中提到的 `nixpkgs.overlays = [...];` 是直接修改全局的 nixpkgs 实例，如果你的 overlays 改了比较底层的包，可能会影响到其他模块。坏处之一是会导致大量的本地编译（因为二进制缓存失效了），二是被影响的包功能可能也会出问题。
+   - 上一节 Overlays 中提到的 `nixpkgs.overlays = [...];` 是直接修改全局的 nixpkgs 实例，如果你的 overlays 改了比较底层的包，可能会影响到其他模块。坏处之一是会导致大量的本地编译（因为二进制缓存失效了），二是被影响的包功能可能也会出问题。
 3. 在跨系统架构的编译中，你可以通过实例化多个 nixpkgs 实例来在不同的地方分别选用 QEMU 模拟编译与交叉编译，或者添加不同的 gcc 编译参数。
 
 总之，实例化多个 nixpkgs 实例是非常有用的。
-
 
 ## `nixpkgs` 的实例化
 
@@ -109,7 +108,7 @@ assert args ? system -> !(args ? localSystem);
 import ./. (builtins.removeAttrs args [ "system" ] // {
   inherit config overlays localSystem;
 })
-``````
+```
 
 因此 `import nixpkgs {...}` 实际就是调用了上面这个函数，后面的 attribute set 就是这个参数的参数。
 
@@ -119,6 +118,3 @@ import ./. (builtins.removeAttrs args [ "system" ] // {
 
 1. 根据 @fbewivpjsbsby 补充的文章 [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347)，在子模块或者子 flakes 中用 `import` 来定制 `nixpkgs` 不是一个好的习惯，因为每次 `import` 都会重新求值并产生一个新的 nixpkgs 实例，在配置越来越多时会导致构建时间变长、内存占用变大。所以这里改为了在 `flake.nix` 中创建所有 nixpkgs 实例。
 2. 在混合使用 QEMU 模拟编译与交叉编译时，搞得不好可能会导致许多包被重复编译多次，要注意避免这种情况。
-
-
-

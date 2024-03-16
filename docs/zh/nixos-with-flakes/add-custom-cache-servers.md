@@ -229,7 +229,7 @@ Nix 提供了 [`extra-` 前缀](https://nixos.org/manual/nix/stable/command-ref/
 }
 ```
 
-## 通过代理加速包下载 {#accelerate-package-downloads-via-a-proxy-server} 
+## 通过代理加速包下载 {#accelerate-package-downloads-via-a-proxy-server}
 
 > 参考了 Issue: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
 
@@ -269,7 +269,6 @@ sudo systemctl restart nix-daemon
 ```
 
 位于 `/run/systemd/system/nix-daemon.service.d/override.conf` 的设置会在系统重启后被自动删除，或者你可以手动删除它并重启 nix-daemon 服务来恢复原始设置。
-
 
 > 使用一些商用代理或公共代理时你可能会遇到 GitHub 下载时报 HTTP 403 错误（[nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)），
 > 可尝试通过更换代理服务器或者设置 [access-tokens](https://github.com/NixOS/nix/issues/6536) 来解决。

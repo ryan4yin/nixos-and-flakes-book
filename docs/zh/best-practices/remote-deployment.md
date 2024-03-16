@@ -14,15 +14,15 @@ Nix 本身的设计就很适合远程部署，Nix 社区也有许多专门用于
 在进行远程部署之前，需要做一些准备工作：
 
 1. 为了防止远程主机的 sudo 密码验证失败，有两种方法，二选一：
-    1. 以远程主机的 `root` 用户身份部署，这是推荐使用的方法。
-    2. 在远程主机的配置中添加 `security.sudo.wheelNeedsPassword = false;` 并提前手动部署一次，从而为用户授予免密码验证的 sudo 权限。
-        1. **这会导致用户级别的程序能静默获取 sudo 权限，存在安全风险**！因此如果选用这种方法，建议远程部署创建一个专门的用户，不应该使用自己的常用用户！
+   1. 以远程主机的 `root` 用户身份部署，这是推荐使用的方法。
+   2. 在远程主机的配置中添加 `security.sudo.wheelNeedsPassword = false;` 并提前手动部署一次，从而为用户授予免密码验证的 sudo 权限。
+      1. **这会导致用户级别的程序能静默获取 sudo 权限，存在安全风险**！因此如果选用这种方法，建议远程部署创建一个专门的用户，不应该使用自己的常用用户！
 2. 为远程主机配置 SSH 公钥身份验证
-    1. 可使用 `users.users.<name>.openssh.authorizedKeys.keys` 配置项完成配置。
-1. 在本机主机上添加好远程主机的 Known Hosts 记录，否则 colmena/nixos-rebuild 会因为无法验证远程主机的身份而部署失败。
-    1. 可使用 `programs.ssh.knownHosts` 配置项将远程主机的公钥添加到 Known Hosts 记录中。
-1. 手动使用 `ssh root@<you-host>` 命令，验证能正常登录到远程主机。
-    1. 如果遇到任何问题，请先解决它们，再继续后续操作。
+   1. 可使用 `users.users.<name>.openssh.authorizedKeys.keys` 配置项完成配置。
+3. 在本机主机上添加好远程主机的 Known Hosts 记录，否则 colmena/nixos-rebuild 会因为无法验证远程主机的身份而部署失败。
+   1. 可使用 `programs.ssh.knownHosts` 配置项将远程主机的公钥添加到 Known Hosts 记录中。
+4. 手动使用 `ssh root@<you-host>` 命令，验证能正常登录到远程主机。
+   1. 如果遇到任何问题，请先解决它们，再继续后续操作。
 
 建议使用 `root` 用户进行部署，因为这更方便且不需要额外的配置，没有令人头疼的 sudo 权限问题。
 
@@ -99,7 +99,7 @@ ssh-add ~/.ssh/your-private-key
 现在，您可以将配置部署到设备上：
 
 ```bash
-nix run nixpkgs#colmena apply 
+nix run nixpkgs#colmena apply
 ```
 
 更复杂的用法，请参阅 colmena 的官方文档 <https://colmena.cli.rs/unstable/introduction.html>
@@ -140,4 +140,3 @@ Host aquamarine
 ```bash
 nixos-rebuild switch --flake .#my-nixos --target-host root@aquamarine --build-host root@aquamarine --verbose
 ```
-

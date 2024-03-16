@@ -74,7 +74,6 @@ echo "Hello Nix" | nix run "nixpkgs#ponysay"
 echo "Hello Nix" | nix run "github:NixOS/nixpkgs/nixos-unstable#ponysay"
 ```
 
-
 ## `nix run` 与 `nix shell` 的常见用途
 
 那显然就是用来跑些临时命令，比如说我在新 NixOS 主机上恢复环境，但是还没有装 Git，我可以直接用如下命令临时使用 Git 克隆我的配置仓库：
@@ -86,7 +85,7 @@ nix run nixpkgs#git clone git@github.com:ryan4yin/nix-config.git
 或者也可以这样：
 
 ```bash
-nix shell nixpkgs#git 
+nix shell nixpkgs#git
 git clone git@github.com:ryan4yin/nix-config.git
 ```
 

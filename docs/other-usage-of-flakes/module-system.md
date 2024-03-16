@@ -283,7 +283,7 @@ The first thought might be to directly use `imports` in `config = { ... };`, lik
 }
 ```
 
-But this won't work. 
+But this won't work.
 You can try save the above `flake.nix` in a new directory, and then run `nix eval .#nixosConfigurations.test.config.warnings` in it, some error like `error: The option 'imports' does not exist.` will be encountered.
 
 This is because `config` is a regular attribute set, while `imports` is a special parameter of the module system. There is no such definition as `config.imports`.

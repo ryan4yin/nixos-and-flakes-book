@@ -8,9 +8,9 @@ One of NixOS's major advantages over other distributions lies in its reproducibi
 
 While NixOS is powerful, its strength also comes with increased system complexity. This makes it more challenging for newcomers. One major challenge is that the knowledge accumulated on other Linux distributions is not easily transferable to NixOS. Another is that official and community documentation is often scattered and outdated. These issues have troubled many NixOS beginners.
 
-One can observe these issues with the experimental feature of the Nix package manager called Flakes. Inspired by package managers like npm and Cargo, Flakes uses `flake.nix` to record all external dependencies and `flake.lock` to lock their versions. This significantly enhances the reproducibility and composability of the Nix package manager and NixOS configurations. 
+One can observe these issues with the experimental feature of the Nix package manager called Flakes. Inspired by package managers like npm and Cargo, Flakes uses `flake.nix` to record all external dependencies and `flake.lock` to lock their versions. This significantly enhances the reproducibility and composability of the Nix package manager and NixOS configurations.
 
-Flakes' advantages have made it widely popular within the community: according to official surveys, over half of the new Nix repositories created on GitHub now utilize Flakes. 
+Flakes' advantages have made it widely popular within the community: according to official surveys, over half of the new Nix repositories created on GitHub now utilize Flakes.
 
 However, to maintain stability, the official documentation covers barely any Flakes-related content. This has left many Nix/NixOS users feeling confused. They see everyone using Flakes and want to learn it too, but find nowhere to start, often having to piece together scattered information, search through Nixpkgs source code, or seek help from more experienced users.
 
@@ -51,7 +51,7 @@ If you find this book helpful, please consider donating to support its developme
 
 ## Feedback and Discussion
 
-I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months until now(2024-02), 
+I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months until now(2024-02),
 so there must be some misconceptions or complex cases in the book.
 If anyone finds anything incorrect or have any questions / suggestions, just let me know about it by opening an issue or joining the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions). I'm happy to continue improving the content of this book.
 

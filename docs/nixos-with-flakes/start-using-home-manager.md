@@ -251,8 +251,6 @@ The benefits of this approach are:
 1. Many configurations in Home Manager are universal for NixOS, macOS, and other Linux distributions. Choosing Home Manager to install software and configure systems can improve the portability of configurations.
 1. If you need multi-user support, software and configurations installed via Home Manager can better isolate different user environments, preventing configuration and software version conflicts between users.
 
-
-
 ## How to use packages installed by Home Manager with privileged access?
 
 The first thing that comes to mind is to switch to `root`, but then any packages installed by the current user through `home.nix` will be unavailable.
@@ -285,12 +283,10 @@ Error: nu::shell::external_command
 /home/ryan/nix-config> exit
 ```
 
-But it's possible to run those packages with privileged access without switching to `root`,  by using `sudo`, we temporarily grant the current user privileged access to system resources:
+But it's possible to run those packages with privileged access without switching to `root`, by using `sudo`, we temporarily grant the current user privileged access to system resources:
 
 ```sh
 › sudo kubectl
 kubectl controls the Kubernetes cluster manager.
 ...
 ```
-
-

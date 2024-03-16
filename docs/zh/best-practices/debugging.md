@@ -154,7 +154,6 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/
 
 能看到，通过 `nix repl` 加载好我的 flake 配置后，就能很方便地检查所有的配置项了，这对于调试非常有用。
 
-
 ## 使用 nixpkgs 中提供的调试函数
 
 TODO
@@ -168,5 +167,3 @@ TODO
 - [How to make nix build display all commands executed by make?](https://www.reddit.com/r/NixOS/comments/14stdgy/how_to_make_nix_build_display_all_commands/)
   - use `NIX_DEBUG=7` in derivation
 - [Collection of functions useful for debugging broken nix expressions.](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/lib/debug.nix)
-
-

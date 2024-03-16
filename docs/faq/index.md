@@ -19,7 +19,7 @@ When compared to widely used traditional tools like Ansible, Nix has the followi
 1. One of the biggest problems with this Ansible is that each deployment is based on incremental changes to the current state of the system. The current state of the system, like the snapshots mentioned above, is not interpretable and is difficult to reproduce. NixOS declares the target state of the system through its configuration files, so that the deployment result is independent of the current state of the system, and repeated deployments will not cause any problems.
 2. Nix Flakes uses a version lock file `flake.lock` to lock the hash value, version number, data source and other information of all dependencies, which greatly improves the reproducibility of the system. Traditional tools like Ansible don't have this feature, so they're not very reproducible.
    1. This is why Docker is so popular - it provides, at a fraction of the cost, a **reproducible system environment on a wide range of machines** that traditional Ops tools like Ansible don't.
-1. Nix provides a high degree of ease of system customization by shielding the underlying implementation details with a layer of declarative abstraction so that users only need to care about their core requirements. Tools like Ansible have much weaker abstractions.
+3. Nix provides a high degree of ease of system customization by shielding the underlying implementation details with a layer of declarative abstraction so that users only need to care about their core requirements. Tools like Ansible have much weaker abstractions.
    1. If you've ever used a declarative configuration tool like terraform/kubernetes, this should be easy to understand. The more complex the requirements, the greater the benefit of declarative configuration.
 
 ## What are the advantages of Nix compared to Docker container technology?
@@ -71,7 +71,7 @@ this will cause the following error:
 ```bash
 error: builder for '/nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv' failed with exit code 25;
        last 1 log lines:
-       > error: collision between `/nix/store/kvq0gvz6jwggarrcn9a8ramsfhyh1h9d-lldb-14.0.6/lib/python3.11/site-packages/six.py' 
+       > error: collision between `/nix/store/kvq0gvz6jwggarrcn9a8ramsfhyh1h9d-lldb-14.0.6/lib/python3.11/site-packages/six.py'
 and `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.11/site-packages/six.py'
        For full logs, run 'nix log /nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv'.
 ```
@@ -79,35 +79,34 @@ and `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.
 Here are some solutions:
 
 1. Split the two packages into two different **profiles**. For example, you can install `lldb` via `environment.systemPackages` and `python311` via `home.packages`.
-2. Different versions of Python3 are treated as different packages, so you can change your custom Python3 version to `python310` to avoid the conflict. 
-2. Use `override` to override the version of the library used by the package to be consistent with the version used by the other package.
+2. Different versions of Python3 are treated as different packages, so you can change your custom Python3 version to `python310` to avoid the conflict.
+3. Use `override` to override the version of the library used by the package to be consistent with the version used by the other package.
 
-  ```nix
-  {
-    # as a nixos module
-    # environment.systemPackages = with pkgs; [
-    #
-    # or as a home manager module
-    home.packages = let
-      custom-python3 = (pkgs.python311.withPackages (ps:
-        with ps; [
-          ipython
-          pandas
-          requests
-          pyquery
-          pyyaml
-        ]
-      ));
-    in
-      with pkgs; [
-        # override the version of python3
-        # NOTE: This will trigger a rebuild of lldb, it takes time
-        (lldb.override {
-          python3 = custom-python3;
-        })
-  
-        custom-python3
-    ];
-  }
-  ```
+```nix
+{
+  # as a nixos module
+  # environment.systemPackages = with pkgs; [
+  #
+  # or as a home manager module
+  home.packages = let
+    custom-python3 = (pkgs.python311.withPackages (ps:
+      with ps; [
+        ipython
+        pandas
+        requests
+        pyquery
+        pyyaml
+      ]
+    ));
+  in
+    with pkgs; [
+      # override the version of python3
+      # NOTE: This will trigger a rebuild of lldb, it takes time
+      (lldb.override {
+        python3 = custom-python3;
+      })
 
+      custom-python3
+  ];
+}
+```

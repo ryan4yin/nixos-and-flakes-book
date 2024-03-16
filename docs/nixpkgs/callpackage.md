@@ -32,7 +32,7 @@ While the definition of this Derivation is quite concise, most Derivations in ni
 Let's continue to verify this using `nix repl`, and you'll see that the result is still a Derivation:
 
 ```shell
-› cat hello.nix          
+› cat hello.nix
 pkgs:
   pkgs.writeShellScriptBin "hello" '' echo "hello, xxx!" ''
 
@@ -56,7 +56,6 @@ In the previous example without `pkgs.callPackage`, we directly passed `pkgs` as
 2. In cases where `hello.nix` becomes complex, it's challenging to determine which Derivations from `pkgs` it relies on, making it difficult to analyze the dependencies between Derivations.
 
 `pkgs.callPackage`, as a tool for parameterizing the construction of Derivations, addresses these issues. Let's take a look at its source code and comments [nixpkgs/lib/customisation.nix#L101-L121](https://github.com/NixOS/nixpkgs/blob/fe138d3/lib/customisation.nix#L101-L121):
-
 
 ```nix
   /* Call the package function in the file `fn` with the required
@@ -87,7 +86,7 @@ In the previous example without `pkgs.callPackage`, we directly passed `pkgs` as
 
       # All arguments that will be passed to the function
       # This includes automatic ones and ones passed explicitly
-      allArgs = builtins.intersectAttrs fargs autoArgs // args;    
+      allArgs = builtins.intersectAttrs fargs autoArgs // args;
 
     # ......
 ```
@@ -163,4 +162,3 @@ So it's always recommended to use `pkgs.callPackage` to define Derivations.
 - [Chapter 13. Callpackage Design Pattern - Nix Pills](https://nixos.org/guides/nix-pills/callpackage-design-pattern.html)
 - [callPackage, a tool for the lazy - The Summer of Nix](https://summer.nixos.org/blog/callpackage-a-tool-for-the-lazy/)
 - [Document what callPackage does and its preconditions - Nixpkgs Issues](https://github.com/NixOS/nixpkgs/issues/36354)
-

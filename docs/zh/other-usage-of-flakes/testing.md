@@ -1,8 +1,6 @@
 # Testing
 
-
 TODO
-
 
 ## References
 

@@ -15,15 +15,15 @@ Let me briefly guide you through using colmena or `nixos-rebuild` for remote dep
 Before embarking on remote deployment, a few preparatory steps are necessary:
 
 1. To prevent remote host's sudo password verification failure, choose one of the following methods:
-    1. Deploy as the remote host's `root` user.
-    2. Add `security.sudo.wheelNeedsPassword = false;` to the remote host's configuration and manually deploy once in advance to grant the user passwordless sudo permissions.. 
-        1. **This will allow user-level programs to silently obtain sudo permissions, posing a security risk**! Therefore, if you choose this method, it's advisable to create a dedicated user for remote deployment, rather than using your regular user account!
+   1. Deploy as the remote host's `root` user.
+   2. Add `security.sudo.wheelNeedsPassword = false;` to the remote host's configuration and manually deploy once in advance to grant the user passwordless sudo permissions..
+      1. **This will allow user-level programs to silently obtain sudo permissions, posing a security risk**! Therefore, if you choose this method, it's advisable to create a dedicated user for remote deployment, rather than using your regular user account!
 2. Configure SSH public key authentication for the remote hosts.
-    1. Use the `users.users.<name>.openssh.authorizedKeys.keys` option to complete this task.
-1. Add the remote host's Known Hosts record to your local machine. Otherwise, colmena/nixos-rebuild will fail to deploy due to the inability to verify the remote host's identity.
-    1. Use the `programs.ssh.knownHosts` option to add the remote host's public key to the Known Hosts record.
-1. Manually use the `ssh root@<you-host>` command to verify that you can login to the remote host.
-    1. If you encounter any issues, resolve them before proceeding.
+   1. Use the `users.users.<name>.openssh.authorizedKeys.keys` option to complete this task.
+3. Add the remote host's Known Hosts record to your local machine. Otherwise, colmena/nixos-rebuild will fail to deploy due to the inability to verify the remote host's identity.
+   1. Use the `programs.ssh.knownHosts` option to add the remote host's public key to the Known Hosts record.
+4. Manually use the `ssh root@<you-host>` command to verify that you can login to the remote host.
+   1. If you encounter any issues, resolve them before proceeding.
 
 It's advisable to use the `root` user for deployment as it's more convenient and avoids the complexities of sudo permissions.
 
@@ -99,7 +99,7 @@ In your system's `flake.nix`, add a new outputs named `colmena`. A simple exampl
 Now you can deploy your configuration to the device:
 
 ```bash
-nix run nixpkgs#colmena apply 
+nix run nixpkgs#colmena apply
 ```
 
 For more advanced usage, refer to colmena's official documentation at <https://colmena.cli.rs/unstable/introduction.html>
