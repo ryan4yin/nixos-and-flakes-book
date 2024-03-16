@@ -30,6 +30,7 @@ Flakes 带来的好处是显而易见的，整个 NixOS 社区都很喜欢它，
 
 我就不多介绍了，请直接参考如下文档：
 
+- [Flakes - nix.dev](https://nix.dev/concepts/flakes)
 - [Nix Flakes, Part 1: An introduction and tutorial (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-05-25-flakes/)
 - [Nix Flakes, Part 2: Evaluation caching (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-06-25-eval-cache/)
 - [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
