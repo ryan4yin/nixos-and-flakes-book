@@ -3,6 +3,19 @@
 
 TODO
 
+## UnitTests
+
+TODO
+
+
+## Integration Tests for NixOS
+
+TODO
+
+
+## How to debug tests?
+
+TODO
 
 ## References
 
