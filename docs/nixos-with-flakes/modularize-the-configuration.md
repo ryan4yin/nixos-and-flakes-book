@@ -296,4 +296,4 @@ As you can see, `lib.mkBefore` and `lib.mkAfter` can define the order of merging
 ## References
 
 - [Nix modules: Improving Nix's discoverability and usability](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
-- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/eab660d/doc/module-system/module-system.chapter.md)
+- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/doc/module-system/module-system.chapter.md)
