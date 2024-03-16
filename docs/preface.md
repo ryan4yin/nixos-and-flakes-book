@@ -37,7 +37,8 @@ I am grateful to all friends who have contributed to this book and offered sugge
 1. Focused on NixOS and Flakes, disregarding the traditional Nix configuration approach.
 2. Beginner-friendly, with explanations from the perspective of NixOS newcomers who have some experience with Linux usage and programming.
 3. Step-by-step, progressive learning.
-4. Coherent content, well-organized, and structured. Readers can either read the book gradually or quickly find the information they need.
+4. Most of the content in this book includes source links at the end of each section, making it easy for readers to delve deeper into the subject matter and evaluate the credibility of the content.
+5. Coherent content, well-organized, and structured. Readers can either read the book gradually or quickly find the information they need.
 
 ## Donation
 
