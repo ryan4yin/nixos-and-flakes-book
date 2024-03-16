@@ -11,9 +11,9 @@ Nix 提供了官方缓存服务器 <https://cache.nixos.org>，它缓存了 nixp
 
 两个原因：
 
-1. 添加镜像缓存服务器，用于加速下载。
-   1. 官方缓存服务器在中国的访问速度非常慢，如果没有局域网全局代理的话，基本上是无法使用的。添加 国内的 ustc/sjtu/tuna 等 Nix 缓存镜像源可以缓解此问题。
-2. 除了镜像源，还有一些第三方项目的缓存服务器，例如 nix-community 的缓存服务器 <https://nix-community.cachix.org>，可以大大提升这些第三方项目的构建速度。
+1. 添加一些第三方项目的缓存服务器，例如 nix-community 的缓存服务器 <https://nix-community.cachix.org>，这可以大大提升这些第三方项目的构建速度。
+1. 添加离用户最近的缓存服务器镜像站，用于加速下载。
+   1. 官方缓存服务器在中国的访问速度非常慢，如果没有局域网全局代理的话，基本上是无法使用的。添加国内的 ustc/sjtu/tuna 等 Nix 缓存镜像源可以缓解此问题。
 
 ## 如何添加自定义缓存服务器 {#how-to-add-custom-cache-servers}
 
