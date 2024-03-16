@@ -2,44 +2,90 @@
 
 ## What is Nix Cache Server {#what-is-nix-cache-server}
 
-Nix provides an official cache server, [https://cache.nixos.org](https://cache.nixos.org), which caches build results for all packages in nixpkgs under commonly used CPU architectures. When you execute Nix build commands locally, if Nix finds a corresponding cache on the server, it directly downloads the cached file, skipping the time-consuming local build process and significantly improving build speed.
+Nix provides an official cache server, [https://cache.nixos.org](https://cache.nixos.org),
+which caches build results for all packages in nixpkgs under commonly used CPU
+architectures. When you execute Nix build commands locally, if Nix finds a corresponding
+cache on the server, it directly downloads the cached file, skipping the time-consuming
+local build process and significantly improving build speed.
 
 ## Why Add Custom Cache Servers {#why-add-custom-cache-servers}
 
-> Note: The methods introduced here can only accelerate the download of packages; many `inputs` data sources will still be fetched from GitHub. Also, if the cache is not found, local builds will be executed, which typically requires downloading source code and building dependencies from GitHub or somewhere else, which may make it slow. To completely address the speed issue, it is still recommended to use solutions such as a transparent proxy running on your router or local machine.
+> Note: The methods introduced here can only accelerate the download of packages; many
+> `inputs` data sources will still be fetched from GitHub. Also, if the cache is not
+> found, local builds will be executed, which typically requires downloading source code
+> and building dependencies from GitHub or somewhere else, which may make it slow. To
+> completely address the speed issue, it is still recommended to use solutions such as a
+> transparent proxy running on your router or local machine.
 
 Two reasons:
 
-1. Add cache servers for some third-party projects, such as the nix-community cache server [https://nix-community.cachix.org](https://nix-community.cachix.org), which can significantly improve the build speed of these third-party projects.
+1. Add cache servers for some third-party projects, such as the nix-community cache server
+   [https://nix-community.cachix.org](https://nix-community.cachix.org), which can
+   significantly improve the build speed of these third-party projects.
 2. Adding a mirrored cache server to accelerate downloads.
-   1. The access speed of the official cache server in China is slow. Without a local global proxy, it is almost unusable. Adding Chinese Nix cache mirrors like ustc/sjtu/tuna can alleviate this issue.
+   1. The access speed of the official cache server in China is slow. Without a local
+      global proxy, it is almost unusable. Adding Chinese Nix cache mirrors like
+      ustc/sjtu/tuna can alleviate this issue.
 
 ## How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
 
 In Nix, you can configure cache servers using the following options:
 
-1. [substituters](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-substituters): It is a string list, and each string is the address of a cache server. Nix will attempt to find caches from these servers in the order specified in the list.
-2. [trusted-public-keys](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-public-keys): To prevent malicious attacks, The [require-sigs](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-require-sigs) option is enabled by default. Only caches with signatures that can be verified by any public key in `trusted-public-keys` will be used by Nix. Therefore, you need to add the public key corresponding to the `substituters` in `trusted-public-keys`.
-   1. cache mirror's data are directly synchronized from the official cache server. Therefore, their public keys are the same as those of the official cache server, and you can use the public key of the official cache server without additional configuration.
-   2. This entirely trust-based public key verification mechanism transfers the security responsibility to users. If users want to use a third-party cache server to speed up the build process of a certain library, they must take on the corresponding security risks and decide whether to add the public key of that cache server to `trusted-public-keys`. To completely solve this trust issue, Nix has introduced the experimental feature [ca-derivations](https://nixos.wiki/wiki/Ca-derivations), which does not depend on `trusted-public-keys` for signature verification. Interested users can explore it further.
+1. [substituters](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-substituters):
+   It is a string list, and each string is the address of a cache server. Nix will attempt
+   to find caches from these servers in the order specified in the list.
+2. [trusted-public-keys](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-public-keys):
+   To prevent malicious attacks, The
+   [require-sigs](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-require-sigs)
+   option is enabled by default. Only caches with signatures that can be verified by any
+   public key in `trusted-public-keys` will be used by Nix. Therefore, you need to add the
+   public key corresponding to the `substituters` in `trusted-public-keys`.
+   1. cache mirror's data are directly synchronized from the official cache server.
+      Therefore, their public keys are the same as those of the official cache server, and
+      you can use the public key of the official cache server without additional
+      configuration.
+   2. This entirely trust-based public key verification mechanism transfers the security
+      responsibility to users. If users want to use a third-party cache server to speed up
+      the build process of a certain library, they must take on the corresponding security
+      risks and decide whether to add the public key of that cache server to
+      `trusted-public-keys`. To completely solve this trust issue, Nix has introduced the
+      experimental feature [ca-derivations](https://nixos.wiki/wiki/Ca-derivations), which
+      does not depend on `trusted-public-keys` for signature verification. Interested
+      users can explore it further.
 
-You can configure the `substituters` and `trusted-public-keys` parameters in the following ways:
+You can configure the `substituters` and `trusted-public-keys` parameters in the following
+ways:
 
 1. Configure in `/etc/nix/nix.conf`, a global configuration that affects all users.
-   1. You can use `nix.settings.substituters` and `nix.settings.trusted-public-keys` in any NixOS Module to declaratively generate `/etc/nix/nix.conf`.
-2. Configure in the `flake.nix` of a flake project using `nixConfig.substituters`. This configuration only affects the current flake.
-3. Temporarily set through the `--option` parameter of the `nix` command, and this configuration only applies to the current command.
+   1. You can use `nix.settings.substituters` and `nix.settings.trusted-public-keys` in
+      any NixOS Module to declaratively generate `/etc/nix/nix.conf`.
+2. Configure in the `flake.nix` of a flake project using `nixConfig.substituters`. This
+   configuration only affects the current flake.
+3. Temporarily set through the `--option` parameter of the `nix` command, and this
+   configuration only applies to the current command.
 
-Among these three methods, except for the first global configuration, the other two are temporary configurations. If multiple methods are used simultaneously, later configurations will directly override earlier ones.
+Among these three methods, except for the first global configuration, the other two are
+temporary configurations. If multiple methods are used simultaneously, later
+configurations will directly override earlier ones.
 
-However, there are security risks in temporarily setting `substituters`, as explained earlier regarding the deficiencies of the security verification mechanism based on `trusted-public-keys`. To set `substituters` through the second and third methods, you need to meet one of the following conditions:
+However, there are security risks in temporarily setting `substituters`, as explained
+earlier regarding the deficiencies of the security verification mechanism based on
+`trusted-public-keys`. To set `substituters` through the second and third methods, you
+need to meet one of the following conditions:
 
-1. The current user is included in the [`trusted-users`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-users) parameter list in `/etc/nix/nix.conf`.
-2. The `substituters` specified temporarily via `--option substituters "http://xxx"` are included in the [`trusted-substituters`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-substituters) parameter list in `/etc/nix/nix.conf`.
+1. The current user is included in the
+   [`trusted-users`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-users)
+   parameter list in `/etc/nix/nix.conf`.
+2. The `substituters` specified temporarily via `--option substituters "http://xxx"` are
+   included in the
+   [`trusted-substituters`](https://nixos.org/manual/nix/stable/command-ref/conf-file#conf-trusted-substituters)
+   parameter list in `/etc/nix/nix.conf`.
 
-Based on the above information, the following are examples of the three configuration methods mentioned earlier.
+Based on the above information, the following are examples of the three configuration
+methods mentioned earlier.
 
-Firstly, declaratively configure system-level `substituters` and `trusted-public-keys` using `nix.settings` in `/etc/nixos/configuration.nix` or any NixOS Module:
+Firstly, declaratively configure system-level `substituters` and `trusted-public-keys`
+using `nix.settings` in `/etc/nixos/configuration.nix` or any NixOS Module:
 
 ```nix{7-27}
 {
@@ -73,9 +119,11 @@ Firstly, declaratively configure system-level `substituters` and `trusted-public
 }
 ```
 
-The second method is to configure `substituters` and `trusted-public-keys` using `nixConfig` in `flake.nix`:
+The second method is to configure `substituters` and `trusted-public-keys` using
+`nixConfig` in `flake.nix`:
 
-> As mentioned earlier, it is essential to configure `nix.settings.trusted-users` in this configuration. Otherwise, the `substituters` we set here will not take effect.
+> As mentioned earlier, it is essential to configure `nix.settings.trusted-users` in this
+> configuration. Otherwise, the `substituters` we set here will not take effect.
 
 ```nix{5-23,43-47}
 {
@@ -133,27 +181,41 @@ The second method is to configure `substituters` and `trusted-public-keys` using
 }
 ```
 
-Finally, the third method involves using the following command to temporarily specify `substituters` and `trusted-public-keys` during deployment:
+Finally, the third method involves using the following command to temporarily specify
+`substituters` and `trusted-public-keys` during deployment:
 
 ```bash
 sudo nixos-rebuild switch --option substituters "https://nix-community.cachix.org" --option trusted-public-keys "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
 ```
 
-Choose one of the above three methods for configuration and deployment. After a successful deployment, all subsequent packages will preferentially search for caches from domestic mirror sources.
+Choose one of the above three methods for configuration and deployment. After a successful
+deployment, all subsequent packages will preferentially search for caches from domestic
+mirror sources.
 
-> If your system hostname is not `my-nixos`, you need to modify the name of `nixosConfigurations` in `flake.nix` or use `--flake /etc/nixos#my-nixos` to specify the configuration name.
+> If your system hostname is not `my-nixos`, you need to modify the name of
+> `nixosConfigurations` in `flake.nix` or use `--flake /etc/nixos#my-nixos` to specify the
+> configuration name.
 
 ### The `extra-` Prefix for Nix Options Parameters
 
-As mentioned earlier, the `substituters` configured by the three methods will override each other, but the ideal situation should be:
+As mentioned earlier, the `substituters` configured by the three methods will override
+each other, but the ideal situation should be:
 
-1. At the system level in `/etc/nix/nix.conf`, configure only the most generic `substituters` and `trusted-public-keys`, such as official cache servers and domestic mirror sources.
-2. In each flake project's `flake.nix`, configure the `substituters` and `trusted-public-keys` specific to that project, such as non-official cache servers like nix-community.
-3. When building a flake project, nix should **merge** the `substituters` and `trusted-public-keys` configured in `flake.nix` and `/etc/nix/nix.conf`.
+1. At the system level in `/etc/nix/nix.conf`, configure only the most generic
+   `substituters` and `trusted-public-keys`, such as official cache servers and domestic
+   mirror sources.
+2. In each flake project's `flake.nix`, configure the `substituters` and
+   `trusted-public-keys` specific to that project, such as non-official cache servers like
+   nix-community.
+3. When building a flake project, nix should **merge** the `substituters` and
+   `trusted-public-keys` configured in `flake.nix` and `/etc/nix/nix.conf`.
 
-Nix provides the [`extra-` prefix](https://nixos.org/manual/nix/stable/command-ref/conf-file.html?highlight=extra#file-format) to achieve this **merging** functionality.
+Nix provides the
+[`extra-` prefix](https://nixos.org/manual/nix/stable/command-ref/conf-file.html?highlight=extra#file-format)
+to achieve this **merging** functionality.
 
-According to the official documentation, if the value of the `xxx` parameter is a list, the value of `extra-xxx` will be appended to the end of the `xxx` parameter:
+According to the official documentation, if the value of the `xxx` parameter is a list,
+the value of `extra-xxx` will be appended to the end of the `xxx` parameter:
 
 In other words, you can use it like this:
 
@@ -228,13 +290,23 @@ In other words, you can use it like this:
 
 ## Accelerate Package Downloads via a Proxy Server {#accelerate-package-downloads-via-a-proxy-server}
 
-> Referenced from Issue: [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
-> Although it's mentioned earlier that a transparent proxy running on your router or local machine can completely solve the issue of slow package downloads in NixOS, the configuration is rather cumbersome and often requires additional hardware.
+> Referenced from Issue:
+> [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
+> Although it's mentioned earlier that a transparent proxy running on your router or local
+> machine can completely solve the issue of slow package downloads in NixOS, the
+> configuration is rather cumbersome and often requires additional hardware.
 
-More users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy running on their machine. Here's how to set it up.
-Using methods like `export HTTPS_PROXY=http://127.0.0.1:7890` in the Terminal will not work because the actual work is done by a background process called `nix-daemon`, not by commands directly executed in the Terminal.
+More users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy
+running on their machine. Here's how to set it up. Using methods like
+`export HTTPS_PROXY=http://127.0.0.1:7890` in the Terminal will not work because the
+actual work is done by a background process called `nix-daemon`, not by commands directly
+executed in the Terminal.
 
-The implementation code of `nix-daemon` is located at [nixpkgs/nixos/modules/services/system/nix-daemon.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/system/nix-daemon.nix#L184-L191), which sets environment variables through the `systemd.services.nix-daemon.environment` option. We can also add proxy-related environment variables to the running environment of `nix-daemon` in the same way, as shown in the following example Module:
+The implementation code of `nix-daemon` is located at
+[nixpkgs/nixos/modules/services/system/nix-daemon.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/system/nix-daemon.nix#L184-L191),
+which sets environment variables through the `systemd.services.nix-daemon.environment`
+option. We can also add proxy-related environment variables to the running environment of
+`nix-daemon` in the same way, as shown in the following example Module:
 
 ```nix
 {
@@ -246,12 +318,15 @@ The implementation code of `nix-daemon` is located at [nixpkgs/nixos/modules/ser
 }
 ```
 
-After deploying this configuration, you can check if the environment variables have been set by running `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'`.
+After deploying this configuration, you can check if the environment variables have been
+set by running `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'`.
 
-**However, be aware that when the proxy server is not available, nix-daemon will be unable to access any cache servers!**
-Therefore, I still recommend using a transparent proxy to address acceleration issues.
+**However, be aware that when the proxy server is not available, nix-daemon will be unable
+to access any cache servers!** Therefore, I still recommend using a transparent proxy to
+address acceleration issues.
 
-If you only need to use a proxy temporarily, you can set the proxy environment variables with the following commands:
+If you only need to use a proxy temporarily, you can set the proxy environment variables
+with the following commands:
 
 ```bash
 sudo mkdir /run/systemd/system/nix-daemon.service.d/
@@ -263,6 +338,12 @@ sudo systemctl daemon-reload
 sudo systemctl restart nix-daemon
 ```
 
-The settings in `/run/systemd/system/nix-daemon.service.d/override.conf` will be automatically deleted when the system restarts, or you can manually delete it and restart the nix-daemon service to restore the original settings.
+The settings in `/run/systemd/system/nix-daemon.service.d/override.conf` will be
+automatically deleted when the system restarts, or you can manually delete it and restart
+the nix-daemon service to restore the original settings.
 
-> When using some commercial or public proxies, you might encounter HTTP 403 errors when downloading from GitHub (as described in [nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)). In such cases, you can try changing the proxy server or setting up [access-tokens](https://github.com/NixOS/nix/issues/6536) to resolve the issue.
+> When using some commercial or public proxies, you might encounter HTTP 403 errors when
+> downloading from GitHub (as described in
+> [nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)).
+> In such cases, you can try changing the proxy server or setting up
+> [access-tokens](https://github.com/NixOS/nix/issues/6536) to resolve the issue.

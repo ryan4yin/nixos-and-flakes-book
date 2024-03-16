@@ -105,11 +105,13 @@
 }
 ```
 
-通过上面的 `flake.nix`，我可以通过 `nix develop .#kernel` 进入到内核的构建环境中，执行 `unpackPhase` 解压出内核源码。
+通过上面的 `flake.nix`，我可以通过 `nix develop .#kernel` 进入到内核的构建环境中，执行
+`unpackPhase` 解压出内核源码。
 
 但是不能执行 `make menuconfig` 进行内核的配置，因为该环境中缺少 `ncurses` 等包。
 
-所以我第二步是退出再通过 `nix develop .#fhs` 进入到另一个添加了必需包的 FHS 环境中，再执行 `make menuconfig` 进行内核的配置，以及后续的构建调试。
+所以我第二步是退出再通过 `nix develop .#fhs` 进入到另一个添加了必需包的 FHS 环境中，再执行
+`make menuconfig` 进行内核的配置，以及后续的构建调试。
 
 ## References
 

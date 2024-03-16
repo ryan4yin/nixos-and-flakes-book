@@ -1,7 +1,9 @@
 # 新一代 Nix 命令行工具的使用 {#flake-commands-usage}
 
-在启用了 `nix-command` & `flakes` 功能后，我们就可以使用 Nix 提供的新一代 Nix 命令行工具 [New Nix Commands][New Nix Commands] 了，
-这里主要介绍 `nix shell` 与 `nix run` 两个命令，其他重要的命令（如 `nix shell` `nix build`）将在「在 NixOS 上进行开发工作」一章中再详细介绍。
+在启用了 `nix-command` & `flakes` 功能后，我们就可以使用 Nix 提供的新一代 Nix 命令行工具
+[New Nix Commands][New Nix Commands] 了，这里主要介绍 `nix shell` 与 `nix run` 两个命令，
+其他重要的命令（如 `nix shell` `nix build`）将在「在 NixOS 上进行开发工作」一章中再详细介
+绍。
 
 ## `nix shell`
 
@@ -36,7 +38,8 @@ Hello, world!
 
 ## `nix run`
 
-`nix run` 则是创建一个含有指定 Nix 包的环境，并在该环境中直接运行该 Nix 包（临时运行该程序，不将它安装到系统环境中）：
+`nix run` 则是创建一个含有指定 Nix 包的环境，并在该环境中直接运行该 Nix 包（临时运行该程
+序，不将它安装到系统环境中）：
 
 ```shell
 # hello 不存在
@@ -50,7 +53,8 @@ Hello, world!
 
 因为 `nix run` 会直接将 Nix 包运行起来，所以作为其参数的 Nix 包必须能生成一个可执行程序。
 
-根据 `nix run --help` 的说明，`nix run` 会执行 `<out>/bin/<name>` 这个命令，其中 `<out>` 是一个 Derivation 的根目录，`<name>` 则按如下顺序进行选择尝试：
+根据 `nix run --help` 的说明，`nix run` 会执行 `<out>/bin/<name>` 这个命令，其中 `<out>`
+是一个 Derivation 的根目录，`<name>` 则按如下顺序进行选择尝试：
 
 - Derivation 的 `meta.mainProgram` 属性
 - Derivation 的 `pname` 属性
@@ -76,7 +80,8 @@ echo "Hello Nix" | nix run "github:NixOS/nixpkgs/nixos-unstable#ponysay"
 
 ## `nix run` 与 `nix shell` 的常见用途
 
-那显然就是用来跑些临时命令，比如说我在新 NixOS 主机上恢复环境，但是还没有装 Git，我可以直接用如下命令临时使用 Git 克隆我的配置仓库：
+那显然就是用来跑些临时命令，比如说我在新 NixOS 主机上恢复环境，但是还没有装 Git，我可以直
+接用如下命令临时使用 Git 克隆我的配置仓库：
 
 ```bash
 nix run nixpkgs#git clone git@github.com:ryan4yin/nix-config.git

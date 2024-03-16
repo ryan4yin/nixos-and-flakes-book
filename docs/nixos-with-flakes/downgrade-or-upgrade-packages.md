@@ -1,8 +1,12 @@
 # Downgrading or Upgrading Packages
 
-When working with Flakes, you may encounter situations where you need to downgrade or upgrade certain packages to address bugs or compatibility issues. In Flakes, package versions and hash values are directly tied to the git commit of their flake input. To modify the package version, you need to lock the git commit of the flake input.
+When working with Flakes, you may encounter situations where you need to downgrade or
+upgrade certain packages to address bugs or compatibility issues. In Flakes, package
+versions and hash values are directly tied to the git commit of their flake input. To
+modify the package version, you need to lock the git commit of the flake input.
 
-Here's an example of how you can add multiple nixpkgs inputs, each using a different git commit or branch:
+Here's an example of how you can add multiple nixpkgs inputs, each using a different git
+commit or branch:
 
 ```nix{8-13,19-20,27-44}
 {
@@ -61,9 +65,12 @@ Here's an example of how you can add multiple nixpkgs inputs, each using a diffe
 }
 ```
 
-In the above example, we have defined multiple nixpkgs inputs: `nixpkgs`, `nixpkgs-stable`, and `nixpkgs-fd40cef8d`. Each input corresponds to a different git commit or branch.
+In the above example, we have defined multiple nixpkgs inputs: `nixpkgs`,
+`nixpkgs-stable`, and `nixpkgs-fd40cef8d`. Each input corresponds to a different git
+commit or branch.
 
-Next, you can refer to the packages from `pkgs-stable` or `pkgs-fd40cef8d` within your submodule. Here's an example of a Home Manager submodule:
+Next, you can refer to the packages from `pkgs-stable` or `pkgs-fd40cef8d` within your
+submodule. Here's an example of a Home Manager submodule:
 
 ```nix{4-7,13,25}
 {
@@ -95,6 +102,13 @@ Next, you can refer to the packages from `pkgs-stable` or `pkgs-fd40cef8d` withi
 }
 ```
 
-By adjusting the configuration as shown above, you can deploy it using `sudo nixos-rebuild switch`. This will downgrade your Firefox/Chrome/VSCode versions to the ones corresponding to `nixpkgs-stable` or `nixpkgs-fd40cef8d`.
+By adjusting the configuration as shown above, you can deploy it using
+`sudo nixos-rebuild switch`. This will downgrade your Firefox/Chrome/VSCode versions to
+the ones corresponding to `nixpkgs-stable` or `nixpkgs-fd40cef8d`.
 
-> According to [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347), it's not a good practice to use `import` in submodules or subflakes to customize `nixpkgs`. Each `import` creates a new instance of nixpkgs, which increases build time and memory usage as the configuration grows. To avoid this problem, we create all nixpkgs instances in `flake.nix`.
+> According to
+> [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347),
+> it's not a good practice to use `import` in submodules or subflakes to customize
+> `nixpkgs`. Each `import` creates a new instance of nixpkgs, which increases build time
+> and memory usage as the configuration grows. To avoid this problem, we create all
+> nixpkgs instances in `flake.nix`.
