@@ -260,7 +260,7 @@ The definition is actually a Nix function, and it has five **automatically gener
 2. `config`: A set of all options' values in the current environment, which will be used extensively in the subsequent section on the module system.
 3. `options`: A set of all options defined in all Modules in the current environment.
 4. `pkgs`: A collection containing all nixpkgs packages, along with several related utility functions.
-   - At the beginner stage, you can consider its default value to be `nixpkgs.legacyPackages."${system}"`, and the value of `nixpkgs.pkgs` can be customized through the `nixpkgs.pkgs` option.
+   - At the beginner stage, you can consider its default value to be `nixpkgs.legacyPackages."${system}"`, and the value of `pkgs` can be customized through the `nixpkgs.pkgs` option.
 5. `modulesPath`: A parameter available only in NixOS, which is a path pointing to [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/modules).
    - It is defined in [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/lib/eval-config-minimal.nix#L43).
    - It is typically used to import additional NixOS modules and can be found in most NixOS auto-generated `hardware-configuration.nix` files.

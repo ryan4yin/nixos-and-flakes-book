@@ -259,7 +259,7 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 2. `config`: 包含了当前环境中所有 option 的值，在后面学习模块系统时会大量使用它
 3. `options`: 当前环境中所有 Modules 中定义的所有 options 的集合
 4. `pkgs`: **一个包含所有 nixpkgs 包的集合，它也提供了许多相关的工具函数**
-   - 入门阶段可以认为它的默认值为 `nixpkgs.legacyPackages."${system}"`，可通过 `nixpkgs.pkgs` 这个 option 来自定义 pkgs 的值
+   - 入门阶段可以认为它的默认值为 `nixpkgs.legacyPackages."${system}"`，可通过 `nixpkgs.pkgs` 这个 option 来自定义 `pkgs` 的值
 5. `modulesPath`: 一个只在 NixOS 中可用的参数，是一个 Path，指向 [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/modules)
    - 它在 [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/lib/eval-config-minimal.nix#L43) 中被定义
    - 通常被用于导入一些额外的 NixOS 模块，NixOS 自动生成的 `hardware-configuration.nix` 中基本都能看到它
