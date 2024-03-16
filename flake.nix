@@ -4,12 +4,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     flake-utils.url = "github:numtide/flake-utils";
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
 
   outputs = {
     self,
     nixpkgs,
     flake-utils,
+    pre-commit-hooks,
   }:
     flake-utils.lib.eachDefaultSystem (system: let
       overlays = [
@@ -21,13 +23,39 @@
       ];
       pkgs = import nixpkgs {inherit overlays system;};
       pkgs_chromium = import nixpkgs {inherit system;};
-      packages = with pkgs; [node2nix nodejs pnpm yarn git];
+      packages = with pkgs; [
+        node2nix
+        nodejs
+        pnpm
+        yarn
+
+        git
+        typos
+        alejandra
+      ];
     in {
+      checks = {
+        pre-commit-check = pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            typos.enable = true; # Source code spell checker
+            alejandra.enable = true; # Nix linter
+          };
+          settings = {
+            typos = {
+              write = true; # Automatically fix typos
+              ignored-words = [];
+            };
+          };
+        };
+      };
+
       devShells.default = pkgs.mkShell {
         inherit packages;
 
         shellHook = ''
           echo "node `${pkgs.nodejs}/bin/node --version`"
+          ${self.checks.${system}.pre-commit-check.shellHook}
         '';
       };
 

@@ -33,7 +33,7 @@ When creating a pull request, please heed the following:
 
 You will need [nix](https://github.com/NixOS/nix) & with flakes enabled.
 
-After cloning the repo, run enter an environment with pnpm and vitepress installed first:
+After cloning the repo, run enter an environment with pnpm, vitepress, spell checker and markdown linter installed first:
 
 ```sh
 $ nix develop
@@ -44,6 +44,12 @@ Boot up the documentation site locally, with live reloading of the source code:
 
 ```sh
 $ pnpm run docs:dev
+```
+
+If you made a lot of changes, run the following command to check for typos before submitting a pull request:
+
+```sh
+$ typos -w
 ```
 
 After executing the above command, visit <http://localhost:5173> and try modifying the source code. You'll get live update.
