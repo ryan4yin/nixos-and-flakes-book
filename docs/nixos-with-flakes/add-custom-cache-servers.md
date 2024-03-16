@@ -14,7 +14,7 @@ Two reasons:
 2. Adding a mirrored cache server to accelerate downloads.
    1. The access speed of the official cache server in China is slow. Without a local global proxy, it is almost unusable. Adding Chinese Nix cache mirrors like ustc/sjtu/tuna can alleviate this issue.
  
-How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
+## How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
 
 In Nix, you can configure cache servers using the following options:
 
