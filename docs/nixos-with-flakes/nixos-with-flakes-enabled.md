@@ -280,8 +280,9 @@ The official documentation for these two parameters is buried deep and is vague 
 1. `specialArgs`: There are scattered mentions related to it in the NixOS Manual and the Nixpkgs Manual.
    - Nixpkgs Manual: [Module System - Nixpkgs]
    - NixOS Manual: [nixpkgs/nixos-23.11/nixos/doc/manual/development/option-types.section.md#L237-L244]
-1. `_module.args`: Its only official documentation is in the source code below.
-   - [nixpkgs/nixos-23.11/lib/modules.nix - _module.args]
+1. `_module.args`:
+   - NixOS Manual: [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
+   - Source Code: [nixpkgs/nixos-23.11/lib/modules.nix - _module.args]
 
 In short, `specialArgs` and `_module.args` both require an attribute set as their value, and they serve the same purpose, passing all parameters in the attribute set to all submodules. The difference between them is:
 

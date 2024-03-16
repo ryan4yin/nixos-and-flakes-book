@@ -278,8 +278,9 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 1. `specialArgs`: NixOS Manual 跟 Nixpkgs Manual 中分别有与它有关的只言片语
    - Nixpkgs Manual: [Module System - Nixpkgs]
    - NixOS Manual: [nixpkgs/nixos-23.11/nixos/doc/manual/development/option-types.section.md#L237-L244]
-1. `_module.args`: 它唯一的官方文档在如下这份源码中
-   - [nixpkgs/nixos-23.11/lib/modules.nix - _module.args]
+1. `_module.args`:
+   - NixOS Manual: [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
+   - Source Code: [nixpkgs/nixos-23.11/lib/modules.nix - _module.args]
 
 总之，`specialArgs` 与 `_module.args` 需要的值都是一个 attribute set，它们的功能也相同，都是将其 attribute set 中的所有参数传递到所有子模块中。
 这两者的区别在于：
