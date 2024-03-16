@@ -19,6 +19,7 @@
           nodejs = super.nodejs_20;
           pnpm = super.nodePackages.pnpm;
           yarn = super.yarn.override {inherit nodejs;};
+          prettier = super.nodePackages.prettier;
         })
       ];
       pkgs = import nixpkgs {inherit overlays system;};
@@ -28,6 +29,7 @@
         nodejs
         pnpm
         yarn
+        prettier
 
         git
         typos
@@ -40,11 +42,16 @@
           hooks = {
             typos.enable = true; # Source code spell checker
             alejandra.enable = true; # Nix linter
+            prettier.enable = true; # Markdown & TS formatter
           };
           settings = {
             typos = {
               write = true; # Automatically fix typos
               ignored-words = [];
+            };
+            prettier = {
+              write = true; # Automatically format files
+              configPath = "./.prettierrc.yaml";
             };
           };
         };

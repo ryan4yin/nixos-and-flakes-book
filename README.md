@@ -11,10 +11,9 @@ An unofficial and opinionated NixOS & Flakes :book: for beginners: https://nixos
 > If you're using macOS, [ryan4yin/nix-darwin-kickstarter](https://github.com/ryan4yin/nix-darwin-kickstarter) may be a good starting point for you,
 > you can learn how to use Nix with this book and take nix-darwin-kickstarter as a start point to build your own Nix configuration.
 
-
 ## Feedback and Discussion
 
-I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months until now(2024-02), 
+I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months until now(2024-02),
 so there must be some misconceptions or inappropriate examples in the book.
 If anyone finds anything incorrect or have any questions / suggestions, just let me know about it by open an issue or join the discussion on [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions), I'm glad continue to optimize the content of this book.
 
@@ -23,7 +22,6 @@ Even though I knew I could make mistakes, it's much better than do nothing.
 
 My hope is that this book can help more people, enabling them to experience the joys of NixOS.
 Hope you like it!
-
 
 ## Introduction to Flakes
 
@@ -57,7 +55,6 @@ Thank you to [all the people](https://github.com/ryan4yin/nixos-and-flakes-book/
 ## License
 
 [NixOS & Flakes Book](https://github.com/ryan4yin/nixos-and-flakes-book) © 2023 by Ryan Yin is licensed under [CC BY-SA 4.0](./LICENSE.md)
-
 
 [^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes)
 [^2]: [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)

@@ -46,10 +46,13 @@ Boot up the documentation site locally, with live reloading of the source code:
 $ pnpm run docs:dev
 ```
 
-If you made a lot of changes, run the following command to check for typos before submitting a pull request:
+If you made a lot of changes, run the following command to check for typos & format the docs before submitting a pull request:
+
+> Generally, `nix develop` will add a pre-commit hook to run the following command before you commit.
 
 ```sh
 $ typos -w
+$ prettier --write .
 ```
 
 After executing the above command, visit <http://localhost:5173> and try modifying the source code. You'll get live update.
