@@ -1,8 +1,8 @@
-import { createRequire } from "module";
-import { generateSitemap as sitemap } from "sitemap-ts";
-import { PageData, defineConfig } from "vitepress";
+import { createRequire } from "module"
+import { generateSitemap as sitemap } from "sitemap-ts"
+import { PageData, defineConfig } from "vitepress"
 
-const require = createRequire(import.meta.url);
+const require = createRequire(import.meta.url)
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -18,7 +18,7 @@ export default defineConfig({
       hostname: "https://nixos-and-flakes.thiscute.world/",
       outDir: outDir,
       generateRobotsTxt: true,
-    });
+    })
   },
 
   // SEO Improvement - JSON-LD
@@ -30,7 +30,7 @@ export default defineConfig({
           ["script", { type: "application/ld+json" }, getJSONLD(pageData)],
         ],
       },
-    };
+    }
   },
 
   head: [
@@ -78,14 +78,16 @@ export default defineConfig({
 
     config: (md) => {
       // add support for footnote
-      md.use(require("markdown-it-footnote"));
+      md.use(require("markdown-it-footnote"))
     },
   },
 
   themeConfig: {
     footer: {
-      message: 'Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank">CC BY-SA 4.0</a>',
-      copyright: 'Copyright © 2023-present <a href="https://github.com/ryan4yin" target="_blank">Ryan Yin</a>',
+      message:
+        'Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank">CC BY-SA 4.0</a>',
+      copyright:
+        'Copyright © 2023-present <a href="https://github.com/ryan4yin" target="_blank">Ryan Yin</a>',
     },
 
     search: {
@@ -115,7 +117,7 @@ export default defineConfig({
     root: themeConfigEnglish(),
     zh: themeConfigChinese(),
   },
-});
+})
 
 function themeConfigEnglish() {
   return {
@@ -311,7 +313,7 @@ function themeConfigEnglish() {
         },
       ],
     },
-  };
+  }
 }
 
 function themeConfigChinese() {
@@ -401,7 +403,7 @@ function themeConfigChinese() {
           items: [
             { text: "简介", link: "/zh/nixpkgs/intro.md" },
             { text: "callPackage", link: "/zh/nixpkgs/callpackage.md" },
-            { text: "Overridding", link: "/zh/nixpkgs/overriding.md" },
+            { text: "Overriding", link: "/zh/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
             {
               text: "多 Nixpkgs 实例",
@@ -506,7 +508,7 @@ function themeConfigChinese() {
         },
       ],
     },
-  };
+  }
 }
 
 function getJSONLD(pageData: PageData) {
@@ -518,7 +520,7 @@ function getJSONLD(pageData: PageData) {
   "inLanguage":"en",
   "description":"An unofficial and opinionated book for beginners",
   "name":"${pageData.title}"
-}`;
+}`
   } else if (pageData.relativePath === "zh/index.md") {
     return `{
   "@context":"http://schema.org",
@@ -527,12 +529,12 @@ function getJSONLD(pageData: PageData) {
   "inLanguage":"zh-CN",
   "description":"一份非官方的新手指南",
   "name":"${pageData.title}"
-}`;
+}`
   } else {
-    let lang = pageData.relativePath.startsWith("zh/") ? "zh-CN" : "en";
+    let lang = pageData.relativePath.startsWith("zh/") ? "zh-CN" : "en"
     let url = `https:\/\/nixos-and-flakes.thiscute.world\/${pageData.relativePath
       .replace(/\.md$/, "")
-      .replace(/\/index\$/, "/")}`;
+      .replace(/\/index\$/, "/")}`
     return `{
   "@context":"http://schema.org",
   "@type":"TechArticle",
@@ -544,6 +546,6 @@ function getJSONLD(pageData: PageData) {
   },
   "keywords":"NixOS, Nix, Flakes, Linux, Tutorial",
   "url":"${url}"
-}`;
+}`
   }
 }

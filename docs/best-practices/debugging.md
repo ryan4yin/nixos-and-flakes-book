@@ -158,7 +158,6 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/
 
 As you can see, after loading your Nix flake into the REPL, you can check every attribute of the flake. This capability is very convenient for debugging purposes.
 
-
 ## Debugging functions provided by nixpkgs
 
 TODO
@@ -172,4 +171,3 @@ TODO
 - [How to make nix build display all commands executed by make?](https://www.reddit.com/r/NixOS/comments/14stdgy/how_to_make_nix_build_display_all_commands/)
   - use `NIX_DEBUG=7` in derivation
 - [Collection of functions useful for debugging broken nix expressions.](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/lib/debug.nix)
-

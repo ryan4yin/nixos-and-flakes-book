@@ -80,7 +80,6 @@ sudo nix-collect-garbage --delete-old
 1. `/<package-name>` 以查找到你想查询的包
 1. 输入 `w`，看看谁依赖了它（`why depends`），以及完整的依赖链。
 
-
 ## 节约存储空间
 
 如下配置可以比较好的缩减 NixOS 的磁盘占用，可以考虑将它们添加到你的 NixOS 配置中：

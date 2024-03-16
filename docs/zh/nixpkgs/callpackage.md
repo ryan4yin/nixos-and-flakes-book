@@ -27,13 +27,13 @@ nix-repl> pkgs.writeShellScriptBin "hello" '' echo "hello, xxx!" ''
 前面我们介绍并大量使用了 `import xxx.nix` 来从其他 Nix 文件中导入 Nix 表达式，我们可以在这里也使用这种方法来提升代码的可维护性：
 
 1. 将上面这一行 Derivation 的定义存放到单独的文件 `hello.nix` 中。
-    1. 但 `hello.nix` 自身的上下文中不包含 `pkgs` 这个变量，所以需要修改下其内容，将 `pkgs` 作为参数传递给 `hello.nix`。
+   1. 但 `hello.nix` 自身的上下文中不包含 `pkgs` 这个变量，所以需要修改下其内容，将 `pkgs` 作为参数传递给 `hello.nix`。
 1. 在需要使用这个 Derivation 的地方，使用 `import ./hello.nix pkgs` 来导入它并使用 `pkgs` 作为参数来执行其中定义的函数。
 
 仍然使用 `nix repl` 来验证一下，能看到它的执行结果仍然是一个 Derivation：
 
 ```shell
-› cat hello.nix          
+› cat hello.nix
 pkgs:
   pkgs.writeShellScriptBin "hello" '' echo "hello, xxx!" ''
 
@@ -53,12 +53,11 @@ nix-repl> import ./hello.nix pkgs
 在前面不使用 `pkgs.callPackage` 的例子中，我们直接将 `pkgs` 作为参数传到了 `hello.nix` 中，这样做的缺点有：
 
 1. `hello` 这个 derivation 的所有其他依赖项都只能从 `pkgs` 中获取，耦合度太高。
-    1. 比如说我们如果需要其他自定义依赖项，就必须修改 `pkgs` 或者修改 `hello.nix` 的内容，而这两个都很麻烦。
+   1. 比如说我们如果需要其他自定义依赖项，就必须修改 `pkgs` 或者修改 `hello.nix` 的内容，而这两个都很麻烦。
 1. 在 `hello.nix` 变复杂的情况下，很难判断 `hello.nix` 到底依赖了 `pkgs` 中的哪些 Derivation，很难分析 Derivation 之间的依赖关系。
 
 而 `pkgs.callPackage` 作为一个参数化构建 Derivation 的工具函数，可解决上述两个问题。
-首先看看源码中此函数的定义与注释 [nixpkgs/lib/customisation.nix#L101-L121](https://github.com/NixOS/nixpkgs/blob/fe138d3/lib/customisation.nix#L101-L121
-)：
+首先看看源码中此函数的定义与注释 [nixpkgs/lib/customisation.nix#L101-L121](https://github.com/NixOS/nixpkgs/blob/fe138d3/lib/customisation.nix#L101-L121)：
 
 ```nix
   /* Call the package function in the file `fn` with the required
@@ -89,7 +88,7 @@ nix-repl> import ./hello.nix pkgs
 
       # All arguments that will be passed to the function
       # This includes automatic ones and ones passed explicitly
-      allArgs = builtins.intersectAttrs fargs autoArgs // args;    
+      allArgs = builtins.intersectAttrs fargs autoArgs // args;
 
     # ...... 省略后面的内容 ......
 ```
@@ -97,7 +96,7 @@ nix-repl> import ./hello.nix pkgs
 简单的说，它的使用格式是 `pkgs.callPackage fn args`，其中 `fn` 是一个 nix 文件或者函数，`args` 是一个 attribute set，它的工作流程是：
 
 1. `pkgs.callPackage fn args` 会先判断 `fn` 是一个函数还是一个文件，如果是文件就先通过 `import xxx.nix` 导入其中定义的函数。
-    1. 第一步执行完毕得到的是一个函数，其参数通常会有 `lib`, `stdenv`, `fetchurl` 等参数，可能还会带有一些自定义参数。
+   1. 第一步执行完毕得到的是一个函数，其参数通常会有 `lib`, `stdenv`, `fetchurl` 等参数，可能还会带有一些自定义参数。
 2. 之后，`pkgs.callPackage fn args` 会将 `args` 与 `pkgs` 这个 attribute set 合并。如果存在冲突，`args` 中的参数会覆盖 `pkgs` 中的参数。
 3. 再之后，`pkgs.callPackage fn args` 会从上一步得到的 attribute set 中提取出 `fn` 函数的参数，并使用它们来执行 `fn` 函数。
 4. 函数执行结果是一个 Derivation，也就是一个 Nix 包。

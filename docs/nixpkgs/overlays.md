@@ -6,7 +6,7 @@ If the derivation you want to override is also used by other Nix packages, they 
 
 To globally modify derivations in the default nixpkgs instance, Nix provides a feature called "overlays".
 
-In traditional Nix environments, overlays can be configured globally using the `~/.config/nixpkgs/overlays.nix` or `~/.config/nixpkgs/overlays/*.nix` files. 
+In traditional Nix environments, overlays can be configured globally using the `~/.config/nixpkgs/overlays.nix` or `~/.config/nixpkgs/overlays/*.nix` files.
 However, with Flakes feature, to ensure system reproducibility, overlays cannot rely on configurations outside of the Git repository.
 
 When using `flake.nix` to configure NixOS, both Home Manager and NixOS provide the `nixpkgs.overlays` option to define overlays. You can refer to the following documentation for more details:
@@ -59,7 +59,7 @@ Let's take a look at an example module that loads overlays. This module can be u
 }
 ```
 
-In the above example, we define three overlays. 
+In the above example, we define three overlays.
 
 1. Overlay 1 modifies the `google-chrome` derivation by adding a command-line argument for a proxy server.
 2. Overlay 2 modifies the `steam` derivation by adding extra packages and environment variables.
@@ -80,7 +80,7 @@ One example of importing the above configuration as a NixOS module is as follows
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          
+
           # import the module that contains overlays
           (import ./overlays)
         ];
@@ -92,11 +92,10 @@ One example of importing the above configuration as a NixOS module is as follows
 
 This is just an example. Please write your own overlays according to your needs.
 
-
 ## Multiple nixpkgs Instances with different Overlays
 
-The `nixpkgs.overlays = [...];` mentioned above directly modifies the global nixpkgs instance `pkgs`. If your overlays make changes to some low-level packages, it might impact other modules. 
-One downside is an increase in local compilation (due to cache invalidation), 
+The `nixpkgs.overlays = [...];` mentioned above directly modifies the global nixpkgs instance `pkgs`. If your overlays make changes to some low-level packages, it might impact other modules.
+One downside is an increase in local compilation (due to cache invalidation),
 and there might also be functionality issues with the affected packages.
 
 If you wish to utilize overlays only in a specific location without affecting the default nixpkgs instance, you can instantiate a new nixpkgs instance and apply your overlays to it.

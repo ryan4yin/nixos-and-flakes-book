@@ -74,7 +74,6 @@ sudo nix profile wipe-history --older-than 7d --profile /nix/var/nix/profiles/sy
 sudo nix-collect-garbage --delete-old
 ```
 
-
 ## Why some packages are installed?
 
 To find out why a package is installed, you can use the following command:
@@ -83,7 +82,6 @@ To find out why a package is installed, you can use the following command:
 1. ` nix-store --gc --print-roots | rg -v '/proc/' | rg -Po '(?<= -> ).*' | xargs -o nix-tree`
 1. `/<package-name>` to find the package you want to check.
 1. `w` to show the package is depended by which packages, and the full dependency chain.
-
 
 ## Reducing Disk Usage
 

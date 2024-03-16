@@ -28,19 +28,18 @@ To my delight, NixOS has exceeded my expectations. The most astonishing aspect i
 
 The rollback capability and reproducibility of NixOS has instilled a great deal of confidence in me—I no longer fear breaking the system. I've even ventured into experimenting with new things on NixOS, such as the hyprland compositor. Previously, on EndeavourOS, I wouldn't have dared to tinker with such novel compositors, as any system mishaps would have entailed significant manual troubleshooting using various workarounds.
 
-As I get more and more involved with NixOS and Nix, I find it also very suitable for synchronously managing the configuration of multiple hosts. 
-Currently my personal [nix-config](https://github.com/ryan4yin/nix-config) synchronously manages the configuration of many hosts: 
+As I get more and more involved with NixOS and Nix, I find it also very suitable for synchronously managing the configuration of multiple hosts.
+Currently my personal [nix-config](https://github.com/ryan4yin/nix-config) synchronously manages the configuration of many hosts:
 
 - Desktop computers
-  - 1 Macbook Pro 2020 (Intel amd64). 
-  - 1 Macbook Pro 2022 (M2 aarch64). 
-  - 1 NixOS desktop PC (amd64). 
+  - 1 Macbook Pro 2020 (Intel amd64).
+  - 1 Macbook Pro 2022 (M2 aarch64).
+  - 1 NixOS desktop PC (amd64).
 - Servers
-  - 3 NixOS virtual machines (amd64). 
-  - Several development boards for aarch64 and riscv64. 
+  - 3 NixOS virtual machines (amd64).
+  - Several development boards for aarch64 and riscv64.
 
 The development environment of three desktop computers is managed by Home Manager,
-the main configuration is completely shared, and the configuration modified on any host can be seamlessly synchronized to other hosts through Git. 
+the main configuration is completely shared, and the configuration modified on any host can be seamlessly synchronized to other hosts through Git.
 
 Nix almost completely shielded me from the differences between OS and architecture at the bottom of the three machines, and the experience was very slippery!
-

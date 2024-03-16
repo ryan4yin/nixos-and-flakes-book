@@ -277,19 +277,18 @@ echo 'insert after default'
 "
 
 # example 2: single-line string merging
-› echo $(nix eval .#nixosConfigurations.my-nixos.config.programs.zsh.shellInit) 
+› echo $(nix eval .#nixosConfigurations.my-nixos.config.programs.zsh.shellInit)
 "echo 'insert before default';
 echo 'this is default';
 echo 'insert after default';"
 
 # Example 3: list merging
-› nix eval .#nixosConfigurations.my-nixos.config.nix.settings.substituters      
+› nix eval .#nixosConfigurations.my-nixos.config.nix.settings.substituters
 [ "https://nix-community.cachix.org" "https://nix-community.cachix.org" "https://cache.nixos.org/" "https://ryan4yin.cachix.org" ]
 
 ```
 
 As you can see, `lib.mkBefore` and `lib.mkAfter` can define the order of merging of multiline strings, single-line strings, and lists. The order of merging is the same as the order of definition.
-
 
 > For a deeper introduction to the module system, see [Module System & Custom Options](../other-usage-of-flakes/module-system.md).
 

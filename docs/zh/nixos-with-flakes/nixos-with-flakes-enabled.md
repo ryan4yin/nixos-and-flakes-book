@@ -218,7 +218,6 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 新手阶段了解这些就足够了，探究 `nixpkgs.lib.nixosSystem` 函数的具体实现需要对 Nixpkgs 的模块系统有一定的了解。
 读者可以在学习了 [模块化 NixOS 配置](./modularize-the-configuration.md) 一节后，再回过头来从 [nixpkgs/flake.nix] 中找到 `nixpkgs.lib.nixosSystem` 的定义，跟踪它的源码，研究其实现方式。
 
-
 ## Nixpkgs Module 结构的简单介绍 {#simple-introduction-to-nixpkgs-module-structure}
 
 > 在后面的 [模块化 NixOS 配置](./modularize-the-configuration.md) 一节中会详细介绍这套模块系统的工作方式，这里只介绍些基础知识。
@@ -429,7 +428,6 @@ nix run github:helix-editor/helix/master
 
 - [Getting Started with Home Manager](./start-using-home-manager.md): 这里引入了社区的 Home-Manager 作为依赖项，从而能直接使用该 Flake 提供的功能。
 - [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): 这里引入了不同版本的 Nixpkgs 作为依赖项，从而能很灵活地选用不同版本的 Nixpkgs 中的包。
-
 
 [nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-23.11/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/lib/eval-config.nix

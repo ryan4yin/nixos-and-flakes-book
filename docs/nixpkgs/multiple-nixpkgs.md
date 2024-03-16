@@ -6,6 +6,7 @@ There are numerous applications for this technique, some common ones include:
 1. Instantiate nixpkgs instances with different commit IDs to install various versions of software packages. This approach was used in the previous section [Downgrade or Upgrade Packages](/nixos-with-flakes/downgrade-or-upgrade-packages.md).
 
 2. If you wish to utilize overlays without affecting the default nixpkgs instance, you can instantiate a new nixpkgs instance and apply overlays to it.
+
    - The `nixpkgs.overlays = [...];` mentioned in the previous section on Overlays directly modifies the global nixpkgs instance. If your overlays make changes to some low-level packages, it might impact other modules. One downside is an increase in local compilation (due to cache invalidation), and there might also be functionality issues with the affected packages.
 
 3. In cross-system architecture compilation, you can instantiate multiple nixpkgs instances to selectively use QEMU simulation for compilation and cross-compilation in different locations, or to add various GCC compilation parameters.
@@ -121,4 +122,3 @@ When creating multiple nixpkgs instances, there are some details to keep in mind
 1. According to the article [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347) shared by @fbewivpjsbsby, it's not a good practice to use `import` to customize `nixpkgs` in submodules or sub-flakes. This is because each `import` evaluates separately, creating a new nixpkgs instance each time. As the number of configurations increases, this can lead to longer build times and higher memory usage. Therefore, it's recommended to create all nixpkgs instances in the `flake.nix` file.
 
 2. When mixing QEMU simulation and cross-compilation, care should be taken to avoid unnecessary duplication of package compilations.
-

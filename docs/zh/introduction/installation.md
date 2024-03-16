@@ -14,7 +14,6 @@ NixOS 的安装步骤很简单，这里不多介绍，仅列一下我觉得比�
 1. [复用 flake 管理 NixOS WSL](https://zhuanlan.zhihu.com/p/627073511): 使用 WSL 的用户可以参考下这篇文章
 1. [ryan4yin/nix-darwin-kickstarter](https://github.com/ryan4yin/nix-darwin-kickstart): macOS 用户可以通过这个模板仓库结合本书的内容来学习使用 Nix.
 
-
 ## 对中国大陆用户流畅使用 NixOS 的建议
 
 国内用户在使用 NixOS 时会存在一些网络问题，一是 NixOS 高度依赖 GitHub 作为 channel/flake 数据源——在国内访问 GitHub 相当的慢，二是 NixOS 官方的包缓存服务器在国内访问速度较慢。
@@ -22,7 +21,6 @@ NixOS 的安装步骤很简单，这里不多介绍，仅列一下我觉得比�
 为了解决这些问题，你可以使用国内的镜像源，或者使用代理工具来加速访问。
 
 这里我先介绍几个比较简单的配置方法。
-
 
 ### 1. 包缓存服务器的加速访问
 
@@ -46,7 +44,6 @@ nix shell nixpkgs#cowsay --option substituters "https://mirrors.tuna.tsinghua.ed
 ```
 
 你可以自己测试下上述几个镜像源的速度，选速度最快的一个。
-
 
 ### 2. Channel/Flake 的加速访问
 

@@ -1,22 +1,22 @@
 // .vitepress/theme/index.ts
-import DefaultTheme from "vitepress/theme";
-import giscusTalk from "vitepress-plugin-comment-with-giscus";
-import { useData, useRoute } from "vitepress";
+import DefaultTheme from "vitepress/theme"
+import giscusTalk from "vitepress-plugin-comment-with-giscus"
+import { useData, useRoute } from "vitepress"
 
 // custom CSS
-import "../style/print.css";
+import "../style/print.css"
 
 export default {
   // Extending the Default Theme
   ...DefaultTheme,
   enhanceApp(ctx) {
-    DefaultTheme.enhanceApp(ctx);
+    DefaultTheme.enhanceApp(ctx)
     // ...
   },
   setup() {
     // Get frontmatter and route
-    const { frontmatter } = useData();
-    const route = useRoute();
+    const { frontmatter } = useData()
+    const route = useRoute()
 
     // Obtain configuration from: https://giscus.app/
     giscusTalk(
@@ -41,7 +41,7 @@ export default {
       // The default is true, which means enabled, this parameter can be ignored;
       // If it is false, it means it is not enabled.
       // You can use `comment: true` preface to enable it separately on the page.
-      true,
-    );
+      true
+    )
   },
-};
+}

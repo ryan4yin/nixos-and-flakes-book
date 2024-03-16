@@ -31,20 +31,18 @@ Nix 是一个声明式的软件包管理器，用户需要通过某些配置声�
 切换到 NixOS 后，我对它那是相当的满意，腰也不疼了，背也不酸了...
 最惊艳的是，现在我可以通过仅仅一行命令（`sudo nixos-rebuild switch --flake .`），就能在一台全新安装的 NixOS 主机上还原我的整个 i3 桌面环境以及所有我的常用软件！
 
-NixOS 的回滚能力与可复现能力给了我非常大的底气，我现在再也不用怕把系统搞挂了（挂了直接回滚就恢复了），于是我又在 NixOS 尝试了 Hyprland, Waybar 等等许多新鲜玩意儿~ 
+NixOS 的回滚能力与可复现能力给了我非常大的底气，我现在再也不用怕把系统搞挂了（挂了直接回滚就恢复了），于是我又在 NixOS 尝试了 Hyprland, Waybar 等等许多新鲜玩意儿~
 在以前 EndeavourOS 上我肯定是不太敢这么玩的，因为万一要是把系统玩出毛病了，就必须手动排查问题、修复系统状态，那可是相当麻烦。
 
 随着我对 NixOS 与 Nix 的使用越来越深入，我发现它还非常适合用于同步管理多台主机的配置。
 目前我的个人配置 [ryan4yin/nix-config](https://github.com/ryan4yin/nix-config) 同步管理了许多主机的配置：
 
 - 桌面电脑
-    - 一台 Macbook Pro 2020 (Intel amd64)
-    - 一台 Macbook Pro 2022 (M2 aarch64)
-    - 一台 NixOS 桌面 PC (amd64)
+  - 一台 Macbook Pro 2020 (Intel amd64)
+  - 一台 Macbook Pro 2022 (M2 aarch64)
+  - 一台 NixOS 桌面 PC (amd64)
 - 服务器
-    - 三台 NixOS 虚拟机(amd64)
-    - 若干块 aarch64 跟 riscv64 的开发板
+  - 三台 NixOS 虚拟机(amd64)
+  - 若干块 aarch64 跟 riscv64 的开发板
 
 其中三台桌面电脑的开发环境都通过 Home Manager 管理，主要配置完全共用，在任意一台主机上修改的配置，可以通过 Git 无缝同步到其他主机上。NixOS 几乎完全帮我屏蔽了三台机器底层的 OS 与芯片架构差异，体验非常丝滑！
-
-

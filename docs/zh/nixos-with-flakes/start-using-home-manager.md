@@ -254,7 +254,6 @@ nix flake new example -t github:nix-community/home-manager#nixos
 1. Home Manager 的许多配置都可以在 NixOS, macOS 以及其他 Linux 发行版上通用，尽可能选用 Home Manager 来安装软件与配置系统，可以提高配置的可移植性。
 1. 如果你需要多用户，通过 Home Manager 安装的软件与配置，可以更好地隔离不同用户的环境，避免不同用户之间的配置与软件版本冲突。
 
-
 ## 如何以特权身份使用 Home Manager 安装的软件包?
 
 对这个问题，首先想到的一般都是直接切换到 `root` 用户, 可切换用户后，当前用户通过 `home.nix` 安装的软件包都将不可用。
@@ -294,5 +293,3 @@ Error: nu::shell::external_command
 kubectl controls the Kubernetes cluster manager.
 ...
 ```
-
-

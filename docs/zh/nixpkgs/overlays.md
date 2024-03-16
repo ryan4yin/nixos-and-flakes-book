@@ -83,7 +83,7 @@
         system = "x86_64-linux";
         modules = [
           ./configuration.nix
-          
+
           # 引入定义了 overlays 的 Module
           (import ./overlays)
         ];
@@ -101,7 +101,6 @@
 
 如果你只是想在某个地方使用 overlays，而不想影响到全局的 nixpkgs 实例，可以通过实例化多个 nixpkgs 实例来实现。
 下一节 [多 nixpkgs 实例的妙用](./multiple-nixpkgs.md) 将会介绍如何做到这一点。
-
 
 ## 参考
 

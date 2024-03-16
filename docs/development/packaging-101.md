@@ -2,7 +2,6 @@
 
 WIP work in progress, please refer to the following reference documents to learn Nix packaging.
 
-
 ## 参考文档
 
 - [NixOS Series 3: Software Packaging 101](https://lantian.pub/en/article/modify-computer/nixos-packaging.lantian/)
@@ -19,4 +18,3 @@ WIP work in progress, please refer to the following reference documents to learn
   - FHS related
     - [pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix): `pkgs.buildFHSEnvBubblewrap`
     - [pkgs/build-support/build-fhsenv-chroot/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix): `pkgs.buildFHSEnvChroot`
-

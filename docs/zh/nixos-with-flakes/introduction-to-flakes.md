@@ -49,7 +49,6 @@ Flakes 带来的好处是显而易见的，整个 NixOS 社区都很喜欢它，
 
 读完上述内容后，个人猜测，**Flakes 有可能（仅是可能）会在未来两年内成为稳定特性**。
 
-
 ## Nix 的新 CLI 与旧的 CLI {#the-new-cli-and-the-classic-cli}
 
 Nix 于 2020 年推出了 `nix-command` & `flakes` 两个实验特性，它们提供了全新的命令行工具（即 New CLI）、标准的 Nix 包结构定义（即 Flakes 特性）、类似 cargo/npm 的 `flake.lock` 版本锁文件等等。这两个特性极大地增强了 Nix 的能力，因此虽然至今（2024/2/1）它们仍然是实验性特性，但是已经被 Nix 社区广泛使用。
@@ -73,7 +72,6 @@ Nix 于 2020 年推出了 `nix-command` & `flakes` 两个实验特性，它们�
    1. 在 New CLI 中有个相似的指令 `nix store gc --debug`，但它不会清理 profile 生成的历史版本，因此此命令暂无替代。
 6. 以及其他使用地较少的命令，就不一一列出了.
    1. 详细的命令对比列表可以看看 [Try to explain nix commands](https://qiita-com.translate.goog/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en)
-
 
 [^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes)
 [^2]: [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)

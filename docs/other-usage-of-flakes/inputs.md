@@ -13,8 +13,8 @@ The `inputs` section in `flake.nix` is an attribute set used to specify the depe
     # Archive File URL, needed in case your input use LFS.
     # Regular git input doesn't support LFS yet.
     git-example-lfs.url = "https://codeberg.org/solver-orgz/treedome/archive/master.tar.gz";
-    # Similar to fetching a Git repository, but using the ssh protocol 
-    # with key authentication. Also uses the shallow=1 parameter 
+    # Similar to fetching a Git repository, but using the ssh protocol
+    # with key authentication. Also uses the shallow=1 parameter
     # to avoid copying the .git directory.
     ssh-git-example.url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1";
     # It's also possible to directly depend on a local Git repository.
@@ -39,7 +39,7 @@ The `inputs` section in `flake.nix` is an attribute set used to specify the depe
     sops-nix = {
       url = "github:Mic92/sops-nix";
       # `follows` is the inheritance syntax within inputs.
-      # Here, it ensures that sops-nix's `inputs.nixpkgs` aligns with 
+      # Here, it ensures that sops-nix's `inputs.nixpkgs` aligns with
       # the current flake's inputs.nixpkgs,
       # avoiding inconsistencies in the dependency's nixpkgs version.
       inputs.nixpkgs.follows = "nixpkgs";
@@ -55,4 +55,3 @@ The `inputs` section in `flake.nix` is an attribute set used to specify the depe
   outputs = { self, ... }@inputs: { ... };
 }
 ```
-

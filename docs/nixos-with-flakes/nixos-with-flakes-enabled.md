@@ -32,11 +32,10 @@ Compared to the default configuration method currently used in NixOS, Flakes off
 }
 ```
 
-After making these changes, run `sudo nixos-rebuild switch` to apply the modifications. Then, you can use the Flakes feature to manage your system configuration. 
+After making these changes, run `sudo nixos-rebuild switch` to apply the modifications. Then, you can use the Flakes feature to manage your system configuration.
 
-The new nix command-line tool also offers some convenient features. For example, you can now use the `nix repl` command to open a nix interactive environment. 
+The new nix command-line tool also offers some convenient features. For example, you can now use the `nix repl` command to open a nix interactive environment.
 If you're interested, you can use it to review and test all the Nix syntax you've learned before.
-
 
 ## Switching System Configuration to `flake.nix` {#switch-to-flake-nix}
 
@@ -56,7 +55,7 @@ nix flake init -t templates#full
 cat flake.nix
 ```
 
-Referencing this template, create the file `/etc/nixos/flake.nix` and write the configuration content. All subsequent system modifications will be taken over by Nix Flakes. 
+Referencing this template, create the file `/etc/nixos/flake.nix` and write the configuration content. All subsequent system modifications will be taken over by Nix Flakes.
 Here's an example of the content:
 
 ```nix{16}
@@ -86,7 +85,7 @@ Here we defined a system named `my-nixos`, with its configuration file located a
 
 Now, when you execute `sudo nixos-rebuild switch` to apply the configuration, the system should not change at all because we have simply switched to using Nix Flakes, and the configuration content remains consistent with before.
 
-After the switch, we can manage the system through the Flakes feature. 
+After the switch, we can manage the system through the Flakes feature.
 
 Currently, our flake includes these files:
 
@@ -97,10 +96,9 @@ Currently, our flake includes these files:
 
 Up to this point, `/etc/nixos/flake.nix` has merely been a thin wrapper around `/etc/nixos/configuration.nix`, offering no new functionality and introducing no disruptive changes. In the content of the book that follows, we will gradually see the benefits that such a wrapper brings.
 
-> Note: The configuration management method described in this book is NOT "Everything in a single file". It is recommended to categorize configuration content into different nix files, then introduce these configuration files in the `modules` list of `flake.nix`, and manage them with Git. 
+> Note: The configuration management method described in this book is NOT "Everything in a single file". It is recommended to categorize configuration content into different nix files, then introduce these configuration files in the `modules` list of `flake.nix`, and manage them with Git.
 >
 > The benefits of this approach are better organization of configuration files and improved maintainability of the configuration. The section [Modularizing NixOS Configuration](./modularize-the-configuration.md) will explain in detail how to modularize your NixOS configuration, and [Other Useful Tips - Managing NixOS Configuration with Git](./other-useful-tips.md) will introduce several best practices for managing NixOS configuration with Git.
-
 
 ## `flake.nix` Configuration Explained {#flake-nix-configuration-explained}
 
@@ -123,18 +121,17 @@ First, let's look at the `inputs` attribute. It is an attribute set that defines
 }
 ```
 
-Dependencies in `inputs` has many types and definitions. 
-It can be another flake, a regular Git repository, or a local path. 
+Dependencies in `inputs` has many types and definitions.
+It can be another flake, a regular Git repository, or a local path.
 The section [Other Usage of Flakes - Flake Inputs](../other-usage-of-flakes/inputs.md) describes common types of dependencies and their definitions in detail.
 
 Here we only define a dependency named `nixpkgs`, which is the most common way to reference in a flake, i.e., `github:owner/name/reference`. The `reference` here can be a branch name, commit-id, or tag.
 
 After `nixpkgs` is defined in `inputs`, you can use it in the parameters of the subsequent `outputs` function, which is exactly what our example does.
 
-
 ### 2. Flake Outputs
 
-Now let's look at `outputs`. 
+Now let's look at `outputs`.
 It is a function that takes the dependencies from `inputs` as its parameters, and its return value is an attribute set, which represents the build results of the flake:
 
 ```nix{11-19}
@@ -160,12 +157,12 @@ It is a function that takes the dependencies from `inputs` as its parameters, an
 }
 ```
 
-Flakes can have various purposes and can have different types of outputs. The section [Flake Outputs](../other-usage-of-flakes/outputs.md) provides a more detailed introduction. 
+Flakes can have various purposes and can have different types of outputs. The section [Flake Outputs](../other-usage-of-flakes/outputs.md) provides a more detailed introduction.
 Here, we are only using the `nixosConfigurations` type of outputs, which is used to configure NixOS systems.
 
 When we run the `sudo nixos-rebuild switch` command, it looks for the `nixosConfigurations.my-nixos` attribute (where `my-nixos` will be the hostname of your current system) in the attribute set returned by the `outputs` function of `/etc/nixos/flake.nix` and uses the definition there to configure your NixOS system.
 
-Actually, we can also customize the location of the flake and the name of the NixOS configuration instead of using the defaults. 
+Actually, we can also customize the location of the flake and the name of the NixOS configuration instead of using the defaults.
 This can be done by adding the `--flake` parameter to the `nixos-rebuild` command. Here's an example:
 
 ```nix
@@ -218,7 +215,7 @@ The attribute set following `nixpkgs.lib.nixosSystem` is the function's paramete
 
 1. `system`: This is straightforward, it's the system architecture parameter.
 2. `modules`: This is a list of modules, where the actual NixOS system configuration is defined.
-The `/etc/nixos/configuration.nix` configuration file itself is a Nixpkgs Module, so it can be directly added to the `modules` list for use.
+   The `/etc/nixos/configuration.nix` configuration file itself is a Nixpkgs Module, so it can be directly added to the `modules` list for use.
 
 Understanding these basics is sufficient for beginners. Exploring the `nixpkgs.lib.nixosSystem` function in detail requires a grasp of the Nixpkgs module system.
 Readers who have completed the [Modularizing NixOS Configuration](./modularize-the-configuration.md) section can return to [nixpkgs/flake.nix] to find the definition of `nixpkgs.lib.nixosSystem`, trace its source code, and study its implementation.
@@ -226,7 +223,6 @@ Readers who have completed the [Modularizing NixOS Configuration](./modularize-t
 ## Nixpkgs Module Structure Explained {#simple-introduction-to-nixpkgs-module-structure}
 
 > The detailed workings of this module system will be introduced in the following [Modularizing NixOS Configuration](./modularize-the-configuration.md) section. Here, we'll just cover some basic knowledge.
-
 
 You might be wondering why the `/etc/nixos/configuration.nix` configuration file adheres to the Nixpkgs Module definition and can be referenced directly within the `flake.nix`.
 
@@ -264,7 +260,6 @@ The definition is actually a Nix function, and it has five **automatically gener
 5. `modulesPath`: A parameter available only in NixOS, which is a path pointing to [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/modules).
    - It is defined in [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/lib/eval-config-minimal.nix#L43).
    - It is typically used to import additional NixOS modules and can be found in most NixOS auto-generated `hardware-configuration.nix` files.
-
 
 ## Passing Non-default Parameters to Submodules {#pass-non-default-parameters-to-submodules}
 
@@ -417,7 +412,6 @@ nix run github:helix-editor/helix/master
 
 We will go into more detail on the usage of `nix run` in the following section [Usage of the New CLI](../other-usage-of-flakes/the-new-cli.md).
 
-
 ## Leveraging Features from Other Flakes Packages
 
 In fact, this is the primary functionality of Flakes — a flake can depend on other flakes, allowing it to utilize the features they provide. It's akin to how we incorporate functionalities from other libraries when writing programs in TypeScript, Go, Rust, and other programming languages.
@@ -426,7 +420,6 @@ The example above, using the latest version from the official Helix Flake, illus
 
 - [Getting Started with Home Manager](./start-using-home-manager.md): This introduces the community's Home-Manager as a dependency, enabling direct utilization of the features provided by this Flake.
 - [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): Here, different versions of Nixpkgs are introduced as dependencies, allowing for flexible selection of packages from various versions of Nixpkgs.
-
 
 [nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-23.11/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/lib/eval-config.nix

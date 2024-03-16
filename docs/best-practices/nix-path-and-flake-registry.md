@@ -1,4 +1,4 @@
-# Custom NIX_PATH and Flake Registry 
+# Custom NIX_PATH and Flake Registry
 
 ## Introduction to NIX_PATH {#nix-path-introduction}
 

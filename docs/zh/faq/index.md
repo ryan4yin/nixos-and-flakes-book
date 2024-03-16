@@ -23,7 +23,7 @@ Nix 与 Ansible 这类被广泛应用的传统工具比，主要优势就在：
 1. Ansible 这类工具一个最大的问题就是，它每次部署都是基于系统当前状态的增量修改。而系统的当前状态就如同前面提到的系统快照，是不可解释的，也很难复现。而 NixOS 是通过配置文件声明系统的目标状态，可以做到部署结果与系统当前状态无关，重复部署也不会导致任何问题。
 2. Nix Flakes 通过一个版本锁文件 `flake.lock` 锁定了所有依赖的 hash 值、版本号、数据源等信息，这极大地提升了系统的可复现能力。而传统的 Ansible 等工具没有此功能，所以它们的可复现能力很差。
    1. 这也是为什么 Docker 这么受欢迎的原因——它以较低的代价提供了 Ansible 等传统运维工具提供不了的**可在各种机器上复现的系统环境**。
-1. Nix 通过一层声明式的抽象屏蔽了其底层的实现细节，使用户只需要关心自己最核心的需求，从而带来了高度便捷的系统自定义能力。而 Ansible 这类工具的抽象能力要弱得多。
+3. Nix 通过一层声明式的抽象屏蔽了其底层的实现细节，使用户只需要关心自己最核心的需求，从而带来了高度便捷的系统自定义能力。而 Ansible 这类工具的抽象能力要弱得多。
    1. 如果你有使用过 terraform/kubernetes 等声明式配置工具，应该很容易理解这一点。需求越是复杂的情况下，声明式配置带来的好处就越大。
 
 ## Nix 与 Docker 容器技术相比有何优势？
@@ -77,7 +77,7 @@ Nix 与以 Docker 为代表的容器技术的应用场景也存在一定重合�
 ```bash
 error: builder for '/nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv' failed with exit code 25;
        last 1 log lines:
-       > error: collision between `/nix/store/kvq0gvz6jwggarrcn9a8ramsfhyh1h9d-lldb-14.0.6/lib/python3.11/site-packages/six.py' 
+       > error: collision between `/nix/store/kvq0gvz6jwggarrcn9a8ramsfhyh1h9d-lldb-14.0.6/lib/python3.11/site-packages/six.py'
 and `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.11/site-packages/six.py'
        For full logs, run 'nix log /nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv'.
 ```
@@ -86,34 +86,33 @@ and `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.
 
 1. 将两个包拆分到两个不同的 **profiles** 中。比如说，你可以通过 `environment.systemPackages` 安装 `lldb`，通过 `home.packages` 安装 `python311`。
 2. 不同版本的 Python3 被视为不同的包，所以你可以将你的自定义 Python3 版本改为 `python310` 以避免冲突。
-2. 使用 `override` 来覆盖包使用的库的版本，使其与另一个包使用的版本一致。
+3. 使用 `override` 来覆盖包使用的库的版本，使其与另一个包使用的版本一致。
 
-  ```nix
-  {
-    # as a nixos module
-    # environment.systemPackages = with pkgs; [
-    #
-    # or as a home manager module
-    home.packages = let
-      custom-python3 = (pkgs.python311.withPackages (ps:
-        with ps; [
-          ipython
-          pandas
-          requests
-          pyquery
-          pyyaml
-        ]
-      ));
-    in
-      with pkgs; [
-        # override the version of python3
-        # NOTE: This will trigger a rebuild of lldb, it takes time
-        (lldb.override {
-          python3 = custom-python3;
-        })
-  
-        custom-python3
-    ];
-  }
-  ```
+```nix
+{
+  # as a nixos module
+  # environment.systemPackages = with pkgs; [
+  #
+  # or as a home manager module
+  home.packages = let
+    custom-python3 = (pkgs.python311.withPackages (ps:
+      with ps; [
+        ipython
+        pandas
+        requests
+        pyquery
+        pyyaml
+      ]
+    ));
+  in
+    with pkgs; [
+      # override the version of python3
+      # NOTE: This will trigger a rebuild of lldb, it takes time
+      (lldb.override {
+        python3 = custom-python3;
+      })
 
+      custom-python3
+  ];
+}
+```

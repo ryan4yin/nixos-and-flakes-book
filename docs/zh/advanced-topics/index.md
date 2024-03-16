@@ -1,6 +1,5 @@
 # 进阶玩法 {#advanced-topics}
 
-
 ## 社区
 
 - [Nix 社区官方页](https://nixos.org/community/): 包含官方社区、论坛、RFCs、官方团队的架构以及沟通贡献渠道等信息。
@@ -33,7 +32,6 @@
 - [Summer of Nix 2022 — Public Lecture Series](https://www.youtube.com/playlist?list=PLt4-_lkyRrOMWyp5G-m_d1wtTcbBaOxZk): NixOS Foundation 举办的一系列公开讲座，由 Eelco Dolstra、Armijn Hemel 等 Nix 社区核心成员主讲，内容涵盖了 Nix 的发展历程、NixOS 的历史、Nix 的未来等多个方面，干货满满。
 - [Summer of Nix 2023 — Nix Developer Dialogues](https://www.youtube.com/playlist?list=PLt4-_lkyRrOPcBuz_tjm6ZQb-6rJjU3cf): 2023 年的 Summer of Nix，一系列 Nix 社区核心成员的对话，内容包含 Nixpkgs 的演进与架构方面的挑战，探索 Nix 的模块系统，讨论 Nix 生态，Nixpkgs 中的 AI 应用，Nix 在商业领域的应用与开源经济学。
 
-
 另外 @NickCao 在 2021 年做的一个深入介绍 Nix 包管理器的演讲也很值得一阅：
 
 - [金枪鱼之夜：Nix - 从构建系统到配置管理](https://www.bilibili.com/video/BV13Y411p7DS/)
@@ -60,5 +58,3 @@
 - ...
 
 想了解更多内容，可以看看 [awesome-nix](https://github.com/nix-community/awesome-nix).
-
-

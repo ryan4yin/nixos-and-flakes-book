@@ -27,4 +27,3 @@ nvim-test: nvim-clean
 测试完毕后，运行下 `just nvim-clean`，再重新用 `nixos-rebuild` 部署下配置，就完成了配置的还原。
 
 这种方法能生效的前提是，你的 Dotfiles 内容不是由 Nix 生成的，比如我的 Emacs/Neovim 配置都是原生的，仅通过 Nix Home-Manager 的 `home.file` 或 `xdg.configFile` 将它们链接到正确的位置。
-

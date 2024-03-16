@@ -256,19 +256,18 @@ echo 'insert after default'
 "
 
 # 示例二：单行字符串合并
-› echo $(nix eval .#nixosConfigurations.my-nixos.config.programs.zsh.shellInit) 
+› echo $(nix eval .#nixosConfigurations.my-nixos.config.programs.zsh.shellInit)
 "echo 'insert before default';
 echo 'this is default';
 echo 'insert after default';"
 
 # 示例三：列表合并
-› nix eval .#nixosConfigurations.my-nixos.config.nix.settings.substituters      
+› nix eval .#nixosConfigurations.my-nixos.config.nix.settings.substituters
 [ "https://nix-community.cachix.org" "https://nix-community.cachix.org" "https://cache.nixos.org/" "https://ryan4yin.cachix.org" ]
 
 ```
 
 可以看到，`lib.mkBefore` 会将后面的值插入到前面，而 `lib.mkAfter` 会将后面的值插入到前面。
-
 
 > 对模块系统更深入的介绍，参见 [模块系统与自定义 options](../other-usage-of-flakes/module-system.md).
 
