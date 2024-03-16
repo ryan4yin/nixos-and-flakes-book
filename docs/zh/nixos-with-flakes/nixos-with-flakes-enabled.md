@@ -179,9 +179,16 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 
 ### 3. `nixpkgs.lib.nixosSystem` 函数的简单介绍 {#simple-introduction-to-nixpkgs-lib-nixos-system}
 
-默认情况下，flake 会在其每个依赖项的根目录下寻找 `flake.nix` 文件并执行它的 `outputs` 函数，并将该函数返回的 attribute set 作为参数传递给它自身的 `outputs` 函数，这样我们就能在 outputs 中使用各依赖项提供的内容了。
+**一个 Flake 可以依赖其他 Flakes，从而使用它们提供的功能**。
 
-在我们这一节的例子中，[nixpkgs/flake.nix] 会在我们执行 `sudo nixos-rebuild swtich` 时被执行，我们能从其源码中看到它 outputs 的定义中有 `lib` 这个属性，我们的例子中就使用了 `lib` 属性中的 `nixosSystem` 这个函数：
+默认情况下，一个 flake 会在其每个依赖项（即 `inputs` 中的每一项）的根目录下寻找 `flake.nix` 文件并**懒惰求值**（lazy evaluation）它们的 `outputs` 函数，接着将这些函数返回的 attribute sets 作为参数传递给它自身的 `outputs` 函数，这样我们就能在当前 flake 中使用它所依赖的其他 flakes 提供的功能了。
+
+更精确地说，对每个依赖项的 `outputs` 函数的求值都是懒惰（lazy）的，也就是说，一个 flake 的 `outputs` 函数只有在被真正使用到的时候才会被求值，这样就能避免不必要的计算，从而提高效率。
+
+上面的描述可能有点绕，我们还是结合本节中使用的 `flake.nix` 示例来看看这个过程。
+我们的 `flake.nix` 声明了 `inputs.nixpkgs` 这个依赖项，因此
+[nixpkgs/flake.nix] 会在我们执行 `sudo nixos-rebuild swtich` 这个命令时被求值。
+从 Nixpkgs 仓库的源码中能看到它的 flake outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `lib` 属性中的 `nixosSystem` 这个函数来配置我们的 NixOS 系统：
 
 ```nix{8-13}
 {

@@ -185,11 +185,16 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 
 ### 3. Simple Introduction to `nixpkgs.lib.nixosSystem` Function {#simple-introduction-to-nixpkgs-lib-nixos-system}
 
-By default, a flake will look for a `flake.nix` file in the root directory of each of its dependencies and execute its `outputs` function. 
-The attribute set returned by this function is then passed as a parameter to the flake's own `outputs` function, allowing us to use the content provided by each dependency in our outputs. 
+**A Flake can depend on other Flakes to utilize the features they provide.**
 
+By default, a flake searches for a `flake.nix` file in the root directory of each of its dependencies (i.e., each item in `inputs`) and lazily evaluates their `outputs` functions. It then passes the attribute set returned by these functions as arguments to its own `outputs` function, enabling us to use the features provided by the other flakes within our current flake.
 
-In the example in this section, [nixpkgs/flake.nix] will be executed when we run `sudo nixos-rebuild switch`. We can see from its source code that its `outputs` definition includes the `lib` attribute, which is used in our example:
+More precisely, the evaluation of the `outputs` function for each dependency is lazy. This means that a flake's `outputs` function is only evaluated when it is actually used, thereby avoiding unnecessary calculations and improving efficiency.
+
+The description above may be a bit confusing, so let's take a look at the process with the `flake.nix` example used in this section.
+Our `flake.nix` declares the `inputs.nixpkgs` dependency, so that [nixpkgs/flake.nix] will be evaluated when we run the `sudo nixos-rebuild switch` command.
+
+From the source code of the Nixpkgs repository, we can see that its flake outputs definition includes the `lib` attribute, and in our example, we use the `lib` attribute's `nixosSystem` function to configure our NixOS system:
 
 ```nix{8-13}
 {
