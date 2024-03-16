@@ -187,7 +187,7 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 
 上面的描述可能有点绕，我们还是结合本节中使用的 `flake.nix` 示例来看看这个过程。
 我们的 `flake.nix` 声明了 `inputs.nixpkgs` 这个依赖项，因此
-[nixpkgs/flake.nix] 会在我们执行 `sudo nixos-rebuild swtich` 这个命令时被求值。
+[nixpkgs/flake.nix] 会在我们执行 `sudo nixos-rebuild switch` 这个命令时被求值。
 从 Nixpkgs 仓库的源码中能看到它的 flake outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `lib` 属性中的 `nixosSystem` 这个函数来配置我们的 NixOS 系统：
 
 ```nix{8-13}
@@ -305,7 +305,7 @@ NixOS 社区比较推荐优先使用 `_module.args` 这个 options，仅在无�
 
       # 将所有 inputs 参数设为所有子模块的特殊参数，
       # 这样就能直接在子模块中使用 inputs 中的所有依赖项了
-      specialArgs = { inheirt inputs;};
+      specialArgs = { inherit inputs;};
       modules = [
         ./configuration.nix
       ];
@@ -376,7 +376,7 @@ NixOS 社区比较推荐优先使用 `_module.args` 这个 options，仅在无�
   outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      specialArgs = { inheirt inputs;};
+      specialArgs = { inherit inputs;};
       modules = [
         ./configuration.nix
 

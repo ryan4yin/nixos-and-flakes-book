@@ -138,7 +138,7 @@ Here is a `flake.nix` that defines a development environment with Node.js 18 ins
 }
 ```
 
-Create an empty folder, save the above configuration as `flake.nix`, and then execute `nix develop` (or more precisely, you can use `nix develop .#default`), the current version of nodejs will be outputed, and now you can use `node` `pnpm` `yarn` seamlessly.
+Create an empty folder, save the above configuration as `flake.nix`, and then execute `nix develop` (or more precisely, you can use `nix develop .#default`), the current version of nodejs will be outputted, and now you can use `node` `pnpm` `yarn` seamlessly.
 
 
 ## Using zsh/fish/... instead of bash

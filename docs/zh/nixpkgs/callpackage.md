@@ -1,6 +1,6 @@
 # pkgs.callPackage
 
-`pkgs.callPackage` 被用于参数化构建 Nix 包，为了理解它的用处，我们首先考虑下不使用 `pkgs.callPakcage` 的情况下，我们要如何定义一个 Nix 包（也就是 Derivation）。
+`pkgs.callPackage` 被用于参数化构建 Nix 包，为了理解它的用处，我们首先考虑下不使用 `pkgs.callPackage` 的情况下，我们要如何定义一个 Nix 包（也就是 Derivation）。
 
 ## 1. 不使用 `pkgs.callPackage` 的情况
 

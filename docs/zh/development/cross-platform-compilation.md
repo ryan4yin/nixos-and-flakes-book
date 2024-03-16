@@ -211,7 +211,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
           nixpkgs.overlays = [ (self: super: { gcc = self.gcc12; }) ];
         }
 
-        # other moduels ......
+        # other modules ......
       ];
     };
   };
@@ -261,7 +261,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
           environment.systemPackages = [ pkgs-gcc12.hello ];
         })
 
-        # other moduels ......
+        # other modules ......
       ];
     };
   };

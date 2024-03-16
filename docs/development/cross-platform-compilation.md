@@ -211,7 +211,7 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
           nixpkgs.overlays = [ (self: super: { gcc = self.gcc12; }) ];
         }
 
-        # other moduels ......
+        # other modules ......
       ];
     };
   };
@@ -261,7 +261,7 @@ To avoid this problem, a better way is to create a new `pkgs` instance, and only
           environment.systemPackages = [ pkgs-gcc12.hello ];
         })
 
-        # other moduels ......
+        # other modules ......
       ];
     };
   };
