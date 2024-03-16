@@ -45,7 +45,7 @@ Flakes 带来的好处是显而易见的，整个 NixOS 社区都很喜欢它，
 - [Why are flakes still experimental? - NixOS Discourse](https://discourse.nixos.org/t/why-are-flakes-still-experimental/29317): 最近的一次关于 Flakes 稳定性的讨论，可以看到大家的疑惑，以及社区对 Flakes 的态度。
 - [Flakes are such an obviously good thing - Graham Christensen](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/): NixOS 社区成员的文章，记录了他对 Flakes 的看法，以及对社区当初添加 Flakes 特性时的不当举措的懊悔。
 - [ teaching Nix 3 CLI and Flakes #281 - nix.dev](https://github.com/NixOS/nix.dev/issues/281): 社区关于是否应该在 NixOS 官方文档中介绍 Flakes 的讨论，当前结论是官方文档不应该推广使用 unstable 功能。
-- [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9): NixOS Fundation 的一份 Roadmap，其中提到了 Flakes 的计划：`Stabilize flakes and release Nix 3.0. Flakes are widely used (there are more GitHub repos being created with a flake.nix than a default.nix) but they’re still marked as experimental, which is not a good situation. The same applies to the new nix CLI.`
+- [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9): NixOS Foundation 的一份 Roadmap，其中提到了 Flakes 的计划：`Stabilize flakes and release Nix 3.0. Flakes are widely used (there are more GitHub repos being created with a flake.nix than a default.nix) but they’re still marked as experimental, which is not a good situation. The same applies to the new nix CLI.`
 
 读完上述内容后，个人猜测，**Flakes 有可能（仅是可能）会在未来两年内成为稳定特性**。
 

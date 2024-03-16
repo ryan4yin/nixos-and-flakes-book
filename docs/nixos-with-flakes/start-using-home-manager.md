@@ -50,7 +50,7 @@ According to the official [Home Manager Manual](https://nix-community.github.io/
     # utils
     ripgrep # recursively searches directories for a regex pattern
     jq # A lightweight and flexible command-line JSON processor
-    yq-go # yaml processer https://github.com/mikefarah/yq
+    yq-go # yaml processor https://github.com/mikefarah/yq
     eza # A modern replacement for ‘ls’
     fzf # A command-line fuzzy finder
 

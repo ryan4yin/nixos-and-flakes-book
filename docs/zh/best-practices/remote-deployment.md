@@ -72,7 +72,7 @@ ssh-add ~/.ssh/your-private-key
       meta = {
         nixpkgs = import nixpkgs { system = "x86_64-linux"; };
 
-        # 这个参数的功能与 `nixosConfigurations.xxx` 中的 `sepcialArgs` 一致，
+        # 这个参数的功能与 `nixosConfigurations.xxx` 中的 `specialArgs` 一致，
         # 都是用于传递自定义参数到所有子模块。
         specialArgs = {
           inherit nixpkgs;

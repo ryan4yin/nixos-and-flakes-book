@@ -41,7 +41,7 @@ Here's an example of how you can add multiple nixpkgs inputs, each using a diffe
             # the outer scope recursively
             inherit system;
             # To use Chrome, we need to allow the
-            # installation of non-free softwares.
+            # installation of non-free software.
             config.allowUnfree = true;
           };
           pkgs-fd40cef8d = import nixpkgs-fd40cef8d {

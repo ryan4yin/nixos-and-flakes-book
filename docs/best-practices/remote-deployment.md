@@ -72,7 +72,7 @@ In your system's `flake.nix`, add a new outputs named `colmena`. A simple exampl
       meta = {
         nixpkgs = import nixpkgs { system = "x86_64-linux"; };
 
-        # This parameter functions similarly to `sepcialArgs` in `nixosConfigurations.xxx`,
+        # This parameter functions similarly to `specialArgs` in `nixosConfigurations.xxx`,
         # used for passing custom arguments to all submodules.
         specialArgs = {
           inherit nixpkgs;
