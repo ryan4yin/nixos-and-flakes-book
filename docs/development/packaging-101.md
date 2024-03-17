@@ -3,7 +3,7 @@
 WIP work in progress, please refer to the following reference documents to learn Nix
 packaging.
 
-## 参考文档
+## References
 
 - [NixOS Series 3: Software Packaging 101](https://lantian.pub/en/article/modify-computer/nixos-packaging.lantian/)
 - [How to Learn Nix, Part 28: The standard environment](https://ianthehenry.com/posts/how-to-learn-nix/the-standard-environment/)
