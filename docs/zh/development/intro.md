@@ -257,7 +257,7 @@ session，可以在其中正常使用 `node` `pnpm` 命令.
 过 NixOS 的 `environment.systemPackages` 来安装这个 wrapper，然后直接执行它：
 
 ```nix
-{pkgs, lib, ...}{
+{pkgs, lib, ...}:{
 
   environment.systemPackages = [
     # 将 dev-shell 安装到系统环境中
@@ -276,7 +276,7 @@ session，可以在其中正常使用 `node` `pnpm` 命令.
       mkdir -p $out/bin/
       ln -s ${pkgs.nushell}/bin/nu $out/bin/dev-shell
       wrapProgram $out/bin/dev-shell --prefix PATH : ${pkgs.lib.makeBinPath packages}
-    '';)
+    '')
   ];
 }
 ```
