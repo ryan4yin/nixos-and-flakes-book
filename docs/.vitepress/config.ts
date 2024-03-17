@@ -75,6 +75,7 @@ export default defineConfig({
     config: (md) => {
       // add support for footnote
       md.use(require("markdown-it-footnote"))
+      md.use(require("markdown-it-cjk-breaks"))
     },
   },
 
@@ -88,6 +89,22 @@ export default defineConfig({
 
     search: {
       provider: "local",
+      // for debugging
+      // options: {
+      //   /**
+      //    * @param {string} src
+      //    * @param {import('vitepress').MarkdownEnv} env
+      //    * @param {import('markdown-it')} md
+      //    */
+      //   _render(src, env, md) {
+      //     console.log("start...")
+      //     console.log("src", src)
+      //     let out = md.render(src, env)
+      //     console.log("success...")
+      //     return out
+      //   },
+      // },
+
       // provider: 'algolia',
       // options: {
       //   appId: '747LJ10EI7',

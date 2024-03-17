@@ -1,7 +1,7 @@
 {
   "type": "module",
   "devDependencies": {
-    "vitepress": "1.0.0-rc.44",
+    "vitepress": "1.0.0-rc.45",
     "vitepress-export-pdf": "1.0.0-beta.0"
   },
   "scripts": {
@@ -11,6 +11,7 @@
     "export-pdf": "press-export-pdf export ./docs --outFile ./nixos-and-flakes-book.pdf"
   },
   "dependencies": {
+    "markdown-it-cjk-breaks": "^2.0.0",
     "markdown-it-footnote": "^4.0.0",
     "sitemap-ts": "^1.6.1",
     "vitepress-plugin-comment-with-giscus": "^1.1.12"
