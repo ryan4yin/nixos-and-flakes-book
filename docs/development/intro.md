@@ -260,7 +260,7 @@ For example, we can directly install this wrapper through NixOS's
 `environment.systemPackages`, and then execute it directly:
 
 ```nix
-{pkgs, lib, ...}{
+{pkgs, lib, ...}:{
 
   environment.systemPackages = [
     # Install the wrapper into the system
@@ -279,7 +279,7 @@ For example, we can directly install this wrapper through NixOS's
       mkdir -p $out/bin/
       ln -s ${pkgs.nushell}/bin/nu $out/bin/dev-shell
       wrapProgram $out/bin/dev-shell --prefix PATH : ${pkgs.lib.makeBinPath packages}
-    '';)
+    '')
   ];
 }
 ```

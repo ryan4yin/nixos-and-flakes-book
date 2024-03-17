@@ -252,7 +252,7 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
       system = "x86_64-linux";
       modules = [
         {
-          nigpkgs.crossSystem = {
+          nixpkgs.crossSystem = {
             config = "riscv64-unknown-linux-gnu";
           };
 
@@ -304,7 +304,7 @@ follows:
       };
       modules = [
         {
-          nigpkgs.crossSystem = {
+          nixpkgs.crossSystem = {
             config = "riscv64-unknown-linux-gnu";
           };
         }
