@@ -48,13 +48,13 @@ may arise due to forthcoming breaking changes.
 
 I won't go into too much detail here, please refer to the following documents:
 
+- Nix Flakes's official documentation:
+  - [Nix flakes - Nix Manual](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake)
+  - [Flakes - nix.dev](https://nix.dev/concepts/flakes)
 - A series of tutorials by Eelco Dolstra(The creator of Nix) about Flakes:
   - [Nix Flakes, Part 1: An introduction and tutorial (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-05-25-flakes/)
   - [Nix Flakes, Part 2: Evaluation caching (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-06-25-eval-cache/)
   - [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
-- Nix's official documentation:
-  - [Nix flakes - Nix Manual](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake)
-  - [Flakes - nix.dev](https://nix.dev/concepts/flakes)
 - Other useful documents:
   - [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
 

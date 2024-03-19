@@ -40,13 +40,13 @@ Flakes[^3]，因此我们可以相当确定 Flakes 不会被废弃。
 限于个人精力，我不会在本书中详细介绍 Flakes 的使用，
 请直接参考如下官方/半官方的文档。
 
+- Nix Flakes 的官方文档：
+  - [Nix flakes - Nix Manual](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake)
+  - [Flakes - nix.dev](https://nix.dev/concepts/flakes)
 - Eelco Dolstra （Nix 的创造者）的一系列关于 Flakes 的文章：
   - [Nix Flakes, Part 1: An introduction and tutorial (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-05-25-flakes/)
   - [Nix Flakes, Part 2: Evaluation caching (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-06-25-eval-cache/)
   - [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
-- Nix 的官方文档：
-  - [Nix flakes - Nix Manual](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake)
-  - [Flakes - nix.dev](https://nix.dev/concepts/flakes)
 - 其他可能有用的文档：
   - [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
 
