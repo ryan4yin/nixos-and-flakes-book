@@ -183,8 +183,6 @@ results of the flake:
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
-  # The `self` parameter is special, it refers to
-  # the attribute set returned by the `outputs` function itself.
   outputs = { self, nixpkgs, ... }@inputs: {
     # The host with the hostname `my-nixos` will use this configuration
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
@@ -230,7 +228,28 @@ example:
 sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 ```
 
-### 3. Simple Introduction to `nixpkgs.lib.nixosSystem` Function {#simple-introduction-to-nixpkgs-lib-nixos-system}
+### 3. The Special Parameter `self` of the `outputs` Function {#special-parameter-self-of-outputs-function}
+
+Although we have not mentioned it before, all the example code in the previous sections
+has one more special parameter in the `outputs` function, and we will briefly introduce
+its purpose here.
+
+The description of it in the [nix flake - Nix Manual] is:
+
+> The special input named `self` refers to the outputs and source tree of this flake.
+
+This means that `self` is the return value of the current flake's `outputs` function and
+also the path to the current flake's source code folder (source tree).
+
+We are not using the `self` parameter here, but in some more complex examples (or
+configurations you may find online) later, you will see the usage of `self`.
+
+> Note: You might come across some code where people use `self.outputs` to reference the
+> outputs of the current flake, which is indeed possible. However, the Nix Manual does not
+> provide any explanation for this, and it is considered an internal implementation detail
+> of flakes. It is not recommended to use this in your own code!
+
+### 4. Simple Introduction to `nixpkgs.lib.nixosSystem` Function {#simple-introduction-to-nixpkgs-lib-nixos-system}
 
 **A Flake can depend on other Flakes to utilize the features they provide.**
 
@@ -545,6 +564,8 @@ referenced for future mention:
   versions of Nixpkgs are introduced as dependencies, allowing for flexible selection of
   packages from various versions of Nixpkgs.
 
+[nix flake - Nix Manual]:
+  https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
 [nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-23.11/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]:
   https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/lib/eval-config.nix

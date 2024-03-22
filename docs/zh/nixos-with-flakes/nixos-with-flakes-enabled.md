@@ -162,7 +162,6 @@ attribute set，这个返回的 attribute set 即为该 flake 的构建结果：
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
   };
 
-  # 这里的 `self` 是个特殊参数，它指向 `outputs` 函数返回的 attribute set 自身，即自引用
   outputs = { self, nixpkgs, ... }@inputs: {
     # hostname 为 my-nixos 的主机会使用这个配置
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
@@ -202,7 +201,26 @@ sudo nixos-rebuild switch --flake /path/to/your/flake#your-hostname
 sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 ```
 
-### 3. `nixpkgs.lib.nixosSystem` 函数的简单介绍 {#simple-introduction-to-nixpkgs-lib-nixos-system}
+### 3. `outputs` 函数的特殊参数 `self` {#special-parameter-self-of-outputs-function}
+
+虽然我们前面并未提到，但是前面的所有示例代码中，`outputs` 函数都还有一个特殊的参数
+`self`，这里我们简单介绍一下它的作用。
+
+[nix flake - Nix Manual] 对其的描述是：
+
+> The special input named `self` refers to the outputs and source tree of this flake.
+
+所以说 `self` 是当前 flake 的 `outputs` 函数的返回值，同时也是当前 flake 源码的文件夹路径
+（source tree）。
+
+这里我们并未使用到 `self` 这个参数，在后面一些更复杂的例子（或者你网上搜
+到的一些配置）中，我们会看到 `self` 的用法。
+
+> 注意：你可能会在一些代码中看到，有人会使用 `self.outputs` 来引用当前 flake 的输出，这
+> 确实是可行的，但 Nix Manual 并未对其做任何说明，属于是 flake 的内部实现细节，不建议在
+> 你自己的代码中使用！
+
+### 4. `nixpkgs.lib.nixosSystem` 函数的简单介绍 {#simple-introduction-to-nixpkgs-lib-nixos-system}
 
 **一个 Flake 可以依赖其他 Flakes，从而使用它们提供的功能**。
 
@@ -492,6 +510,8 @@ nix run github:helix-editor/helix/master
 - [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): 这里引入了不同
   版本的 Nixpkgs 作为依赖项，从而能很灵活地选用不同版本的 Nixpkgs 中的包。
 
+[nix flake - Nix Manual]:
+  https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
 [nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-23.11/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]:
   https://github.com/NixOS/nixpkgs/tree/nixos-23.11/nixos/lib/eval-config.nix
