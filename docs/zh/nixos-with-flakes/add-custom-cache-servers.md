@@ -278,27 +278,6 @@ Nix 提供了
 直接在 Terminal 中使用 `export HTTPS_PROXY=http://127.0.0.1:7890` 这类方式是无法生效的，因
 为 nix 实际干活的是一个叫 `nix-daemon` 的后台进程，而不是直接在 Terminal 中执行的命令。
 
-nix-daemon 的实现代码是
-[nixpkgs/nixos/modules/services/system/nix-daemon.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/system/nix-daemon.nix#L184-L191)，
-它通过 `systemd.services.nix-daemon.environment` 选项设置了环境变量，我们也能通过同样的手
-段来往 nix-daemon 的运行环境中添加代理相关的环境变量，一个示例 Module 如下：
-
-```nix
-{
-  systemd.services.nix-daemon.environment = {
-    # socks5h mean that the hostname is resolved by the SOCKS server
-    https_proxy = "socks5h://localhost:7891";
-    # https_proxy = "http://localhost:7890"; # or use http prctocol instead of socks5
-  };
-}
-```
-
-部署此配置后，可通过 `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'` 查看
-nix-daemon 进程的所有环境变量，确认环境变量的设置是否生效。
-
-**但是要注意，当代理服务器不可用时，nix-daemon 将无法访问任何缓存服务器**！所以我还是更建
-议使用旁路网关等透明代理方案。
-
 如果你只是临时需要使用代理，可以通过如下命令设置代理环境变量：
 
 ```bash
@@ -311,8 +290,19 @@ sudo systemctl daemon-reload
 sudo systemctl restart nix-daemon
 ```
 
+部署此配置后，可通过 `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'` 查看
+nix-daemon 进程的所有环境变量，确认环境变量的设置是否生效。
+
 位于 `/run/systemd/system/nix-daemon.service.d/override.conf` 的设置会在系统重启后被自动删
 除，或者你可以手动删除它并重启 nix-daemon 服务来恢复原始设置。
+
+如果你希望永久设置代理，建议将上述命令保存为 shell 脚本，在每次启动系统时运行一下。或者也
+可以使用旁路网关或 TUN 等全局代理方案。
+
+> 社区也有人通过 `systemd.services.nix-daemon.environment` 以声明式的方式为 nix-daemon 永
+> 久设置代理，但这种做法下一旦代理出了问题会非常麻烦，nix-daemon 将无法正常工作，进而导致
+> 大多数 nix 命令无法正常运行，而且 systemd 自身的配置被设置了只读保护，无法简单地修改配置
+> 删除代理设置。因此不建议使用这种方式。
 
 > 使用一些商用代理或公共代理时你可能会遇到 GitHub 下载时报 HTTP 403 错误
 > （[nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)），
