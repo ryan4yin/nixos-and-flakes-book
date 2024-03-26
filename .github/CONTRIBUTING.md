@@ -19,7 +19,7 @@ But please respect the following restrictions:
 
 ## License
 
-By contributing, you agree that your contributions will be licensed under its MIT License.
+By contributing, you agree that your contributions will be licensed under [CC BY-SA 4.0](../LICENSE.md).
 
 ## Pull requests
 
