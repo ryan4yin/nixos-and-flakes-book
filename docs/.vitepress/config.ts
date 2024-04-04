@@ -174,10 +174,6 @@ function themeConfigEnglish() {
               link: "/nixos-with-flakes/add-custom-cache-servers.md",
             },
             {
-              text: "Host Custom Binary Cache with S3",
-              link: "/nixos-with-flakes/host-custom-binary-cache-with-s3.md",
-            },
-            {
               text: "Getting Started with Home Manager",
               link: "/nixos-with-flakes/start-using-home-manager.md",
             },
@@ -239,6 +235,10 @@ function themeConfigEnglish() {
             {
               text: "Debugging Derivations and Nix Expressions",
               link: "/best-practices/debugging.md",
+            },
+            {
+              text: "Host Custom Binary Cache with S3",
+              link: "/best-practices/host-custom-binary-cache-with-s3.md",
             },
           ],
         },
@@ -372,10 +372,6 @@ function themeConfigChinese() {
               link: "/zh/nixos-with-flakes/add-custom-cache-servers.md",
             },
             {
-              text: "使用S3托管自定义二进制缓存",
-              link: "/zh/nixos-with-flakes/host-custom-binary-cache-with-s3.md",
-            },
-            {
               text: "安装使用 Home Manager",
               link: "/zh/nixos-with-flakes/start-using-home-manager.md",
             },
@@ -437,6 +433,10 @@ function themeConfigChinese() {
             {
               text: "调试 Nix 软件包与 Nix 表达式",
               link: "/zh/best-practices/debugging.md",
+            },
+            {
+              text: "使用S3托管自定义二进制缓存",
+              link: "/zh/best-practices/host-custom-binary-cache-with-s3.md",
             },
           ],
         },

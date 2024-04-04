@@ -2,10 +2,10 @@
 
 ## Introduction {#introduction}
 
-In [Adding Custom Cache Servers](./add-custom-cache-servers.md), we learned how to add
-custom binary cache servers to speed up the build process. In this post, let's explore how
-we can self-host an S3-compatible server, [Minio](https://min.io/), as a binary cache
-store.
+In [Adding Custom Cache Servers](../nixos-with-flakes/add-custom-cache-servers.md), we
+learned how to add custom binary cache servers to speed up the build process. In this
+post, let's explore how we can self-host an S3-compatible server,
+[Minio](https://min.io/), as a binary cache store.
 
 ## How To Use S3 as a Binary Cache Server {#how-to-use-s3-as-a-binary-cache-server}
 

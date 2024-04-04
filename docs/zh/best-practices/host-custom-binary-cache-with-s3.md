@@ -2,9 +2,9 @@
 
 ## 介绍 {#introduction}
 
-在[添加自定义缓存服务器](./add-custom-cache-servers.md)中，我们学习了如何添加自定义二进制
-缓存服务器来加速构建过程。在本文中，让我们探讨如何将S3兼容服务器[Minio](https://min.io/)自
-托管为二进制缓存存储。
+在[添加自定义缓存服务器](../nixos-with-flakes/add-custom-cache-servers.md)中，我们学习了如
+何添加自定义二进制缓存服务器来加速构建过程。在本文中，让我们探讨如何将S3兼容服务
+器[Minio](https://min.io/)自托管为二进制缓存存储。
 
 ## 如何使用S3作为二进制缓存服务器 {#how-to-use-s3-as-a-binary-cache-server}
 
