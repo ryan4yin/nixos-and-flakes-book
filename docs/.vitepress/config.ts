@@ -174,6 +174,10 @@ function themeConfigEnglish() {
               link: "/nixos-with-flakes/add-custom-cache-servers.md",
             },
             {
+              text: "Host Custom Binary Cache with S3",
+              link: "/nixos-with-flakes/host-custom-binary-cache-with-s3.md",
+            },
+            {
               text: "Getting Started with Home Manager",
               link: "/nixos-with-flakes/start-using-home-manager.md",
             },
@@ -366,6 +370,10 @@ function themeConfigChinese() {
             {
               text: "添加自定义缓存服务器",
               link: "/zh/nixos-with-flakes/add-custom-cache-servers.md",
+            },
+            {
+              text: "使用S3托管自定义二进制缓存",
+              link: "/zh/nixos-with-flakes/host-custom-binary-cache-with-s3.md",
             },
             {
               text: "安装使用 Home Manager",
