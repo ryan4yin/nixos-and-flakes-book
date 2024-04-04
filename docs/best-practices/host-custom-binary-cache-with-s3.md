@@ -10,8 +10,8 @@ post, let's explore how we can self-host an S3-compatible server,
 ## How To Use S3 as a Binary Cache Server {#how-to-use-s3-as-a-binary-cache-server}
 
 Set up Minio somewhere in your environment. This post will NOT cover the installation of
-Minio as there are many ways to do that, but you’ll need to ensure that Minio is
-accessible via HTTPS using a trusted certificate. Let’s Encrypt will be helpful here.
+Minio as there are many ways to do that, but you'll need to ensure that Minio is
+accessible via HTTPS using a trusted certificate. Let's Encrypt will be helpful here.
 
 ### Generate Password {#generate-password}
 
@@ -115,7 +115,7 @@ mc admin policy set s3 nix-cache-write user=nixbuilder
 Allow anonymous users to download files without authenticating.
 
 ```bash
-mc anonymous set download minio/nix-cache
+mc anonymous set download s3/nix-cache
 ```
 
 Copy `nix-cache-info` to the cache.
@@ -187,7 +187,7 @@ mc ilm rule add s3/nix-cache --expire-days "DAYS"
 
 Here are some of the sources that I used in making this document:
 
-- [Jeff’s blog post on Nix binary caches](https://jcollie.github.io/nixos/2022/04/27/nixos-binary-cache-2022.html)
+- [Blog post by Jeff on Nix binary caches](https://jcollie.github.io/nixos/2022/04/27/nixos-binary-cache-2022.html)
 - [Binary cache in the NixOS wiki](https://nixos.wiki/wiki/Binary_Cache)
 - [Serving a Nox store via S3 in the NixOS manual](https://nixos.org/manual/nix/stable/package-management/s3-substituter.html)
 - [Serving a Nix store via HTTP in the NixOS manual](https://nixos.org/manual/nix/stable/package-management/binary-cache-substituter.html)

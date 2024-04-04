@@ -112,7 +112,7 @@ mc admin policy set s3 nix-cache-write user=nixbuilder
 允许匿名用户下载文件而无需进行身份验证。
 
 ```bash
-mc anonymous set download minio/nix-cache
+mc anonymous set download s3/nix-cache
 ```
 
 将 `nix-cache-info` 复制到缓存。
@@ -182,7 +182,7 @@ mc ilm rule add s3/nix-cache --expire-days "DAYS"
 
 以下是我在制作本文档时使用的一些来源：
 
-- [Jeff’s blog post on Nix binary caches](https://jcollie.github.io/nixos/2022/04/27/nixos-binary-cache-2022.html)
+- [Blog post by Jeff on Nix binary caches](https://jcollie.github.io/nixos/2022/04/27/nixos-binary-cache-2022.html)
 - [Binary cache in the NixOS wiki](https://nixos.wiki/wiki/Binary_Cache)
 - [Serving a Nox store via S3 in the NixOS manual](https://nixos.org/manual/nix/stable/package-management/s3-substituter.html)
 - [Serving a Nix store via HTTP in the NixOS manual](https://nixos.org/manual/nix/stable/package-management/binary-cache-substituter.html)
