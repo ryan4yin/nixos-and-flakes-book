@@ -1,16 +1,15 @@
 # Host Custom Binary Cache with S3 {#host-custom-binary-cache-with-s3}
 
-## Introduction {#introduction}
-
 In [Adding Custom Cache Servers](../nixos-with-flakes/add-custom-cache-servers.md), we
-learned how to add custom binary cache servers to speed up the build process. In this
-post, let's explore how we can self-host an S3-compatible server,
-[Minio](https://min.io/), as a binary cache store.
+learned how to add custom binary cache servers to speed up the build process.
+
+In this post, let's explore how we can self-host an S3-compatible server,
+[MinIO](https://min.io/), as a binary cache store.
 
 ## How To Use S3 as a Binary Cache Server {#how-to-use-s3-as-a-binary-cache-server}
 
-Set up Minio somewhere in your environment. This post will NOT cover the installation of
-Minio as there are many ways to do that, but you'll need to ensure that Minio is
+Set up MinIO somewhere in your environment. This post will NOT cover the installation of
+MinIO as there are many ways to do that, but you'll need to ensure that MinIO is
 accessible via HTTPS using a trusted certificate. Let's Encrypt will be helpful here.
 
 ### Generate Password {#generate-password}
@@ -20,9 +19,9 @@ nix run nixpkgs#pwgen -- -c -n -y -s -B 32 1
 # oenu1Yuch3rohz2ahveid0koo4giecho
 ```
 
-### Setup Minio Client {#setup-minio-client}
+### Setup MinIO Client {#setup-minio-client}
 
-Install the Minio command-line client `mc`.
+Install the MinIO command-line client `mc`.
 
 ```nix
 { pkgs, ... }:
@@ -68,7 +67,7 @@ Create the `nix-cache` bucket.
 mc mb s3/nix-cache
 ```
 
-Create the `nixbuilder` Minio user and assign a password.
+Create the `nixbuilder` MinIO user and assign a password.
 
 ```bash
 mc admin user add s3 nixbuilder <PASSWORD>
