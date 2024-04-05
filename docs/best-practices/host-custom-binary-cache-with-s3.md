@@ -4,7 +4,7 @@ TL;DR
 
 A guide on how to set up your own S3 nix binary cache using MinIO S3 server.
 
-## How Software Stored in Nix?
+## How Software Stored in Nix? {#how-software-stored-in-nix}
 
 Multiple versions of the same software package can be installed on a system, making it
 possible to satisfy various dependency chains at a time. This enables the installation of
@@ -30,10 +30,10 @@ package in a corrupted state. The only possible problem would be that it fails b
 after the symlink creation. Either way, the result would be that we either have the old
 version of X or the newly installed version, but nothing in between.
 
-Quoted from the original work from
+Quoted from the original work of
 https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b
 
-## Nix Binary Caches
+## Nix Binary Caches {#nix-binary-caches}
 
 No matter how great every aspect of Nix sounds, its design has also a major drawback,
 which is that every package build triggers the build process for the whole dependency
@@ -57,7 +57,7 @@ certificate. Let's Encrypt will be helpful here.
 In this post, let's explore how we can self-host an S3-compatible server, MinIO, as a
 binary cache store.
 
-Quoted from the original work from
+Quoted from the original work of
 https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b
 
 ## How To Use S3 as a Binary Cache Server {#how-to-use-s3-as-a-binary-cache-server}
