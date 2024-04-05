@@ -104,15 +104,6 @@ Create or edit `~/.mc/config.json`.
 
 ### Setup S3 Bucket as Binary Cache {#setup-s3-bucket-as-binary-cache}
 
-Create a file called `nix-cache-info`. This file tells Nix that the bucket is indeed a
-binary cache.
-
-```
-StoreDir: /nix/store
-WantMassQuery: 1
-Priority: 40
-```
-
 Create the `nix-cache` bucket.
 
 ```bash
@@ -169,7 +160,18 @@ Allow anonymous users to download files without authenticating.
 mc anonymous set download s3/nix-cache
 ```
 
-Copy `nix-cache-info` to the cache.
+Create a file called `nix-cache-info` in your working directory. This file tells Nix that
+the bucket is indeed a binary cache.
+
+```bash
+cat > nix-cache-info <<EOF
+StoreDir: /nix/store
+WantMassQuery: 1
+Priority: 40
+EOF
+```
+
+Copy `nix-cache-info` to the cache bucket.
 
 ```bash
 mc cp ./nix-cache-info s3/nix-cache/nix-cache-info
