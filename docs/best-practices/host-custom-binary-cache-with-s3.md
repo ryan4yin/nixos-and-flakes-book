@@ -16,8 +16,8 @@ accessible via HTTPS using a trusted certificate. Let's Encrypt will be helpful 
 ### Generate Password {#generate-password}
 
 ```bash
-pwgen -c -n -y -s -B 32 1
-# Example output: oenu1Yuch3rohz2ahveid0koo4giecho
+nix run nixpkgs#pwgen -- -c -n -y -s -B 32 1
+# oenu1Yuch3rohz2ahveid0koo4giecho
 ```
 
 ### Setup Minio Client {#setup-minio-client}
