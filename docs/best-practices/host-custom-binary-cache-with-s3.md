@@ -1,16 +1,68 @@
 # Host Custom Binary Cache with S3 {#host-custom-binary-cache-with-s3}
 
-In [Adding Custom Cache Servers](../nixos-with-flakes/add-custom-cache-servers.md), we
-learned how to add custom binary cache servers to speed up the build process.
+TL;DR
 
-In this post, let's explore how we can self-host an S3-compatible server,
-[MinIO](https://min.io/), as a binary cache store.
+A guide on how to set up your own S3 nix binary cache using MinIO S3 server.
+
+## How Software Stored in Nix?
+
+Multiple versions of the same software package can be installed on a system, making it
+possible to satisfy various dependency chains at a time. This enables the installation of
+multiple packages that depend on the same third package, but on different versions of it.
+To achieve this, all packages are installed in the global nix store under “/nix/store/”
+and are then symlinked to the respective locations. To verify a package’s uniqueness, its
+whole directory is hashed, and the hash put into the name of the package’s main folder.
+Every software built from the same Nix expression that uses the same dependency software
+versions results in the same hash, no matter what system it was built on. If any of the
+dependency software versions were changed, this will result in a new hash for the final
+package.
+
+Using symlinks to “install” a package and link all the right dependencies to it also
+enables atomic updating. To make this clearer, let’s think of an example where software X
+is installed in an older version and should be updated. Software X is installed in its
+very own directory in the global nix store and symlinked to the right directory, let’s say
+“/usr/local/bin/”. When the update is triggered, the new version of X is installed into
+the global nix store without interfering with its older version. Once the installation
+with all its dependencies in the nix store is completed, the final step is to change the
+symlink to “/usr/local/bin/”. Since creating a new symlink that overwrites the old one is
+an atomic operation in Unix, it is impossible for this operation to fail and leave the
+package in a corrupted state. The only possible problem would be that it fails before or
+after the symlink creation. Either way, the result would be that we either have the old
+version of X or the newly installed version, but nothing in between.
+
+Quoted from the original work from
+https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b
+
+## Nix Binary Caches
+
+No matter how great every aspect of Nix sounds, its design has also a major drawback,
+which is that every package build triggers the build process for the whole dependency
+chain from scratch. This can take quite a while, since even compilers such as gcc or ghc
+must be built in advance. Such build processes can eat up a remarkable amount of memory,
+introducing an additional hurdle if one wants to use it on restricted platforms such as
+the Raspberry Pi.
+
+To overcome the drawback of always building everything from scratch and the chance of
+losing access to prebuilt versions of packages, it is also possible to build your Nix
+binary cache using an S3 server such as MinIO (https://min.io/).
+
+The process of setting up your cache, populating it with binaries and use the binaries
+from your newly built cache will be described step by step. For this manual, I assume that
+you already have nix in place, and that you already have a running MinIO server somewhere
+in your environment. If not, you may check out the
+[official deployment guide](https://min.io/docs/minio/linux/operations/installation.html)
+from MinIO. You'll need to ensure that MinIO is accessible via `HTTPS` using a trusted
+certificate. Let's Encrypt will be helpful here.
+
+In this post, let's explore how we can self-host an S3-compatible server, MinIO, as a
+binary cache store.
+
+Quoted from the original work from
+https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b
 
 ## How To Use S3 as a Binary Cache Server {#how-to-use-s3-as-a-binary-cache-server}
 
-Set up MinIO somewhere in your environment. This post will NOT cover the installation of
-MinIO as there are many ways to do that, but you'll need to ensure that MinIO is
-accessible via HTTPS using a trusted certificate. Let's Encrypt will be helpful here.
+Set up MinIO somewhere in your environment.
 
 ### Generate Password {#generate-password}
 
@@ -19,7 +71,7 @@ nix run nixpkgs#pwgen -- -c -n -y -s -B 32 1
 # oenu1Yuch3rohz2ahveid0koo4giecho
 ```
 
-### Setup MinIO Client {#setup-minio-client}
+### Set Up MinIO Client {#set-up-minio-client}
 
 Install the MinIO command-line client `mc`.
 
