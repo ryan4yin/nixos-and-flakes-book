@@ -9,22 +9,22 @@ A guide on how to set up your own S3 nix binary cache using MinIO S3 server.
 Multiple versions of the same software package can be installed on a system, making it
 possible to satisfy various dependency chains at a time. This enables the installation of
 multiple packages that depend on the same third package, but on different versions of it.
-To achieve this, all packages are installed in the global nix store under “/nix/store/”
-and are then symlinked to the respective locations. To verify a package’s uniqueness, its
-whole directory is hashed, and the hash put into the name of the package’s main folder.
+To achieve this, all packages are installed in the global nix store under `/nix/store/`
+and are then symlinked to the respective locations. To verify a package's uniqueness, its
+whole directory is hashed, and the hash put into the name of the package's main folder.
 Every software built from the same Nix expression that uses the same dependency software
 versions results in the same hash, no matter what system it was built on. If any of the
 dependency software versions were changed, this will result in a new hash for the final
 package.
 
-Using symlinks to “install” a package and link all the right dependencies to it also
-enables atomic updating. To make this clearer, let’s think of an example where software X
-is installed in an older version and should be updated. Software X is installed in its
-very own directory in the global nix store and symlinked to the right directory, let’s say
-“/usr/local/bin/”. When the update is triggered, the new version of X is installed into
+Using symlinks to install a package and link all the right dependencies to it also enables
+atomic updating. To make this clearer, let's think of an example where software X is
+installed in an older version and should be updated. Software X is installed in its very
+own directory in the global nix store and symlinked to the right directory, let's say
+`/usr/local/bin/`. When the update is triggered, the new version of X is installed into
 the global nix store without interfering with its older version. Once the installation
 with all its dependencies in the nix store is completed, the final step is to change the
-symlink to “/usr/local/bin/”. Since creating a new symlink that overwrites the old one is
+symlink to `/usr/local/bin/`. Since creating a new symlink that overwrites the old one is
 an atomic operation in Unix, it is impossible for this operation to fail and leave the
 package in a corrupted state. The only possible problem would be that it fails before or
 after the symlink creation. Either way, the result would be that we either have the old
@@ -127,7 +127,6 @@ Create a file called `nix-cache-write.json` in your current working directory wi
 following contents:
 
 ```json
-cat > nix-cache-write.json << EOF
 {
   "Id": "AuthenticatedWrite",
   "Version": "2012-10-17",
@@ -149,7 +148,6 @@ cat > nix-cache-write.json << EOF
     }
   ]
 }
-EOF
 ```
 
 Create a policy with `nix-cache-write.json` that allows `nixbuilder` to upload files to
