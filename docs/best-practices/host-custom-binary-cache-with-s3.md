@@ -116,9 +116,11 @@ Create the `nixbuilder` MinIO user and assign a password.
 mc admin user add s3 nixbuilder <PASSWORD>
 ```
 
-Create a file called `nix-cache-write.json` with the following contents:
+Create a file called `nix-cache-write.json` in your current working directory with the
+following contents:
 
 ```json
+cat > nix-cache-write.json << EOF
 {
   "Id": "AuthenticatedWrite",
   "Version": "2012-10-17",
@@ -140,9 +142,11 @@ Create a file called `nix-cache-write.json` with the following contents:
     }
   ]
 }
+EOF
 ```
 
-Create a policy that will allow `nixbuilder` to upload files to the cache.
+Create a policy with `nix-cache-write.json` that allows `nixbuilder` to upload files to
+the cache.
 
 ```bash
 mc admin policy add s3 nix-cache-write nix-cache-write.json
