@@ -1,6 +1,6 @@
 # Host Custom Binary Cache with S3 {#host-custom-binary-cache-with-s3}
 
-TL;DR
+## TL;DR
 
 A guide on how to set up your own S3 nix binary cache using MinIO S3 server.
 
@@ -62,7 +62,14 @@ https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b
 
 ## How To Use S3 as a Binary Cache Server {#how-to-use-s3-as-a-binary-cache-server}
 
-Set up MinIO somewhere in your environment.
+### Prerequisites {#prerequisites}
+
+- Set up MinIO somewhere in your environment.
+- Hold a valid SSL certificates either public or private. For demonstration purpose, we
+  will use `minio.homelab.local` (private certificate) in the steps mentioned in this
+  tutorial. If you plan to use a private certificate, you MUST resolve the DNS challenges
+  on your own. Hence, it is recommended to use a public certificate.
+- Install `minio-client` in your environment.
 
 ### Generate Password {#generate-password}
 
