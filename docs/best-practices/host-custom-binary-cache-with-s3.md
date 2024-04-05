@@ -192,7 +192,7 @@ incremented.
 nix key generate-secret --key-name s3.homelab.local-1 > ~/.config/nix/secret.key
 nix key convert-secret-to-public < ~/.config/nix/secret.key > ~/.config/nix/public.key
 cat ~/.config/nix/public.key
-s3.homelab.local-1:m0J/oDlLEuG6ezc6MzmpLCN2MYjssO3NMIlr9JdxkTs=
+# s3.homelab.local-1:m0J/oDlLEuG6ezc6MzmpLCN2MYjssO3NMIlr9JdxkTs=
 ```
 
 ### Activate Binary Cache with Flake {#activate-binary-cache-with-flake}
