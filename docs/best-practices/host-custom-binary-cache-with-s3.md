@@ -197,6 +197,8 @@ cat ~/.config/nix/public.key
 
 ### Activate Binary Cache with Flake {#activate-binary-cache-with-flake}
 
+Put the following lines in `configuration.nix` or any of your custom NixOS module:
+
 ```nix
 {
   nix = {
