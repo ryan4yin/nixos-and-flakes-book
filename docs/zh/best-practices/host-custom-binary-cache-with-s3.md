@@ -1,4 +1,4 @@
-# 使用 S3 自定义二进制缓存托管 {#host-custom-binary-cache-with-s3}
+# 使用 S3 自定义二进制缓存托管
 
 ## 简介
 
@@ -22,8 +22,7 @@ Nix 存储中的自己的目录中，并符号链接到正确的目录，比如 
 态。唯一可能的问题是在符号链接创建之前或之后失败。无论哪种方式，结果都是我们要么有旧版本的
 X，要么有新安装的版本，但中间没有任何东西。
 
-引用自原
-作：[The S3 Nix Cache Manual](https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b)
+引用自原作：https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b
 
 ## Nix 二进制缓存
 
@@ -41,8 +40,7 @@ X，要么有新安装的版本，但中间没有任何东西。
 
 在本文中，让我们探讨如何自托管一个 S3 兼容服务器 MinIO 作为二进制缓存存储。
 
-引用自原
-作：[The S3 Nix Cache Manual](https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b)
+引用自原作：https://medium.com/earlybyte/the-s3-nix-cache-manual-e320da6b1a9b
 
 ## 如何将 S3 用作二进制缓存服务器
 
@@ -92,9 +90,17 @@ nix run nixpkgs#pwgen -- -c -n -y -s -B 32 1
 }
 ```
 
-###
+在我们用来构建 Nix 包的机器上，我们需要在一些地方使用 S3 凭据。设置一个文件
+`~/.aws/credentials` 并用我们的 nixbuilder 用户的凭据填充它。用 `pwgen` 命令生成的密码替换
+`<nixbuildersecret>`。
 
-设置 S3 存储桶作为二进制缓存
+```plaintext
+[default]
+aws_access_key_id=nixbuilder
+aws_secret_access_key=<nixbuildersecret>
+```
+
+### 设置 S3 存储桶作为二进制缓存
 
 创建 `nix-cache` 存储桶。
 
