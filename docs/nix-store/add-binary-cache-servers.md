@@ -1,23 +1,21 @@
-# Adding Custom Cache Servers {#add-custom-cache-servers}
+# Adding Binary Cache Servers
 
-## What is Nix Cache Server {#what-is-nix-cache-server}
+We have introduced the concepts of Nix Store and binary cache. Here, we will see how to
+add multiple cache servers to speed up package downloads.
+
+## Why Add Cache Servers {#why-add-cache-servers}
 
 Nix provides an official cache server, [https://cache.nixos.org](https://cache.nixos.org),
-which caches build results for all packages in nixpkgs under commonly used CPU
-architectures. When you execute Nix build commands locally, if Nix finds a corresponding
-cache on the server, it directly downloads the cached file, skipping the time-consuming
-local build process and significantly improving build speed.
-
-## Why Add Custom Cache Servers {#why-add-custom-cache-servers}
-
-Two reasons:
+which caches build results for most commonly used packages. However, it may not meet all
+users' needs. In the following cases, we need to add additional cache servers:
 
 1. Add cache servers for some third-party projects, such as the nix-community cache server
    [https://nix-community.cachix.org](https://nix-community.cachix.org), which can
    significantly improve the build speed of these third-party projects.
 1. Add cache server mirror sites closest to the user to speed up downloads.
+1. Add a self-built cache server to speed up the build process of personal projects.
 
-## How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
+## How to Add Cache Servers {#how-to-add-custom-cache-servers}
 
 In Nix, you can configure cache servers using the following options:
 

@@ -1,20 +1,19 @@
-# 添加自定义缓存服务器 {#add-custom-cache-servers}
+# 添加二进制缓存服务器
 
-## 什么是 Nix 缓存服务器 {#what-is-nix-cache-server}
+前面介绍了 Nix Store 与二进制缓存的概念，这里我们来看看如何添加多个缓存服务器，以加速包的
+下载速度。
 
-Nix 提供了官方缓存服务器 <https://cache.nixos.org>，它缓存了 nixpkgs 中所有 packages 在常
-用 CPU 指令集下的构建结果，当你在本地执行 Nix 构建指令时，如果 Nix 在服务器中匹配到对应的
-缓存，就会直接下载该缓存文件，跳过耗时的本地编译构建从而大大提升构建速度。
+## 为什么要添加缓存服务器 {#why-add-cache-servers}
 
-## 为什么要添加自定义缓存服务器 {#why-add-custom-cache-servers}
-
-两个原因：
+Nix 提供的官方缓存服务器 <https://cache.nixos.org> 提供了绝大部分常用软件包的二进制缓存，
+但它并不能满足所有用户的需求。在以下情况下，我们会需要添加额外的缓存服务器：
 
 1. 添加一些第三方项目的缓存服务器，例如 nix-community 的缓存服务器
-   <https://nix-community.cachix.org>，这可以大大提升这些第三方项目的构建速度。
+   <https://nix-community.cachix.org> 提供了社区项目的二进制缓存，可以加速这些项目的构建。
 1. 添加离用户最近的缓存服务器镜像站，用于加速下载。
+1. 添加自己搭建的缓存服务器，用于加速个人项目的构建速度。
 
-## 如何添加自定义缓存服务器 {#how-to-add-custom-cache-servers}
+## 如何添加缓存服务器 {#how-to-add-custom-cache-servers}
 
 Nix 中通过如下几个 options 来配置缓存服务器：
 
