@@ -8,17 +8,11 @@ Nix 提供了官方缓存服务器 <https://cache.nixos.org>，它缓存了 nixp
 
 ## 为什么要添加自定义缓存服务器 {#why-add-custom-cache-servers}
 
-> 注意：这里介绍的手段只能加速部分包的下载，许多 inputs 数据源仍然会从 Github 拉取。另外如
-> 果找不到缓存，会执行本地构建，这通常仍然需要从国外下载源码与构建依赖，因此仍然会很慢。为
-> 了完全解决速度问题，仍然建议使用旁路网关或 TUN 等全局代理方案。
-
 两个原因：
 
 1. 添加一些第三方项目的缓存服务器，例如 nix-community 的缓存服务器
    <https://nix-community.cachix.org>，这可以大大提升这些第三方项目的构建速度。
 1. 添加离用户最近的缓存服务器镜像站，用于加速下载。
-   1. 官方缓存服务器在中国的访问速度非常慢，如果没有局域网全局代理的话，基本上是无法使用
-      的。添加国内的 ustc/sjtu/tuna 等 Nix 缓存镜像源可以缓解此问题。
 
 ## 如何添加自定义缓存服务器 {#how-to-add-custom-cache-servers}
 
@@ -270,10 +264,7 @@ Nix 提供了
 > 参考了 Issue:
 > [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
 
-虽然前面提到了，旁路网关可以完全解决 NixOS 的包下载速度问题，但是旁路网关的配置比较麻烦，
-而且经常需要额外的硬件支持。
-
-更多的用户可能会希望能直接通过 HTTP/Socks5 代理来加速包下载，这里介绍下怎么设置。
+有些用户可能会希望能直接通过 HTTP/Socks5 代理来加速包下载，这里介绍下怎么设置。
 
 直接在 Terminal 中使用 `export HTTPS_PROXY=http://127.0.0.1:7890` 这类方式是无法生效的，因
 为 nix 实际干活的是一个叫 `nix-daemon` 的后台进程，而不是直接在 Terminal 中执行的命令。

@@ -10,22 +10,12 @@ local build process and significantly improving build speed.
 
 ## Why Add Custom Cache Servers {#why-add-custom-cache-servers}
 
-> Note: The methods introduced here can only accelerate the download of packages; many
-> `inputs` data sources will still be fetched from GitHub. Also, if the cache is not
-> found, local builds will be executed, which typically requires downloading source code
-> and building dependencies from GitHub or somewhere else, which may make it slow. To
-> completely address the speed issue, it is still recommended to use solutions such as a
-> transparent proxy running on your router or local machine.
-
 Two reasons:
 
 1. Add cache servers for some third-party projects, such as the nix-community cache server
    [https://nix-community.cachix.org](https://nix-community.cachix.org), which can
    significantly improve the build speed of these third-party projects.
-2. Adding a mirrored cache server to accelerate downloads.
-   1. The access speed of the official cache server in China is slow. Without a local
-      global proxy, it is almost unusable. Adding Chinese Nix cache mirrors like
-      ustc/sjtu/tuna can alleviate this issue.
+1. Add cache server mirror sites closest to the user to speed up downloads.
 
 ## How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
 
@@ -296,7 +286,7 @@ In other words, you can use it like this:
 > machine can completely solve the issue of slow package downloads in NixOS, the
 > configuration is rather cumbersome and often requires additional hardware.
 
-More users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy
+Some users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy
 running on their machine. Here's how to set it up. Using methods like
 `export HTTPS_PROXY=http://127.0.0.1:7890` in the Terminal will not work because the
 actual work is done by a background process called `nix-daemon`, not by commands directly
