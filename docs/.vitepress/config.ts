@@ -261,6 +261,10 @@ function themeConfigEnglish() {
               text: "Debugging Derivations and Nix Expressions",
               link: "/best-practices/debugging.md",
             },
+            {
+              text: "Host Custom Binary Cache with S3",
+              link: "/best-practices/host-custom-binary-cache-with-s3.md",
+            },
           ],
         },
 
@@ -462,6 +466,10 @@ function themeConfigChinese() {
             {
               text: "调试 Nix 软件包与 Nix 表达式",
               link: "/zh/best-practices/debugging.md",
+            },
+            {
+              text: "使用 S3 托管自定义二进制缓存",
+              link: "/zh/best-practices/host-custom-binary-cache-with-s3.md",
             },
           ],
         },
