@@ -6,8 +6,8 @@ Nix 语言是 Nix 包管理器的基础，要想玩得转 NixOS 与 Nix Flakes�
 Nix 是一门比较简单的函数式语言，在已有一定编程基础的情况下，过一遍这些语法用时应该在 2 个
 小时以内。
 
-NixOS-CN 社区已经有了一份不错的 Nix 语言教程，我不打算重复造轮子，请直接阅读
-[**Nix 语言概览 - NixOS-CN**](https://nixos-cn.org/tutorials/lang) 来快速入门。
+NixOS-CN 社区已经有了一份不错的 Nix 语言教程，我不打算重复造轮子，请直接阅
+读[**Nix 语言概览 - NixOS-CN**](https://nixos-cn.org/tutorials/lang) 来快速入门。
 
 先把语法过一遍，有个大概的印象就行，后面需要用到时再边用边复习语法知识。
 

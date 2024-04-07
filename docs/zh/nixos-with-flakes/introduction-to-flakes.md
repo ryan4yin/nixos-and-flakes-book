@@ -35,15 +35,6 @@ Flakes[^3]，因此我们可以相当确定 Flakes 不会被废弃。
 总的来说，我仍然推荐大家使用 Flakes，毕竟这本书本身也是围绕 NixOS 与 Flakes 编写的，但是也
 要做好准备——未来可能需要解决一些不兼容变更带来的问题。
 
-## Flakes 入门
-
-我就不多介绍了，请直接参考如下文档：
-
-- [Flakes - nix.dev](https://nix.dev/concepts/flakes)
-- [Nix Flakes, Part 1: An introduction and tutorial (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-05-25-flakes/)
-- [Nix Flakes, Part 2: Evaluation caching (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-06-25-eval-cache/)
-- [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
-- [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
 
 ## Flakes 何时会成为稳定特性？ {#when-will-flakes-stablized}
 

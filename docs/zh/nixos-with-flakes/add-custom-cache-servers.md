@@ -8,17 +8,11 @@ Nix 提供了官方缓存服务器 <https://cache.nixos.org>，它缓存了 nixp
 
 ## 为什么要添加自定义缓存服务器 {#why-add-custom-cache-servers}
 
-> 注意：这里介绍的手段只能加速部分包的下载，许多 inputs 数据源仍然会从 Github 拉取。另外如
-> 果找不到缓存，会执行本地构建，这通常仍然需要从国外下载源码与构建依赖，因此仍然会很慢。为
-> 了完全解决速度问题，仍然建议使用旁路网关或 TUN 等全局代理方案。
-
 两个原因：
 
 1. 添加一些第三方项目的缓存服务器，例如 nix-community 的缓存服务器
    <https://nix-community.cachix.org>，这可以大大提升这些第三方项目的构建速度。
 1. 添加离用户最近的缓存服务器镜像站，用于加速下载。
-   1. 官方缓存服务器在中国的访问速度非常慢，如果没有局域网全局代理的话，基本上是无法使用
-      的。添加国内的 ustc/sjtu/tuna 等 Nix 缓存镜像源可以缓解此问题。
 
 ## 如何添加自定义缓存服务器 {#how-to-add-custom-cache-servers}
 
@@ -270,34 +264,10 @@ Nix 提供了
 > 参考了 Issue:
 > [roaming laptop: network proxy configuration - NixOS/nixpkgs](https://github.com/NixOS/nixpkgs/issues/27535#issuecomment-1178444327)
 
-虽然前面提到了，旁路网关可以完全解决 NixOS 的包下载速度问题，但是旁路网关的配置比较麻烦，
-而且经常需要额外的硬件支持。
-
-更多的用户可能会希望能直接通过 HTTP/Socks5 代理来加速包下载，这里介绍下怎么设置。
+有些用户可能会希望能直接通过 HTTP/Socks5 代理来加速包下载，这里介绍下怎么设置。
 
 直接在 Terminal 中使用 `export HTTPS_PROXY=http://127.0.0.1:7890` 这类方式是无法生效的，因
 为 nix 实际干活的是一个叫 `nix-daemon` 的后台进程，而不是直接在 Terminal 中执行的命令。
-
-nix-daemon 的实现代码是
-[nixpkgs/nixos/modules/services/system/nix-daemon.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/system/nix-daemon.nix#L184-L191)，
-它通过 `systemd.services.nix-daemon.environment` 选项设置了环境变量，我们也能通过同样的手
-段来往 nix-daemon 的运行环境中添加代理相关的环境变量，一个示例 Module 如下：
-
-```nix
-{
-  systemd.services.nix-daemon.environment = {
-    # socks5h mean that the hostname is resolved by the SOCKS server
-    https_proxy = "socks5h://localhost:7891";
-    # https_proxy = "http://localhost:7890"; # or use http prctocol instead of socks5
-  };
-}
-```
-
-部署此配置后，可通过 `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'` 查看
-nix-daemon 进程的所有环境变量，确认环境变量的设置是否生效。
-
-**但是要注意，当代理服务器不可用时，nix-daemon 将无法访问任何缓存服务器**！所以我还是更建
-议使用旁路网关等透明代理方案。
 
 如果你只是临时需要使用代理，可以通过如下命令设置代理环境变量：
 
@@ -311,8 +281,19 @@ sudo systemctl daemon-reload
 sudo systemctl restart nix-daemon
 ```
 
+部署此配置后，可通过 `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'` 查看
+nix-daemon 进程的所有环境变量，确认环境变量的设置是否生效。
+
 位于 `/run/systemd/system/nix-daemon.service.d/override.conf` 的设置会在系统重启后被自动删
 除，或者你可以手动删除它并重启 nix-daemon 服务来恢复原始设置。
+
+如果你希望永久设置代理，建议将上述命令保存为 shell 脚本，在每次启动系统时运行一下。或者也
+可以使用旁路网关或 TUN 等全局代理方案。
+
+> 社区也有人通过 `systemd.services.nix-daemon.environment` 以声明式的方式为 nix-daemon 永
+> 久设置代理，但这种做法下一旦代理出了问题会非常麻烦，nix-daemon 将无法正常工作，进而导致
+> 大多数 nix 命令无法正常运行，而且 systemd 自身的配置被设置了只读保护，无法简单地修改配置
+> 删除代理设置。因此不建议使用这种方式。
 
 > 使用一些商用代理或公共代理时你可能会遇到 GitHub 下载时报 HTTP 403 错误
 > （[nixos-and-flakes-book/issues/74](https://github.com/ryan4yin/nixos-and-flakes-book/issues/74)），

@@ -226,7 +226,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
       system = "x86_64-linux";
       modules = [
         {
-          nigpkgs.crossSystem = {
+          nixpkgs.crossSystem = {
             config = "riscv64-unknown-linux-gnu";
           };
 
@@ -276,7 +276,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
       };
       modules = [
         {
-          nigpkgs.crossSystem = {
+          nixpkgs.crossSystem = {
             config = "riscv64-unknown-linux-gnu";
           };
         }

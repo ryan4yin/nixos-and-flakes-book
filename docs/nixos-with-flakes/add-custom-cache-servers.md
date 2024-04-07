@@ -10,22 +10,12 @@ local build process and significantly improving build speed.
 
 ## Why Add Custom Cache Servers {#why-add-custom-cache-servers}
 
-> Note: The methods introduced here can only accelerate the download of packages; many
-> `inputs` data sources will still be fetched from GitHub. Also, if the cache is not
-> found, local builds will be executed, which typically requires downloading source code
-> and building dependencies from GitHub or somewhere else, which may make it slow. To
-> completely address the speed issue, it is still recommended to use solutions such as a
-> transparent proxy running on your router or local machine.
-
 Two reasons:
 
 1. Add cache servers for some third-party projects, such as the nix-community cache server
    [https://nix-community.cachix.org](https://nix-community.cachix.org), which can
    significantly improve the build speed of these third-party projects.
-2. Adding a mirrored cache server to accelerate downloads.
-   1. The access speed of the official cache server in China is slow. Without a local
-      global proxy, it is almost unusable. Adding Chinese Nix cache mirrors like
-      ustc/sjtu/tuna can alleviate this issue.
+1. Add cache server mirror sites closest to the user to speed up downloads.
 
 ## How to Add Custom Cache Servers {#how-to-add-custom-cache-servers}
 
@@ -296,34 +286,11 @@ In other words, you can use it like this:
 > machine can completely solve the issue of slow package downloads in NixOS, the
 > configuration is rather cumbersome and often requires additional hardware.
 
-More users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy
+Some users may prefer to directly speed up package downloads by using a HTTP/Socks5 proxy
 running on their machine. Here's how to set it up. Using methods like
 `export HTTPS_PROXY=http://127.0.0.1:7890` in the Terminal will not work because the
 actual work is done by a background process called `nix-daemon`, not by commands directly
 executed in the Terminal.
-
-The implementation code of `nix-daemon` is located at
-[nixpkgs/nixos/modules/services/system/nix-daemon.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/modules/services/system/nix-daemon.nix#L184-L191),
-which sets environment variables through the `systemd.services.nix-daemon.environment`
-option. We can also add proxy-related environment variables to the running environment of
-`nix-daemon` in the same way, as shown in the following example Module:
-
-```nix
-{
-  systemd.services.nix-daemon.environment = {
-    # socks5h means that the hostname is resolved by the SOCKS server
-    https_proxy = "socks5h://localhost:7891";
-    # https_proxy = "http://localhost:7890"; # or use http protocol instead of socks5
-  };
-}
-```
-
-After deploying this configuration, you can check if the environment variables have been
-set by running `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'`.
-
-**However, be aware that when the proxy server is not available, nix-daemon will be unable
-to access any cache servers!** Therefore, I still recommend using a transparent proxy to
-address acceleration issues.
 
 If you only need to use a proxy temporarily, you can set the proxy environment variables
 with the following commands:
@@ -338,9 +305,23 @@ sudo systemctl daemon-reload
 sudo systemctl restart nix-daemon
 ```
 
+After deploying this configuration, you can check if the environment variables have been
+set by running `sudo cat /proc/$(pidof nix-daemon)/environ | tr '\0' '\n'`.
+
 The settings in `/run/systemd/system/nix-daemon.service.d/override.conf` will be
 automatically deleted when the system restarts, or you can manually delete it and restart
 the nix-daemon service to restore the original settings.
+
+If you want to permanently set the proxy, it is recommended to save the above commands as
+a shell script and run it each time the system starts. Alternatively, you can use a
+transparent proxy or TUN and other global proxy solutions.
+
+> There are also people in the community who permanently set the proxy for nix-daemon in a
+> declarative way using `systemd.services.nix-daemon.environment`. However, if the proxy
+> encounters problems, it will be very troublesome. Nix-daemon will not work properly, and
+> most Nix commands will not run correctly. Moreover, the configuration of systemd itself
+> is set to read-only protection, making it difficult to modify or delete the proxy
+> settings. So, it is not recommended to use this method.
 
 > When using some commercial or public proxies, you might encounter HTTP 403 errors when
 > downloading from GitHub (as described in

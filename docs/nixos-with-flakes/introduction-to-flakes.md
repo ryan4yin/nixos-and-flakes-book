@@ -44,16 +44,6 @@ Overall, I strongly recommend everyone to use Flakes, especially since this book
 around NixOS and Flakes. However, it's crucial to be prepared for potential problems that
 may arise due to forthcoming breaking changes.
 
-## Flakes Tutorials
-
-I won't go into too much detail here, please refer to the following documents:
-
-- [Flakes - nix.dev](https://nix.dev/concepts/flakes)
-- [Nix Flakes, Part 1: An introduction and tutorial (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-05-25-flakes/)
-- [Nix Flakes, Part 2: Evaluation caching (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-06-25-eval-cache/)
-- [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
-- [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
-
 ## When Will Flakes Be Stabilized?
 
 I delved into some details regarding Flakes:

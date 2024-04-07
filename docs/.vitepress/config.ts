@@ -75,6 +75,7 @@ export default defineConfig({
     config: (md) => {
       // add support for footnote
       md.use(require("markdown-it-footnote"))
+      md.use(require("markdown-it-cjk-breaks"))
     },
   },
 
@@ -88,6 +89,22 @@ export default defineConfig({
 
     search: {
       provider: "local",
+      // for debugging
+      // options: {
+      //   /**
+      //    * @param {string} src
+      //    * @param {import('vitepress').MarkdownEnv} env
+      //    * @param {import('markdown-it')} md
+      //    */
+      //   _render(src, env, md) {
+      //     console.log("start...")
+      //     console.log("src", src)
+      //     let out = md.render(src, env)
+      //     console.log("success...")
+      //     return out
+      //   },
+      // },
+
       // provider: 'algolia',
       // options: {
       //   appId: '747LJ10EI7',
@@ -169,6 +186,14 @@ function themeConfigEnglish() {
               text: "NixOS with Flakes Enabled",
               link: "/nixos-with-flakes/nixos-with-flakes-enabled.md",
             },
+           {
+              text: "NixOS's flake.nix Explained",
+              link: "/nixos-with-flakes/nixos-flake-configuration-explained.md",
+            },
+            {
+              text: "The combination ability of Flakes and Nixpkgs module system",
+              link: "/nixos-with-flakes/nixos-flake-and-module-system.md",
+            },
             {
               text: "Adding Custom Cache Servers",
               link: "/nixos-with-flakes/add-custom-cache-servers.md",
@@ -235,6 +260,10 @@ function themeConfigEnglish() {
             {
               text: "Debugging Derivations and Nix Expressions",
               link: "/best-practices/debugging.md",
+            },
+            {
+              text: "Host Custom Binary Cache with S3",
+              link: "/best-practices/host-custom-binary-cache-with-s3.md",
             },
           ],
         },
@@ -364,6 +393,14 @@ function themeConfigChinese() {
               link: "/zh/nixos-with-flakes/nixos-with-flakes-enabled.md",
             },
             {
+              text: "NixOS 的 flake.nix 内容详解",
+              link: "/zh/nixos-with-flakes/nixos-flake-configuration-explained.md",
+            },
+            {
+              text: "Flakes 的组合能力与 Nixpkgs 模块系统",
+              link: "/zh/nixos-with-flakes/nixos-flake-and-module-system.md",
+            },
+            {
               text: "添加自定义缓存服务器",
               link: "/zh/nixos-with-flakes/add-custom-cache-servers.md",
             },
@@ -397,7 +434,7 @@ function themeConfigChinese() {
             { text: "Overriding", link: "/zh/nixpkgs/overriding.md" },
             { text: "Overlays", link: "/zh/nixpkgs/overlays.md" },
             {
-              text: "多 Nixpkgs 实例",
+              text: "多 Nixpkgs 实例的妙用",
               link: "/zh/nixpkgs/multiple-nixpkgs.md",
             },
           ],
@@ -429,6 +466,10 @@ function themeConfigChinese() {
             {
               text: "调试 Nix 软件包与 Nix 表达式",
               link: "/zh/best-practices/debugging.md",
+            },
+            {
+              text: "使用 S3 托管自定义二进制缓存",
+              link: "/zh/best-practices/host-custom-binary-cache-with-s3.md",
             },
           ],
         },
