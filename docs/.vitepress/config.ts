@@ -186,7 +186,7 @@ function themeConfigEnglish() {
               text: "NixOS with Flakes Enabled",
               link: "/nixos-with-flakes/nixos-with-flakes-enabled.md",
             },
-           {
+            {
               text: "NixOS's flake.nix Explained",
               link: "/nixos-with-flakes/nixos-flake-configuration-explained.md",
             },
@@ -234,6 +234,20 @@ function themeConfigEnglish() {
           ],
         },
         {
+          text: "Nix Store & Binary Cache",
+          items: [
+            { text: "Introduction", link: "/nix-store/intro.md" },
+            {
+              text: "Add Binary Cache Servers",
+              link: "nix-store/add-binary-cache-servers.md",
+            },
+            {
+              text: "Host Your Own Binary Cache Server",
+              link: "/nix-store/host-your-own-binary-cache-server.md",
+            },
+          ],
+        },
+        {
           text: "Best Practices",
           items: [
             { text: "Introduction", link: "/best-practices/intro.md" },
@@ -260,10 +274,6 @@ function themeConfigEnglish() {
             {
               text: "Debugging Derivations and Nix Expressions",
               link: "/best-practices/debugging.md",
-            },
-            {
-              text: "Host Custom Binary Cache with S3",
-              link: "/best-practices/host-custom-binary-cache-with-s3.md",
             },
           ],
         },
@@ -440,6 +450,20 @@ function themeConfigChinese() {
           ],
         },
         {
+          text: "Nix Store 与二进制缓存",
+          items: [
+            { text: "简介", link: "/zh/nix-store/intro.md" },
+            {
+              text: "添加二进制缓存服务器",
+              link: "/zh/nix-store/add-binary-cache-servers.md",
+            },
+            {
+              text: "搭建你自己的缓存服务器",
+              link: "/zh/nix-store/host-your-own-binary-cache-server.md",
+            },
+          ],
+        },
+        {
           text: "NixOS 最佳实践",
           items: [
             { text: "简介", link: "/zh/best-practices/intro.md" },
@@ -466,10 +490,6 @@ function themeConfigChinese() {
             {
               text: "调试 Nix 软件包与 Nix 表达式",
               link: "/zh/best-practices/debugging.md",
-            },
-            {
-              text: "使用 S3 托管自定义二进制缓存",
-              link: "/zh/best-practices/host-custom-binary-cache-with-s3.md",
             },
           ],
         },
