@@ -435,7 +435,7 @@ function themeConfigChinese() {
               link: "/zh/best-practices/debugging.md",
             },
             {
-              text: "使用S3托管自定义二进制缓存",
+              text: "使用 S3 托管自定义二进制缓存",
               link: "/zh/best-practices/host-custom-binary-cache-with-s3.md",
             },
           ],
