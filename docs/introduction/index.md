@@ -87,4 +87,4 @@ main configuration is completely shared, and the configuration modified on any h
 seamlessly synchronized to other hosts through Git.
 
 Nix almost completely shielded me from the differences between OS and architecture at the
-bottom of the three machines, and the experience was very slippery!
+bottom of the three machines, and the experience was very smooth!
