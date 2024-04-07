@@ -1,4 +1,4 @@
-# Using S3 for Custom Binary Cache Hosting
+# Host Your Own Nix Binary Cache Server
 
 ## Introduction
 
