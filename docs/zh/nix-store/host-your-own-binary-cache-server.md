@@ -171,7 +171,6 @@ cat ~/.config/nix/public.key
 {
   nix = {
     settings = {
-      # 在获取软件包时，替代器将被附加到默认的替代器。
       extra-substituters = [
         "https://s3.homelab.local/nix-cache/"
       ];
