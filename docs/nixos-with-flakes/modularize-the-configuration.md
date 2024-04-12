@@ -69,7 +69,7 @@ Nix modules defined in different `.nix` files. Lets look at an example module
 }
 ```
 
-This modules loads two other modules in the imports section, namely `special-fonts-1.nix`
+This module loads two other modules in the imports section, namely `special-fonts-1.nix`
 and `special-fonts-2.nix`. Both files are modules themselves and look similar to this.
 
 ```nix
