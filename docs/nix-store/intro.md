@@ -33,7 +33,7 @@ packages - once a software package is built, it will not change.
 
 Because the storage path of the build result is calculated based on all input information
 of the build process, **the same input information will yield the same storage path**.
-This design is also known as the input-addressed model (_Input-addressed Model_).
+This design is also known as the _Input-addressed Model_.
 
 ### How NixOS Uses the Nix Store
 
