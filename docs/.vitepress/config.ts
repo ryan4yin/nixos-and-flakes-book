@@ -195,10 +195,6 @@ function themeConfigEnglish() {
               link: "/nixos-with-flakes/nixos-flake-and-module-system.md",
             },
             {
-              text: "Adding Custom Cache Servers",
-              link: "/nixos-with-flakes/add-custom-cache-servers.md",
-            },
-            {
               text: "Getting Started with Home Manager",
               link: "/nixos-with-flakes/start-using-home-manager.md",
             },
@@ -409,10 +405,6 @@ function themeConfigChinese() {
             {
               text: "Flakes 的组合能力与 Nixpkgs 模块系统",
               link: "/zh/nixos-with-flakes/nixos-flake-and-module-system.md",
-            },
-            {
-              text: "添加自定义缓存服务器",
-              link: "/zh/nixos-with-flakes/add-custom-cache-servers.md",
             },
             {
               text: "安装使用 Home Manager",
