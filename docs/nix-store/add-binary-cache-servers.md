@@ -150,7 +150,7 @@ The second method is to configure `substituters` and `trusted-public-keys` using
       ...
   }: {
     nixosConfigurations = {
-      ai = nixpkgs.lib.nixosSystem {
+      my-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hardware-configuration.nix
@@ -238,7 +238,7 @@ In other words, you can use it like this:
       ...
   }: {
     nixosConfigurations = {
-      ai = nixpkgs.lib.nixosSystem {
+      my-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hardware-configuration.nix

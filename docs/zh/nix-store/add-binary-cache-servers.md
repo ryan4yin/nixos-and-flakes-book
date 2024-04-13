@@ -138,7 +138,7 @@ Nix 中通过如下几个 options 来配置缓存服务器：
       ...
   }: {
     nixosConfigurations = {
-      ai = nixpkgs.lib.nixosSystem {
+      my-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hardware-configuration.nix
@@ -220,7 +220,7 @@ Nix 提供了
       ...
   }: {
     nixosConfigurations = {
-      ai = nixpkgs.lib.nixosSystem {
+      my-nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hardware-configuration.nix
