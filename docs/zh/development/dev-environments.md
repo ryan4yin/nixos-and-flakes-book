@@ -1,13 +1,26 @@
 # Dev Environments
 
+在 NixOS 上，全局环境中（home-manager）可以只安装一些通用的开发工具与 SDK，比如
+`git`、`vim`、`emacs`、`tmux`、`zsh` 等等。对于项目本身的依赖，最好是每个项目都有一个独立
+的 `flake.nix` 用于管理各自的开发环境。
+
+为了简便，你也可以考虑提前为常用语言创建一些通用的 `flake.nix` 模板，在需要的时候复制模板
+改一改就能用了。
+
+`neovim` 等编辑器的各种插件本身也会有各种依赖，这些依赖可以考虑通过 home-manager 的
+`programs.neovim.extraPackages` 等参数来将其加入到 IDE 本身的环境中，这样就能保证 IDE 本身
+能正常运行，又不会污染全局环境。
+
+## 开发环境的配置模板
+
 前面我们已经学习了构建开发环境的实现原理，但是每次都要自己写一堆重复性较高的 `flake.nix`，
 略显繁琐。
 
 幸运的是，社区已经有人为我们做好了这件事，如下这个仓库中包含了绝大多数编程语言的开发环境模
 板，直接复制粘贴下来就能用：
 
-- [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates)
 - [MordragT/nix-templates](https://github.com/MordragT/nix-templates)
+- [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates)
 
 如果你觉得 `flake.nix` 的结构还是太复杂了，希望能有更简单的方法，也可以考虑使用下面这个项
 目，它对 Nix 做了更彻底的封装，对用户提供了更简单的定义：
@@ -68,7 +81,7 @@ source ./env/bin/activate
 > `flake.nix` 来安装 Python 依赖！因为数据还是在 `/nix/store` 中，这类修改命令必须在 Nix的
 > 构建阶段才能执行...
 
-- [DavHau/mach-nix](https://github.com/DavHau/mach-nix)
+- [python venv demo](https://github.com/MordragT/nix-templates/blob/master/python-venv/flake.nix)
 - [poetry2nix](https://github.com/nix-community/poetry2nix)
 
 这俩工具的好处是，能利用上 Nix Flakes 的锁机制来提升可复现能力，缺点是多了一层封装，底层变
@@ -76,3 +89,11 @@ source ./env/bin/activate
 
 最后，在一些更复杂的项目上，上述两种方案可能都行不通，这时候最佳的解决方案，就是改用容器
 了，比如 Docker、Podman 等，容器的限制没 Nix 这么严格，能提供最佳的兼容性。
+
+## Go 开发环境
+
+Go 是静态链接，天然就少了很多麻烦，基本能在 NixOS 上无痛使用，不需要额外处理。
+
+## 其他开发环境
+
+TODO

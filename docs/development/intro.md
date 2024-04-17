@@ -4,14 +4,6 @@ NixOS's reproducibility makes it ideal for building development environments. Ho
 you're used to other distros, you may encounter problems because NixOS has its own logic.
 We'll briefly explain this below.
 
-On NixOS, it's recommended to only install common tools in the global environment, such as
-`git`, `vim`, `emacs`, `tmux`, `zsh`, etc. The development environment of each language
-should be an independent environment for each project.
-
-You should NOT install the development environment of each language in the global
-environment. The project environment should be completely isolated from each other and
-will not affect each other.
-
 In the following sections, we'll introduce how the development environment works in NixOS.
 
 ## Creating a Custom Shell Environment with `nix shell`

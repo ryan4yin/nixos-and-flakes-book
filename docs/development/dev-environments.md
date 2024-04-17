@@ -1,5 +1,20 @@
 # Dev Environments
 
+On NixOS, in the global environment (home-manager), you can install only some general
+development tools and SDKs, such as `git`, `vim`, `emacs`, `tmux`, `zsh`, etc. For the
+dependencies of the project itself, it is best to have a separate `flake.nix` for each
+project to manage their respective development environments.
+
+For simplicity, you might also consider creating some general `flake.nix` templates for
+common languages in advance, which can be copied and modified as needed.
+
+Various plugins for editors like `neovim` will also have their own dependencies. These
+dependencies can be considered to be added to the IDE's own environment through parameters
+like `programs.neovim.extraPackages` in home-manager, ensuring that the IDE itself can run
+properly without polluting the global environment.
+
+## Templates for Development Environments
+
 We have learned how to build development environments, but it's a bit tedious to write
 `flake.nix` for each project.
 
@@ -7,8 +22,8 @@ Luckily, some people in the community have done this for us. The following repos
 contains development environment templates for most programming languages. Just copy and
 paste them:
 
-- [dev-templates](https://github.com/the-nix-way/dev-templates)
 - [MordragT/nix-templates](https://github.com/MordragT/nix-templates)
+- [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates)
 
 If you think the structure of `flake.nix` is still too complicated and want a simpler way,
 you can consider using the following project, which encapsulates Nix more thoroughly and
@@ -81,7 +96,7 @@ this:
 > is located in the `/nix/store` directory, and these modification commands can only be
 > executed during the Nix build phase.
 
-- [DavHau/mach-nix](https://github.com/DavHau/mach-nix) (currently unmaintained)
+- [python venv demo](https://github.com/MordragT/nix-templates/blob/master/python-venv/flake.nix)
 - [poetry2nix](https://github.com/nix-community/poetry2nix)
 
 The advantage of these tools is that they utilize the lock mechanism of Nix Flakes to
