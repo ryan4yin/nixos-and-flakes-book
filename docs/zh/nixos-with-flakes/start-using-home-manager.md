@@ -305,8 +305,8 @@ Error: nu::shell::external_command
 /home/ryan/nix-config> exit
 ```
 
-但是，我们可以通过 `sudo` 命令，临时授予当前用户访问系统资源的特权，从而在不切换到 `root`
-用户的情况下，使用 `home.nix` 安装的软件包:
+解决方法是，使用 `sudo` 来运行命令，该命令临时授予当前用户以特权身份（`root`）运行命令的权
+限：
 
 ```sh
 › sudo kubectl

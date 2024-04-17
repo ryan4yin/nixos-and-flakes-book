@@ -317,9 +317,8 @@ Error: nu::shell::external_command
 /home/ryan/nix-config> exit
 ```
 
-But it's possible to run those packages with privileged access without switching to
-`root`, by using `sudo`, we temporarily grant the current user privileged access to system
-resources:
+The solution is to use `sudo` to run the command, which temporarily grants the current
+user the ability to run the command as a privileged user (`root`):
 
 ```sh
 › sudo kubectl
