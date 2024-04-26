@@ -300,7 +300,7 @@ echo 'insert after default';"
 
 ```
 
-可以看到，`lib.mkBefore` 会将后面的值插入到前面，而 `lib.mkAfter` 会将后面的值插入到前面。
+可以看到，`lib.mkBefore` 会将后面的值插入到前面，而 `lib.mkAfter` 会将后面的值插入到后面。
 
 > 对模块系统更深入的介绍，参见
 > [模块系统与自定义 options](../other-usage-of-flakes/module-system.md).
