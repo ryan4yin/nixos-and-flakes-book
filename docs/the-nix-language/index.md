@@ -7,7 +7,7 @@ language.
 The Nix language is a straightforward functional language. If you have some programming
 experience, it should take you less than 2 hours to grasp its basics.
 
-The community already has a lot of good Nix language tutorials, so I won't remake the
+The community already has a lot of good Nix language tutorials, so I won't reinvent the
 wheel. To get started, I recommend reading the following resources for a quick
 introduction to the Nix language:
 
