@@ -49,7 +49,7 @@
     crossSystem = {
       config = "riscv64-unknown-linux-gnu";
 
-      # https://nixos.wiki/wiki/Build_flags
+      # https://wiki.nixos.org/wiki/Build_flags
       # this option equals to add `-march=rv64gc` into CFLAGS.
       # CFLAGS will be used as the command line arguments for the gcc/clang.
       gcc.arch = "rv64gc";

@@ -32,7 +32,7 @@ Nix 中通过如下几个 options 来配置缓存服务器：
       三方库，但又希望使用它的第三方缓存服务器加快构建速度，那就必须自己承担对应的安全风
       险，自行决策是否将该缓存服务器的公钥添加进 `trusted-public-keys`。为了完全解决这个信
       任问题，Nix 推出了实验特性
-      [ca-derivations](https://nixos.wiki/wiki/Ca-derivations)，它不依赖
+      [ca-derivations](https://wiki.nixos.org/wiki/Ca-derivations)，它不依赖
       `trusted-public-keys` 进行签名校验，有兴趣的可以自行了解。
 
 可通过如下几种方式来配置 `substituters` `trusted-public-keys` 两个参数：

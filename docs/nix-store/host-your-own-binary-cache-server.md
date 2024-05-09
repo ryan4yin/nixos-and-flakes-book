@@ -223,6 +223,6 @@ are not stored indefinitely.
 ### References {#references}
 
 - [Blog post by Jeff on Nix binary caches](https://jcollie.github.io/nixos/2022/04/27/nixos-binary-cache-2022.html)
-- [Binary cache in the NixOS wiki](https://nixos.wiki/wiki/Binary_Cache)
+- [Binary cache in the NixOS wiki](https://wiki.nixos.org/wiki/Binary_Cache)
 - [Serving a Nox store via S3 in the NixOS manual](https://nixos.org/manual/nix/stable/package-management/s3-substituter.html)
 - [Serving a Nix store via HTTP in the NixOS manual](https://nixos.org/manual/nix/stable/package-management/binary-cache-substituter.html)

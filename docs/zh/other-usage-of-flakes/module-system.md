@@ -400,8 +400,8 @@ options 的声明与类型检查。
 ## References
 
 - [Best resources for learning about the NixOS module system? - Discourse](https://discourse.nixos.org/t/best-resources-for-learning-about-the-nixos-module-system/1177/4)
-- [NixOS modules - NixOS Wiki](https://nixos.wiki/wiki/NixOS_modules)
-- [NixOS: config argument - NixOS Wiki](https://nixos.wiki/wiki/NixOS:config_argument)
+- [NixOS modules - NixOS Wiki](https://wiki.nixos.org/wiki/NixOS_modules)
+- [NixOS: config argument - NixOS Wiki](https://wiki.nixos.org/wiki/NixOS:config_argument)
 - [Module System - Nixpkgs][Module System - Nixpkgs]
 - [Writing NixOS Modules - Nixpkgs][Writing NixOS Modules - Nixpkgs]
 

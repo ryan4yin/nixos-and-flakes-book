@@ -118,7 +118,7 @@ is currently no alternative for this command):
    1. You can refer to the detailed command comparison list in
       [Try to explain nix commands](https://qiita.com/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en).
 
-[^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes)
+[^1]: [Flakes - NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
 [^2]:
     [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
 

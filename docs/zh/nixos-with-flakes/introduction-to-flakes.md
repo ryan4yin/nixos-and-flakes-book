@@ -98,7 +98,7 @@ NixOS & Flakes 新手指南，就有必要介绍下 Flakes 实验特性所依赖
    1. 详细的命令对比列表可以看看
       [Try to explain nix commands](https://qiita-com.translate.goog/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en)
 
-[^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes)
+[^1]: [Flakes - NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
 [^2]:
     [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
 

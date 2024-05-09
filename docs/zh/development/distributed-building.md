@@ -147,7 +147,7 @@ NixOS 官方的 cache.nixos.org 中提供了绝大多数 X86_64 架构的缓存�
 
 ## References
 
-- [Distributed build - NixOS Wiki](https://nixos.wiki/wiki/Distributed_build)
+- [Distributed build - NixOS Wiki](https://wiki.nixos.org/wiki/Distributed_build)
 - [Document available system features - nix#7380](https://github.com/NixOS/nix/issues/7380)
 - [Distributed builds seem to disable local builds nix#2589](https://github.com/NixOS/nix/issues/2589)
 - [Offloading NixOS builds to a faster machine](https://sgt.hootr.club/molten-matter/nix-distributed-builds/)
