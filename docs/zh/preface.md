@@ -63,6 +63,7 @@ Flakes 新手指南》。
 
 如果你觉得这本书对你有帮助，请考虑捐赠以支持它的开发。
 
+- GitHub: <https://github.com/sponsors/ryan4yin>
 - Patreon: <https://patreon.com/ryan4yin>
 - Buy me a coffee: <https://buymeacoffee.com/ryan4yin>
 - 爱发电: <https://afdian.net/a/ryan4yin>
