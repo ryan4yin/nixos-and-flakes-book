@@ -80,7 +80,7 @@
       };
     in
       # the code here is mainly copied from:
-      #   https://nixos.wiki/wiki/Linux_kernel#Embedded_Linux_Cross-compile_xconfig_and_menuconfig
+      #   https://wiki.nixos.org/wiki/Linux_kernel#Embedded_Linux_Cross-compile_xconfig_and_menuconfig
       (pkgs.buildFHSUserEnv {
         name = "kernel-build-env";
         targetPkgs = pkgs_: (with pkgs_;
@@ -115,5 +115,5 @@
 
 ## References
 
-- [Linux kernel - NixOS Wiki](https://nixos.wiki/wiki/Linux_kernel)
+- [Linux kernel - NixOS Wiki](https://wiki.nixos.org/wiki/Linux_kernel)
 - https://github.com/jordanisaacs/kernel-module-flake

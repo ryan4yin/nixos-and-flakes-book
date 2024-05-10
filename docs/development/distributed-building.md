@@ -151,7 +151,7 @@ Here are some observed issues and limitations:
 
 ## References
 
-- [Distributed build - NixOS Wiki](https://nixos.wiki/wiki/Distributed_build)
+- [Distributed build - NixOS Wiki](https://wiki.nixos.org/wiki/Distributed_build)
 - [Document available system features - nix#7380](https://github.com/NixOS/nix/issues/7380)
 - [Distributed builds seem to disable local builds - nix#2589](https://github.com/NixOS/nix/issues/2589)
 - [Offloading NixOS builds to a faster machine](https://sgt.hootr.club/molten-matter/nix-distributed-builds/)

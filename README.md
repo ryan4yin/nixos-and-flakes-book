@@ -81,7 +81,7 @@ who already contributed to this project!
 [NixOS & Flakes Book](https://github.com/ryan4yin/nixos-and-flakes-book) © 2023 by Ryan
 Yin is licensed under [CC BY-SA 4.0](./LICENSE.md)
 
-[^1]: [Flakes - NixOS Wiki](https://nixos.wiki/index.php?title=Flakes)
+[^1]: [Flakes - NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
 [^2]:
     [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
 

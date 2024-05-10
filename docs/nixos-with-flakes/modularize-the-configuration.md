@@ -17,7 +17,7 @@ The functions of these four files are:
 - `flake.lock`: An automatically generated version-lock file that records all input
   sources, hash values, and version numbers of the entire flake to ensure reproducibility.
 - `flake.nix`: The entry file that will be recognized and deployed when executing
-  `sudo nixos-rebuild switch`. See [Flakes - NixOS Wiki](https://nixos.wiki/wiki/Flakes)
+  `sudo nixos-rebuild switch`. See [Flakes - NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
   for all options of flake.nix.
 - `configuration.nix`: Imported as a Nix module in flake.nix, all system-level
   configuration is currently written here. See

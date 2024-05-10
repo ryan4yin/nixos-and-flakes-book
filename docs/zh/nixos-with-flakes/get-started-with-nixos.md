@@ -92,4 +92,4 @@ Flakes**，它可以确保系统的可复现性，同时也可以很方便地管
 
 ## 参考
 
-- [Overview of the NixOS Linux distribution](https://nixos.wiki/wiki/Overview_of_the_NixOS_Linux_distribution)
+- [Overview of the NixOS Linux distribution](https://wiki.nixos.org/wiki/Overview_of_the_NixOS_Linux_distribution)

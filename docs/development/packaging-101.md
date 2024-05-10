@@ -9,7 +9,7 @@ packaging.
 - [How to Learn Nix, Part 28: The standard environment](https://ianthehenry.com/posts/how-to-learn-nix/the-standard-environment/)
 - [stdenv - Nixpkgs Manual](https://github.com/NixOS/nixpkgs/tree/nixos-unstable/doc/stdenv)
 - [languages-frameworks - Nixpkgs Manual](https://github.com/NixOS/nixpkgs/tree/nixos-unstable/doc/languages-frameworks)
-- [Wrapping packages - NixOS Cookbook](https://nixos.wiki/wiki/Nix_Cookbook#Wrapping_packages)
+- [Wrapping packages - NixOS Cookbook](https://wiki.nixos.org/wiki/Nix_Cookbook#Wrapping_packages)
 - Useful tools:
   - [nurl](https://github.com/nix-community/nurl): Generate Nix fetcher calls from
     repository URLs
