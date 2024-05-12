@@ -183,9 +183,8 @@ foo 的自定义配置了，示例：
 }
 ```
 
-上面这个例子中我们为 `options` 赋值的方式实际上是一种**缩写**，当一个模块中只声明了
-`options`，而没有声明 `config` （以及其他模块系统的特殊参数）时，我们可以省略掉 `config`
-前缀，直接使用 `options` 的名称进行赋值。
+上面这个例子中我们为 `options` 赋值的方式实际上是一种**缩写**，当一个模块中只包含定义（`config`），而没有声明（`option`，并且没有其他特殊参数）时，我们可以省略掉 `config`
+包装，直接书写 `config` 部分来对其他模块中已声明的 `option` 赋值。
 
 ## 模块系统的赋值与延迟求值 {#module-system-assignment-and-lazy-evaluation}
 
