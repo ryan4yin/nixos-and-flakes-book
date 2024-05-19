@@ -248,7 +248,7 @@ nix flake new example -t github:nix-community/home-manager#nixos
 
 有许多的软件包或者软件配置, 既可以使用 NixOS Module 配置(`configuration.nix`)，也可以使用
 Home Manager 配置(`home.nix`), 这带来一个选择难题：**将软件包或者配置文件写在 NixOS Module
-里还是 Homa Manager 配置里面有何区别? 该如何决策?**
+里还是 Home Manager 配置里面有何区别? 该如何决策?**
 
 首先看看区别, NixOS Module 中安装的软件包跟配置文件都是整个系统全局的, 全局的配置通常会被
 存放在 `/etc` 中, 系统全局安装的软件也在任何用户环境下都可使用。
