@@ -8,7 +8,7 @@
 nix flake update
 
 # 或者也可以只更新特定的依赖项，比如只更新 home-manager:
-nix flake lock --update-input home-manager
+nix flake update home-manager
 
 # 部署系统
 sudo nixos-rebuild switch --flake .

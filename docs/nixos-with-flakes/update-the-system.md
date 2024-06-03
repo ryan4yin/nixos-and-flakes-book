@@ -8,7 +8,7 @@ in `/etc/nixos` or any other location where you keep the configuration:
 nix flake update
 
 # Or replace only the specific input, such as home-manager:
-nix flake lock --update-input home-manager
+nix flake update home-manager
 
 # Apply the updates
 sudo nixos-rebuild switch --flake .
