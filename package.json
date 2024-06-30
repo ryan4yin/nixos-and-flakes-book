@@ -1,8 +1,8 @@
 {
   "type": "module",
   "devDependencies": {
-    "vitepress": "1.0.2",
-    "vitepress-export-pdf": "1.0.0-beta.0"
+    "vitepress": "1.2.3",
+    "vitepress-export-pdf": "1.0.0"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
@@ -11,9 +11,9 @@
     "export-pdf": "press-export-pdf export ./docs --outFile ./nixos-and-flakes-book.pdf"
   },
   "dependencies": {
-    "markdown-it-cjk-breaks": "^2.0.0",
+    "@searking/markdown-it-cjk-breaks": "2.0.1-0",
     "markdown-it-footnote": "^4.0.0",
-    "sitemap-ts": "^1.6.1",
-    "vitepress-plugin-comment-with-giscus": "^1.1.12"
+    "sitemap-ts": "^1.7.3",
+    "vitepress-plugin-comment-with-giscus": "^1.1.15"
   }
 }
