@@ -197,7 +197,7 @@ First, add the helix input data source to `flake.nix`:
         ./configuration.nix
 
         # This module works the same as the `specialArgs` parameter we used above
-        # chose one of the two methods to use
+        # choose one of the two methods to use
         # { _module.args = { inherit inputs; };}
       ];
     };
@@ -259,12 +259,11 @@ referenced for future mention:
   versions of Nixpkgs are introduced as dependencies, allowing for flexible selection of
   packages from various versions of Nixpkgs.
 
-
 ## More Flakes Tutorials
 
-Up to this point, we have learned how to use Flakes to configure NixOS systems.
-If you have more questions about Flakes or want to learn more in-depth, please refer
-directly to the following official/semi-official documents:
+Up to this point, we have learned how to use Flakes to configure NixOS systems. If you
+have more questions about Flakes or want to learn more in-depth, please refer directly to
+the following official/semi-official documents:
 
 - Nix Flakes's official documentation:
   - [Nix flakes - Nix Manual](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake)
@@ -275,8 +274,6 @@ directly to the following official/semi-official documents:
   - [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
 - Other useful documents:
   - [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
-
-
 
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
@@ -289,5 +286,3 @@ directly to the following official/semi-official documents:
   https://github.com/NixOS/nixpkgs/blob/nixos-23.11/lib/modules.nix#L122-L184
 [nixpkgs/nixos-23.11/nixos/doc/manual/development/option-types.section.md#L237-L244]:
   https://github.com/NixOS/nixpkgs/blob/nixos-23.11/nixos/doc/manual/development/option-types.section.md?plain=1#L237-L244
-
-
