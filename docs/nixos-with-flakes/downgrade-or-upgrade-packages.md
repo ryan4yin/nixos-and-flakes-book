@@ -102,6 +102,26 @@ submodule. Here's an example of a Home Manager submodule:
 }
 ```
 
+## Pinning a package version with an overlay
+
+The above approach is perfect for application packages, but sometimes you need to replace libraries used by those packages. This is where [Overlays](../nixpkgs/overlays.md) shine! Overlays can edit or replace any attribute of a package, but for now we'll just pin a package to a different nixpkgs version. The main disadvantage of editing a dependency with an overlay is that your Nix installation will recompile all installed packages that depend on it, but your situation may require it for specific bug fixes.
+
+```nix
+# overlays/mesa.nix
+{ config, pkgs, lib, pkgs-fd40cef8d, ... }:
+{
+  nixpkgs.overlays = [
+    # Overlay: Use `self` and `super` to express
+    # the inheritance relationship
+    (self: super: {
+      mesa = pkgs-fd40cef8d.mesa;
+    })
+  ];
+}
+```
+
+## Applying the new configuration
+
 By adjusting the configuration as shown above, you can deploy it using
 `sudo nixos-rebuild switch`. This will downgrade your Firefox/Chrome/VSCode versions to
 the ones corresponding to `nixpkgs-stable` or `nixpkgs-fd40cef8d`.
