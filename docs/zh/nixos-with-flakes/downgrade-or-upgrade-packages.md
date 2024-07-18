@@ -99,6 +99,31 @@ commit.
 }
 ```
 
+## 使用 Overlay 锁定软件包版本
+
+上面介绍的方法非常适合用于普通的应用程序（Application），但有时候你可能会需要替换一些被这
+些应用程序依赖的库（Library）。这时候就需要用到 [Overlays](../nixpkgs/overlays.md) 了！我
+们可以通过 Overlay 来修改某个库的版本，这会导致 Nix 重新编译所有依赖于该库的软件包，但在锁
+定一些比较底层的库版本时，这是一个非常好的方法。
+
+示例如下：
+
+```nix
+# overlays/mesa.nix
+{ config, pkgs, lib, pkgs-fd40cef8d, ... }:
+{
+  nixpkgs.overlays = [
+    # Overlay: Use `self` and `super` to express
+    # the inheritance relationship
+    (self: super: {
+      mesa = pkgs-fd40cef8d.mesa;
+    })
+  ];
+}
+```
+
+## 部署新配置
+
 配置完成后，通过 `sudo nixos-rebuild switch` 部署即可将 firefox/chrome/vscode 三个软件包回
 退到 stable 分支的版本。
 
