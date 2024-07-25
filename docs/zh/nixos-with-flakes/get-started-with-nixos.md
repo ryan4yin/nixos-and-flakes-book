@@ -75,7 +75,7 @@ Flakes**，它可以确保系统的可复现性，同时也可以很方便地管
 的这台主机了。
 
 > 如果你在部署配置时遇到了任何错误，都可以尝试在 `nixos-rebuild` 命令后面添加
-> `--show-trace --print-build-logs --verbose` 参数来获取详细的错误信息。举例如下：
+> `--show-trace --print-build-logs --verbose` 参数来获取详细的错误信息。
 
 这就是 NixOS 默认的声明式系统配置，要对系统做任何可复现的变更，都只需要修改
 `/etc/nixos/configuration.nix` 文件，然后运行 `sudo nixos-rebuild switch` 部署变更即可。
