@@ -1,15 +1,27 @@
 # Dev Environments
 
-在 NixOS 上，全局环境中（home-manager）可以只安装一些通用的开发工具与 SDK，比如
-`git`、`vim`、`emacs`、`tmux`、`zsh` 等等。对于项目本身的依赖，最好是每个项目都有一个独立
-的 `flake.nix` 用于管理各自的开发环境。
+在 NixOS 上，我们有许多种安装开发环境的途径，最理想的方式当然是每个项目的开发环境都完全通
+过它自己的 `flake.nix` 定义，但实际使用上这样做有些繁琐，每次都得弄个 `flake.nix` 出来再
+`nix develop` 一下，对于一些临时项目或者只是想简单看看代码的情况，这样做显然有些大材小用。
 
-为了简便，你也可以考虑提前为常用语言创建一些通用的 `flake.nix` 模板，在需要的时候复制模板
-改一改就能用了。
+一个折衷的方案是将开发环境分为三个层次：
 
-`neovim` 等编辑器的各种插件本身也会有各种依赖，这些依赖可以考虑通过 home-manager 的
-`programs.neovim.extraPackages` 等参数来将其加入到 IDE 本身的环境中，这样就能保证 IDE 本身
-能正常运行，又不会污染全局环境。
+1. **全局环境**：通常这是指由 home-manager 管理的用户环境。
+   - 通用的开发工具：`git`、`vim`、`emacs`、`tmux` 等等。
+   - 常见语言的 SDK 与包管理器：`rust`、`openjdk`、`python`、`go` 等等。
+1. **IDE 环境**：
+   - 以 neovim 为例，home-manager 为 neovim 做了一个 wrapper 用于将 neovim 自身的依赖封装
+     到它本身的环境中，避免污染全局环境。
+   - 可通过 `programs.neovim.extraPackages` 参数将 neovim 的插件依赖加入到 neovim 的环境
+     中，保证 IDE 本身能正常运行。
+   - 但如果你有多个 IDE（如 emacs 跟 neovim），它们常常会依赖许多相同的程序（譬如 lsp,
+     tree-sitter, debugger, formatter 等），为了方便管理，可以将这些共享的依赖放到全局。但
+     要注意可能会跟全局环境中的其他程序产生依赖冲突（尤其是 python 包，比较容易冲突）。
+1. **项目环境**：每个项目都可以通过 `flake.nix` 定义自己的开发环境（`devShells`）。
+   - 为了简便，可以提前为常用语言创建一些通用的 `flake.nix` 模板，在需要的时候复制模板改一
+     改就能用。
+   - 项目环境的优先级是最高的（会被加到 PATH 最前面），其中的依赖会覆盖掉全局环境中同名的
+     依赖程序。所以你可以通过项目的 `flake.nix` 来控制项目的依赖版本，不受全局环境的影响。
 
 ## 开发环境的配置模板
 
