@@ -1,17 +1,38 @@
 # Dev Environments
 
-On NixOS, in the global environment (home-manager), you can install only some general
-development tools and SDKs, such as `git`, `vim`, `emacs`, `tmux`, `zsh`, etc. For the
-dependencies of the project itself, it is best to have a separate `flake.nix` for each
-project to manage their respective development environments.
+On NixOS, we have a variety of methods to set up development environments, with the most
+ideal approach being a complete definition of each project's development environment
+through its own `flake.nix`. However, this can be somewhat cumbersome in practice, as it
+requires crafting a `flake.nix` and then running `nix develop` for each instance. For
+temporary projects or when one simply wants to glance at the code, this approach is
+somewhat overkill.
 
-For simplicity, you might also consider creating some general `flake.nix` templates for
-common languages in advance, which can be copied and modified as needed.
+A compromise is to divide the development environment into three tiers:
 
-Various plugins for editors like `neovim` will also have their own dependencies. These
-dependencies can be considered to be added to the IDE's own environment through parameters
-like `programs.neovim.extraPackages` in home-manager, ensuring that the IDE itself can run
-properly without polluting the global environment.
+1. **Global Environment**: This typically refers to the user environment managed by
+   home-manager.
+   - Universal development tools: `git`, `vim`, `emacs`, `tmux`, and the like.
+   - Common language SDKs and package managers: `rust`, `openjdk`, `python`, `go`, among
+     others.
+2. **IDE Environment**:
+   - Taking neovim as an example, home-manager creates a wrapper for neovim that
+     encapsulates its dependencies within its own environment, preventing contamination of
+     the global environment.
+   - Dependencies for neovim plugins can be added to the neovim environment via the
+     `programs.neovim.extraPackages` parameter, ensuring the IDE operates smoothly.
+   - However, if you use multiple IDEs (such as emacs and neovim), they often rely on many
+     of the same programs (like lsp, tree-sitter, debugger, formatter, etc.). For ease of
+     management, these shared dependencies can be placed in the global environment. Be
+     cautious of potential dependency conflicts with other programs in the global
+     environment, particularly with python packages, which are prone to conflicts.
+3. **Project Environment**: Each project can define its own development environment
+   (`devShells`) via `flake.nix`.
+   - To simplify, you can create generic `flake.nix` templates for commonly used languages
+     in advance, which can be copied and modified as needed.
+   - The project environment takes the highest precedence (added to the front of the
+     PATH), and its dependencies will override those with the same name in the global
+     environment. Thus, you can control the version of project dependencies via the
+     project's `flake.nix`, unaffected by the global environment.
 
 ## Templates for Development Environments
 
