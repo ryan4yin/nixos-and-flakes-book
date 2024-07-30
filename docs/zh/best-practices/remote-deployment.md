@@ -126,7 +126,7 @@ nix run nixpkgs#colmena apply
 例如，使用以下命令将 flake 中的 `nixosConfigurations.my-nixos` 这份配置部署到远程主机：
 
 ```bash
-nixos-rebuild switch --flake .#nixos-text \
+nixos-rebuild switch --flake .#my-nixos \
   --target-host root@192.168.4.1 --build-host localhost --verbose
 ```
 
