@@ -147,7 +147,7 @@ For instance, to deploy the configuration defined in the `nixosConfigurations.my
 your flake to a remote host, use the following command:
 
 ```bash
-nixos-rebuild switch --flake .#nixos-text \
+nixos-rebuild switch --flake .#my-nixos \
   --target-host root@192.168.4.1 --build-host localhost --verbose
 ```
 
