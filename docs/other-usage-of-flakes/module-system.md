@@ -202,7 +202,7 @@ for `foo` by setting the `options` defined here. For example:
 ```
 
 In the example above, the way we assign values to `options` is actually a kind of
-**abbreviation**. When a module only contains `config` without any other delcaration (like `option` and other
+**abbreviation**. When a module only contains `config` without any other declaration (like `option` and other
 special parameters of the module system), we can omit the `config` wrapping , just directly write the
 content of `config` to assign value to `option` section declared in other modules!
 

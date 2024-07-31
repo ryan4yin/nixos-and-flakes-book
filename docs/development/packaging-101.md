@@ -1,4 +1,4 @@
-# Packging 101
+# Packaging 101
 
 WIP work in progress, please refer to the following reference documents to learn Nix
 packaging.
