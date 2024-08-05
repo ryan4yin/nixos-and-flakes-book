@@ -123,13 +123,13 @@ following content:
 Now, create a policy for uploading files to S3 using the `nix-cache-write.json` file:
 
 ```bash
-mc admin policy add s3 nix-cache-write nix-cache-write.json
+mc admin policy create s3 nix-cache-write nix-cache-write.json
 ```
 
 Associate the S3 policy we just created with the `nixbuilder` user:
 
 ```bash
-mc admin policy set s3 nix-cache-write user=nixbuilder
+mc admin policy attach s3 nix-cache-write -user nixbuilder
 ```
 
 Allow anonymous users to download files without authentication, so all Nix servers can
