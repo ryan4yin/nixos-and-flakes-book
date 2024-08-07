@@ -112,7 +112,7 @@ happy to continue improving the content of this book.
 
 The reason why I wrote this little book was only because no one in the community did it
 for me, who was a beginner at the time, so I chose to do it myself. Even though I knew I
-could make mistakes, it's much better than do nothing.
+could make mistakes, it's much better than doing nothing.
 
 My hope is that this book can help more people, enabling them to experience the joys of
 NixOS. Hope you like it!
