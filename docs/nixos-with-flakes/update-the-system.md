@@ -12,6 +12,9 @@ nix flake update home-manager
 
 # Apply the updates
 sudo nixos-rebuild switch --flake .
+
+# Or to update flake.lock & apply with one command (i.e. same as running "nix flake update" before)
+sudo nixos-rebuild switch --recreate-lock-file --flake .
 ```
 
 Occasionally, you may encounter a "sha256 mismatch" error when running
