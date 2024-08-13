@@ -11,6 +11,10 @@ of the current flake. There are various types of inputs, as shown in the example
     nixpkgs.url = "github:Mic92/nixpkgs/master";
     # Git URL, applicable to any Git repository using the https/ssh protocol.
     git-example.url = "git+https://git.somehost.tld/user/path?ref=branch";
+    # Git URL by tag, applicable to any Git repository using the https/ssh protocol.
+    git-example-tag.url = "git+https://git.somehost.tld/user/path?tag=x.y.x";
+    # Git URL with submodules, applicable to any Git repository using the https/ssh protocol.
+    git-example-submodule.url = "git+https://git.somehost.tld/user/path?submodules=1";
     # Archive File URL, needed in case your input use LFS.
     # Regular git input doesn't support LFS yet.
     git-example-lfs.url = "https://codeberg.org/solver-orgz/treedome/archive/master.tar.gz";
