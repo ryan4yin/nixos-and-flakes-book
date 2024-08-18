@@ -98,7 +98,7 @@ If you find this book helpful, please consider donating to support its developme
 - GitHub: <https://github.com/sponsors/ryan4yin>
 - Patreon: <https://patreon.com/ryan4yin>
 - Buy me a coffee: <https://buymeacoffee.com/ryan4yin>
-- 爱发电: <https://afdian.net/a/ryan4yin>
+- 爱发电: <https://afdian.com/a/ryan4yin>
 - Ethereum: `0xB74Aa43C280cDc8d8236952400bF6427E4390855`
 
 ## Feedback and Discussion
