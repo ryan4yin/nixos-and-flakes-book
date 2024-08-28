@@ -87,7 +87,8 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 NixOS 社区比较推荐优先使用 `_module.args` 这个 options，仅在无法使用 `_module.args` 时才改
 用 `specialArgs`。
 
-我个人更喜欢 `specialArgs`，因为它更简单直接，用起来顺手些。
+我个人更喜欢 `specialArgs`，因为它更简单直接，用起来顺手些，另外 `_xxx` 这种命名风格就让人
+感觉它是个内部用的东西，不太适合用在用户配置文件中。
 
 假设你想将某个依赖项传递到子模块中使用，可以使用 `specialArgs` 参数将 `inputs` 传递到所有
 子模块中：
@@ -241,11 +242,10 @@ nix run github:helix-editor/helix/master
 - [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): 这里引入了不同
   版本的 Nixpkgs 作为依赖项，从而能很灵活地选用不同版本的 Nixpkgs 中的包。
 
-
 ## 其他 Flakes 学习资料
 
-到此为止，我们已经学习了如何使用 Flakes 来配置 NixOS 系统。
-如果你对 Flakes 还有更多的疑问，或者想深入学习，请直接参考如下官方/半官方的文档。
+到此为止，我们已经学习了如何使用 Flakes 来配置 NixOS 系统。如果你对 Flakes 还有更多的疑
+问，或者想深入学习，请直接参考如下官方/半官方的文档。
 
 - Nix Flakes 的官方文档：
   - [Nix flakes - Nix Manual](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake)
@@ -256,7 +256,6 @@ nix run github:helix-editor/helix/master
   - [Nix Flakes, Part 3: Managing NixOS systems (Eelco Dolstra, 2020)](https://www.tweag.io/blog/2020-07-31-nixos-flakes/)
 - 其他可能有用的文档：
   - [Practical Nix Flakes](https://serokell.io/blog/practical-nix-flakes)
-
 
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
