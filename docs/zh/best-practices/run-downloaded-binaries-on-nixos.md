@@ -65,6 +65,8 @@ $ fhs
   is a collection of tips and tricks for NixOS desktop.
 - [nix-alien](https://github.com/thiagokokada/nix-alien): Run unpatched binaries on
   Nix/NixOS
+- [nix-ld](https://github.com/Mic92/nix-ld): Run unpatched dynamic binaries on NixOS.
+- [用 Nix 打包闭源软件 - Lan Tian @ Blog](https://lantian.pub/article/modify-computer/nixos-packaging.lantian/#%E5%AE%9E%E4%BE%8B%E9%97%AD%E6%BA%90%E8%BD%AF%E4%BB%B6%E4%BB%A5%E5%8F%8A%E4%BB%A5%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%BD%A2%E5%BC%8F%E5%88%86%E5%8F%91%E7%9A%84%E8%BD%AF%E4%BB%B6)
 
 [Tips&Tricks for NixOS Desktop - NixOS Discourse]:
   https://discourse.nixos.org/t/tips-tricks-for-nixos-desktop/28488
