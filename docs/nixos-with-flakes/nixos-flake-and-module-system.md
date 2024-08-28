@@ -95,7 +95,9 @@ submodules. The difference between them is:
    passed through `_module.args` in `imports = [ ... ];`, it will result in an
    `infinite recursion` error**. In this case, you must use `specialArgs` instead.
 
-I personally prefer `specialArgs` because it is more straightforward and easier to use.
+I personally prefer `specialArgs` because it is more straightforward and easier to use, and
+the naming style of `_xxx` makes it feel like an internal thing that is not suitable for use
+in user configuration files.
 
 Suppose you want to pass a certain dependency to a submodule for use. You can use the
 `specialArgs` parameter to pass the `inputs` to all submodules:
