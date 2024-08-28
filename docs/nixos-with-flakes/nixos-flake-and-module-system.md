@@ -95,8 +95,7 @@ submodules. The difference between them is:
    passed through `_module.args` in `imports = [ ... ];`, it will result in an
    `infinite recursion` error**. In this case, you must use `specialArgs` instead.
 
-The NixOS community generally recommends prioritizing the use of the `_module.args` option
-and resorting to `specialArgs` only when `_module.args` cannot be used.
+I personally prefer `specialArgs` because it is more straightforward and easier to use.
 
 Suppose you want to pass a certain dependency to a submodule for use. You can use the
 `specialArgs` parameter to pass the `inputs` to all submodules:

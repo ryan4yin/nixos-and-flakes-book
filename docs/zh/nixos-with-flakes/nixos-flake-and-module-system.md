@@ -87,6 +87,8 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 NixOS 社区比较推荐优先使用 `_module.args` 这个 options，仅在无法使用 `_module.args` 时才改
 用 `specialArgs`。
 
+我个人更喜欢 `specialArgs`，因为它更简单直接，用起来顺手些。
+
 假设你想将某个依赖项传递到子模块中使用，可以使用 `specialArgs` 参数将 `inputs` 传递到所有
 子模块中：
 
