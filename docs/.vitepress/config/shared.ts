@@ -5,12 +5,6 @@ import { PageData, defineConfig } from "vitepress"
 const require = createRequire(import.meta.url)
 
 export const shared = defineConfig({
-  title: "NixOS & Flakes Book",
-
-  rewrites: {
-    "en/:rest*": ":rest*",
-  },
-
   // Whether to get the last updated timestamp for each page using Git.
   lastUpdated: true,
   // remove trailing `.html`
