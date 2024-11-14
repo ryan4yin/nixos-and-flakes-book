@@ -2,7 +2,6 @@ import { defineConfig } from "vitepress"
 
 export const en = defineConfig({
   lang: "en-US",
-  title: "NixOS & Flakes Book",
   description: "An unofficial and opinionated book for beginners",
 
   themeConfig: {
