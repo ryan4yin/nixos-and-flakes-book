@@ -43,7 +43,18 @@ export const shared = defineConfig({
   },
 
   head: [
-    ["link", { rel: "icon", href: "/favicon-32x32.png" }],
+    ["link", { rel: "icon", href: "/favicon.svg" }],
+    ["link", { rel: "shortcut icon", href: "/favicon.ico" }],
+    // Google Search and Android Chrome
+    ["link", { rel: "icon", href: "/favicon-96x96.png", sizes: "96x96" }],
+    ["link", { rel: "icon", href: "/web-app-manifest-192x192.png", sizes: "192x192" }],
+    ["link", { rel: "icon", href: "/web-app-manifest-512x512.png", sizes: "512x512" }],
+    // For Apple iPhone/iPad
+    ["link", { rel: "apple-touch-icon", href: "/apple-touch-icon.png", sizes: "180x180" }],
+
+    // site.manifest
+    ["link", { rel: "manifest", href: "/site.webmanifest" }],
+
     ["meta", { name: "theme-color", content: "#5f67ee" }],
     ["meta", { name: "og:type", content: "website" }],
     ["meta", { name: "og:site_name", content: "NixOS & Flakes Book" }],
