@@ -43,7 +43,7 @@ export const shared = defineConfig({
   },
 
   head: [
-    ["link", { rel: "icon", href: "/favicon.svg" }],
+    ["link", { rel: "icon", href: "/web-app-manifest-192x192.png" }],
     ["link", { rel: "shortcut icon", href: "/favicon.ico" }],
     // Google Search and Android Chrome
     ["link", { rel: "icon", href: "/favicon-96x96.png", sizes: "96x96" }],
