@@ -2,7 +2,7 @@
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     flake-utils.url = "github:numtide/flake-utils";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
   };
@@ -17,7 +17,7 @@
       overlays = [
         (self: super: rec {
           nodejs = super.nodejs_20;
-          pnpm = super.nodePackages.pnpm;
+          pnpm = super.pnpm.override {inherit nodejs;};
           yarn = super.yarn.override {inherit nodejs;};
           prettier = super.nodePackages.prettier;
         })

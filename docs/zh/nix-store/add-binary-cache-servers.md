@@ -127,7 +127,7 @@ Nix 中通过如下几个 options 来配置缓存服务器：
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
     # 省略若干配置...
   };
@@ -209,7 +209,7 @@ Nix 提供了
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
 
     # 省略若干配置...
   };

@@ -164,7 +164,7 @@ Here's an example of its contents:
   # You can update home Manager without changing this value. See
   # the home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.11";
 
   # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -186,10 +186,10 @@ After adjusting the parameters, the content of `/etc/nixos/flake.nix` is as foll
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     # home-manager, used for managing user configuration
     home-manager = {
-      url = "github:nix-community/home-manager/release-23.11";
+      url = "github:nix-community/home-manager/release-24.11";
       # The `follows` keyword in inputs is used for inheritance.
       # Here, `inputs.nixpkgs` of home-manager is kept consistent with
       # the `inputs.nixpkgs` of the current flake,
