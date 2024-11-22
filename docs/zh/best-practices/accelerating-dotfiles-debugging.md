@@ -8,32 +8,40 @@ Dotfiles，都需要通过跑一遍 `sudo nixos-rebuild switch`(或者如果你�
 以我的 Neovim/Emacs 配置为例，我日常修改它们的频率非常高，有时候一天要改几十上百次，如果每
 次修改都要等 `nixos-rebuild` 跑个几十秒，这简直是在浪费时间。
 
-幸运的是，在有了 [使用 Justfile 简化 NixOS 相关命令](./simplify-nixos-related-commands.md)
-这个方案后，我们可以通过往 `Justfile` 里添加些配置来实现快速的测试验证这些需要频繁修改的
-Dotfiles.
+幸运的是，Home Manager 提供了一个 [mkOutOfStoreSymlink][mkOutOfStoreSymlink] 函数, 它可以
+创建一个指向你 Dotfiles 绝对路径的软链接, 这样就能绕过 Home Manager 自身，你对 Dotfiles 的
+修改就能立即生效了.
 
-比如我现在添加了这些 Justfile 内容：
-
-> 我使用的 Justfile 最新版:
-> [ryan4yin/nix-config/Justfile](https://github.com/ryan4yin/nix-config/blob/main/Justfile)
-
-```Makefile
-###############################################################
-# Quick Test - Neovim
-###############################################################
-
-
-nvim-clean:
-  rm -rf ${HOME}.config/astronvim/lua/user
-
-nvim-test: nvim-clean
-  rsync -avz --copy-links --chmod=D2755,F744 home/base/desktop/editors/neovim/astronvim_user/ ${HOME}/.config/astronvim/lua/user
-```
-
-然后在需要快速测试 Neovim 配置时，每次修改完配置后，跑一下 `just nvim-test`，我的配置就更
-新了。测试完毕后，运行下 `just nvim-clean`，再重新用 `nixos-rebuild` 部署下配置，就完成了
-配置的还原。
-
-这种方法能生效的前提是，你的 Dotfiles 内容不是由 Nix 生成的，比如我的 Emacs/Neovim 配置都
+这种方法能有用的前提是，你的 Dotfiles 内容不是由 Nix 生成的，比如我的 Emacs/Neovim 配置都
 是原生的，仅通过 Nix Home-Manager 的 `home.file` 或 `xdg.configFile` 将它们链接到正确的位
 置。
+
+下面简单说明下如何通过这个函数加速 Dotfiles 的调试.
+
+假设你将你的 Neovim 配置放在了 `~/nix-config/home/nvim` 下，在你的 Home Manager 配置(如
+`/etc/nixos/home.nix`) 中添加如下代码:
+
+```nix
+{ config, pkgs, ... }: let
+  # path to your nvim config directory
+  nvimPath = "${config.home.homeDirectory}/nix-config/home/nvim";
+  # path to your doom emacs config directory
+  doomPath = "${config.home.homeDirectory}/nix-config/home/doom";
+in
+{
+  xdg.configFile."nvim".source = config.lib.file.mkOutOfStoreSymlink nvimPath;
+  xdg.configFile."doom".source = config.lib.file.mkOutOfStoreSymlink doomPath;
+
+  # other configurations
+}
+```
+
+修改完配置后，运行 `sudo nixos-rebuild switch` (或者如果你是单独使用 home manager的话，应
+该是这个指令 `home-manager switch`)即可生效。这之后，你对 `~/nix-config/home/nvim` 或
+`~/nix-config/home/doom` 的修改就能立即被 Neovim/Emacs 观察到了.
+
+这样你就既能使用一个 nix-config 仓库统一管理所有 Dotfiles, 一些频繁修改的非 Nix 配置也能快
+速生效，不受 Nix 的影响.
+
+[mkOutOfStoreSymlink]:
+  https://github.com/search?q=repo%3Anix-community%2Fhome-manager%20outOfStoreSymlink&type=code
