@@ -9,7 +9,7 @@
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11-small";
 
     # custom kernel's source
     thead-kernel = {

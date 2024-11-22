@@ -71,7 +71,7 @@ Module，示例如下：
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -125,7 +125,7 @@ Module，示例如下：
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -217,7 +217,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11-small";
   };
 
   outputs = { self, nixpkgs, ... }:
@@ -252,7 +252,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11-small";
   };
 
   outputs = { self, nixpkgs, ... }: let

@@ -118,7 +118,7 @@ stdenv.mkDerivation ({
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
   };
 
   outputs = { self , nixpkgs ,... }: let
@@ -162,7 +162,7 @@ stdenv.mkDerivation ({
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
   };
 
   outputs = { self , nixpkgs ,... }: let
@@ -212,7 +212,7 @@ wrapper，比如 `pkgs.runCommand`.
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
   };
 
   outputs = { self , nixpkgs ,... }: let
@@ -280,8 +280,8 @@ session，可以在其中正常使用 `node` `pnpm` 命令.
 
 相关源代码：
 
-- [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/trivial-builders/default.nix#L21-L49)
-- [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-23.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
+- [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/build-support/trivial-builders/default.nix#L21-L49)
+- [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-24.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
 
 ## 进入任何 Nix 包的构建环境
 
