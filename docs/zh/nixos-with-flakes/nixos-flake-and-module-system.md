@@ -206,7 +206,6 @@ helix 的 master 分支。
     git
     vim
     wget
-    curl
     # 这里从 helix 这个 inputs 数据源安装了 helix 程序
     inputs.helix.packages."${pkgs.system}".helix
   ];
