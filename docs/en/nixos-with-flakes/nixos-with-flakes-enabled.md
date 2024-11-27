@@ -33,7 +33,6 @@ the accompanying new nix command-line tool:
     git
     vim
     wget
-    curl
   ];
   # Set the default editor to vim
   environment.variables.EDITOR = "vim";
