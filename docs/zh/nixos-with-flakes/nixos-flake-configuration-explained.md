@@ -144,7 +144,7 @@ outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `
 数：
 
 1. `system`: 这个很好懂，就是系统架构参数。
-2. `modules`: 此函数是一个 modules 的列表，NixOS 的实际系统配置都定义在这些 modules 中。
+2. `modules`: 它是一个 modules 的列表，NixOS 的实际系统配置都定义在这些 modules 中。
 
 `/etc/nixos/configuration.nix` 这个配置文件本身就是一个 Nixpkgs Module，因此可以直接将其添
 加到 `modules` 列表中使用。
