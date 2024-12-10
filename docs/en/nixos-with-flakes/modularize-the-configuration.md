@@ -17,8 +17,8 @@ The functions of these four files are:
 - `flake.lock`: An automatically generated version-lock file that records all input
   sources, hash values, and version numbers of the entire flake to ensure reproducibility.
 - `flake.nix`: The entry file that will be recognized and deployed when executing
-  `sudo nixos-rebuild switch`. See [Flakes - NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
-  for all options of flake.nix.
+  `sudo nixos-rebuild switch`. See
+  [Flakes - NixOS Wiki](https://wiki.nixos.org/wiki/Flakes) for all options of flake.nix.
 - `configuration.nix`: Imported as a Nix module in flake.nix, all system-level
   configuration is currently written here. See
   [Configuration - NixOS Manual](https://nixos.org/manual/nixos/unstable/index.html#ch-configuration)
@@ -37,8 +37,16 @@ can lead to bloated and difficult-to-maintain files. A better solution is to use
 module system to split the configuration into multiple Nix modules and write them in a
 classified manner.
 
-The Nix module system provides a parameter, `imports`, which accepts a list of `.nix`
-files and merges all the configuration defined in these files into the current Nix module.
+The Nix language provides an
+[import function](https://nix.dev/tutorials/nix-language.html#import) with a special rule:
+
+> If the parameter of `import` is a folder path, it will return the execution result of
+> the `default.nix` file in that folder.
+
+The Nixpkgs module system provides a similar parameter, `imports`, which accepts a list of
+`.nix` files and **merge** all the configuration defined in these files into the current
+Nix module.
+
 Note that `imports` will not simply overwrite duplicate configuration but handle it more
 reasonably. For example, if `program.packages = [...]` is defined in multiple modules,
 then `imports` will merge all `program.packages` defined in all Nix modules into one list.

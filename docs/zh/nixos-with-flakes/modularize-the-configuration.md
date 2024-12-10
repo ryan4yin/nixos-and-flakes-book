@@ -29,11 +29,15 @@ $ tree
 靠 `configuration.nix` 跟 `home.nix` 会导致配置文件臃肿，难以维护。更好的解决方案是通过
 Nix 的模块机制，将配置文件拆分成多个模块，分门别类地编写维护。
 
-在前面的 Nix 语法一节有介绍过：「`import` 的参数如果为文件夹路径，那么会返回该文件夹下的
-`default.nix` 文件的执行结果」，实际 Nix 还提供了一个 `imports` 参数，它可以接受一个
-`.nix` 文件列表，并将该列表中的所有配置**合并**（Merge）到当前的 attribute set 中。注意这
-里的用词是「合并」，它表明 `imports` 如果遇到重复的配置项，不会简单地按执行顺序互相覆盖，
-而是更合理地处理。比如说我在多个 modules 中都定义了 `program.packages = [...]`，那么
+Nix 语言提供了一个 [`import` 函数](https://nix.dev/tutorials/nix-language.html#import)，它有一条特殊规则：
+
+> `import` 的参数如果为文件夹路径，那么会返回该文件夹下的 `default.nix` 文件的执行结果
+
+Nixpkgs 模块系统提供了一个与之类似的 `imports` 参数，它可以接受一个 `.nix` 文件列表，并将
+该列表中的所有配置**合并**（Merge）到当前的 attribute set 中。
+
+注意这里的用词是「**合并**」，它表明 `imports` 如果遇到重复的配置项，不会简单地按执行顺序互相
+覆盖，而是更合理地处理。比如说我在多个 modules 中都定义了 `program.packages = [...]`，那么
 `imports` 会将所有 modules 中的 `program.packages` 这个 list 合并。不仅 list 能被正确合
 并，attribute set 也能被正确合并，具体行为各位看官可以自行探索。
 
