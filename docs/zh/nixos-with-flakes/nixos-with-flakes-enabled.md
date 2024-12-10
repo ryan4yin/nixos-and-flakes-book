@@ -92,6 +92,9 @@ cat flake.nix
 现在执行 `sudo nixos-rebuild switch` 应用配置，系统应该没有任何变化，因为我们仅仅是切换到
 了 Nix Flakes，配置内容与之前还是一致的。
 
+> 如果你的系统 Hostname 不是 `my-nixos`，你需要在 `flake.nix` 中修改 `nixosConfigurations`
+> 的名称，或者使用 `--flake /etc/nixos#my-nixos` 来指定配置名称。
+
 切换完毕后，我们就可以通过 Flakes 特性来管理系统了。
 
 目前我们的 flake 包含这几个文件：

@@ -104,6 +104,10 @@ Now, when you execute `sudo nixos-rebuild switch` to apply the configuration, th
 should not change at all because we have simply switched to using Nix Flakes, and the
 configuration content remains consistent with before.
 
+> If your system's hostname is not `my-nixos`, you need to modify the name of
+> `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#my-nixos` to specify
+> the configuration name.
+
 After the switch, we can manage the system through the Flakes feature.
 
 Currently, our flake includes these files:
