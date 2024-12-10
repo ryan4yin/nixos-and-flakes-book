@@ -73,7 +73,7 @@ cat flake.nix
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
-    # 因此请将下面的 my-nixos 替换成你的主机名称
+    # TODO 请将下面的 my-nixos 替换成你的 hostname
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       modules = [
