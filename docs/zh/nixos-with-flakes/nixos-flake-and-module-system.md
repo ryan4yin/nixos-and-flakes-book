@@ -87,9 +87,6 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
    用它。这导致**如果你在 `imports = [ ... ];` 中使用 `_module.args` 传递的参数，会报错
    `infinite recursion`，这种场景下你必须改用 `specialArgs` 才行**。
 
-NixOS 社区比较推荐优先使用 `_module.args` 这个 options，仅在无法使用 `_module.args` 时才改
-用 `specialArgs`。
-
 我个人更喜欢 `specialArgs`，因为它更简单直接，用起来顺手些，另外 `_xxx` 这种命名风格就让人
 感觉它是个内部用的东西，不太适合用在用户配置文件中。
 
