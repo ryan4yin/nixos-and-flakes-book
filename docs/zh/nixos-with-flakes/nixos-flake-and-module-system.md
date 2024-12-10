@@ -8,11 +8,14 @@
 为什么 `/etc/nixos/configuration.nix` 这个配置文件会符合 Nixpkgs Module 定义，从而能直接在
 `flake.nix` 中引用它呢？可能会有读者觉得这有点出乎意料。
 
-这实际是因为 Nixpkgs 中包含了大量 NixOS 的实现源码，这些源码大都使用 Nix 语言编写。为了编
-写维护如此多的 Nix 代码，并且使用户能灵活地自定义其 NixOS 系统的各项功能，就必须要有一套
-Nix 代码的模块化系统。
+要理解这一点，我们得先了解下 Nixpkgs 模块系统的由来以及它的用途。
 
-这套 Nix 代码的模块系统的实现也同样在 Nixpkgs 仓库中，它主要被用于 NixOS 系统配置的模块
+NixOS 的所有实现代码都存放在
+[Nixpkgs/nixos](https://github.com/NixOS/nixpkgs/tree/master/nixos) 目录中，这些源码大都使
+用 Nix 语言编写。为了编写维护如此多的 Nix 代码，并且使用户能灵活地自定义其 NixOS 系统的各
+项功能，就必须要有一套 Nix 代码的模块化系统。
+
+这套 Nix 代码的模块系统的实现也同样存放在 Nixpkgs 仓库中，它主要被用于 NixOS 系统配置的模块
 化，但也有其他的应用，比如 nix-darwin 跟 home-manager 都大量使用了这套模块系统。
 
 既然 NixOS 是基于这套模块系统构建的，那它的配置文件（包括 `/etc/nixos/configuration.nix`）

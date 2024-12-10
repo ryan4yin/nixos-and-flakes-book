@@ -9,10 +9,14 @@
 You might be wondering why the `/etc/nixos/configuration.nix` configuration file adheres
 to the Nixpkgs Module definition and can be referenced directly within the `flake.nix`.
 
-This is because the Nixpkgs repository contains a significant amount of NixOS
-implementation source code, primarily written in Nix. To manage and maintain such a large
-volume of Nix code and to allow users to customize various functions of their NixOS
-systems, a modular system for Nix code is essential.
+To understand this, we need to first learn about the origin of the Nixpkgs module system
+and its purpose.
+
+All the implementation code of NixOS is stored in the
+[Nixpkgs/nixos](https://github.com/NixOS/nixpkgs/tree/master/nixos) directory, and most of
+these source codes are written in the Nix language. To write and maintain such a large
+amount of Nix code, and to allow users to flexibly customize various functions of their
+NixOS system, a modular system for Nix code is essential.
 
 This modular system for Nix code is also implemented within the Nixpkgs repository and is
 primarily used for modularizing NixOS system configurations. However, it is also widely
@@ -95,9 +99,9 @@ submodules. The difference between them is:
    passed through `_module.args` in `imports = [ ... ];`, it will result in an
    `infinite recursion` error**. In this case, you must use `specialArgs` instead.
 
-I personally prefer `specialArgs` because it is more straightforward and easier to use, and
-the naming style of `_xxx` makes it feel like an internal thing that is not suitable for use
-in user configuration files.
+I personally prefer `specialArgs` because it is more straightforward and easier to use,
+and the naming style of `_xxx` makes it feel like an internal thing that is not suitable
+for use in user configuration files.
 
 Suppose you want to pass a certain dependency to a submodule for use. You can use the
 `specialArgs` parameter to pass the `inputs` to all submodules:
