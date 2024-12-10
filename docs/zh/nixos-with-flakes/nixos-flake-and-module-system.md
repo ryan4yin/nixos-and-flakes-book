@@ -19,7 +19,7 @@ NixOS 的所有实现代码都存放在
 化，但也有其他的应用，比如 nix-darwin 跟 home-manager 都大量使用了这套模块系统。
 
 既然 NixOS 是基于这套模块系统构建的，那它的配置文件（包括 `/etc/nixos/configuration.nix`）
-是一个Nixpkgs Module，也就显得非常自然了。
+是一个 Nixpkgs Module，也就显得非常自然了。
 
 在学习后面的内容之前，我们需要先简单了解下这套模块系统的工作方式。
 
