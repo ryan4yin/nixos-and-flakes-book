@@ -10,41 +10,41 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Install nix
-        uses: cachix/install-nix-action@v23
-        with:
-          nix_path: "nixpkgs=channel:nixpkgs-unstable"
-          extra_nix_config: |
-            experimental-features = nix-command flakes
-            access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
-      - name: Show nixpkgs version
-        run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Run a command with nix develop
-        run: |
-          nix develop .#export-pdf --ignore-environment --command bash -c '
-            pnpm install
-            pnpm export-pdf
-          '
-      # # For debugging, upload the pdfs as artifacts
-      # - uses: actions/upload-artifact@v3
+      # - name: Install nix
+      #   uses: cachix/install-nix-action@v23
       #   with:
-      #     name: pdf
-      #     path: '*.pdf'
-      - name: Generate changelog
-        run: |
-          # Get the previous tag
-          git fetch --tags
-          PREVIOUS_TAG=$(git tag --sort=-creatordate | head -n 2 | tail -n 1)
-          # Generate the changelog
-          git log --pretty=format:"%h %s" $PREVIOUS_TAG..HEAD > CHANGELOG
-
-          echo "Changelog from $PREVIOUS_TAG to HEAD:"
-          cat CHANGELOG
-      - name: Release PDF
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          generate_release_notes: true
-          body_path: CHANGELOG
-          files: |
-            nixos-and-flakes-book.pdf
+      #     nix_path: "nixpkgs=channel:nixpkgs-unstable"
+      #     extra_nix_config: |
+      #       experimental-features = nix-command flakes
+      #       access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
+      # - name: Show nixpkgs version
+      #   run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+      # - name: Run a command with nix develop
+      #   run: |
+      #     nix develop .#export-pdf --ignore-environment --command bash -c '
+      #       pnpm install
+      #       pnpm export-pdf
+      #     '
+      # # # For debugging, upload the pdfs as artifacts
+      # # - uses: actions/upload-artifact@v3
+      # #   with:
+      # #     name: pdf
+      # #     path: '*.pdf'
+      # - name: Generate changelog
+      #   run: |
+      #     # Get the previous tag
+      #     git fetch --tags
+      #     PREVIOUS_TAG=$(git tag --sort=-creatordate | head -n 2 | tail -n 1)
+      #     # Generate the changelog
+      #     git log --pretty=format:"%h %s" $PREVIOUS_TAG..HEAD > CHANGELOG
+      #
+      #     echo "Changelog from $PREVIOUS_TAG to HEAD:"
+      #     cat CHANGELOG
+      # - name: Release PDF
+      #   uses: softprops/action-gh-release@v1
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   with:
+      #     generate_release_notes: true
+      #     body_path: CHANGELOG
+      #     files: |
+      #       nixos-and-flakes-book.pdf
