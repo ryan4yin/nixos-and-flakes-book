@@ -404,9 +404,9 @@ options 的声明与类型检查。
 - [Module System - Nixpkgs][Module System - Nixpkgs]
 - [Writing NixOS Modules - Nixpkgs][Writing NixOS Modules - Nixpkgs]
 
-[lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/24.11/lib/modules.nix#L995
+[lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-24.11/lib/modules.nix#L995
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/24.11/doc/module-system/module-system.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/doc/module-system/module-system.chapter.md
 [Writing NixOS Modules - Nixpkgs]:
   https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/doc/manual/development/writing-modules.chapter.md
 [Option Definitions - NixOS]:

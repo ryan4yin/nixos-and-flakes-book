@@ -130,7 +130,7 @@ cat flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]:
   https://github.com/NixOS/nixpkgs/tree/nixos-24.11/nixos/lib/eval-config.nix
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/24.11/doc/module-system/module-system.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/doc/module-system/module-system.chapter.md
 [nixpkgs/nixos-24.11/lib/modules.nix - _module.args]:
   https://github.com/NixOS/nixpkgs/blob/nixos-24.11/lib/modules.nix#L122-L184
 [nixpkgs/nixos-24.11/nixos/doc/manual/development/option-types.section.md#L237-L244]:
