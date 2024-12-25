@@ -436,7 +436,7 @@ normal:
 One thing to note here is that **you cannot use parameters passed by `_module.args` in
 `imports =[ ... ];`**. We have already provided a detailed explanation in the previous
 section
-[Passing Non-default Parameters to Submodules](../nixos-with-flakes/nixos-with-flakes-enabled#pass-non-default-parameters-to-submodules).
+[Passing Non-default Parameters to Submodules](../nixos-with-flakes/nixos-flake-and-module-system#pass-non-default-parameters-to-submodules).
 
 ## References
 
