@@ -393,7 +393,7 @@ options 的声明与类型检查。
 
 这里需要注意的一点是，**不能在 `imports =[ ... ];` 中使用由 `_module.args` 传递的参数**，
 我们在前面
-[传递非默认参数到模块系统中 ](../nixos-with-flakes/nixos-with-flakes-enabled#pass-non-default-parameters-to-submodules)
+[传递非默认参数到模块系统中 ](../nixos-with-flakes/nixos-flake-and-module-system#pass-non-default-parameters-to-submodules)
 一章中已经做过详细说明。
 
 ## References
