@@ -81,7 +81,7 @@ helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
 });
 ```
 
-上面这个例子中，`doCheck` 就是一个新的 Derivation，它的 `doCheck` 参数被改写为 `false`，而
+上面这个例子中，`helloWithDebug` 就是一个新的 Derivation，它的 `doCheck` 参数被改写为 `false`，而
 其他参数则沿用原来的值。
 
 除了包源码中自定义的参数值外，我们也可以通过 `overrideAttrs` 直接改写
