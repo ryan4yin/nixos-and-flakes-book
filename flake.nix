@@ -61,7 +61,7 @@
         inherit packages;
 
         shellHook = ''
-          echo "node `${pkgs.nodejs}/bin/node --version`"
+          echo "node `node --version`"
           ${self.checks.${system}.pre-commit-check.shellHook}
         '';
       };
@@ -70,7 +70,7 @@
         inherit packages;
 
         shellHook = ''
-          echo "node `${pkgs.nodejs}/bin/node --version`"
+          echo "node `node --version`"
 
           # Set Puppeteer to not download Chrome, cause it doesn't work on NixOS
           export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1

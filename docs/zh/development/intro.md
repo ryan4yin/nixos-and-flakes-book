@@ -139,7 +139,7 @@ stdenv.mkDerivation ({
       ];
 
       shellHook = ''
-        echo "node `${pkgs.nodejs}/bin/node --version`"
+        echo "node `node --version`"
       '';
     };
   };
@@ -184,7 +184,7 @@ stdenv.mkDerivation ({
       ];
 
       shellHook = ''
-        echo "node `${pkgs.nodejs}/bin/node --version`"
+        echo "node `node --version`"
         exec nu
       '';
     };
