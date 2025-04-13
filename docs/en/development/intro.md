@@ -136,7 +136,7 @@ Here is a `flake.nix` that defines a development environment with Node.js 18 ins
       ];
 
       shellHook = ''
-        echo "node `${pkgs.nodejs_18}/bin/node --version`"
+        echo "node `node --version`"
       '';
     };
   };
@@ -181,7 +181,7 @@ Here is an example:
       ];
 
       shellHook = ''
-        echo "node `${pkgs.nodejs_18}/bin/node --version`"
+        echo "node `node --version`"
         exec nu
       '';
     };
