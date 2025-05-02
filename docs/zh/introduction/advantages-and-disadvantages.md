@@ -53,7 +53,7 @@
     题。
 - **报错信息比较隐晦**:
   - 由
-    于[Nixpkgs 中模块系统](../other-usage-of-flakes/module-system.md)的[复杂的 Mergeing 算法](https://discourse.nixos.org/t/best-resources-for-learning-about-the-nixos-module-system/1177/4)，
+    于[Nixpkgs 中模块系统](../other-usage-of-flakes/module-system.md)的[复杂的 Merging 算法](https://discourse.nixos.org/t/best-resources-for-learning-about-the-nixos-module-system/1177/4)，
     导致 NixOS 的报错信息相当糟糕。在很多情况下，不管你加不加 `--show-trace`，它都只会告诉
     你代码有错误（最常见且最迷惑的报错信息是
     [Infinite recursion encountered](https://discourse.nixos.org/t/infinite-recursion-encountered-by-making-module-configurable/23508/2)），
