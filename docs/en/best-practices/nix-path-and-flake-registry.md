@@ -38,25 +38,23 @@ then downloads the repository, locates the `flake.nix` within, and runs the corr
 
 The roles of `NIX_PATH` and the Flake Registry have been explained earlier. In daily use,
 we typically want the `nixpkgs` used in commands like `nix repl '<nixpkgs>'`,
-`nix run nixpkgs#ponysay hello` to match the system's `nixpkgs`. This requires us to
-customize the `NIX_PATH` and Flake Registry. On the other hand, although `nix-channel` can
-coexist with the Flakes feature, in practice, Flakes can completely replace it, so we can
-also disable it.
+`nix run nixpkgs#ponysay hello` to match the system's `nixpkgs`. This is done
+by default as of [NixOS 24.05][automatic flake registry]. Also, although
+`nix-channel` can coexist with the Flakes feature, in practice, Flakes can
+completely replace it, so we can also disable it.
+
+[automatic flake registry]: https://github.com/NixOS/nixpkgs/pull/254405
 
 In your NixOS configuration, adding the following module will achieve the mentioned
 requirements:
 
 ```nix
-{lib, nixpkgs, ...}: {
-  # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
-  nix.registry.nixpkgs.flake = nixpkgs;
+{ nixpkgs, ... }: {
   nix.channel.enable = false; # remove nix-channel related tools & configs, we use flakes instead.
 
-  # but NIX_PATH is still used by many useful tools, so we set it to the same value as the one used by this flake.
-  # Make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
-  environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
-  # https://github.com/NixOS/nix/issues/9574
-  nix.settings.nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
+  # this is set automatically by nixpkgs.lib.nixosSystem but might be required
+  # if one is not using that:
+  # nixpkgs.flake.source = nixpkgs;
 }
 ```
 
