@@ -52,9 +52,6 @@ Flakes[^3]，因此我们可以相当确定 Flakes 不会被废弃。
 - [ teaching Nix 3 CLI and Flakes #281 - nix.dev](https://github.com/NixOS/nix.dev/issues/281):
   社区关于是否应该在 NixOS 官方文档中介绍 Flakes 的讨论，当前结论是官方文档不应该推广使用
   unstable 功能。
-- [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9):
-  NixOS Foundation 的一份 Roadmap，其中提到了 Flakes 的计
-  划：`Stabilize flakes and release Nix 3.0. Flakes are widely used (there are more GitHub repos being created with a flake.nix than a default.nix) but they’re still marked as experimental, which is not a good situation. The same applies to the new nix CLI.`
 
 读完上述内容后，个人猜测，**Flakes 有可能（仅是可能）会在未来两年内成为稳定特性**。
 
@@ -101,4 +98,4 @@ NixOS & Flakes 新手指南，就有必要介绍下 Flakes 实验特性所依赖
     [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
 
 [^3]:
-    [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9)
+    [Draft: 1 year roadmap - NixOS Foundation](https://web.archive.org/web/20250317120825/https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9)

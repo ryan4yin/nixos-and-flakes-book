@@ -60,9 +60,6 @@ I delved into some details regarding Flakes:
 - [ teaching Nix 3 CLI and Flakes #281 - nix.dev](https://github.com/NixOS/nix.dev/issues/281):
   An issue about "Teaching Nix 3 CLI and Flakes" in nix.dev, and the conclusion is that we
   should not promote unstable features in nix.dev.
-- [Draft: 1-year Roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9):
-  A roadmap provided by the NixOS Foundation, which includes plans regarding the
-  stabilization of Flakes.
 
 After reviewing these resources, it seems that Flakes may be(or may not...) stabilized
 within two years, possibly accompanied by some breaking changes.
@@ -133,4 +130,4 @@ is currently no alternative for this command):
     [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
 
 [^3]:
-    [Draft: 1 year roadmap - NixOS Foundation](https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9)
+    [Draft: 1 year roadmap - NixOS Foundation](https://web.archive.org/web/20250317120825/https://nixos-foundation.notion.site/1-year-roadmap-0dc5c2ec265a477ea65c549cd5e568a9)
