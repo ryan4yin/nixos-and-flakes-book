@@ -74,15 +74,13 @@ NixOS & Flakes 新手指南，就有必要介绍下 Flakes 实验特性所依赖
 的旧的 Nix 命令行工具与相关概念。在查找资料时，如果看到它们直接忽略掉就行
 （`nix-collect-garbage` 除外，该命令目前暂无替代）：
 
-1. `nix-channel`: 与 apt/yum/pacman 等其他 Linux 发行版的包管理工具类似，传统的 Nix 也以
-   stable/unstable/test 等 channel 的形式来管理软件包的版本，可通过此命令修改 Nix 的
-   channel 信息。
-   1. Nix Flakes 在 `flake.nix` 中通过 `inputs` 声明依赖包的数据源，通过 `flake.lock` 锁定
-      依赖版本，完全取代掉了 `nix-channel` 的功能。
+1. `nix-channel`: 与 apt/yum/pacman 等其他 Linux 发行版的包管理工具类似，`nix-channel` 通过 stable/unstable channels（如 apt/yum/管理诸如 nixpkgs 等 `inputs` 的版本。传统上，这为 Nix 语言提供了 `<nixpkgs>` 的引用来源。
+   1. 在 Flakes 中，`nix-channel` 的功能被 Flake 注册表（`nix registry`）取代，用于为交互式命令行（例如 `nix run nixpkgs#hello`）提供「全局的默认 nixpkgs」。当使用 `flake.nix` 时，`inputs` 的版本由 flake 自己管理。
+   2. Flakes 通过 `flake.nix` 中的 `inputs` 部分管理每个 Flake 中 nixpkgs 及其他 `inputs` 的版本，而非依赖全局状态。
 2. `nix-env`: 用于管理用户环境的软件包，是传统 Nix 的核心命令行工具。它从 `nix-channel` 定
    义的数据源中安装软件包，所以安装的软件包版本受 channel 影响。
    1. 通过 `nix-env` 安装的包不会被自动记录到 Nix 的声明式配置中，是完全脱离掌控的，无法在
-      其他主机上复现，因此不推荐使用。
+      其他主机上复现，且升级由 `nix-env` 安装的包时可能因未保存属性名产生不可预测的结果，因此不推荐使用。
    2. New CLI 中对应的命令为 `nix profile`，我个人不太推荐初学者直接尝试它.
 3. `nix-shell`: nix-shell 用于创建一个临时的 shell 环境
    1. 这玩意儿可能有点复杂了，因此在 New CLI 中它被拆分成了三个子命令 `nix develop`,

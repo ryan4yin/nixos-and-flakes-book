@@ -33,22 +33,20 @@ Flake Registry 是一个 Flake 注册中心，它可以帮助我们在使用 `ni
 
 前面说明了 `NIX_PATH` 与 Flake Registry 的作用。在日常使用中，我们一般都会希望能在执行
 `nix repl '<nixpkgs>'`, `nix run nixpkgs#ponysay hello` 等命令时，使用的 nixpkgs 与系统一
-致，这就需要我们自定义 `NIX_PATH` 与 Flake Registry。另外 `nix-channel` 虽然也能与 flakes
-特性共存，但实际上 flakes 已经能够完全替代它了，所以我们也可以将其关闭。
+致。**NixOS 24.05 自带了这一功能**（PR [automatic flake registry]）。此外我们也可以主动关闭 `nix-channel`，因为 flakes 已经能够完全替代它。
 
-在你的 NixOS 配置中，添加如下 module 即可实现上述需求：
+
+[automatic flake registry]: https://github.com/NixOS/nixpkgs/pull/254405
+
+在你的 NixOS 配置中，推荐使用如下简洁配置：
 
 ```nix
 {lib, nixpkgs, ...}: {
-  # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
-  nix.registry.nixpkgs.flake = nixpkgs;
   nix.channel.enable = false; # remove nix-channel related tools & configs, we use flakes instead.
 
-  # but NIX_PATH is still used by many useful tools, so we set it to the same value as the one used by this flake.
-  # Make `nix repl '<nixpkgs>'` use the same nixpkgs as the one used by this flake.
-  environment.etc."nix/inputs/nixpkgs".source = "${nixpkgs}";
-  # https://github.com/NixOS/nix/issues/9574
-  nix.settings.nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
+  # this is set automatically by nixpkgs.lib.nixosSystem but might be required
+  # if one is not using that:
+  # nixpkgs.flake.source = nixpkgs;
 }
 ```
 
