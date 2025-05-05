@@ -87,18 +87,28 @@ the New CLI and Flakes (`nix-command` and `flakes`). When researching, you can r
 them with the corresponding New CLI commands (except for `nix-collect-garbage`, as there
 is currently no alternative for this command):
 
-1. `nix-channel`: `nix-channel` manages software package versions through
-   stable/unstable/test channels, similar to other package management tools such as
-   apt/yum/pacman.
-   1. In Flakes, The functionality of `nix-channel` is entirely replaced by the `inputs`
-      section in `flake.nix`.
+1. `nix-channel`: `nix-channel` manages versions of inputs like nixpkgs through
+   stable/unstable channels, similar to the package lists used by other package
+   management tools such as apt/yum/pacman. This is what traditionally provides
+   `<nixpkgs>` in the Nix language.
+   1. In Flakes, the functionality of `nix-channel` is replaced by
+      the Flake Registry (`nix registry`) for providing "some unspecified global
+      version of nixpkgs" for interactive CLI usage (e.g. `nix run nixpkgs#hello`).
+      When using a `flake.nix`, input versions are managed in the flake itself.
+   2. Flakes use the `inputs` section in `flake.nix` to manage
+      versions of nixpkgs and other inputs in each Flake instead of using
+      global state.
 2. `nix-env`: `nix-env` is a core command-line tool for classic Nix used to manage
    software packages in the user environment.
    1. It installs packages from the data sources added by `nix-channel`, causing the
       installed package's version to be influenced by the channel. Packages installed with
       `nix-env` are not automatically recorded in Nix's declarative configuration and are
       completely independent of its control, making them challenging to reproduce on other
-      machines. Therefore, it is not recommended to use this command directly.
+      machines. Upgrading packages installed by `nix-env` is slow and may
+      produce unexpected results because the attribute name where the package
+      was found in nixpkgs is not saved.
+
+      Therefore, it is not recommended to use this command directly.
    2. The corresponding command in the New CLI is `nix profile`. Personally, I don't
       recommend it for beginners.
 3. `nix-shell`: `nix-shell` creates a temporary shell environment, which is useful for
