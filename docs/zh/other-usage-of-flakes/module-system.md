@@ -4,10 +4,10 @@
 `options` 实际都在这两个位置定义：
 
 - NixOS:
-  [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/24.11/nixos/modules), 我们
+  [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/25.05/nixos/modules), 我们
   在 <https://search.nixos.org/options> 中能看到的所有 NixOS options 都是在这里定义的。
 - Home Manager:
-  [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-24.11/modules):
+  [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-25.05/modules):
   可在 <https://nix-community.github.io/home-manager/options.xhtml> 中找到其所有的options.
 
 > 如果你还使用 nix-darwin，那么它的配置也是类似的，其模块系统的实现位于
@@ -196,7 +196,7 @@ foo 的自定义配置了，示例：
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -293,7 +293,7 @@ options 的声明与类型检查。
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -355,7 +355,7 @@ options 的声明与类型检查。
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -404,14 +404,14 @@ options 的声明与类型检查。
 - [Module System - Nixpkgs][Module System - Nixpkgs]
 - [Writing NixOS Modules - Nixpkgs][Writing NixOS Modules - Nixpkgs]
 
-[lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-24.11/lib/modules.nix#L995
+[lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L995
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/doc/module-system/module-system.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/doc/module-system/module-system.chapter.md
 [Writing NixOS Modules - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/doc/manual/development/writing-modules.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/writing-modules.chapter.md
 [Option Definitions - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/doc/manual/development/option-def.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-def.section.md
 [Option Declarations - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/doc/manual/development/option-declarations.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-declarations.section.md
 [Options Types - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/doc/manual/development/option-types.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md
