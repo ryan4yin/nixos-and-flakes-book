@@ -58,11 +58,11 @@ EndeavourOS 上我肯定是不太敢这么玩的，因为万一要是把系统�
 主机的配置：
 
 - 桌面电脑
-  - 一台 Macbook Pro 2020 (Intel amd64)
   - 一台 Macbook Pro 2022 (M2 aarch64)
+  - 一台 Macbook Pro 2024 (M4Pro aarch64)
   - 一台 NixOS 桌面 PC (amd64)
 - 服务器
-  - 三台 NixOS 虚拟机(amd64)
+  - 10+ 台 NixOS 虚拟机(amd64)
   - 若干块 aarch64 跟 riscv64 的开发板
 
 其中三台桌面电脑的开发环境都通过 Home Manager 管理，主要配置完全共用，在任意一台主机上修改

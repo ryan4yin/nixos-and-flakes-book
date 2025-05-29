@@ -75,11 +75,11 @@ synchronously managing the configuration of multiple hosts. Currently my persona
 configuration of many hosts:
 
 - Desktop computers
-  - 1 Macbook Pro 2020 (Intel amd64).
   - 1 Macbook Pro 2022 (M2 aarch64).
+  - 1 Macbook Pro 2024 (M4Pro aarch64).
   - 1 NixOS desktop PC (amd64).
 - Servers
-  - 3 NixOS virtual machines (amd64).
+  - 10+ NixOS virtual machines (amd64).
   - Several development boards for aarch64 and riscv64.
 
 The development environment of three desktop computers is managed by Home Manager, the
