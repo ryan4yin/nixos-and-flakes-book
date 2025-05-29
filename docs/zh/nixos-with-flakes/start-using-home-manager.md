@@ -164,9 +164,6 @@ manager 作为 NixOS 模块安装，首先需要创建 `/etc/nixos/home.nix`，�
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.stateVersion = "24.11";
-
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }
 ```
 
