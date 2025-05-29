@@ -284,7 +284,7 @@ project:
 ```nix{10-38}
 # flake.nix
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "my-nixos" = nixpkgs.lib.nixosSystem {
@@ -333,7 +333,7 @@ strings, single-line strings, and lists. Let's test the results:
 ```bash
 # Example 1: multiline string merging
 › echo $(nix eval .#nixosConfigurations.my-nixos.config.programs.bash.shellInit)
-trace: warning: system.stateVersion is not set, defaulting to 24.11. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersio
+trace: warning: system.stateVersion is not set, defaulting to 25.05. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersio
 n.
 "echo 'insert before default'
 
@@ -370,4 +370,4 @@ order of definition.
 ## References
 
 - [Nix modules: Improving Nix's discoverability and usability](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
-- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-24.11/doc/module-system/module-system.chapter.md)
+- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/doc/module-system/module-system.chapter.md)

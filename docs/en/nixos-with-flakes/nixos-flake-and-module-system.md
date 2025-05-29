@@ -58,9 +58,9 @@ automatically injected, and declaration-free parameters** provided by the module
      `nixpkgs.legacyPackages."${system}"`, and the value of `pkgs` can be customized
      through the `nixpkgs.pkgs` option.
 5. `modulesPath`: A parameter available only in NixOS, which is a path pointing to
-   [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-24.11/nixos/modules).
+   [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-25.05/nixos/modules).
    - It is defined in
-     [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/lib/eval-config-minimal.nix#L43).
+     [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/lib/eval-config-minimal.nix#L43).
    - It is typically used to import additional NixOS modules and can be found in most
      NixOS auto-generated `hardware-configuration.nix` files.
 
@@ -81,11 +81,11 @@ to understand. If readers are interested, I will include the links here:
    Nixpkgs Manual.
    - Nixpkgs Manual: [Module System - Nixpkgs]
    - NixOS Manual:
-     [nixpkgs/nixos-24.11/nixos/doc/manual/development/option-types.section.md#L237-L244]
+     [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L237-L244]
 1. `_module.args`:
    - NixOS Manual:
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
-   - Source Code: [nixpkgs/nixos-24.11/lib/modules.nix - _module.args]
+   - Source Code: [nixpkgs/nixos-25.05/lib/modules.nix - _module.args]
 
 In short, `specialArgs` and `_module.args` both require an attribute set as their value,
 and they serve the same purpose, passing all parameters in the attribute set to all
@@ -109,7 +109,7 @@ Suppose you want to pass a certain dependency to a submodule for use. You can us
 ```nix{13}
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     another-input.url = "github:username/repo-name/branch-name";
   };
 
@@ -133,7 +133,7 @@ Or you can achieve the same effect using the `_module.args` option:
 ```nix{14}
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     another-input.url = "github:username/repo-name/branch-name";
   };
   outputs = inputs@{ self, nixpkgs, another-input, ... }: {
@@ -188,7 +188,7 @@ First, add the helix input data source to `flake.nix`:
 ```nix{6,12,18}
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
 
     # helix editor, use the master branch
     helix.url = "github:helix-editor/helix/master";
@@ -281,12 +281,12 @@ the following official/semi-official documents:
 
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
-[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-24.11/flake.nix
+[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-25.05/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]:
-  https://github.com/NixOS/nixpkgs/tree/nixos-24.11/nixos/lib/eval-config.nix
+  https://github.com/NixOS/nixpkgs/tree/nixos-25.05/nixos/lib/eval-config.nix
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/doc/module-system/module-system.chapter.md
-[nixpkgs/nixos-24.11/lib/modules.nix - _module.args]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/lib/modules.nix#L122-L184
-[nixpkgs/nixos-24.11/nixos/doc/manual/development/option-types.section.md#L237-L244]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-24.11/nixos/doc/manual/development/option-types.section.md?plain=1#L237-L244
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/doc/module-system/module-system.chapter.md
+[nixpkgs/nixos-25.05/lib/modules.nix - _module.args]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L122-L184
+[nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L237-L244]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md?plain=1#L237-L244
