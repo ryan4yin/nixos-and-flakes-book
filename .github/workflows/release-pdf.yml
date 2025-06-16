@@ -19,9 +19,11 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
-      - name: Run a command with nix develop
+      - name: Generate PDF
         run: |
           nix develop .#export-pdf --ignore-environment --command bash -c '
+            set -e
+            export NO_SANDBOX=true
             pnpm install
             pnpm export-pdf
           '

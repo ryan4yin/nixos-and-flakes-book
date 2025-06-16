@@ -28,8 +28,8 @@ const footerTemplate = `<div style="margin-bottom: -0.4cm; height: 70%; width: 1
 export default defineUserConfig({
   urlOrigin: "https://nixos-and-flakes.thiscute.world/",
 
-  // When process.env.CI is true (in GitHub Actions), disable sandboxing
-  ...(process.env.CI
+  // When NO_SANDBOX is true, disable sandboxing
+  ...(process.env.NO_SANDBOX === "true"
     ? {
         puppeteerLaunchOptions: {
           args: ["--no-sandbox", "--disable-setuid-sandbox"],
