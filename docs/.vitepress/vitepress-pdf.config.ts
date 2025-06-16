@@ -20,11 +20,15 @@ console.log("routeOrder: ", routeOrder)
 export default defineUserConfig({
   routePatterns: ["!/zh/**"], // exclude zh-CN pages
   sorter: (pageA, pageB) => {
-    const aIndex = routeOrder.findIndex((route) => route === pageA.path)
-    const bIndex = routeOrder.findIndex((route) => route === pageB.path)
-    const index = aIndex - bIndex
-    // console.log(`sorter: ${pageA.path} vs ${pageB.path} = ${index}`);
-    return index
+    // console.log("pageA: ", pageA.path, "  pageB: ", pageB.path)
+
+    // remove the locale prefix
+    const pathA = pageA.path.replace("/en/", "/")
+    const pathB = pageB.path.replace("/en/", "/")
+    // compare
+    const aIndex = routeOrder.findIndex((route) => route === pathA)
+    const bIndex = routeOrder.findIndex((route) => route === pathB)
+    return aIndex - bIndex
   },
   urlOrigin: "https://nixos-and-flakes.thiscute.world/",
 })
