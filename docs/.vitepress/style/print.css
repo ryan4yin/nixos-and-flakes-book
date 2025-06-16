@@ -1,7 +1,117 @@
 @media print {
+  /* Hide unnecessary elements */
   .VPNav,
   .VPLocalNav,
-  .VPDocFooter {
+  .VPDocFooter,
+  .edit-link,
+  .theme-toggle,
+  .sidebar-toggle,
+  .VPSidebar {
     display: none !important;
+  }
+
+  /* Ensure content uses the full page width */
+  .VPDoc {
+    padding: 0 !important;
+  }
+
+  /* Basic typography for readability */
+  body {
+    font-size: 10pt;
+    line-height: 1.4;
+  }
+
+  /* Prevent page breaks for headings at the top of the page */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-after: avoid;
+    page-break-inside: avoid;
+    margin-top: 0;
+  }
+
+  /* Add margin to content after headings to prevent orphaned content */
+  h1 + *,
+  h2 + *,
+  h3 + *,
+  h4 + *,
+  h5 + *,
+  h6 + * {
+    margin-top: 0.5em;
+  }
+
+  /* Code block styling */
+  pre,
+  code,
+  kbd,
+  samp {
+    font-family: "Courier New", Courier, monospace; /* Monospaced font for code */
+    font-size: 9pt;
+    white-space: pre-wrap !important; /* Wrap long lines of code */
+    word-wrap: break-word !important; /* Break words if necessary */
+    page-break-inside: avoid !important; /* Avoid breaking code blocks across pages */
+  }
+
+  div[class*="language-"] {
+    page-break-inside: avoid !important;
+    border: 1px solid #ddd; /* Add a light border to code blocks */
+    padding: 8px;
+    border-radius: 5px;
+    margin: 1em 0;
+  }
+
+  /* Table styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    page-break-inside: avoid;
+  }
+
+  th,
+  td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: left;
+    font-size: 9pt;
+  }
+
+  /* Image styling */
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure proper spacing and avoid elements being cut off */
+  p,
+  blockquote,
+  ul,
+  ol,
+  dl,
+  table,
+  pre {
+    margin-bottom: 1em;
+    page-break-before: auto;
+    page-break-after: auto;
+  }
+
+  blockquote {
+    border-left: 3px solid #eee;
+    padding-left: 1em;
+    margin-left: 0;
+    page-break-inside: avoid;
+  }
+
+  /* Prevent orphaned headings at the bottom of pages */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    orphans: 3;
+    widows: 3;
   }
 }
