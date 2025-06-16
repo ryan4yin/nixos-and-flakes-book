@@ -22,6 +22,7 @@ jobs:
       - name: Run a command with nix develop
         run: |
           nix develop .#export-pdf --ignore-environment --command bash -c '
+            export PUPPETEER_ARGS="--no-sandbox --disable-setuid-sandbox"
             pnpm install
             pnpm export-pdf
           '
