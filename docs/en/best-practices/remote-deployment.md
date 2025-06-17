@@ -22,7 +22,7 @@ By adopting remote deployment, I could fully harness the computational power of 
 high-performance CPU and the extensive compilation caches. This switch vastly improved my
 experience and significantly mitigated the previously time-consuming compilation issue.
 
-Let me briefly guide you through using colmena or `nixos-rebuild` for remote deployment.
+Let me briefly guide you through using `colmena` or `nixos-rebuild` for remote deployment.
 
 ## Prerequisites
 
