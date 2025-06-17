@@ -220,7 +220,7 @@ automatically removed after a specified number of days.
 This is useful for keeping the cache size manageable and ensuring that outdated binaries
 are not stored indefinitely.
 
-### References {#references}
+## References {#references}
 
 - [Blog post by Jeff on Nix binary caches](https://jcollie.github.io/nixos/2022/04/27/nixos-binary-cache-2022.html)
 - [Binary cache in the NixOS wiki](https://wiki.nixos.org/wiki/Binary_Cache)
