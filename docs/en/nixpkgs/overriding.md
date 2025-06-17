@@ -8,7 +8,7 @@ overridden values. Let's take a look at an example:
 pkgs.fcitx5-rime.override { rimeDataPkgs = [ ./rime-data-flypy ]; }
 ```
 
-In the above example, we override the `rimeDataPkgs` parameter of the `fcitx5-rime`
+In the above example, we override the `rimeDataPkgs` parameter of the `fcitx5-rime` 
 derivation to use a custom package called `rime-data-flypy`. This creates a new derivation
 where `rimeDataPkgs` is overridden, while other parameters remain unchanged.
 
