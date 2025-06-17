@@ -215,8 +215,6 @@ or using our own musl libc, etc. This modification can be achieved through overl
 
 For example, let's try to use a different version of gcc, and test it through `nix repl`:
 
-````shell
-
 ```shell
 › nix repl -f '<nixpkgs>'
 Welcome to Nix 2.13.3. Type :? for help.
@@ -234,7 +232,7 @@ nix-repl> a.pkgsCross.riscv64.stdenv.cc
 # take a look at the default pkgs, it is still 11.3
 nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
 «derivation /nix/store/pq3g0wq3yfc4hqrikr03ixmhqxbh35q7-riscv64-unknown-linux-gnu-stage-final-gcc-wrapper-11.3.0.drv»
-````
+```
 
 So how to use this method in Flakes? The example `flake.nix` is as follows:
 
