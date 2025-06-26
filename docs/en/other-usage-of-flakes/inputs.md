@@ -67,7 +67,7 @@ of the current flake. There are various types of inputs, as shown in the example
 }
 ```
 
-## 参考
+## References
 
 - [Flakes Inputs - Nix Manual]
 
