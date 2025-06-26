@@ -1,24 +1,25 @@
 # 更新系统 {#update-nixos-system}
 
-在使用了 Nix Flakes 后，要更新系统也很简单，先更新 flake.lock 文件，然后部署即可。在配置文
-件夹中执行如下命令：
+使用 Flakes 后，更新系统变得非常简单。只需在 `/etc/nixos`
+或你存放配置的其他目录中执行以下命令：
+
+> **注意**：`/etc/nixos` 目录由 `root` 拥有，并且仅对 `root`
+> 可写。因此，如果你的 flake 位于此目录中，你需要使用 `sudo` 来更新任何配置文件。
 
 ```shell
-# 更新 flake.lock（更新所有依赖项）
+# 更新 flake.lock
 nix flake update
 
-# 或者也可以只更新特定的依赖项，比如只更新 home-manager:
+# 或者只更新特定的 input，例如 home-manager：
 nix flake update home-manager
 
-# 部署系统
-sudo nixos-rebuild switch
-# 如果你的 flake 不在 /etc/nixos 中，则需要额外使用 --flake 参数指定
-sudo nixos-rebuild switch --flake /path/to/flake
+# 部署新配置（如果你的配置就在默认的 /etc/nixos，可以省略后面的 --flake .）
+sudo nixos-rebuild switch --flake .
 
-
-# 也可以一行命令同时实现 nix flake update 与系统部署
-sudo nixos-rebuild switch --recreate-lock-file
+# 或者在一条命令中同时更新 flake.lock 并部署新配置（即等同于先运行 "nix flake update"）
+sudo nixos-rebuild switch --recreate-lock-file --flake .
 ```
 
-另外有时候安装新的包，跑 `sudo nixos-rebuild switch` 时可能会遇到 sha256 不匹配的报错，也
-可以尝试通过 `nix flake update` 更新 flake.lock 来解决（原理暂时不太清楚）。
+有时在运行 `nixos-rebuild switch` 时可能会遇到 `sha256 mismatch`
+类似的错误，一般可以通过运行 `nix flake update` 来更新 `flake.lock` 解决。
+
