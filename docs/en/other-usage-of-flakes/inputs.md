@@ -3,6 +3,8 @@
 The `inputs` section in `flake.nix` is an attribute set used to specify the dependencies
 of the current flake. There are various types of inputs, as shown in the examples below:
 
+> See Offical docs for details - [Flakes Inputs - Nix Manual].
+
 ```nix
 {
   inputs = {
@@ -18,8 +20,10 @@ of the current flake. There are various types of inputs, as shown in the example
     # Git URL with submodules, applicable to any Git repository using the https/ssh protocol.
     git-example-submodule.url = "git+https://git.somehost.tld/user/path?submodules=1";
     # Archive File URL, needed in case your input use LFS.
-    # Regular git input doesn't support LFS yet.
+    # Regular git input doesn't support LFS before nix 2.27
     git-example-lfs.url = "https://codeberg.org/solver-orgz/treedome/archive/master.tar.gz";
+    # Starting from nix 2.27, you can use the url like below to enable git lfs on flake input
+    treedome.url = "git+https://codeberg.org/solver-orgz/treedome?ref=master&lfs=1";
     # Similar to fetching a Git repository, but using the ssh protocol
     # with key authentication. Also uses the shallow=1 parameter
     # to avoid copying the .git directory.
@@ -62,3 +66,9 @@ of the current flake. There are various types of inputs, as shown in the example
   outputs = { self, ... }@inputs: { ... };
 }
 ```
+
+## 参考
+
+- [Flakes Inputs - Nix Manual]
+
+[Flakes Inputs - Nix Manual]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#flake-references
