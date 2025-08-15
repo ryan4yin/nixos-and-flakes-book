@@ -33,19 +33,19 @@ hero:
 <style>
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #4565d8 40%, #41d1ff);
+  --vp-home-hero-name-background: -webkit-linear-gradient(120deg, #5478BF 50%, #79B4D9);
 
-  --vp-home-hero-image-background-image: linear-gradient(-60deg, #41d1ff 40%, #0fffc1);
+  --vp-home-hero-image-background-image: linear-gradient(-60deg, #79B4D980, #5478BF99);
+  --vp-home-hero-image-filter: blur(72px);
 }
 
 .image-bg {
-  transform: scale(0.75);
   -webkit-filter: blur(5vw);
   -moz-filter: blur(5vw);
   -ms-filter: blur(5vw);
   filter: blur(5vw);
-  background-size: 200% 200%;
-  animation: animateGlow 10s ease infinite;
+  background-size: 300% 300%;
+  animation: animateGlow 3s ease infinite;
 }
 
 @keyframes animateGlow {
@@ -60,15 +60,8 @@ hero:
   }
 }
 
-@media (min-width: 640px) {
-  :root {
-    --vp-home-hero-image-filter: blur(56px);
-  }
-}
-
-@media (min-width: 960px) {
-  :root {
-    --vp-home-hero-image-filter: blur(72px);
-  }
+.VPImage {
+  scale: 1.2;
+  transform-origin: top left;
 }
 </style>
