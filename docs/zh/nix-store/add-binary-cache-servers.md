@@ -271,8 +271,8 @@ Nix 提供了
 如果你只是临时需要使用代理，可以通过如下命令设置代理环境变量：
 
 ```bash
-sudo mkdir /run/systemd/system/nix-daemon.service.d/
-cat << EOF >/run/systemd/system/nix-daemon.service.d/override.conf
+sudo mkdir -p /run/systemd/system/nix-daemon.service.d/
+sudo tee /run/systemd/system/nix-daemon.service.d/override.conf <<EOF
 [Service]
 Environment="https_proxy=socks5h://localhost:7891"
 EOF
