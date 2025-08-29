@@ -272,7 +272,7 @@ Nix 提供了
 
 ```bash
 sudo mkdir -p /run/systemd/system/nix-daemon.service.d/
-tee /run/systemd/system/nix-daemon.service.d/override.conf <<EOF
+sudo tee /run/systemd/system/nix-daemon.service.d/override.conf <<EOF
 [Service]
 Environment="https_proxy=socks5h://localhost:7891"
 EOF
