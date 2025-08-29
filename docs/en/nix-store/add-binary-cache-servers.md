@@ -294,8 +294,8 @@ If you only need to use a proxy temporarily, you can set the proxy environment v
 with the following commands:
 
 ```bash
-sudo mkdir /run/systemd/system/nix-daemon.service.d/
-cat << EOF >/run/systemd/system/nix-daemon.service.d/override.conf
+sudo mkdir -p /run/systemd/system/nix-daemon.service.d/
+tee /run/systemd/system/nix-daemon.service.d/override.conf <<EOF
 [Service]
 Environment="https_proxy=socks5h://localhost:7891"
 EOF
