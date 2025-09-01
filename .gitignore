@@ -20,3 +20,4 @@ TODOs.md
 .eslintcache
 .direnv/
 .pre-commit-config.yaml
+.temp
