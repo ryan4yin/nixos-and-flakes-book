@@ -81,7 +81,7 @@ to understand. If readers are interested, I will include the links here:
    Nixpkgs Manual.
    - Nixpkgs Manual: [Module System - Nixpkgs]
    - NixOS Manual:
-     [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L237-L244]
+     [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]
 1. `_module.args`:
    - NixOS Manual:
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
