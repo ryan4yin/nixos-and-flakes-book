@@ -21,3 +21,4 @@ TODOs.md
 .direnv/
 .pre-commit-config.yaml
 .temp
+*.epub
