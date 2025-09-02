@@ -165,7 +165,7 @@ outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `
   https://github.com/NixOS/nixpkgs/blob/nixos-25.05/doc/module-system/module-system.chapter.md
 [nixpkgs/nixos-25.05/lib/modules.nix - _module.args]:
   https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L122-L184
-[nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L237-L244]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md?plain=1#L237-L244
+[nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md?plain=1#L268-L275
 
 
