@@ -1,4 +1,4 @@
-name: "Release PDF"
+name: "Release"
 on:
   push:
     tags:
@@ -19,6 +19,7 @@ jobs:
             access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
+
       - name: Generate PDF
         run: |
           nix develop .#export-pdf --ignore-environment --command bash -c '
@@ -26,6 +27,13 @@ jobs:
             export NO_SANDBOX=true
             pnpm install
             pnpm export-pdf
+          '
+      - name: Generate EPUB
+        run: |
+          nix develop .#default --ignore-environment --command bash -c '
+            set -e
+            pnpm install
+            pnpm run export-epub
           '
       # # For debugging, upload the pdfs as artifacts
       # - uses: actions/upload-artifact@v3
@@ -38,11 +46,11 @@ jobs:
           git fetch --tags
           PREVIOUS_TAG=$(git tag --sort=-creatordate | head -n 2 | tail -n 1)
           # Generate the changelog
-          git log --pretty=format:"%h %s" $PREVIOUS_TAG..HEAD > CHANGELOG
+          git log --pretty=format:"%h %s" "$PREVIOUS_TAG"..HEAD > CHANGELOG
 
           echo "Changelog from $PREVIOUS_TAG to HEAD:"
           cat CHANGELOG
-      - name: Release PDF
+      - name: Release
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
@@ -50,3 +58,4 @@ jobs:
           body_path: CHANGELOG
           files: |
             nixos-and-flakes-book.pdf
+            nixos-and-flakes-book.epub
