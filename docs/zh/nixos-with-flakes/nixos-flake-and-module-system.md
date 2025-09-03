@@ -72,7 +72,7 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 1. `specialArgs`: NixOS Manual 跟 Nixpkgs Manual 中分别有与它有关的只言片语
    - Nixpkgs Manual: [Module System - Nixpkgs]
    - NixOS Manual:
-     [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L237-L244]
+     [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]
 1. `_module.args`:
    - NixOS Manual:
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
@@ -265,5 +265,5 @@ nix run github:helix-editor/helix/master
   https://github.com/NixOS/nixpkgs/blob/nixos-25.05/doc/module-system/module-system.chapter.md
 [nixpkgs/nixos-25.05/lib/modules.nix - _module.args]:
   https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L122-L184
-[nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L237-L244]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md?plain=1#L237-L244
+[nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md?plain=1#L268-L275
