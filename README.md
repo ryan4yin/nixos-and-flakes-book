@@ -8,7 +8,13 @@ you've come to the right place!
 An unofficial and opinionated NixOS & Flakes :book: for beginners:
 https://nixos-and-flakes.thiscute.world/
 
-中文版: https://nixos-and-flakes.thiscute.world/zh/
+### Author-Maintained Versions: 
+* **English Version**: https://nixos-and-flakes.thiscute.world/
+* **中文版**: https://nixos-and-flakes.thiscute.world/zh/
+
+### Community-Maintained Versions:
+* **Versão em Português**: https://nixos-and-flakes.ieda.me/
+* **日本語版**: https://nixos-and-flakes-ja.hayao0819.com/
 
 > If you're using macOS,
 > [ryan4yin/nix-darwin-kickstarter](https://github.com/ryan4yin/nix-darwin-kickstarter)
