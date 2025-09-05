@@ -20,6 +20,14 @@ export default defineConfig({
       label: '简体中文', 
       ...zh
     },
+    pt: {
+      label: "Português",
+      link: "https://nixos-and-flakes.ieda.me/",
+    },
+    ja: {
+      label: "日本語",
+      link: "https://nixos-and-flakes-ja.hayao0819.com/",
+    },
   },
 
   // For forks in other languages, here is an example of how to add a new locale:
