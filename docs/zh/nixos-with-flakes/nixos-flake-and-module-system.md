@@ -92,7 +92,7 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 假设你想将某个依赖项传递到子模块中使用，可以使用 `specialArgs` 参数将 `inputs`
 传递到所有子模块中：
 
-```nix{13}
+```nix{11}
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -101,8 +101,6 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 
   outputs = inputs@{ self, nixpkgs, another-input, ... }: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-
       # 将所有 inputs 参数设为所有子模块的特殊参数，
       # 这样就能直接在子模块中使用 inputs 中的所有依赖项了
       specialArgs = { inherit inputs;};
@@ -116,7 +114,7 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 
 或者使用 `_module.args` 这个 option 也能达成同样的效果：
 
-```nix{15}
+```nix{14}
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -125,7 +123,6 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 
   outputs = inputs@{ self, nixpkgs, another-input, ... }: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         ./configuration.nix
         {
@@ -168,7 +165,7 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 
 首先在 `flake.nix` 中添加 helix 这个 inputs 数据源：
 
-```nix{6,12,18}
+```nix{6,11,17}
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -179,7 +176,6 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 
   outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       specialArgs = { inherit inputs;};
       modules = [
         ./configuration.nix

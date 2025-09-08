@@ -222,15 +222,13 @@ module）中设置默认值，然后在高层级的模块（high-level module）
 
 为了更直观地理解这两个函数，现在来创建一个 flake 测试下：
 
-```nix{10-38}
+```nix{8-36}
 # flake.nix
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "my-nixos" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
         modules = [
           ({lib, ...}: {
             programs.bash.shellInit = lib.mkBefore ''

@@ -88,7 +88,6 @@ One example of importing the above configuration as a NixOS module is as follows
   outputs = inputs@{ nixpkgs, ... }: {
     nixosConfigurations = {
       my-nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./configuration.nix
 

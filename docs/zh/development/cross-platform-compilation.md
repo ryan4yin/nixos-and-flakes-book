@@ -65,7 +65,7 @@ pkgsCross.mmix
 如果想将一个 flake 全局的 `pkgs` 设置为交叉编译工具链，只需要在 `flake.nix`
 中添加一个Module，示例如下：
 
-```nix{14-20}
+```nix{12-17}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -75,16 +75,14 @@ pkgsCross.mmix
 
   outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.lp4a = nixpkgs.lib.nixosSystem {
-      # native platform
-      system = "x86_64-linux";
       modules = [
-
-        # add this module, to enable cross-compilation.
         {
-          nixpkgs.crossSystem = {
-            # target platform
-            system = "riscv64-linux";
-          };
+          # the platform that performs the build-step
+          nixpkgs.localSystem.system = "x86_64-linux"; 
+
+          # the platform that will execute the resulting binaries / os image
+          # add this to enable cross-compilation.
+          nixpkgs.crossSystem.system = "riscv64-linux";
         }
 
         # ...... other modules
@@ -118,7 +116,7 @@ Module 即可启用 `aarch64-linux` 与 `riscv64-linux` 两种架构的模拟构
 
 至于 `flake.nix`，它的设置方法非常简单，比前面交叉编译的设置还要简单，示例如下：
 
-```nix{11}
+```nix{13}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -128,9 +126,10 @@ Module 即可启用 `aarch64-linux` 与 `riscv64-linux` 两种架构的模拟构
 
   outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.lp4a = nixpkgs.lib.nixosSystem {
-      # native platform
-      system = "riscv64-linux";
       modules = [
+        # the native platform
+        # usually this is already set in the generated `hardware-configuration.nix` and can be omit.
+        { nixpkgs.hostPlatform = "riscv64-linux"; }
         # ...... other modules
       ];
     };
@@ -138,7 +137,7 @@ Module 即可启用 `aarch64-linux` 与 `riscv64-linux` 两种架构的模拟构
 }
 ```
 
-可以看到我们未添加任何额外的模块，仅仅是指定了 `system` 为 `riscv64-linux`.
+可以看到我们未添加任何额外的模块，仅仅是指定了 `nixpkgs.hostPlatform` 为 `riscv64-linux`.
 Nix 在构建时会自动检测当前系统是否为
 `riscv64-linux`，如果不是，它会自动通过 QEMU 模拟系统进行构建，对用户而言这些底层操作完全是透明的。
 
@@ -186,20 +185,20 @@ Loading installable ''...
 Added 17755 variables.
 
 # 通过 overlays 替换掉 gcc
-nix-repl> a = import <nixpkgs> { crossSystem = { config = "riscv64-unknown-linux-gnu"; }; overlays = [ (self: super: { gcc = self.gcc12; }) ]; }
+nix-repl> a = import <nixpkgs> { crossSystem = "riscv64-linux"; overlays = [ (self: super: { gcc = self.gcc13; }) ]; }
 
-# 查看下 gcc 版本，确实改成 12.2 了
+# 查看下 gcc 版本，确实改成 13 了
 nix-repl> a.pkgsCross.riscv64.stdenv.cc
-«derivation /nix/store/jjvvwnf3hzk71p65x1n8bah3hrs08bpf-riscv64-unknown-linux-gnu-stage-final-gcc-wrapper-12.2.0.drv»
+«derivation /nix/store/kdi3g7px1bxz2r1jmjnr4pahscw8jj96-riscv64-unknown-linux-gnu-gcc-wrapper-13.4.0.drv»
 
-# 再看下未修改的 gcc 版本，还是 11.3
+# 再看下未修改的 gcc 版本，还是 14
 nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
-«derivation /nix/store/pq3g0wq3yfc4hqrikr03ixmhqxbh35q7-riscv64-unknown-linux-gnu-stage-final-gcc-wrapper-11.3.0.drv»
+«derivation /nix/store/xd8s47j71z3lym5f2j9zy3v9r0ifw209-riscv64-unknown-linux-gnu-gcc-wrapper-14.3.0.drv»
 ```
 
 那么如何在 Flakes 中使用这种方法呢？示例 `flake.nix` 内容如下:
 
-```nix{13-20}
+```nix{20-21}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -210,15 +209,17 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   outputs = { self, nixpkgs, ... }:
   {
     nixosConfigurations.lp4a = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         {
-          nixpkgs.crossSystem = {
-            config = "riscv64-unknown-linux-gnu";
-          };
+          # the platform that performs the build-step
+          nixpkgs.localSystem.system = "x86_64-linux"; 
 
-          # 改用 gcc12
-          nixpkgs.overlays = [ (self: super: { gcc = self.gcc12; }) ];
+          # the platform that will execute the resulting binaries / os image
+          # add this to enable cross-compilation.
+          nixpkgs.crossSystem.system = "riscv64-linux";
+
+          # replace gcc with gcc13 through overlays
+          nixpkgs.overlays = [ (self: super: { gcc = self.gcc13; }) ];
         }
 
         # other modules ......
@@ -234,7 +235,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
 为了避免这个问题，更好的办法是创建一个新的 `pkgs`
 实例，仅在构建我们想修改的包时才使用这个实例，`flake.nix` 示例如下：
 
-```nix{10-19,34-37}
+```nix{10-17,32}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -243,34 +244,30 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   };
 
   outputs = { self, nixpkgs, ... }: let
-    # 自定义一个新的 pkgs 实例，使用 gcc12
-    pkgs-gcc12 = import nixpkgs {
+    # create a new pkgs instance with overlays
+    pkgs-gcc13 = import nixpkgs {
       localSystem = "x86_64-linux";
-      crossSystem = {
-        config = "riscv64-unknown-linux-gnu";
-      };
+      crossSystem = "riscv64-linux";
 
       overlays = [
-        (self: super: { gcc = self.gcc12; })
+        (self: super: { gcc = self.gcc13; })
       ];
     };
   in {
     nixosConfigurations.lp4a = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       specialArgs = {
         # pass the new pkgs instance to the module
-        inherit pkgs-gcc12;
+        inherit pkgs-gcc13;
       };
       modules = [
         {
-          nixpkgs.crossSystem = {
-            config = "riscv64-unknown-linux-gnu";
-          };
+          nixpkgs.localSystem.system = "x86_64-linux"; 
+          nixpkgs.crossSystem.system = "riscv64-linux";
         }
 
-        ({pkgs-gcc12, ...}: {
-          # 使用 pkgs-gcc12 实例
-          environment.systemPackages = [ pkgs-gcc12.hello ];
+        ({pkgs-gcc13, ...}: {
+          # use the custom pkgs instance to build the package hello
+          environment.systemPackages = [ pkgs-gcc13.hello ];
         })
 
         # other modules ......

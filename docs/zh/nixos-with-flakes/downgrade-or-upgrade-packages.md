@@ -12,7 +12,7 @@ commit.
 为了实现上述需求，首先修改 `/etc/nixos/flake.nix`，示例内容如下（主要是利用 `specialArgs`
 参数）：
 
-```nix{8-13,19-20,27-44}
+```nix{8-13,19-20,26-42}
 {
   description = "NixOS configuration of Ryan Yin"
 
@@ -37,8 +37,6 @@ commit.
   }: {
     nixosConfigurations = {
       my-nixos = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-
         # 核心参数是这个，将非默认的 nixpkgs 数据源传到其他 modules 中
         specialArgs = {
           # 注意每次 import 都会生成一个新的 nixpkgs 实例

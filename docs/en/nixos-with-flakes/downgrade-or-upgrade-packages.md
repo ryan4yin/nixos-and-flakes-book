@@ -8,7 +8,7 @@ modify the package version, you need to lock the git commit of the flake input.
 Here's an example of how you can add multiple nixpkgs inputs, each using a different git
 commit or branch:
 
-```nix{8-13,19-20,27-44}
+```nix{8-13,19-20,27-42}
 {
   description = "NixOS configuration of Ryan Yin";
 
@@ -33,8 +33,6 @@ commit or branch:
   }: {
     nixosConfigurations = {
       my-nixos = nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-
         # The `specialArgs` parameter passes the
         # non-default nixpkgs instances to other nix modules
         specialArgs = {

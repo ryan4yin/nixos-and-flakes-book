@@ -199,7 +199,6 @@ After adjusting the parameters, the content of `/etc/nixos/flake.nix` is as foll
     nixosConfigurations = {
       # TODO please change the hostname to your own
       my-nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./configuration.nix
 

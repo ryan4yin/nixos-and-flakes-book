@@ -94,7 +94,7 @@ Store 中。因此 Nix 对 substituters 的临时设置做出了限制，要想�
 > 如前所述，此配置中的 `nix.settings.trusted-users` 也是必须配置的，否则我们在这里设置的
 > `substituters` 将无法生效。
 
-```nix{5-23,43-47}
+```nix{5-23,42-46}
 {
   description = "NixOS configuration of Ryan Yin";
 
@@ -132,7 +132,6 @@ Store 中。因此 Nix 对 substituters 的临时设置做出了限制，要想�
   }: {
     nixosConfigurations = {
       my-nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./hardware-configuration.nix
           ./configuration.nix
@@ -143,7 +142,7 @@ Store 中。因此 Nix 对 substituters 的临时设置做出了限制，要想�
             nix.settings.trusted-users = [ "ryan" ];
           }
           # 省略若干配置...
-       ];
+        ];
       };
     };
   };
@@ -181,7 +180,7 @@ Nix 提供了
 
 也就是说我们可以这么用：
 
-```nix{7,13,37-60}
+```nix{7,13,36-58}
 {
   description = "NixOS configuration of Ryan Yin";
 
@@ -213,7 +212,6 @@ Nix 提供了
   }: {
     nixosConfigurations = {
       my-nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./hardware-configuration.nix
           ./configuration.nix
@@ -240,10 +238,9 @@ Nix 提供了
                 "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
               ];
             };
-
           }
           # 省略若干配置...
-       ];
+        ];
       };
     };
   };
