@@ -196,7 +196,6 @@ in {
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "test" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ({config, lib, ...}: {
             options = {
@@ -293,7 +292,6 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf`
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "test" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ({config, lib, ...}: {
             options = {
@@ -355,7 +353,6 @@ Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf`
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "test" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         specialArgs = { enableFoo = true; };
         modules = [
           ({config, lib, enableFoo ? false, ...}: {

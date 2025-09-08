@@ -281,15 +281,13 @@ shorthand for `lib.mkOrder 1500`.
 To test the usage of `lib.mkBefore` and `lib.mkAfter`, let's create a simple Flake
 project:
 
-```nix{10-38}
+```nix{8-36}
 # flake.nix
 {
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "my-nixos" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-
         modules = [
           ({lib, ...}: {
             programs.bash.shellInit = lib.mkBefore ''

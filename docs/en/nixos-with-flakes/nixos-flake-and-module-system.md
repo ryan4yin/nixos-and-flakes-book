@@ -106,7 +106,7 @@ for use in user configuration files.
 Suppose you want to pass a certain dependency to a submodule for use. You can use the
 `specialArgs` parameter to pass the `inputs` to all submodules:
 
-```nix{13}
+```nix{11}
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -115,8 +115,6 @@ Suppose you want to pass a certain dependency to a submodule for use. You can us
 
   outputs = inputs@{ self, nixpkgs, another-input, ... }: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
-
       # Set all inputs parameters as special arguments for all submodules,
       # so you can directly use all dependencies in inputs in submodules
       specialArgs = { inherit inputs; };
@@ -130,7 +128,7 @@ Suppose you want to pass a certain dependency to a submodule for use. You can us
 
 Or you can achieve the same effect using the `_module.args` option:
 
-```nix{14}
+```nix{13}
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -138,7 +136,6 @@ Or you can achieve the same effect using the `_module.args` option:
   };
   outputs = inputs@{ self, nixpkgs, another-input, ... }: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         ./configuration.nix
         {
@@ -185,7 +182,7 @@ of Helix directly.
 
 First, add the helix input data source to `flake.nix`:
 
-```nix{6,12,18}
+```nix{6,11,17}
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
@@ -196,7 +193,6 @@ First, add the helix input data source to `flake.nix`:
 
   outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       specialArgs = { inherit inputs; };
       modules = [
         ./configuration.nix

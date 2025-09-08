@@ -40,7 +40,7 @@ Now let's look at `outputs`. It is a function that takes the dependencies from `
 its parameters, and its return value is an attribute set, which represents the build
 results of the flake:
 
-```nix{11-19}
+```nix{9-16}
 {
   description = "A simple NixOS flake";
 
@@ -52,7 +52,6 @@ results of the flake:
   outputs = { self, nixpkgs, ... }@inputs: {
     # The host with the hostname `my-nixos` will use this configuration
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         ./configuration.nix
       ];
@@ -138,7 +137,7 @@ From the source code of the Nixpkgs repository, we can see that its flake output
 definition includes the `lib` attribute, and in our example, we use the `lib` attribute's
 `nixosSystem` function to configure our NixOS system:
 
-```nix{8-13}
+```nix{8-12}
 {
   inputs = {
     # NixOS official package source, here using the nixos-25.05 branch
@@ -147,7 +146,6 @@ definition includes the `lib` attribute, and in our example, we use the `lib` at
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         ./configuration.nix
       ];

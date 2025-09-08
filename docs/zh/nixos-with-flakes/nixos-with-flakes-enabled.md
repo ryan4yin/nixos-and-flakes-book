@@ -61,7 +61,7 @@ cat flake.nix
 我们参照该模板创建文件 `/etc/nixos/flake.nix`
 并编写好配置内容，后续系统的所有修改都将全部由 Nix Flakes 接管，示例内容如下：
 
-```nix{16}
+```nix{15}
 {
   description = "A simple NixOS flake";
 
@@ -73,7 +73,6 @@ cat flake.nix
   outputs = { self, nixpkgs, ... }@inputs: {
     # TODO 请将下面的 my-nixos 替换成你的 hostname
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         # 这里导入之前我们使用的 configuration.nix，
         # 这样旧的配置文件仍然能生效

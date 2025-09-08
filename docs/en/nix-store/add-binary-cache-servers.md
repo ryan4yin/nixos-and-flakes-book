@@ -113,7 +113,7 @@ The second method is to configure `substituters` and `trusted-public-keys` using
 > As mentioned earlier, it is essential to configure `nix.settings.trusted-users` in this
 > configuration. Otherwise, the `substituters` we set here will not take effect.
 
-```nix{5-23,43-47}
+```nix{5-23,42-46}
 {
   description = "NixOS configuration of Ryan Yin";
 
@@ -151,7 +151,6 @@ The second method is to configure `substituters` and `trusted-public-keys` using
   }: {
     nixosConfigurations = {
       my-nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./hardware-configuration.nix
           ./configuration.nix
@@ -207,7 +206,7 @@ the value of `extra-xxx` will be appended to the end of the `xxx` parameter:
 
 In other words, you can use it like this:
 
-```nix{7,13,37-60}
+```nix{7,13,36-58}
 {
   description = "NixOS configuration of Ryan Yin";
 
@@ -239,7 +238,6 @@ In other words, you can use it like this:
   }: {
     nixosConfigurations = {
       my-nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./hardware-configuration.nix
           ./configuration.nix
@@ -266,7 +264,6 @@ In other words, you can use it like this:
                 "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
               ];
             };
-
           }
           # omitting several configurations...
        ];

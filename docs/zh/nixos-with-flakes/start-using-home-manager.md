@@ -196,7 +196,6 @@ nix flake new example -t github:nix-community/home-manager#nixos
     nixosConfigurations = {
       # 这里的 my-nixos 替换成你的主机名称
       my-nixos = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
         modules = [
           ./configuration.nix
 

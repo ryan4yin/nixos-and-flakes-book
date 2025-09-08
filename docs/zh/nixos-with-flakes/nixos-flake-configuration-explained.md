@@ -39,7 +39,7 @@ set，其中定义了这个 flake 的所有依赖项，这些依赖项会在被�
 中的依赖项为参数的函数，函数的返回值是一个 attribute set，这个返回的 attribute
 set 即为该 flake 的构建结果：
 
-```nix{10-18}
+```nix{9-16}
 {
   description = "A simple NixOS flake";
 
@@ -51,7 +51,6 @@ set 即为该 flake 的构建结果：
   outputs = { self, nixpkgs, ... }@inputs: {
     # hostname 为 my-nixos 的主机会使用这个配置
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         ./configuration.nix
       ];
@@ -124,7 +123,7 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `lib` 属性中的 `nixosSystem`
 这个函数来配置我们的 NixOS 系统：
 
-```nix{8-13}
+```nix{8-12}
 {
   inputs = {
     # NixOS 官方软件源，这里使用 nixos-25.05 分支
@@ -133,7 +132,6 @@ outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         ./configuration.nix
       ];

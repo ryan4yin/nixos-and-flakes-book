@@ -74,7 +74,7 @@ pkgsCross.mmix
 If you want to set `pkgs` to a cross-compilation toolchain globally in a flake, you only
 need to add a Module in `flake.nix`, as shown below:
 
-```nix{15-20}
+```nix{12-17}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -84,16 +84,14 @@ need to add a Module in `flake.nix`, as shown below:
 
   outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.lp4a = nixpkgs.lib.nixosSystem {
-      # native platform
-      system = "x86_64-linux";
       modules = [
-
-        # add this module, to enable cross-compilation.
         {
-          nixpkgs.crossSystem = {
-            # target platform
-            system = "riscv64-linux";
-          };
+          # the platform that performs the build-step
+          nixpkgs.localSystem.system = "x86_64-linux"; 
+
+          # the platform that will execute the resulting binaries
+          # add this to enable cross-compilation.
+          nixpkgs.crossSystem.system = "riscv64-linux";
         }
 
         # ...... other modules
@@ -131,7 +129,7 @@ your NixOS Module to enable the simulated build system of `aarch64-linux` and
 As for `flake.nix`, its setting method is very simple, even simpler than the setting of
 cross-compilation, as shown below:
 
-```nix{11}
+```nix{13}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -141,9 +139,10 @@ cross-compilation, as shown below:
 
   outputs = inputs@{ self, nixpkgs, ... }: {
     nixosConfigurations.lp4a = nixpkgs.lib.nixosSystem {
-      # native platform
-      system = "riscv64-linux";
       modules = [
+        # the native platform
+        # usually this is already set in the generated `hardware-configuration.nix` and can be omit.
+        { nixpkgs.hostPlatform = "riscv64-linux"; }
         # ...... other modules
       ];
     };
@@ -151,7 +150,7 @@ cross-compilation, as shown below:
 }
 ```
 
-You do not need to add any additional modules, just specify `system` as `riscv64-linux`.
+You do not need to add any additional modules, just specify `nixpkgs.hostPlatform` as `riscv64-linux`.
 Nix will automatically detect whether the current system is `riscv64-linux` during the
 build. If not, it will automatically build through the emulated system(QEMU). For users,
 these underlying operations are completely transparent.
@@ -223,20 +222,20 @@ Loading installable ''...
 Added 17755 variables.
 
 # replace gcc through overlays, this will create a new instance of nixpkgs
-nix-repl> a = import <nixpkgs> { crossSystem = { config = "riscv64-unknown-linux-gnu"; }; overlays = [ (self: super: { gcc = self.gcc12; }) ]; }
+nix-repl> a = import <nixpkgs> { crossSystem = "riscv64-linux"; overlays = [ (self: super: { gcc = self.gcc13; }) ]; }
 
 # check the gcc version, it is indeed changed to 12.2
 nix-repl> a.pkgsCross.riscv64.stdenv.cc
-«derivation /nix/store/jjvvwnf3hzk71p65x1n8bah3hrs08bpf-riscv64-unknown-linux-gnu-stage-final-gcc-wrapper-12.2.0.drv»
+«derivation /nix/store/kdi3g7px1bxz2r1jmjnr4pahscw8jj96-riscv64-unknown-linux-gnu-gcc-wrapper-13.4.0.drv»
 
 # take a look at the default pkgs, it is still 11.3
 nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
-«derivation /nix/store/pq3g0wq3yfc4hqrikr03ixmhqxbh35q7-riscv64-unknown-linux-gnu-stage-final-gcc-wrapper-11.3.0.drv»
+«derivation /nix/store/xd8s47j71z3lym5f2j9zy3v9r0ifw209-riscv64-unknown-linux-gnu-gcc-wrapper-14.3.0.drv»
 ```
 
 So how to use this method in Flakes? The example `flake.nix` is as follows:
 
-```nix{13-20}
+```nix{20-21}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -247,15 +246,17 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
   outputs = { self, nixpkgs, ... }:
   {
     nixosConfigurations.lp4a = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       modules = [
         {
-          nixpkgs.crossSystem = {
-            config = "riscv64-unknown-linux-gnu";
-          };
+          # the platform that performs the build-step
+          nixpkgs.localSystem.system = "x86_64-linux"; 
 
-          # replace gcc with gcc12 through overlays
-          nixpkgs.overlays = [ (self: super: { gcc = self.gcc12; }) ];
+          # the platform that will execute the resulting binaries
+          # add this to enable cross-compilation.
+          nixpkgs.crossSystem.system = "riscv64-linux";
+
+          # replace gcc with gcc13 through overlays
+          nixpkgs.overlays = [ (self: super: { gcc = self.gcc13; }) ];
         }
 
         # other modules ......
@@ -273,7 +274,7 @@ To avoid this problem, a better way is to create a new `pkgs` instance, and only
 instance when building the packages we want to modify. The example `flake.nix` is as
 follows:
 
-```nix{10-19,34-37}
+```nix{10-17,32}
 {
   description = "NixOS running on LicheePi 4A";
 
@@ -283,33 +284,29 @@ follows:
 
   outputs = { self, nixpkgs, ... }: let
     # create a new pkgs instance with overlays
-    pkgs-gcc12 = import nixpkgs {
+    pkgs-gcc13 = import nixpkgs {
       localSystem = "x86_64-linux";
-      crossSystem = {
-        config = "riscv64-unknown-linux-gnu";
-      };
+      crossSystem = "riscv64-linux";
 
       overlays = [
-        (self: super: { gcc = self.gcc12; })
+        (self: super: { gcc = self.gcc13; })
       ];
     };
   in {
     nixosConfigurations.lp4a = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
       specialArgs = {
         # pass the new pkgs instance to the module
-        inherit pkgs-gcc12;
+        inherit pkgs-gcc13;
       };
       modules = [
         {
-          nixpkgs.crossSystem = {
-            config = "riscv64-unknown-linux-gnu";
-          };
+          nixpkgs.localSystem.system = "x86_64-linux"; 
+          nixpkgs.crossSystem.system = "riscv64-linux";
         }
 
-        ({pkgs-gcc12, ...}: {
+        ({pkgs-gcc13, ...}: {
           # use the custom pkgs instance to build the package hello
-          environment.systemPackages = [ pkgs-gcc12.hello ];
+          environment.systemPackages = [ pkgs-gcc13.hello ];
         })
 
         # other modules ......
