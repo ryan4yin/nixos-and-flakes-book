@@ -1,19 +1,17 @@
 # 多 nixpkgs 实例的妙用
 
-我们在前面 [降级与升级软件包](../nixos-with-flakes/downgrade-or-upgrade-packages.md) 一节
-中见过，怎么通过 `import nixpkgs {...}` 这样的方法实例化多个不同的 nixpkgs 实例，再通过
-`specialArgs` 在所有子模块中使用这些 nixpkgs 实例。这种方法有很多的用途，常见的有：
+我们在前面 [降级与升级软件包](../nixos-with-flakes/downgrade-or-upgrade-packages.md)
+一节中见过，怎么通过 `import nixpkgs {...}`
+这样的方法实例化多个不同的 nixpkgs 实例，再通过 `specialArgs`
+在所有子模块中使用这些 nixpkgs 实例。这种方法有很多的用途，常见的有：
 
 1. 通过实例化 commit id 不同的 nixpkgs 实例，用于安装不同版本的软件包。前面的
-   [降级与升级软件包](../nixos-with-flakes/downgrade-or-upgrade-packages.md) 一节中就是这
-   样使用的。
-2. 如果希望使用 overlays，但是又不想影响到默认的 nixpkgs 实例，可以通过实例化一个新的
-   nixpkgs 实例，然后在这个实例上使用 overlays。
-   - 上一节 Overlays 中提到的 `nixpkgs.overlays = [...];` 是直接修改全局的 nixpkgs 实例，
-     如果你的 overlays 改了比较底层的包，可能会影响到其他模块。坏处之一是会导致大量的本地
-     编译（因为二进制缓存失效了），二是被影响的包功能可能也会出问题。
-3. 在跨系统架构的编译中，你可以通过实例化多个 nixpkgs 实例来在不同的地方分别选用 QEMU 模拟
-   编译与交叉编译，或者添加不同的 gcc 编译参数。
+   [降级与升级软件包](../nixos-with-flakes/downgrade-or-upgrade-packages.md)
+   一节中就是这样使用的。
+2. 如果希望使用 overlays，但是又不想影响到默认的 nixpkgs 实例，可以通过实例化一个新的 nixpkgs 实例，然后在这个实例上使用 overlays。
+   - 上一节 Overlays 中提到的 `nixpkgs.overlays = [...];`
+     是直接修改全局的 nixpkgs 实例，如果你的 overlays 改了比较底层的包，可能会影响到其他模块。坏处之一是会导致大量的本地编译（因为二进制缓存失效了），二是被影响的包功能可能也会出问题。
+3. 在跨系统架构的编译中，你可以通过实例化多个 nixpkgs 实例来在不同的地方分别选用 QEMU 模拟编译与交叉编译，或者添加不同的 gcc 编译参数。
 
 总之，实例化多个 nixpkgs 实例是非常有用的。
 
@@ -72,15 +70,14 @@
 
 我们学习 Nix 语法时就学过：
 
-> `import` 表达式以其他 Nix 文件的路径作为参数，返回该 Nix 文件的执行结果。 `import` 的参
-> 数如果为文件夹路径，那么会返回该文件夹下的 `default.nix` 文件的执行结果。
+> `import` 表达式以其他 Nix 文件的路径作为参数，返回该 Nix 文件的执行结果。 `import`
+> 的参数如果为文件夹路径，那么会返回该文件夹下的 `default.nix` 文件的执行结果。
 
-`nixpkgs` 是一个 Git 仓库，它的根目录下刚好有一个 `default.nix` 文件，那么答案就呼之欲出
-了：`import nixpkgs` 就是返回
-[nixpkgs/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/default.nix) 文件
-的执行结果。从这个文件开始探索，就能找到 `import nixpkgs` 的实现代码是
-[pkgs/top-level/impure.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/top-level/impure.nix)，
-这里截取部分内容：
+`nixpkgs` 是一个 Git 仓库，它的根目录下刚好有一个 `default.nix`
+文件，那么答案就呼之欲出了：`import nixpkgs` 就是返回
+[nixpkgs/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/default.nix)
+文件的执行结果。从这个文件开始探索，就能找到 `import nixpkgs` 的实现代码是
+[pkgs/top-level/impure.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/top-level/impure.nix)，这里截取部分内容：
 
 ```nix
 # ... skip some lines
@@ -121,17 +118,16 @@ import ./. (builtins.removeAttrs args [ "system" ] // {
 })
 ```
 
-因此 `import nixpkgs {...}` 实际就是调用了上面这个函数，后面的 attribute set 就是这个参数
-的参数。
+因此 `import nixpkgs {...}` 实际就是调用了上面这个函数，后面的 attribute
+set 就是这个参数的参数。
 
 ## 注意事项
 
 在创建多 nixpkgs 实例的时候需要注意一些细节，这里列举一些常见的问题：
 
 1. 根据 @fbewivpjsbsby 补充的文章
-   [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347)，
-   在子模块或者子 flakes 中用 `import` 来定制 `nixpkgs` 不是一个好的习惯，因为每次
-   `import` 都会重新求值并产生一个新的 nixpkgs 实例，在配置越来越多时会导致构建时间变长、
-   内存占用变大。所以这里改为了在 `flake.nix` 中创建所有 nixpkgs 实例。
-2. 在混合使用 QEMU 模拟编译与交叉编译时，搞得不好可能会导致许多包被重复编译多次，要注意避
-   免这种情况。
+   [1000 instances of nixpkgs](https://discourse.nixos.org/t/1000-instances-of-nixpkgs/17347)，在子模块或者子 flakes 中用
+   `import` 来定制 `nixpkgs` 不是一个好的习惯，因为每次 `import`
+   都会重新求值并产生一个新的 nixpkgs 实例，在配置越来越多时会导致构建时间变长、内存占用变大。所以这里改为了在
+   `flake.nix` 中创建所有 nixpkgs 实例。
+2. 在混合使用 QEMU 模拟编译与交叉编译时，搞得不好可能会导致许多包被重复编译多次，要注意避免这种情况。

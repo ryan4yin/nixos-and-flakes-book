@@ -20,7 +20,7 @@ can include but are not limited to the following:
 - Other user-defined outputs: These outputs can be defined by the user and may be used by
   other Nix-related tools.
 
-See offical doc for details - [Flakes Check - Nix Manual].
+See official doc for details - [Flakes Check - Nix Manual].
 
 Here's an example excerpt from the NixOS Wiki that demonstrates the structure of the
 `outputs` section:
@@ -78,10 +78,9 @@ Here's an example excerpt from the NixOS Wiki that demonstrates the structure of
 }
 ```
 
-
 ## References
 
 - [Flakes Check - Nix Manual]
 
-[Flakes Check - Nix Manual]: https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check
-
+[Flakes Check - Nix Manual]:
+  https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check

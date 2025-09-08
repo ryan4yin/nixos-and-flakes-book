@@ -85,29 +85,31 @@ them with the corresponding New CLI commands (except for `nix-collect-garbage`, 
 is currently no alternative for this command):
 
 1. `nix-channel`: `nix-channel` manages versions of inputs like nixpkgs through
-   stable/unstable channels, similar to the package lists used by other package
-   management tools such as apt/yum/pacman. This is what traditionally provides
-   `<nixpkgs>` in the Nix language.
-   1. In Flakes, the functionality of `nix-channel` is replaced by
-      the Flake Registry (`nix registry`) for providing "some unspecified global
-      version of nixpkgs" for interactive CLI usage (e.g. `nix run nixpkgs#hello`).
-      When using a `flake.nix`, input versions are managed in the flake itself.
-   2. Flakes use the `inputs` section in `flake.nix` to manage
-      versions of nixpkgs and other inputs in each Flake instead of using
-      global state.
+   stable/unstable channels, similar to the package lists used by other package management
+   tools such as apt/yum/pacman. This is what traditionally provides `<nixpkgs>` in the
+   Nix language.
+   1. In Flakes, the functionality of `nix-channel` is replaced by the Flake Registry
+      (`nix registry`) for providing "some unspecified global version of nixpkgs" for
+      interactive CLI usage (e.g. `nix run nixpkgs#hello`). When using a `flake.nix`,
+      input versions are managed in the flake itself.
+   2. Flakes use the `inputs` section in `flake.nix` to manage versions of nixpkgs and
+      other inputs in each Flake instead of using global state.
 2. `nix-env`: `nix-env` is a core command-line tool for classic Nix used to manage
    software packages in the user environment.
+
    1. It installs packages from the data sources added by `nix-channel`, causing the
       installed package's version to be influenced by the channel. Packages installed with
       `nix-env` are not automatically recorded in Nix's declarative configuration and are
       completely independent of its control, making them challenging to reproduce on other
-      machines. Upgrading packages installed by `nix-env` is slow and may
-      produce unexpected results because the attribute name where the package
-      was found in nixpkgs is not saved.
+      machines. Upgrading packages installed by `nix-env` is slow and may produce
+      unexpected results because the attribute name where the package was found in nixpkgs
+      is not saved.
 
       Therefore, it is not recommended to use this command directly.
+
    2. The corresponding command in the New CLI is `nix profile`. Personally, I don't
       recommend it for beginners.
+
 3. `nix-shell`: `nix-shell` creates a temporary shell environment, which is useful for
    development and testing.
    1. New CLI: This tool is divided into three sub-commands: `nix develop`, `nix shell`,
@@ -126,6 +128,7 @@ is currently no alternative for this command):
       [Try to explain nix commands](https://qiita.com/Sumi-Sumi/items/6de9ee7aab10bc0dbead?_x_tr_sl=auto&_x_tr_tl=en&_x_tr_hl=en).
 
 [^1]: [Flakes - NixOS Wiki](https://wiki.nixos.org/wiki/Flakes)
+
 [^2]:
     [Flakes are such an obviously good thing](https://grahamc.com/blog/flakes-are-an-obviously-good-thing/)
 

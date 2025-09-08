@@ -1,7 +1,6 @@
 # 安装使用 Home Manager
 
-前面简单提过，NixOS 自身的配置文件只能管理系统级别的配置，而用户级别的配置则需要使用
-home-manager 来管理。
+前面简单提过，NixOS 自身的配置文件只能管理系统级别的配置，而用户级别的配置则需要使用 home-manager 来管理。
 
 根据官方文档
 [Home Manager Manual](https://nix-community.github.io/home-manager/index.xhtml)，要将 home
@@ -167,8 +166,8 @@ manager 作为 NixOS 模块安装，首先需要创建 `/etc/nixos/home.nix`，�
 }
 ```
 
-添加好 `/etc/nixos/home.nix` 后，还需要在 `/etc/nixos/flake.nix` 中导入该配置，它才能生
-效，可以使用如下命令，在当前文件夹中生成一个示例配置以供参考：
+添加好 `/etc/nixos/home.nix` 后，还需要在 `/etc/nixos/flake.nix`
+中导入该配置，它才能生效，可以使用如下命令，在当前文件夹中生成一个示例配置以供参考：
 
 ```shell
 nix flake new example -t github:nix-community/home-manager#nixos
@@ -234,46 +233,45 @@ nix flake new example -t github:nix-community/home-manager#nixos
 
 `home.nix` 中 Home Manager 的配置项有这几种查找方式：
 
-- [Home Manager - Appendix A. Configuration Options](https://nix-community.github.io/home-manager/options.xhtml):
-  一份包含了所有配置项的列表，建议在其中关键字搜索。
-  - [Home Manager Option Search](https://mipmip.github.io/home-manager-option-search/): 一
-    个更方便的 option 搜索工具。
-- [home-manager](https://github.com/nix-community/home-manager): 有些配置项在官方文档中没
-  有列出，或者文档描述不够清晰，可以直接在这份 home-manager 的源码中搜索阅读对应的源码。
+- [Home Manager - Appendix A. Configuration Options](https://nix-community.github.io/home-manager/options.xhtml): 一份包含了所有配置项的列表，建议在其中关键字搜索。
+  - [Home Manager Option Search](https://mipmip.github.io/home-manager-option-search/): 一个更方便的 option 搜索工具。
+- [home-manager](https://github.com/nix-community/home-manager): 有些配置项在官方文档中没有列出，或者文档描述不够清晰，可以直接在这份 home-manager 的源码中搜索阅读对应的源码。
 
 ## Home Manager vs NixOS
 
-有许多的软件包或者软件配置, 既可以使用 NixOS Module 配置(`configuration.nix`)，也可以使用
-Home Manager 配置(`home.nix`), 这带来一个选择难题：**将软件包或者配置文件写在 NixOS Module
-里还是 Home Manager 配置里面有何区别? 该如何决策?**
+有许多的软件包或者软件配置, 既可以使用 NixOS
+Module 配置(`configuration.nix`)，也可以使用Home
+Manager 配置(`home.nix`), 这带来一个选择难题：**将软件包或者配置文件写在 NixOS
+Module 里还是 Home Manager 配置里面有何区别? 该如何决策?**
 
-首先看看区别, NixOS Module 中安装的软件包跟配置文件都是整个系统全局的, 全局的配置通常会被
-存放在 `/etc` 中, 系统全局安装的软件也在任何用户环境下都可使用。
+首先看看区别, NixOS
+Module 中安装的软件包跟配置文件都是整个系统全局的, 全局的配置通常会被存放在 `/etc`
+中, 系统全局安装的软件也在任何用户环境下都可使用。
 
-相对的，通过 Home Manager 安装的配置项将会被链接到对应用户的 Home 目录, 其安装的软件也仅在
-对应的用户环境下可用, 切换到其他用户后这些配置跟软件就都用不了了。
+相对的，通过 Home
+Manager 安装的配置项将会被链接到对应用户的 Home 目录, 其安装的软件也仅在对应的用户环境下可用, 切换到其他用户后这些配置跟软件就都用不了了。
 
 根据这种特性, 一般的推荐用法是:
 
 - NixOS Module: 安装系统的核心组件, 以及所有用户都需要用到的其他软件包或配置
-  - 比如说如果你希望某个软件包能在你切换到 root 用户时仍能正常使用, 或者使某个配置能在系统
-    全局生效, 那就得用 NixOS Module 来安装它
+  - 比如说如果你希望某个软件包能在你切换到 root 用户时仍能正常使用, 或者使某个配置能在系统全局生效, 那就得用 NixOS
+    Module 来安装它
 - Home Manager: 其他所有的配置与软件, 都建议用 Home Manager 来安装
 
 这样做的好处是：
 
-1. 系统层面安装的软件与后台服务常常以 root 特权用户的身份运行，尽量避免在系统层面安装不必
-   要的软件，可以减少系统的安全风险。
-1. Home Manager 的许多配置都可以在 NixOS, macOS 以及其他 Linux 发行版上通用，尽可能选用
-   Home Manager 来安装软件与配置系统，可以提高配置的可移植性。
-1. 如果你需要多用户，通过 Home Manager 安装的软件与配置，可以更好地隔离不同用户的环境，避
-   免不同用户之间的配置与软件版本冲突。
+1. 系统层面安装的软件与后台服务常常以 root 特权用户的身份运行，尽量避免在系统层面安装不必要的软件，可以减少系统的安全风险。
+1. Home Manager 的许多配置都可以在 NixOS,
+   macOS 以及其他 Linux 发行版上通用，尽可能选用 Home
+   Manager 来安装软件与配置系统，可以提高配置的可移植性。
+1. 如果你需要多用户，通过 Home
+   Manager 安装的软件与配置，可以更好地隔离不同用户的环境，避免不同用户之间的配置与软件版本冲突。
 
 ## 如何以特权身份使用 Home Manager 安装的软件包?
 
 对这个问题，首先想到的一般都是直接切换到 `root` 用户, 可切换用户后，当前用户通过
-`home.nix` 安装的软件包都将不可用。让我们以 `kubectl` 为例（已通过 `home.nix` 预先安装
-好），来演示一下:
+`home.nix` 安装的软件包都将不可用。让我们以 `kubectl` 为例（已通过 `home.nix`
+预先安装好），来演示一下:
 
 ```sh
 # 1. kubectl 当前可用
@@ -302,8 +300,8 @@ Error: nu::shell::external_command
 /home/ryan/nix-config> exit
 ```
 
-解决方法是，使用 `sudo` 来运行命令，该命令临时授予当前用户以特权身份（`root`）运行命令的权
-限：
+解决方法是，使用 `sudo`
+来运行命令，该命令临时授予当前用户以特权身份（`root`）运行命令的权限：
 
 ```sh
 › sudo kubectl

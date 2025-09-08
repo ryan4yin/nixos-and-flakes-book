@@ -22,4 +22,3 @@ sudo nixos-rebuild switch --recreate-lock-file --flake .
 
 有时在运行 `nixos-rebuild switch` 时可能会遇到 `sha256 mismatch`
 类似的错误，一般可以通过运行 `nix flake update` 来更新 `flake.lock` 解决。
-

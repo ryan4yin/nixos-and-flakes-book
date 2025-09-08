@@ -37,9 +37,9 @@ In Nix, you can configure cache servers using the following options:
       the build process of a certain library, they must take on the corresponding security
       risks and decide whether to add the public key of that cache server to
       `trusted-public-keys`. To completely solve this trust issue, Nix has introduced the
-      experimental feature [ca-derivations](https://wiki.nixos.org/wiki/Ca-derivations), which
-      does not depend on `trusted-public-keys` for signature verification. Interested
-      users can explore it further.
+      experimental feature [ca-derivations](https://wiki.nixos.org/wiki/Ca-derivations),
+      which does not depend on `trusted-public-keys` for signature verification.
+      Interested users can explore it further.
 
 You can configure the `substituters` and `trusted-public-keys` parameters in the following
 ways:

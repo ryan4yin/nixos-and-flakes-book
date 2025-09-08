@@ -128,12 +128,10 @@ Currently, our flake includes these files:
 Up to this point, we have merely added a very simple configuration file,
 `/etc/nixos/flake.nix`, which has merely been a thin wrapper around
 `/etc/nixos/configuration.nix`, offering no new functionality and introducing no
-disruptive changes. 
+disruptive changes.
 
 In the content of the book that follows, we will learn about the structure and
-functionality of `flake.nix` and gradually see the benefits that such a wrapper can
-bring.
-
+functionality of `flake.nix` and gradually see the benefits that such a wrapper can bring.
 
 > Note: The configuration management method described in this book is NOT "Everything in a
 > single file". It is recommended to categorize configuration content into different nix

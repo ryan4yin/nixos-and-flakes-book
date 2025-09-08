@@ -54,7 +54,7 @@ repetition:
   boot.
 - Host A should change the Docker storage driver to `btrfs` while keeping other settings
   the same.
-- Hosts B and C, located in China, need to set a domestic mirror in Docker configuration.
+- Hosts B, located in China, need to set a domestic mirror in Docker configuration.
 - Host C, located in the United States, has no special requirements.
 - Host D, a desktop machine, needs to set an HTTP proxy to accelerate Docker downloads.
 
@@ -202,9 +202,10 @@ for `foo` by setting the `options` defined here. For example:
 ```
 
 In the example above, the way we assign values to `options` is actually a kind of
-**abbreviation**. When a module only contains `config` without any other declaration (like `option` and other
-special parameters of the module system), we can omit the `config` wrapping , just directly write the
-content of `config` to assign value to `option` section declared in other modules!
+**abbreviation**. When a module only contains `config` without any other declaration (like
+`option` and other special parameters of the module system), we can omit the `config`
+wrapping , just directly write the content of `config` to assign value to `option` section
+declared in other modules!
 
 ## Assignment and Lazy Evaluation in the Module System
 

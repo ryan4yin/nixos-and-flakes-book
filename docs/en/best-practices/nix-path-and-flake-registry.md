@@ -38,10 +38,10 @@ then downloads the repository, locates the `flake.nix` within, and runs the corr
 
 The roles of `NIX_PATH` and the Flake Registry have been explained earlier. In daily use,
 we typically want the `nixpkgs` used in commands like `nix repl '<nixpkgs>'`,
-`nix run nixpkgs#ponysay hello` to match the system's `nixpkgs`. This is done
-by default as of [NixOS 24.05][automatic flake registry]. Also, although
-`nix-channel` can coexist with the Flakes feature, in practice, Flakes can
-completely replace it, so we can also disable it.
+`nix run nixpkgs#ponysay hello` to match the system's `nixpkgs`. This is done by default
+as of [NixOS 24.05][automatic flake registry]. Also, although `nix-channel` can coexist
+with the Flakes feature, in practice, Flakes can completely replace it, so we can also
+disable it.
 
 [automatic flake registry]: https://github.com/NixOS/nixpkgs/pull/254405
 

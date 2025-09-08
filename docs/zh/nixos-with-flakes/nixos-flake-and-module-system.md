@@ -2,8 +2,8 @@
 
 ## Nixpkgs Module 结构的简单介绍 {#simple-introduction-to-nixpkgs-module-structure}
 
-> 在后面的 [模块化 NixOS 配置](./modularize-the-configuration.md) 一节中会详细介绍这套模块
-> 系统的工作方式，这里只介绍些基础知识。
+> 在后面的 [模块化 NixOS 配置](./modularize-the-configuration.md)
+> 一节中会详细介绍这套模块系统的工作方式，这里只介绍些基础知识。
 
 为什么 `/etc/nixos/configuration.nix` 这个配置文件会符合 Nixpkgs Module 定义，从而能直接在
 `flake.nix` 中引用它呢？可能会有读者觉得这有点出乎意料。
@@ -11,15 +11,13 @@
 要理解这一点，我们得先了解下 Nixpkgs 模块系统的由来以及它的用途。
 
 NixOS 的所有实现代码都存放在
-[Nixpkgs/nixos](https://github.com/NixOS/nixpkgs/tree/master/nixos) 目录中，这些源码大都使
-用 Nix 语言编写。为了编写维护如此多的 Nix 代码，并且使用户能灵活地自定义其 NixOS 系统的各
-项功能，就必须要有一套 Nix 代码的模块化系统。
+[Nixpkgs/nixos](https://github.com/NixOS/nixpkgs/tree/master/nixos)
+目录中，这些源码大都使用 Nix 语言编写。为了编写维护如此多的 Nix 代码，并且使用户能灵活地自定义其 NixOS 系统的各项功能，就必须要有一套 Nix 代码的模块化系统。
 
-这套 Nix 代码的模块系统的实现也同样存放在 Nixpkgs 仓库中，它主要被用于 NixOS 系统配置的模块
-化，但也有其他的应用，比如 nix-darwin 跟 home-manager 都大量使用了这套模块系统。
+这套 Nix 代码的模块系统的实现也同样存放在 Nixpkgs 仓库中，它主要被用于 NixOS 系统配置的模块化，但也有其他的应用，比如 nix-darwin 跟 home-manager 都大量使用了这套模块系统。
 
-既然 NixOS 是基于这套模块系统构建的，那它的配置文件（包括 `/etc/nixos/configuration.nix`）
-是一个 Nixpkgs Module，也就显得非常自然了。
+既然 NixOS 是基于这套模块系统构建的，那它的配置文件（包括
+`/etc/nixos/configuration.nix`）是一个 Nixpkgs Module，也就显得非常自然了。
 
 在学习后面的内容之前，我们需要先简单了解下这套模块系统的工作方式。
 
@@ -40,8 +38,7 @@ NixOS 的所有实现代码都存放在
 }
 ```
 
-可以看到它的定义实际是一个 Nix 函数，该函数有 5 个**由模块系统自动生成、自动注入、无需额外
-声明的参数**：
+可以看到它的定义实际是一个 Nix 函数，该函数有 5 个**由模块系统自动生成、自动注入、无需额外声明的参数**：
 
 1. `lib`: **nixpkgs 自带的函数库，提供了许多操作 Nix 表达式的实用函数**
    - 详见 <https://nixos.org/manual/nixpkgs/stable/#id-1.4>
@@ -55,8 +52,8 @@ NixOS 的所有实现代码都存放在
    - 它在
      [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/lib/eval-config-minimal.nix#L43)
      中被定义
-   - 通常被用于导入一些额外的 NixOS 模块，NixOS 自动生成的 `hardware-configuration.nix` 中
-     基本都能看到它
+   - 通常被用于导入一些额外的 NixOS 模块，NixOS 自动生成的 `hardware-configuration.nix`
+     中基本都能看到它
 
 ## 传递非默认参数到模块系统中 {#pass-non-default-parameters-to-submodules}
 
@@ -78,20 +75,22 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
    - Source Code: [nixpkgs/nixos-25.05/lib/modules.nix - _module.args]
 
-总之，`specialArgs` 与 `_module.args` 需要的值都是一个 attribute set，它们的功能也相同，都
-是将其 attribute set 中的所有参数传递到所有子模块中。这两者的区别在于：
+总之，`specialArgs` 与 `_module.args` 需要的值都是一个 attribute
+set，它们的功能也相同，都是将其 attribute
+set 中的所有参数传递到所有子模块中。这两者的区别在于：
 
 1. 在任何 Module 中都能使用 `_module.args` 这个 option，通过它互相传递参数，这要比只能在
    `nixpkgs.lib.nixosSystem` 函数中使用的 `specialArgs` 更灵活。
-1. `_module.args` 是在 Module 中声明使用的，因此必须在所有 Modules 都已经被求值后，才能使
-   用它。这导致**如果你在 `imports = [ ... ];` 中使用 `_module.args` 传递的参数，会报错
+1. `_module.args`
+   是在 Module 中声明使用的，因此必须在所有 Modules 都已经被求值后，才能使用它。这导致**如果你在
+   `imports = [ ... ];` 中使用 `_module.args` 传递的参数，会报错
    `infinite recursion`，这种场景下你必须改用 `specialArgs` 才行**。
 
-我个人更喜欢 `specialArgs`，因为它更简单直接，用起来顺手些，另外 `_xxx` 这种命名风格就让人
-感觉它是个内部用的东西，不太适合用在用户配置文件中。
+我个人更喜欢 `specialArgs`，因为它更简单直接，用起来顺手些，另外 `_xxx`
+这种命名风格就让人感觉它是个内部用的东西，不太适合用在用户配置文件中。
 
-假设你想将某个依赖项传递到子模块中使用，可以使用 `specialArgs` 参数将 `inputs` 传递到所有
-子模块中：
+假设你想将某个依赖项传递到子模块中使用，可以使用 `specialArgs` 参数将 `inputs`
+传递到所有子模块中：
 
 ```nix{13}
 {
@@ -141,8 +140,8 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 ```
 
 选择上述两种方式之一修改你的配置，然后在 `/etc/nixos/configuration.nix` 中就可以使用
-`inputs` 这个参数了，模块系统会自动匹配到 `specialArgs` 中定义的 `inputs`，并将其注入到所
-有需要该参数的子模块中：
+`inputs` 这个参数了，模块系统会自动匹配到 `specialArgs` 中定义的
+`inputs`，并将其注入到所有需要该参数的子模块中：
 
 ```nix{3}
 # Nix 会通过名称匹配，
@@ -162,11 +161,10 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 管系统最常见的需求就是装软件，我们在上一节已经见识过如何通过 `environment.systemPackages`
 来安装 `pkgs` 中的包，这些包都来自官方的 nixpkgs 仓库。
 
-现在我们学习下如何安装其他 flake 来源的软件包，这比直接从 nixpkgs 安装要灵活很多，最主要的
-用途是安装 Nixpkgs 中还未添加或未更新的某软件的最新版本。
+现在我们学习下如何安装其他 flake 来源的软件包，这比直接从 nixpkgs 安装要灵活很多，最主要的用途是安装 Nixpkgs 中还未添加或未更新的某软件的最新版本。
 
-以 [helix](https://github.com/helix-editor/helix) 编辑器为例，这里演示下如何直接编译安装
-helix 的 master 分支。
+以 [helix](https://github.com/helix-editor/helix)
+编辑器为例，这里演示下如何直接编译安装 helix 的 master 分支。
 
 首先在 `flake.nix` 中添加 helix 这个 inputs 数据源：
 
@@ -213,38 +211,32 @@ helix 的 master 分支。
 }
 ```
 
-改好后再 `sudo nixos-rebuild switch` 部署，就能安装好 Helix 程序了。这次部署用时会比以往长
-挺多，因为 Nix 会从源码编译整个 Helix 程序。
+改好后再 `sudo nixos-rebuild switch`
+部署，就能安装好 Helix 程序了。这次部署用时会比以往长挺多，因为 Nix 会从源码编译整个 Helix 程序。
 
 部署完毕后，可直接在终端使用 `hx` 命令测试验证。
 
-另外，如果你只是想尝试一下 Helix 的最新版本，再决定要不要真正地将它安装到系统里，有更简单
-的办法，一行命令就行（但如前所述，源码编译会很费时间）：
+另外，如果你只是想尝试一下 Helix 的最新版本，再决定要不要真正地将它安装到系统里，有更简单的办法，一行命令就行（但如前所述，源码编译会很费时间）：
 
 ```bash
 nix run github:helix-editor/helix/master
 ```
 
-我们会在后面的 [新一代 Nix 命令行工具的使用](../other-usage-of-flakes/the-new-cli.md) 中详
-细介绍 `nix run` 的用法。
+我们会在后面的 [新一代 Nix 命令行工具的使用](../other-usage-of-flakes/the-new-cli.md)
+中详细介绍 `nix run` 的用法。
 
 ## 使用其他 Flakes 包提供的功能
 
-其实这才是 Flakes 最主要的功能，一个 Flake 可以依赖其他 Flakes，从而使用它们提供的功能——就
-如同我们在写 TypeScript/Go/Rust 等程序时使用其他 Library 提供的功能一样。
+其实这才是 Flakes 最主要的功能，一个 Flake 可以依赖其他 Flakes，从而使用它们提供的功能——就如同我们在写 TypeScript/Go/Rust 等程序时使用其他 Library 提供的功能一样。
 
-上面使用 Helix 的官方 Flake 中提供的最新版本就是一个例子，其他更多的用例会在后面提到，这里
-引用几个后面会讲的例子：
+上面使用 Helix 的官方 Flake 中提供的最新版本就是一个例子，其他更多的用例会在后面提到，这里引用几个后面会讲的例子：
 
-- [Getting Started with Home Manager](./start-using-home-manager.md): 这里引入了社区的
-  Home-Manager 作为依赖项，从而能直接使用该 Flake 提供的功能。
-- [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): 这里引入了不同
-  版本的 Nixpkgs 作为依赖项，从而能很灵活地选用不同版本的 Nixpkgs 中的包。
+- [Getting Started with Home Manager](./start-using-home-manager.md): 这里引入了社区的 Home-Manager 作为依赖项，从而能直接使用该 Flake 提供的功能。
+- [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): 这里引入了不同版本的 Nixpkgs 作为依赖项，从而能很灵活地选用不同版本的 Nixpkgs 中的包。
 
 ## 其他 Flakes 学习资料
 
-到此为止，我们已经学习了如何使用 Flakes 来配置 NixOS 系统。如果你对 Flakes 还有更多的疑
-问，或者想深入学习，请直接参考如下官方/半官方的文档。
+到此为止，我们已经学习了如何使用 Flakes 来配置 NixOS 系统。如果你对 Flakes 还有更多的疑问，或者想深入学习，请直接参考如下官方/半官方的文档。
 
 - Nix Flakes 的官方文档：
   - [Nix flakes - Nix Manual](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake)
