@@ -29,7 +29,7 @@ Flakes 带来的好处是显而易见的，整个 NixOS 社区都很喜欢它，
 
 总的来说，我仍然推荐大家使用 Flakes，毕竟这本书本身也是围绕 NixOS 与 Flakes 编写的，但是也要做好准备——未来可能需要解决一些不兼容变更带来的问题。
 
-## Flakes 何时会成为稳定特性？ {#when-will-flakes-stablized}
+## Flakes 何时会成为稳定特性？ {#when-will-flakes-stabilized}
 
 我深入了解了下 Flakes 现状与未来计划相关的资料，大概有这些：
 
