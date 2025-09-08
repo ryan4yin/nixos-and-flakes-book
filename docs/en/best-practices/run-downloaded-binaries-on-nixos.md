@@ -27,7 +27,7 @@ add the following code to one of your Nix modules:
     (let base = pkgs.appimageTools.defaultFhsEnvArgs; in
       pkgs.buildFHSUserEnv (base // {
       name = "fhs";
-      targetPkgs = pkgs: 
+      targetPkgs = pkgs:
         # pkgs.buildFHSUserEnv provides only a minimal FHS environment,
         # lacking many basic packages needed by most software.
         # Therefore, we need to add them manually.

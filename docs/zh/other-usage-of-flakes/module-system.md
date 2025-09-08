@@ -4,42 +4,37 @@
 `options` 实际都在这两个位置定义：
 
 - NixOS:
-  [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/25.05/nixos/modules), 我们
-  在 <https://search.nixos.org/options> 中能看到的所有 NixOS options 都是在这里定义的。
+  [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/25.05/nixos/modules), 我们在
+  <https://search.nixos.org/options> 中能看到的所有 NixOS options 都是在这里定义的。
 - Home Manager:
-  [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-25.05/modules):
-  可在 <https://nix-community.github.io/home-manager/options.xhtml> 中找到其所有的options.
+  [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-25.05/modules): 可在
+  <https://nix-community.github.io/home-manager/options.xhtml> 中找到其所有的options.
 
 > 如果你还使用 nix-darwin，那么它的配置也是类似的，其模块系统的实现位于
 > [nix-darwin/modules](https://github.com/LnL7/nix-darwin/tree/master/modules)
 
 而上述 NixOS Modules 跟 Home Manager Modules 的基础，是 Nixpkgs 中实现的一套通用模块系统
-[lib/modules.nix][lib/modules.nix]，这套模块系统的官方文档如下（即使是对熟练使用 NixOS 的
-用户而言，要看懂这玩意儿也不是件容易的事...）：
+[lib/modules.nix][lib/modules.nix]，这套模块系统的官方文档如下（即使是对熟练使用 NixOS 的用户而言，要看懂这玩意儿也不是件容易的事...）：
 
 - [Module System - Nixpkgs]
 
-因为 Nixpkgs 的模块系统文档没人写，文档中直接建议读另一份专门针对 NixOS 模块系统的编写指
-南，确实写得清晰一些，但也很难说它对新手有多友好：
+因为 Nixpkgs 的模块系统文档没人写，文档中直接建议读另一份专门针对 NixOS 模块系统的编写指南，确实写得清晰一些，但也很难说它对新手有多友好：
 
 - [Writing NixOS Modules - Nixpkgs]
 
-总之，模块系统是由 Nixpkgs 实现的，并不是 Nix 包管理器的一部分，因此它的文档也不在 Nix 包
-管理器的文档中。另外 NixOS 与 Home Manager 都是基于 Nixpkgs 的模块系统实现的。
+总之，模块系统是由 Nixpkgs 实现的，并不是 Nix 包管理器的一部分，因此它的文档也不在 Nix 包管理器的文档中。另外 NixOS 与 Home
+Manager 都是基于 Nixpkgs 的模块系统实现的。
 
 ## 模块系统有什么用？ {#what-is-module-system}
 
-我们作为一个普通用户，使用 NixOS 与 Home Manager 基于模块系统实现的各种 options 就已经能满
-足我们大部分的需求了。那么深入学习模块系统对于我们来说，还有什么好处呢？
+我们作为一个普通用户，使用 NixOS 与 Home
+Manager 基于模块系统实现的各种 options 就已经能满足我们大部分的需求了。那么深入学习模块系统对于我们来说，还有什么好处呢？
 
 我们在前面介绍配置的模块化时，提到了核心点是将配置拆分为多个模块，再通过
 `imports = [ ... ];` 来导入这些模块。这其实就是模块系统最基础的用法。但仅仅使用
-`imports = [ ... ];`，我们只能将模块中定义的配置原封不动地导入到当前模块中，无法对其做任何
-定制，灵活性很差。在配置简单的情况下，这种方式已经足够了，但如果我们的配置比较复杂，那么这
-种方式就显得力不从心了。
+`imports = [ ... ];`，我们只能将模块中定义的配置原封不动地导入到当前模块中，无法对其做任何定制，灵活性很差。在配置简单的情况下，这种方式已经足够了，但如果我们的配置比较复杂，那么这种方式就显得力不从心了。
 
-这里举个例子来说明其弊端，譬如说我通过一份配置管理了 A、B、C 跟 D 共 4 台 NixOS 主机，我希
-望能在尽量减少配置重复的前提下实现如下功能：
+这里举个例子来说明其弊端，譬如说我通过一份配置管理了 A、B、C 跟 D 共 4 台 NixOS 主机，我希望能在尽量减少配置重复的前提下实现如下功能：
 
 - A、B、C 跟 D 都需要启用 docker 服务，设置开机自启
 - A 需要将 docker 的存储驱动改为 `btrfs`，其他不变
@@ -47,8 +42,8 @@
 - C 是位于美国的服务器，无特殊要求
 - D 是桌面主机，需要为 docker 设置 HTTP 代理加速下载
 
-如果单纯使用 `imports`，那么我们可能得将配置拆分成如下几个模块，然后在每台主机上导入不同的
-模块：
+如果单纯使用
+`imports`，那么我们可能得将配置拆分成如下几个模块，然后在每台主机上导入不同的模块：
 
 ```bash
 › tree
@@ -59,15 +54,15 @@
 └── docker-proxy.nix    # 导入了 docker-default.nix，设置 HTTP 代理
 ```
 
-是否感觉到这样的配置很冗余？这还是一个简单的例子，如果我们的机器更多，不同机器的配置差异更
-大，那么这种配置的冗余性就会更加明显。
+是否感觉到这样的配置很冗余？这还是一个简单的例子，如果我们的机器更多，不同机器的配置差异更大，那么这种配置的冗余性就会更加明显。
 
-显然，我们需要借助其他的手段来解决这个配置冗余的问题，自定义一些我们自己的 `options` 就是
-一个很不错的选择。
+显然，我们需要借助其他的手段来解决这个配置冗余的问题，自定义一些我们自己的 `options`
+就是一个很不错的选择。
 
-在深入学习模块系统之前，我再强调一下，如下内容不是必须学习与使用的，有很多 NixOS 用户并未
-自定义任何 `options`，只是简单地使用 `imports` 就能满足他们的需求了。如果你是新手，可以考
-虑在遇到类似上面这种，`imports` 解决不了的问题时再来学习这部分内容，这是完全 OK 的。
+在深入学习模块系统之前，我再强调一下，如下内容不是必须学习与使用的，有很多 NixOS 用户并未自定义任何
+`options`，只是简单地使用 `imports`
+就能满足他们的需求了。如果你是新手，可以考虑在遇到类似上面这种，`imports`
+解决不了的问题时再来学习这部分内容，这是完全 OK 的。
 
 ## 基本结构与用法 {#basic-structure-and-usage}
 
@@ -91,14 +86,14 @@ Nixpkgs 中定义的模块，其基本结构如下：
 }
 ```
 
-其中的 `imports = [ ... ];` 我们已经很熟悉了，但另外两个部分，我们还没有接触过，这里简单介
-绍下：
+其中的 `imports = [ ... ];`
+我们已经很熟悉了，但另外两个部分，我们还没有接触过，这里简单介绍下：
 
 - `options = { ... };`: 它类似编程语言中的变量声明，用于声明一些可配置的选项。
 - `config = { ... };`: 它类似编程语言中的变量赋值，用于为 `options` 中声明的选项赋值。
 
-最典型的用法是：在同一 Nixpkgs 模块中，依据 `options = { ... };` 中声明的 `options` 当前的
-值，在 `config = { .. };` 中为其他的 `options` 赋值，这样就实现了参数化配置的功能。
+最典型的用法是：在同一 Nixpkgs 模块中，依据 `options = { ... };` 中声明的 `options`
+当前的值，在 `config = { .. };` 中为其他的 `options` 赋值，这样就实现了参数化配置的功能。
 
 直接看个例子更容易理解：
 
@@ -149,8 +144,7 @@ in {
 上面这个模块定义了三个 `options`：
 
 - `programs.foo.enable`: 用于控制是否启用此模块
-- `programs.foo.package`: 用于自定义 foo 这个包，比如说使用不同版本、设置不同编译参数等
-  等。
+- `programs.foo.package`: 用于自定义 foo 这个包，比如说使用不同版本、设置不同编译参数等等。
 - `programs.foo.extraConfig`: 用于自定义 foo 的配置文件。
 
 然后在 `config` 中，根据 `options` 中声明的这三个变量的值，做了不同的设置：
@@ -161,8 +155,8 @@ in {
   - 将 `programs.foo.package` 添加到 `home.packages` 中，以将其安装到用户环境中。
   - 将 `programs.foo.extraConfig` 的值写入到 `~/.config/foo/foorc` 中。
 
-这样，我们就可以在另一个 nix 文件中导入这个模块，并通过设置这里定义的 `options` 来实现对
-foo 的自定义配置了，示例：
+这样，我们就可以在另一个 nix 文件中导入这个模块，并通过设置这里定义的 `options`
+来实现对 foo 的自定义配置了，示例：
 
 ```nix
 # ./bar.nix
@@ -183,8 +177,9 @@ foo 的自定义配置了，示例：
 }
 ```
 
-上面这个例子中我们为 `options` 赋值的方式实际上是一种**缩写**，当一个模块中只包含定义（`config`），而没有声明（`option`，并且没有其他特殊参数）时，我们可以省略掉 `config`
-包装，直接书写 `config` 部分来对其他模块中已声明的 `option` 赋值。
+上面这个例子中我们为 `options`
+赋值的方式实际上是一种**缩写**，当一个模块中只包含定义（`config`），而没有声明（`option`，并且没有其他特殊参数）时，我们可以省略掉
+`config` 包装，直接书写 `config` 部分来对其他模块中已声明的 `option` 赋值。
 
 ## 模块系统的赋值与延迟求值 {#module-system-assignment-and-lazy-evaluation}
 
@@ -228,18 +223,19 @@ foo 的自定义配置了，示例：
 }
 ```
 
-上述配置中的示例 1、2、3 中，`config.warnings` 的值都依赖于 `config.foo` 的值，但它们的实
-现方式却不同。将上述配置保存为 `flake.nix`，然后使用命令
-`nix eval .#nixosConfigurations.test.config.warnings` 分别测试示例 1、2、3，可以发现示例
-1、3 都能正常工作，而示例 2 则会报错 `error: infinite recursion encountered`。
+上述配置中的示例 1、2、3 中，`config.warnings` 的值都依赖于 `config.foo`
+的值，但它们的实现方式却不同。将上述配置保存为 `flake.nix`，然后使用命令
+`nix eval .#nixosConfigurations.test.config.warnings`
+分别测试示例 1、2、3，可以发现示例 1、3 都能正常工作，而示例 2 则会报错
+`error: infinite recursion encountered`。
 
 下面分别解释说明下：
 
 1. 示例一计算流程：`config.warnings` => `config.foo` => `config`
    1. 首先，Nix 尝试计算 `config.warnings` 的值，但发现它依赖于 `config.foo`.
    2. 接着，Nix 尝试计算 `config.foo` 的值，它依赖于其外层的 `config`.
-   3. Nix 尝试计算 `config` 的值，`config` 中未被 `config.foo` 真正使用的内容都会被 Nix 延
-      迟求值，因此这里不会递归依赖 `config.warnings`。
+   3. Nix 尝试计算 `config` 的值，`config` 中未被 `config.foo`
+      真正使用的内容都会被 Nix 延迟求值，因此这里不会递归依赖 `config.warnings`。
    4. `config.foo` 求值结束，接着 `config.warnings` 被赋值，计算结束。
 2. 示例二：`config` => `config.foo` => `config`
    1. 首先，Nix 尝试计算 `config` 的值，但发现它依赖于 `config.foo`.
@@ -250,21 +246,21 @@ foo 的自定义配置了，示例：
 其关键就在于 `lib.mkIf` 这个函数，使用它定义的 `config` 会被 Nix 延迟求值，也就是说会在
 `config.foo` 求值结束后，才会真正计算 `config = lib.mkIf ...` 的值。
 
-Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf` 的函数，用于实现参数化配置与智能的模块合
-并：
+Nixpkgs 中的模块系统提供了一系列类似 `lib.mkIf`
+的函数，用于实现参数化配置与智能的模块合并：
 
 1. `lib.mkIf`: 上面已经介绍过了。
 1. `lib.mkOverride` / `lib.mkdDefault` / `lib.mkForce`: 在前面
-   [模块化 NixOS 配置](../nixos-with-flakes/modularize-the-configuration.md) 中已经介绍过
-   了。
+   [模块化 NixOS 配置](../nixos-with-flakes/modularize-the-configuration.md)
+   中已经介绍过了。
 1. `lib.mkOrder`, `lib.mkBefore` 与 `lib.mkAfter`: 同上
-1. 查看 [Option Definitions - NixOS][Option Definitions - NixOS] 了解更多与 options 赋值
-   （definition）相关的函数。
+1. 查看 [Option Definitions - NixOS][Option Definitions - NixOS]
+   了解更多与 options 赋值（definition）相关的函数。
 
 ## Options 声明与类型检查 {#option-declarations-and-type-checking}
 
-模块系统的赋值是我们最常用的功能，而如果我们需要自定义一些 `options`，还需要深入了解下
-options 的声明与类型检查。
+模块系统的赋值是我们最常用的功能，而如果我们需要自定义一些
+`options`，还需要深入了解下 options 的声明与类型检查。
 
 这个我觉得就还挺简单的，比赋值要简单挺多了，直接看官方文档就能懂个大概，这里就不再赘述了：
 
@@ -275,13 +271,12 @@ options 的声明与类型检查。
 
 我们在
 [使用 Flakes 来管理你的 NixOS](../nixos-with-flakes/nixos-with-flakes-enabled.md#pass-non-default-parameters-to-submodules)
-中已经介绍了如何使用 `specialArgs` 跟 `_module.args` 来传递额外的参数给其他 Modules 函数，
-这里不再赘述。
+中已经介绍了如何使用 `specialArgs` 跟 `_module.args`
+来传递额外的参数给其他 Modules 函数，这里不再赘述。
 
 ## 如何选择性地导入模块 {#selectively-import-modules}
 
-在上面的例子中，我们已经介绍了如何通过自定义的 options 来决定是否启用某个功能，但我们的代
-码实现都是在同一个 nix 文件中的，那么如果我们的模块是分散在不同的文件中的，该如何实现呢？
+在上面的例子中，我们已经介绍了如何通过自定义的 options 来决定是否启用某个功能，但我们的代码实现都是在同一个 nix 文件中的，那么如果我们的模块是分散在不同的文件中的，该如何实现呢？
 
 我们先来看看一些常见的错误用法，然后再来介绍正确的使用方式。
 
@@ -336,8 +331,8 @@ options 的声明与类型检查。
 这是最推荐的方式。NixOS 系统中的模块都是这样实现的，在 <https://search.nixos.org/options>
 中搜索 `enable` 能看到非常多的可通过 `enable` option 启用或关闭的系统模块。
 
-具体的写法已经在前面的 [基本结构与用法](#basic-structure-and-usage) 中介绍过了，这里不再赘
-述。
+具体的写法已经在前面的 [基本结构与用法](#basic-structure-and-usage)
+中介绍过了，这里不再赘述。
 
 它的缺点是，所有需要条件导入的 Nix 模块都要做改造，把其中的配置声明全部移到
 `config = { ...};` 代码块中，代码复杂度会增加，同时也对新手不太友好。
@@ -391,8 +386,8 @@ options 的声明与类型检查。
 [ "foo" ]
 ```
 
-这里需要注意的一点是，**不能在 `imports =[ ... ];` 中使用由 `_module.args` 传递的参数**，
-我们在前面
+这里需要注意的一点是，**不能在 `imports =[ ... ];` 中使用由 `_module.args`
+传递的参数**，我们在前面
 [传递非默认参数到模块系统中 ](../nixos-with-flakes/nixos-flake-and-module-system#pass-non-default-parameters-to-submodules)
 一章中已经做过详细说明。
 

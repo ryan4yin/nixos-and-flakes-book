@@ -2,27 +2,23 @@
 
 ## 简介
 
-Nix 二进制缓存是 Nix Store 的一个实现，它不把数据存储在本地，而是存储在远程服务器上，方便
-二进制缓存的多机共享。
+Nix 二进制缓存是 Nix
+Store 的一个实现，它不把数据存储在本地，而是存储在远程服务器上，方便二进制缓存的多机共享。
 
-Nix 官方的二进制缓存服务器只提供了使用标准参数构建的二进制缓存。如果你自定义了构建参数，或
-者你使用了 Nixpkgs 之外的软件包，那就会导致 Nix 找不到对应的二进制缓存，从而执行本地构建流
-程。
+Nix 官方的二进制缓存服务器只提供了使用标准参数构建的二进制缓存。如果你自定义了构建参数，或者你使用了 Nixpkgs 之外的软件包，那就会导致 Nix 找不到对应的二进制缓存，从而执行本地构建流程。
 
-单纯依赖你本地的 Nix Store `/nix/store` 有时候会变得很痛苦，因为你需要在每台机器上重新构建
-所有你自定义的这些软件包，这可能需要相当长的时间，而且构建过程可能会消耗大量内存。如果是在
-Raspberry Pi 等性能较低的平台上使用 Nix，这种情况会变得更加糟糕。
+单纯依赖你本地的 Nix Store `/nix/store`
+有时候会变得很痛苦，因为你需要在每台机器上重新构建所有你自定义的这些软件包，这可能需要相当长的时间，而且构建过程可能会消耗大量内存。如果是在 Raspberry
+Pi 等性能较低的平台上使用 Nix，这种情况会变得更加糟糕。
 
-本文档将介绍如何使用 S3 服务（如 MinIO）搭建你自己的 Nix 二进制缓存服务器，以便在多台机器
-之间共享构建结果，从而解决上述问题。
+本文档将介绍如何使用 S3 服务（如 MinIO）搭建你自己的 Nix 二进制缓存服务器，以便在多台机器之间共享构建结果，从而解决上述问题。
 
 ## 准备工作
 
 1. 一台 NixOS 主机
 1. 部署好 MinIO 服务器
-   1. 如果没有，您可以参考 MinIO
-      的[官方部署指南](https://min.io/docs/minio/linux/operations/installation.html) 进行
-      部署。
+   1. 如果没有，您可以参考 MinIO 的[官方部署指南](https://min.io/docs/minio/linux/operations/installation.html)
+      进行部署。
 1. MinIO 服务器需要具备有效的 TLS 数字证书，可以是公共证书也可以是私有证书。本文将使用
    `https://minio.homelab.local` 加上私有证书作为示例。
 1. 安装好 `minio-client`
@@ -65,8 +61,8 @@ nix run nixpkgs#pwgen -- -c -n -y -s -B 32 1
 }
 ```
 
-Nix 将直接与 S3 存储桶交互，因此我们都需要给所有需要访问 Nix 二进制缓存的机器配置好对应的
-S3 凭据。创建 `~/.aws/credentials`，内容如下（请注意用前面 `pwgen` 命令生成的密码替换
+Nix 将直接与 S3 存储桶交互，因此我们都需要给所有需要访问 Nix 二进制缓存的机器配置好对应的 S3 凭据。创建
+`~/.aws/credentials`，内容如下（请注意用前面 `pwgen` 命令生成的密码替换
 `<nixbuildersecret>`）。
 
 ```conf
@@ -127,15 +123,14 @@ mc admin policy add s3 nix-cache-write nix-cache-write.json
 mc admin policy set s3 nix-cache-write user=nixbuilder
 ```
 
-再允许匿名用户在不进行身份验证的情况下下载文件，这样所有 Nix 服务器就都能直接从这个 S3 缓
-存拉数据了：
+再允许匿名用户在不进行身份验证的情况下下载文件，这样所有 Nix 服务器就都能直接从这个 S3 缓存拉数据了：
 
 ```bash
 mc anonymous set download s3/nix-cache
 ```
 
-最后，添加 `nix-cache-info` 文件到 S3 桶根目录中，Nix 需要这个文件记录一些二进制缓存相关的
-信息：
+最后，添加 `nix-cache-info`
+文件到 S3 桶根目录中，Nix 需要这个文件记录一些二进制缓存相关的信息：
 
 ```bash
 cat > nix-cache-info <<EOF
@@ -150,11 +145,9 @@ mc cp ./nix-cache-info s3/nix-cache/nix-cache-info
 
 ## 生成签名密钥对
 
-前面介绍了，Nix 二进制缓存使用公钥签名机制校验数据的数据来源与完整性，因此我们还需要为我们
-的 Nix 构建机生成一个密钥对用于二进制缓存的签名验证。
+前面介绍了，Nix 二进制缓存使用公钥签名机制校验数据的数据来源与完整性，因此我们还需要为我们的 Nix 构建机生成一个密钥对用于二进制缓存的签名验证。
 
-密钥名称是任意的，但 NixOS 开发人员强烈建议使用缓存的域名后跟一个整数，这样如果密钥需要撤
-销或重新生成，就可以递增末尾的整数。
+密钥名称是任意的，但 NixOS 开发人员强烈建议使用缓存的域名后跟一个整数，这样如果密钥需要撤销或重新生成，就可以递增末尾的整数。
 
 ```bash
 nix key generate-secret --key-name s3.homelab.local-1 > ~/.config/nix/secret.key

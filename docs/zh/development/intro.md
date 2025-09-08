@@ -1,16 +1,14 @@
 # 在 NixOS 上进行开发工作
 
-由于 NixOS 自身可复现的特性，它非常适合用于搭建开发环境。但是如果你想直接将在其他发行版上
-的环境搭建经验用在 NixOS 上，可能会遇到许多问题，因为 NixOS 有自己的一套逻辑在，下面我们先
-对此稍作说明。
+由于 NixOS 自身可复现的特性，它非常适合用于搭建开发环境。但是如果你想直接将在其他发行版上的环境搭建经验用在 NixOS 上，可能会遇到许多问题，因为 NixOS 有自己的一套逻辑在，下面我们先对此稍作说明。
 
-在本章中我们先学习一下 Nix Flakes 开发环境的实现原理，后面的章节再按使用场景介绍一些更具体
-的内容。
+在本章中我们先学习一下 Nix
+Flakes 开发环境的实现原理，后面的章节再按使用场景介绍一些更具体的内容。
 
 ## 通过 `nix shell` 创建开发环境
 
-在 NixOS 上，最简单的创建开发环境的方法是使用 `nix shell`，它会创建一个含有指定 Nix 包的
-shell 环境。
+在 NixOS 上，最简单的创建开发环境的方法是使用
+`nix shell`，它会创建一个含有指定 Nix 包的 shell 环境。
 
 示例：
 
@@ -51,8 +49,7 @@ Hello, world!
 
 为了更好的使用上述两个功能，我们先来看看它们的原理。
 
-[`pkgs.mkShell` 的源码](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/build-support/mkshell/default.nix)如
-下：
+[`pkgs.mkShell` 的源码](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/build-support/mkshell/default.nix)如下：
 
 ```nix
 { lib, stdenv, buildEnv }:
@@ -147,8 +144,8 @@ stdenv.mkDerivation ({
 ```
 
 建个空文件夹，将上面的配置保存为 `flake.nix`，然后执行 `nix develop`（或者更精确点，可以用
-`nix develop .#default`），首先会打印出当前 nodejs 的版本，之后 `node` `pnpm` `yarn` 等命
-令就都能正常使用了。
+`nix develop .#default`），首先会打印出当前 nodejs 的版本，之后 `node` `pnpm` `yarn`
+等命令就都能正常使用了。
 
 ## 在开发环境中使用 zsh/fish 等其他 shell
 
@@ -199,11 +196,12 @@ stdenv.mkDerivation ({
 
 `pkgs.mkShell` 创建的 derivation 不能直接使用，必须通过 `nix develop` 进入到该环境中。
 
-实际上我们也可以通过 `pkgs.stdenv.mkDerivation` 来创建一个包含所需软件包的 shell wrapper,
-这样就能直接通过执行运行该 wrapper 来进入到该环境中。
+实际上我们也可以通过 `pkgs.stdenv.mkDerivation` 来创建一个包含所需软件包的 shell
+wrapper, 这样就能直接通过执行运行该 wrapper 来进入到该环境中。
 
-直接使用 `mkDerivation` 略显繁琐，Nixpkgs 提供了一些更简单的函数来帮助我们创建这类
-wrapper，比如 `pkgs.runCommand`.
+直接使用 `mkDerivation`
+略显繁琐，Nixpkgs 提供了一些更简单的函数来帮助我们创建这类 wrapper，比如
+`pkgs.runCommand`.
 
 示例：
 
@@ -246,8 +244,9 @@ wrapper，比如 `pkgs.runCommand`.
 然后执行 `nix run .#dev` 或者 `nix shell .#dev --command 'dev-shell'`，就能进入一个nushell
 session，可以在其中正常使用 `node` `pnpm` 命令.
 
-这种方式生成的 wrapper 是一个可执行文件，它实际不依赖 `nix run` 命令，比如说我们可以直接通
-过 NixOS 的 `environment.systemPackages` 来安装这个 wrapper，然后直接执行它：
+这种方式生成的 wrapper 是一个可执行文件，它实际不依赖 `nix run`
+命令，比如说我们可以直接通过 NixOS 的 `environment.systemPackages`
+来安装这个 wrapper，然后直接执行它：
 
 ```nix
 {pkgs, lib, ...}:{
@@ -274,9 +273,9 @@ session，可以在其中正常使用 `node` `pnpm` 命令.
 }
 ```
 
-将上述配置添加到任一 NixOS Module 中，再通过 `sudo nixos-rebuild switch` 部署后，就能直接
-通过 `dev-shell` 命令进入到该开发环境，这就是 `pkgs.runCommand` 相比 `pkgs.mkShell` 的特别
-之处。
+将上述配置添加到任一 NixOS Module 中，再通过 `sudo nixos-rebuild switch`
+部署后，就能直接通过 `dev-shell` 命令进入到该开发环境，这就是 `pkgs.runCommand` 相比
+`pkgs.mkShell` 的特别之处。
 
 相关源代码：
 
@@ -296,8 +295,9 @@ Synopsis
 # ......
 ```
 
-可以看到 `nix develop` 接受的参数是 `installable`，这说明我们可以通过它进入任何一个
-installable 的 Nix 包的开发环境，而不仅仅是 `pkgs.mkShell` 创建的环境。
+可以看到 `nix develop` 接受的参数是
+`installable`，这说明我们可以通过它进入任何一个 installable 的 Nix 包的开发环境，而不仅仅是
+`pkgs.mkShell` 创建的环境。
 
 默认情况下，`nix develop` 命令会尝试 flake outputs 中的如下属性：
 
@@ -353,8 +353,7 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 此外我们还可以正常调用 `hello` 这个 Nix 包的各构建阶段命令：
 
-> 提前说明下，一个 Nix 包的所有构建阶段及其默认的执行顺序
-> 为：`$prePhases unpackPhase patchPhase $preConfigurePhases configurePhase $preBuildPhases buildPhase checkPhase $preInstallPhases installPhase fixupPhase installCheckPhase $preDistPhases distPhase $postPhases`
+> 提前说明下，一个 Nix 包的所有构建阶段及其默认的执行顺序为：`$prePhases unpackPhase patchPhase $preConfigurePhases configurePhase $preBuildPhases buildPhase checkPhase $preInstallPhases installPhase fixupPhase installCheckPhase $preDistPhases distPhase $postPhases`
 
 ```shell
 # 解压源码包
@@ -412,13 +411,12 @@ ryan in 🌐 aquamarine in /tmp/xxx/hello-2.12.1 via C v12.3.0-gcc via ❄️  i
 Hello, world!
 ```
 
-这种用法的主要应用场景是调试某个 Nix 包的构建过程，或者在某个 Nix 包的构建环境中执行一些命
-令。
+这种用法的主要应用场景是调试某个 Nix 包的构建过程，或者在某个 Nix 包的构建环境中执行一些命令。
 
 ## `nix build`
 
-`nix build` 用于构建一个软件包，并在当前目录下创建一个名为 `result` 的符号链接，链接到该构
-建结果。
+`nix build` 用于构建一个软件包，并在当前目录下创建一个名为 `result`
+的符号链接，链接到该构建结果。
 
 一个示例：
 
@@ -455,19 +453,19 @@ nix build "nixpkgs#ponysay"
 
 ## 使用 `nix profile` 分别管理日常娱乐环境跟开发环境
 
-`nix profile` 是 NixOS 中用于管理用户环境的工具，它可以用于创建管理多个用户环境，并在需要
-时切换到不同的环境。
+`nix profile`
+是 NixOS 中用于管理用户环境的工具，它可以用于创建管理多个用户环境，并在需要时切换到不同的环境。
 
-与 `nix develop` 不同，`nix profile` 管理的是用户级别的系统环境，而不是临时创建的一个
-shell 环境，因此它对 Jetbrains IDE / VSCode 等 IDE 的兼容性会好很多，不会出现无法在 IDE 内
-使用我们配置好的开发环境的情况。
+与 `nix develop` 不同，`nix profile`
+管理的是用户级别的系统环境，而不是临时创建的一个 shell 环境，因此它对 Jetbrains IDE /
+VSCode 等 IDE 的兼容性会好很多，不会出现无法在 IDE 内使用我们配置好的开发环境的情况。
 
 TODO 未完待续
 
 ## 其他命令
 
-其他还有些 `nix flake init` 之类的命令，请自行查阅 [New Nix Commands][New Nix Commands] 学
-习研究，这里就不详细介绍了。
+其他还有些 `nix flake init` 之类的命令，请自行查阅 [New Nix Commands][New Nix Commands]
+学习研究，这里就不详细介绍了。
 
 ## References
 

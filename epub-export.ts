@@ -15,71 +15,80 @@ const sidebar: {
  * Also map shell/console → bash. If no lang, keep plain ``` only.
  */
 function normalizeFenceOpeners(md: string): string {
-  return md.split(/(```[\s\S]*?```)/g).map(block => {
-    if (!block.startsWith("```")) return block
+  return md
+    .split(/(```[\s\S]*?```)/g)
+    .map((block) => {
+      if (!block.startsWith("```")) return block
 
-    const lines = block.split("\n")
-    const opener = lines[0]
-    const m = opener.match(/^```([^\n]*)$/)
-    if (!m) return block
+      const lines = block.split("\n")
+      const opener = lines[0]
+      const m = opener.match(/^```([^\n]*)$/)
+      if (!m) return block
 
-    let info = m[1].trim()
+      let info = m[1].trim()
 
-    // Attribute form: ```{.nix ...} → extract first class as lang
-    if (info.startsWith("{")) {
-      const mm = info.match(/\.([a-zA-Z0-9_-]+)/)
-      const lang = mm ? mm[1] : ""
-      const mapped = (lang === "shell" || lang === "console") ? "bash" : lang
-      lines[0] = "```" + (mapped || "")
+      // Attribute form: ```{.nix ...} → extract first class as lang
+      if (info.startsWith("{")) {
+        const mm = info.match(/\.([a-zA-Z0-9_-]+)/)
+        const lang = mm ? mm[1] : ""
+        const mapped = lang === "shell" || lang === "console" ? "bash" : lang
+        lines[0] = "```" + (mapped || "")
+        return lines.join("\n")
+      }
+
+      // Info-string form: ```lang{...} or ```lang
+      const mm = info.match(/^([a-zA-Z0-9_-]+)(\{[^}]*\})?$/) // ignore tail
+      if (!mm) {
+        // unknown → leave as-is
+        lines[0] = "```" + info
+        return lines.join("\n")
+      }
+
+      let lang = mm[1]
+      if (lang === "shell" || lang === "console") lang = "bash"
+
+      lines[0] = "```" + (lang || "")
       return lines.join("\n")
-    }
-
-    // Info-string form: ```lang{...} or ```lang
-    const mm = info.match(/^([a-zA-Z0-9_-]+)(\{[^}]*\})?$/) // ignore tail
-    if (!mm) {
-      // unknown → leave as-is
-      lines[0] = "```" + info
-      return lines.join("\n")
-    }
-
-    let lang = mm[1]
-    if (lang === "shell" || lang === "console") lang = "bash"
-
-    lines[0] = "```" + (lang || "")
-    return lines.join("\n")
-  }).join("")
+    })
+    .join("")
 }
 
 /** Add left-gutter line numbers as literal text (e.g., " 1 | …") inside fenced blocks. */
 function addLineNumbersToFences(md: string): string {
-  return md.split(/(```[\s\S]*?```)/g).map(block => {
-    if (!block.startsWith("```")) return block
+  return md
+    .split(/(```[\s\S]*?```)/g)
+    .map((block) => {
+      if (!block.startsWith("```")) return block
 
-    const lines = block.split("\n")
-    // find closing fence
-    let closeIdx = lines.length - 1
-    while (closeIdx > 0 && !lines[closeIdx].startsWith("```")) closeIdx--
+      const lines = block.split("\n")
+      // find closing fence
+      let closeIdx = lines.length - 1
+      while (closeIdx > 0 && !lines[closeIdx].startsWith("```")) closeIdx--
 
-    const opener = lines[0]
-    const body = lines.slice(1, closeIdx)
-    const width = Math.max(1, String(body.length).length)
+      const opener = lines[0]
+      const body = lines.slice(1, closeIdx)
+      const width = Math.max(1, String(body.length).length)
 
-    const numbered = body.map((l, i) => `${String(i + 1).padStart(width, " ")} | ${l}`)
-    const tail = lines.slice(closeIdx) // includes closing fence
-    return [opener, ...numbered, ...tail].join("\n")
-  }).join("")
+      const numbered = body.map((l, i) => `${String(i + 1).padStart(width, " ")} | ${l}`)
+      const tail = lines.slice(closeIdx) // includes closing fence
+      return [opener, ...numbered, ...tail].join("\n")
+    })
+    .join("")
 }
 
 /** Apply XHTML + path fixes only outside fenced code blocks. */
 function sanitizeOutsideCode(md: string): string {
-  return md.split(/(```[\s\S]*?```)/g).map(part => {
-    if (part.startsWith("```")) return part
-    return part
-      .replace(/<br\s*>/g, "<br />")
-      .replace(/<img([^>]*?)(?<!\/)>/g, "<img$1 />")
-      .replace(/!\[([^\]]*)\]\(\/([^)]*)\)/g, "![$1]($2)")     // MD images /foo → foo
-      .replace(/src="\/([^"]+)"/g, 'src="$1"')                  // HTML <img src="/foo"> → "foo"
-  }).join("")
+  return md
+    .split(/(```[\s\S]*?```)/g)
+    .map((part) => {
+      if (part.startsWith("```")) return part
+      return part
+        .replace(/<br\s*>/g, "<br />")
+        .replace(/<img([^>]*?)(?<!\/)>/g, "<img$1 />")
+        .replace(/!\[([^\]]*)\]\(\/([^)]*)\)/g, "![$1]($2)") // MD images /foo → foo
+        .replace(/src="\/([^"]+)"/g, 'src="$1"') // HTML <img src="/foo"> → "foo"
+    })
+    .join("")
 }
 
 // -------- setup .temp --------
@@ -106,7 +115,6 @@ console.log("Files to include:", fileList)
 
 // --- Copy and patch Markdown files into .temp ---
 for (const relFile of fileList) {
-
   const srcPath = path.join("docs", relFile)
   const dstPath = path.join(tempDir, relFile)
 
@@ -134,9 +142,8 @@ pre { line-height: 1.2 !important; margin: 0 !important; }       /* tighten & re
 pre code { display: block; padding: 0; margin: 0; }
 pre, code { font-variant-ligatures: none; }                      /* avoid odd ligature spacing */
 pre > code.sourceCode { white-space: pre; }                      /* don’t pre-wrap lines */
-`;
-fs.writeFileSync(path.join(tempDir, "epub-fixes.css"), css);
-
+`
+fs.writeFileSync(path.join(tempDir, "epub-fixes.css"), css)
 
 // --- Run Pandoc ---
 const outputFileName = "../nixos-and-flakes-book.epub"

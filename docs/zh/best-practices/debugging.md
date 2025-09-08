@@ -18,8 +18,8 @@ sudo nixos-rebuild switch --flake .#myhost --show-trace -L -v
 > 注：如果你禁用了 `NIX_PATH`，那么 `<nixpkgs>` 这样的语法将无法使用，你需要改用
 > `nix repl -f flake:nixpkgs` 来加载 nixpkgs。
 
-前面我们已经使用 `nix repl '<nixpkgs>'` 看过很多次源码了，这是一个非常强大的工具，可以帮助
-我们理解 Nix 的工作原理。
+前面我们已经使用 `nix repl '<nixpkgs>'`
+看过很多次源码了，这是一个非常强大的工具，可以帮助我们理解 Nix 的工作原理。
 
 要学会用 `nix repl`，最好先看看它的 help 信息：
 
@@ -155,8 +155,8 @@ outputs.nixosConfigurations.ai.config.home-manager.users.ryan.home.file..config/
 #......
 ```
 
-能看到，通过 `nix repl` 加载好我的 flake 配置后，就能很方便地检查所有的配置项了，这对于调
-试非常有用。
+能看到，通过 `nix repl`
+加载好我的 flake 配置后，就能很方便地检查所有的配置项了，这对于调试非常有用。
 
 ## 使用 nixpkgs 中提供的调试函数
 

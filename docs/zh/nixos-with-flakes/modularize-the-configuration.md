@@ -13,39 +13,38 @@ $ tree
 
 下面分别说明下这四个文件的功能：
 
-- `flake.lock`: 自动生成的版本锁文件，它记录了整个 flake 所有输入的数据源、hash 值、版本
-  号，确保系统可复现。
+- `flake.lock`: 自动生成的版本锁文件，它记录了整个 flake 所有输入的数据源、hash 值、版本号，确保系统可复现。
 - `flake.nix`: flake 的入口文件，执行 `sudo nixos-rebuild switch` 时会识别并部署它。
-- `configuration.nix`: 在 flake.nix 中被作为系统模块导入，目前所有系统级别的配置都写在此文
-  件中。
+- `configuration.nix`: 在 flake.nix 中被作为系统模块导入，目前所有系统级别的配置都写在此文件中。
   - 此配置文件中的所有配置项，参见官方文档
     [Configuration - NixOS Manual](https://nixos.org/manual/nixos/unstable/index.html#ch-configuration)
-- `home.nix`: 在 flake.nix 中被 home-manager 作为 ryan 用户的配置导入，也就是说它包含了
-  ryan 这个用户的所有 Home Manager 配置，负责管理其 Home 文件夹。
+- `home.nix`: 在 flake.nix 中被 home-manager 作为 ryan 用户的配置导入，也就是说它包含了 ryan 这个用户的所有 Home
+  Manager 配置，负责管理其 Home 文件夹。
   - 此配置文件的所有配置项，参见
     [Appendix A. Configuration Options - Home Manager](https://nix-community.github.io/home-manager/options.xhtml)
 
-通过修改上面几个配置文件就可以实现对系统与 Home 目录状态的修改。但是随着配置的增多，单纯依
-靠 `configuration.nix` 跟 `home.nix` 会导致配置文件臃肿，难以维护。更好的解决方案是通过
-Nix 的模块机制，将配置文件拆分成多个模块，分门别类地编写维护。
+通过修改上面几个配置文件就可以实现对系统与 Home 目录状态的修改。但是随着配置的增多，单纯依靠
+`configuration.nix` 跟 `home.nix`
+会导致配置文件臃肿，难以维护。更好的解决方案是通过 Nix 的模块机制，将配置文件拆分成多个模块，分门别类地编写维护。
 
-Nix 语言提供了一个 [`import` 函数](https://nix.dev/tutorials/nix-language.html#import)，它有一条特殊规则：
+Nix 语言提供了一个
+[`import` 函数](https://nix.dev/tutorials/nix-language.html#import)，它有一条特殊规则：
 
 > `import` 的参数如果为文件夹路径，那么会返回该文件夹下的 `default.nix` 文件的执行结果
 
-Nixpkgs 模块系统提供了一个与之类似的 `imports` 参数，它可以接受一个 `.nix` 文件列表，并将
-该列表中的所有配置**合并**（Merge）到当前的 attribute set 中。
+Nixpkgs 模块系统提供了一个与之类似的 `imports` 参数，它可以接受一个 `.nix`
+文件列表，并将该列表中的所有配置**合并**（Merge）到当前的 attribute set 中。
 
-注意这里的用词是「**合并**」，它表明 `imports` 如果遇到重复的配置项，不会简单地按执行顺序互相
-覆盖，而是更合理地处理。比如说我在多个 modules 中都定义了 `program.packages = [...]`，那么
-`imports` 会将所有 modules 中的 `program.packages` 这个 list 合并。不仅 list 能被正确合
-并，attribute set 也能被正确合并，具体行为各位看官可以自行探索。
+注意这里的用词是「**合并**」，它表明 `imports`
+如果遇到重复的配置项，不会简单地按执行顺序互相覆盖，而是更合理地处理。比如说我在多个 modules 中都定义了
+`program.packages = [...]`，那么 `imports` 会将所有 modules 中的 `program.packages`
+这个 list 合并。不仅 list 能被正确合并，attribute
+set 也能被正确合并，具体行为各位看官可以自行探索。
 
 > 我只在
 > [nixpkgs-unstable 官方手册 - evalModules parameters](https://nixos.org/manual/nixpkgs/unstable/#module-system-lib-evalModules-parameters)
-> 中找到一句关于 `imports` 的描
-> 述：`A list of modules. These are merged together to form the final configuration.`，可
-> 以意会一下...（Nix 的文档真的一言难尽...这么核心的参数文档就这么一句...）
+> 中找到一句关于 `imports`
+> 的描述：`A list of modules. These are merged together to form the final configuration.`，可以意会一下...（Nix 的文档真的一言难尽...这么核心的参数文档就这么一句...）
 
 我们可以借助 `imports` 参数，将 `home.nix` 与 `configuration.nix` 拆分成多个 `.nix` 文件。
 
@@ -109,16 +108,17 @@ Nixpkgs 模块系统提供了一个与之类似的 `imports` 参数，它可以�
 └── wallpaper.jpg    # 桌面壁纸，在 i3wm 配置中被引用
 ```
 
-Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，摸索出适合你自己的目录结构。其中
-关键点就是通过 `imports` 参数导入其他 `.nix` 文件。
+Nix
+Flakes 对目录结构没有任何要求，你可以参考上面的例子，摸索出适合你自己的目录结构。其中关键点就是通过
+`imports` 参数导入其他 `.nix` 文件。
 
 ## `lib.mkOverride`, `lib.mkDefault` and `lib.mkForce`
 
-你可能会发现有些人在 Nix 文件中使用 `lib.mkDefault` `lib.mkForce` 来定义值，顾名思
-义，`lib.mkDefault` 和 `lib.mkForce` 用于设置选项的默认值，或者强制设置选项的值。
+你可能会发现有些人在 Nix 文件中使用 `lib.mkDefault` `lib.mkForce`
+来定义值，顾名思义，`lib.mkDefault` 和 `lib.mkForce`
+用于设置选项的默认值，或者强制设置选项的值。
 
-直接这么说可能不太好理解，官方文档也没啥对这几个函数的详细解释，最直接的理解方法，是看源
-码。
+直接这么说可能不太好理解，官方文档也没啥对这几个函数的详细解释，最直接的理解方法，是看源码。
 
 开个新窗口，输入命令 `nix repl -f '<nixpkgs>'` 进入 REPL 解释器，然后输入
 `:e lib.mkDefault`，就可以看到 `lib.mkDefault` 的源码了（不太懂 `:e` 是干啥的？请直接输入
@@ -143,18 +143,17 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
   # ......
 ```
 
-所以 `lib.mkDefault` 就是用于设置选项的默认值，它的优先级是 1000，而 `lib.mkForce` 则用于
-强制设置选项的值，它的优先级是 50。如果你直接设置选项的值，那么它的优先级就是 1000（和
+所以 `lib.mkDefault` 就是用于设置选项的默认值，它的优先级是 1000，而 `lib.mkForce`
+则用于强制设置选项的值，它的优先级是 50。如果你直接设置选项的值，那么它的优先级就是 1000（和
 `lib.mkDefault` 一样）。
 
 `priority` 的值越低，它实际的优先级就越高，所以 `lib.mkForce` 的优先级比 `lib.mkDefault`
 高。而如果你定义了多个优先级相同的值，Nix 会报错说存在参数冲突，需要你手动解决。
 
-这几个函数在模块化 NixOS 配置中非常有用，因为你可以在低层级的模块（base module）中设置默认
-值，然后在高层级的模块（high-level module）中设置优先级更高的值。
+这几个函数在模块化 NixOS 配置中非常有用，因为你可以在低层级的模块（base
+module）中设置默认值，然后在高层级的模块（high-level module）中设置优先级更高的值。
 
-举个例子，我在这里定义了一个默认
-值：<https://github.com/ryan4yin/nix-config/blob/c515ea9/modules/nixos/core-server.nix#L32>
+举个例子，我在这里定义了一个默认值：<https://github.com/ryan4yin/nix-config/blob/c515ea9/modules/nixos/core-server.nix#L32>
 
 ```nix{6}
 { lib, pkgs, ... }:
@@ -192,14 +191,12 @@ Nix Flakes 对目录结构没有任何要求，你可以参考上面的例子，
 `lib.mkBefore` 跟 `lib.mkAfter` 用于设置**列表类型**的合并顺序，它们跟 `lib.mkDefault` 和
 `lib.mkForce` 一样，也被用于模块化配置。
 
-> 列表类型的定义我没找到官方文档，但我简单理解，应该就是合并结果与合并先后顺序有关的类型。
-> 按这个理解，list 跟 string 类型都是列表类型，实际测试这几个函数也确实能用在这两个类型
-> 上。
+> 列表类型的定义我没找到官方文档，但我简单理解，应该就是合并结果与合并先后顺序有关的类型。按这个理解，list 跟 string 类型都是列表类型，实际测试这几个函数也确实能用在这两个类型上。
 
 前面说了如果你定义了多个优先级相同的值，Nix 会报错说存在参数冲突，需要你手动解决。
 
-但是如果你定义的是**列表类型**的值，Nix 就不会报错了，因为 Nix 会把你定义的多个值合并成一
-个列表，而 `lib.mkBefore` 跟 `lib.mkAfter` 就是用于设置这个列表的合并顺序的。
+但是如果你定义的是**列表类型**的值，Nix 就不会报错了，因为 Nix 会把你定义的多个值合并成一个列表，而
+`lib.mkBefore` 跟 `lib.mkAfter` 就是用于设置这个列表的合并顺序的。
 
 还是先来看看源码，开个终端键入 `nix repl -f '<nixpkgs>'` 进入 REPL 解释器，然后输入
 `:e lib.mkBefore`，就可以看到 `lib.mkBefore` 的源码了（不太懂 `:e` 是干啥的？请直接输入

@@ -182,5 +182,3 @@ source code, and study its implementation.
   https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L122-L184
 [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]:
   https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md?plain=1#L268-L275
-
-

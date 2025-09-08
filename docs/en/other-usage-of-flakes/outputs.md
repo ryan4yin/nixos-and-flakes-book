@@ -78,10 +78,9 @@ Here's an example excerpt from the NixOS Wiki that demonstrates the structure of
 }
 ```
 
-
 ## References
 
 - [Flakes Check - Nix Manual]
 
-[Flakes Check - Nix Manual]: https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check
-
+[Flakes Check - Nix Manual]:
+  https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check

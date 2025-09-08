@@ -40,8 +40,8 @@ in
 
 After modifying the configuration, run `sudo nixos-rebuild switch` (or
 `home-manager switch` if you are using Home Manager standalone) to apply the changes. From
-then on, any modifications you make to `~/nix-config/home/nvim` or `~/nix-config/home/doom` will be
-immediately observed by Neovim/Emacs.
+then on, any modifications you make to `~/nix-config/home/nvim` or
+`~/nix-config/home/doom` will be immediately observed by Neovim/Emacs.
 
 This way, you can manage all your Dotfiles using a single nix-config repository, while
 frequently modified non-Nix configurations can take effect quickly, unaffected by Nix.

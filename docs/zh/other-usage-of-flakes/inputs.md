@@ -1,7 +1,7 @@
 # Flake 的 inputs {#flake-inputs}
 
-`flake.nix` 中的 `inputs` 是一个 attribute set，用来指定当前 Flake 的依赖，inputs 有很多种
-类型，举例如下：
+`flake.nix` 中的 `inputs` 是一个 attribute
+set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如下：
 
 > 详细的例子参见官方文档 [Flakes Check - Nix Manual]
 
@@ -61,9 +61,9 @@
 }
 ```
 
-
 ## 参考
 
 - [Flakes Check - Nix Manual]
 
-[Flakes Check - Nix Manual]: https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check
+[Flakes Check - Nix Manual]:
+  https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check
