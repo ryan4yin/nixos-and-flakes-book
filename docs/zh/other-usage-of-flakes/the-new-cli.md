@@ -2,7 +2,7 @@
 
 在启用了 `nix-command` & `flakes` 功能后，我们就可以使用 Nix 提供的新一代 Nix 命令行工具
 [New Nix Commands][New Nix Commands] 了，这里主要介绍 `nix shell` 与 `nix run` 两个命令，
-其他重要的命令（如 `nix shell` `nix build`）将在「在 NixOS 上进行开发工作」一章中再详细介
+其他重要的命令（如 `nix build` ）将在「在 NixOS 上进行开发工作」一章中再详细介
 绍。
 
 ## `nix shell`
