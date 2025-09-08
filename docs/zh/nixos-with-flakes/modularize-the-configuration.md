@@ -46,7 +46,42 @@ set 也能被正确合并，具体行为各位看官可以自行探索。
 > 中找到一句关于 `imports`
 > 的描述：`A list of modules. These are merged together to form the final configuration.`，可以意会一下...（Nix 的文档真的一言难尽...这么核心的参数文档就这么一句...）
 
-我们可以借助 `imports` 参数，将 `home.nix` 与 `configuration.nix` 拆分成多个 `.nix` 文件。
+借助 `imports`，我们可以把 `home.nix` 和 `configuration.nix` 拆成多个分散在不同 `.nix`
+文件里的 Nix 模块。先来看一个示例模块 `packages.nix`：
+
+```nix
+{
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    (import ./special-fonts-1.nix {inherit config pkgs;}) # (1)
+    ./special-fonts-2.nix # (2)
+  ];
+
+  fontconfig.enable = true;
+}
+```
+
+这个模块在 `imports` 里加载了另外两个模块：`special-fonts-1.nix` 和
+`special-fonts-2.nix`。这两个文件本身也是模块，写法大致如下：
+
+```nix
+{ config, pkgs, ... }: {
+  # Configuration stuff ...
+}
+```
+
+上面两条 import 语句在传入参数这件事上是等价的：
+
+- 语句 `(1)` 把 `special-fonts-1.nix` 里的函数导入并立即调用，显式传入
+  `{ config = config; pkgs = pkgs;}`。返回值（一个 _attribute set_）被放进 `imports`
+  列表。
+
+- 语句 `(2)` 只给出模块路径。Nix 在拼装最终 `config` 时会**自动**加载该文件，并把
+  `packages.nix` 函数头里已有的同名参数自动传进去，效果等同于
+  `import ./special-fonts-2.nix { config = config; pkgs = pkgs; }`。
 
 推荐一个非常好的模块化配置的例子，可以参考一下：
 

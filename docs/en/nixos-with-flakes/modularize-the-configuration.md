@@ -82,7 +82,7 @@ and `special-fonts-2.nix`. Both files are modules themselves and look similar to
 
 ```nix
 { config, pkgs, ...}: {
-    # Configuration stuff ...
+  # Configuration stuff ...
 }
 ```
 
@@ -90,7 +90,7 @@ Both import statements above are equivalent in the parameters they receive:
 
 - Statement `(1)` imports the function in `special-fonts-1.nix` and calls it by passing
   `{config = config; pkgs = pkgs}`. Basically using the return value of the call (another
-  partial configuration [attritbute set]) inside the `imports` list.
+  partial configuration _attribute set_) inside the `imports` list.
 
 - Statement `(2)` defines a path to a module, whose function Nix will load _automatically_
   when assembling the configuration `config`. It will pass all matching arguments from the

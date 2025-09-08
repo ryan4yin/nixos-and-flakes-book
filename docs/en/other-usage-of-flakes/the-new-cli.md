@@ -23,7 +23,7 @@ hello: command not found
 › hello
 Hello, world!
 
-# ponysay is also available
+# cowsay is also available
 › cowsay "Hello, world!"
  _______
 < hello >
