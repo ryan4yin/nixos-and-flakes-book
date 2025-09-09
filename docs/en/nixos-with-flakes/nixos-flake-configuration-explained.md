@@ -137,7 +137,7 @@ From the source code of the Nixpkgs repository, we can see that its flake output
 definition includes the `lib` attribute, and in our example, we use the `lib` attribute's
 `nixosSystem` function to configure our NixOS system:
 
-```nix{8-12}
+```nix{8-13}
 {
   inputs = {
     # NixOS official package source, here using the nixos-25.05 branch
@@ -146,6 +146,7 @@ definition includes the `lib` attribute, and in our example, we use the `lib` at
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      # system = "x86_64-linux";
       modules = [
         ./configuration.nix
       ];
@@ -154,18 +155,14 @@ definition includes the `lib` attribute, and in our example, we use the `lib` at
 }
 ```
 
-
 The attribute set following `nixpkgs.lib.nixosSystem` is the function’s single argument,
-holding all configuration parameters; here we provide only one:
+holding all configuration parameters; here we provide only two:
 
+- `system`: A legacy alias for `nixpkgs.hostPlatform` that specifies the platform the machine runs on.  
+  Because the generated `hardware-configuration.nix` (imported by `configuration.nix`) already defines this value, you can usually omit it here.
 - `modules`: This is a list of modules, where the actual NixOS system configuration is
   defined. The `/etc/nixos/configuration.nix` configuration file itself is a Nixpkgs
   Module, so it can be directly added to the `modules` list for use.
-
-> In some configurations, you might still see the `system` parameter being used, e.g.
-> `system = "x86_64-linux"`. It’s a legacy alias for `nixpkgs.hostPlatform`, but this is
-> already set in the generated `hardware-configuration.nix`, which is imported by
-> `configuration.nix`, so we can safely ignore or remove it.
 
 Understanding these basics is sufficient for beginners. Exploring the
 `nixpkgs.lib.nixosSystem` function in detail requires a grasp of the Nixpkgs module
