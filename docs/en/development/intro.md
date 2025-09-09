@@ -120,19 +120,16 @@ Here is a `flake.nix` that defines a development environment with Node.js 18 ins
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     devShells."${system}".default = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { inherit system; };
     in pkgs.mkShell {
-      # create an environment with nodejs_18, pnpm, and yarn
+      # create an environment with nodejs, pnpm, and yarn
       packages = with pkgs; [
-        nodejs_18
+        nodejs_24
         nodePackages.pnpm
-        (yarn.override { nodejs = nodejs_18; })
+        (yarn.override { nodejs = nodejs_24; })
       ];
 
       shellHook = ''
@@ -164,19 +161,16 @@ Here is an example:
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     devShells."${system}".default = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { inherit system; };
     in pkgs.mkShell {
-      # create an environment with nodejs_18, pnpm, and yarn
+      # create an environment with nodejs_24, pnpm, and yarn
       packages = with pkgs; [
-        nodejs_18
+        nodejs_24
         nodePackages.pnpm
-        (yarn.override { nodejs = nodejs_18; })
+        (yarn.override { nodejs = nodejs_24; })
         nushell
       ];
 
@@ -215,15 +209,12 @@ Example:
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     packages."${system}".dev = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { inherit system; };
       packages = with pkgs; [
-          nodejs_20
+          nodejs_22
           nodePackages.pnpm
           nushell
       ];
@@ -258,7 +249,7 @@ For example, we can directly install this wrapper through NixOS's
     # Install the wrapper into the system
     (let
       packages = with pkgs; [
-          nodejs_20
+          nodejs_22
           nodePackages.pnpm
           nushell
       ];

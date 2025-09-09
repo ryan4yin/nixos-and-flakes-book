@@ -32,15 +32,15 @@ commit or branch:
     ...
   }: {
     nixosConfigurations = {
-      my-nixos = nixpkgs.lib.nixosSystem rec {
+      my-nixos = nixpkgs.lib.nixosSystem {
         # The `specialArgs` parameter passes the
         # non-default nixpkgs instances to other nix modules
-        specialArgs = {
+        specialArgs = let
+          system = "x86_64-linux";
+        in {
           # To use packages from nixpkgs-stable,
           # we configure some parameters for it first
           pkgs-stable = import nixpkgs-stable {
-            # Refer to the `system` parameter from
-            # the outer scope recursively
             inherit system;
             # To use Chrome, we need to allow the
             # installation of non-free software.
@@ -62,6 +62,13 @@ commit or branch:
   };
 }
 ```
+
+> **NOTE**: When using `import nixpkgs { ... }` you must supply either `system` or
+> `localSystem` to specify the target architecture; this differs from defining a NixOS
+> configuration with `nixpkgs.lib.nixosSystem`.  
+> The latter already has `nixpkgs.hostPlatform` set in the generated
+> `hardware-configuration.nix`, whereas a fresh `import nixpkgs { ... }` creates a new
+> instance that does not inherit that value.
 
 In the above example, we have defined multiple nixpkgs inputs: `nixpkgs`,
 `nixpkgs-stable`, and `nixpkgs-fd40cef8d`. Each input corresponds to a different git

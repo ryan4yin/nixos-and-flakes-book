@@ -123,7 +123,7 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `lib` 属性中的 `nixosSystem`
 这个函数来配置我们的 NixOS 系统：
 
-```nix{8-12}
+```nix{8-13}
 {
   inputs = {
     # NixOS 官方软件源，这里使用 nixos-25.05 分支
@@ -132,6 +132,7 @@ outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `
 
   outputs = { self, nixpkgs, ... }@inputs: {
     nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      # system = "x86_64-linux";
       modules = [
         ./configuration.nix
       ];
@@ -141,10 +142,11 @@ outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `
 ```
 
 `nixpkgs.lib.nixosSystem` 后面跟的 attribute
-set 就是该函数的参数，我们这里只设置了两个参数：
+set 就是该函数的参数，里面包含了所有的配置项；我们这里只设定了两个配置项：
 
-1. `system`: 这个很好懂，就是系统架构参数。
-2. `modules`: 它是一个 modules 的列表，NixOS 的实际系统配置都定义在这些 modules 中。
+- `system`：是 `nixpkgs.hostPlatform` 的旧别名，用来指定机器运行的平台。
+  由于生成的 `hardware-configuration.nix`（在 `configuration.nix` 中被 import）已经定义了该值，通常无需在此处重复设置。
+- `modules`: 它是一个 modules 的列表，NixOS 的实际系统配置都定义在这些 modules 中。
 
 `/etc/nixos/configuration.nix` 这个配置文件本身就是一个 Nixpkgs
 Module，因此可以直接将其添加到 `modules` 列表中使用。

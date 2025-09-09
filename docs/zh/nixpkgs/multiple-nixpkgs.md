@@ -23,6 +23,7 @@
 {
   # a simple example
   pkgs-xxx = import nixpkgs {
+    # as we said before, `system` or `localSystem` is required here.
     system = "x86_64-linux";
   };
 

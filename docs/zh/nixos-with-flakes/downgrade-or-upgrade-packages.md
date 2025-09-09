@@ -36,14 +36,15 @@ commit.
     ...
   }: {
     nixosConfigurations = {
-      my-nixos = nixpkgs.lib.nixosSystem rec {
+      my-nixos = nixpkgs.lib.nixosSystem {
         # 核心参数是这个，将非默认的 nixpkgs 数据源传到其他 modules 中
-        specialArgs = {
+        specialArgs = let
+          system = "x86_64-linux";
+        in {
           # 注意每次 import 都会生成一个新的 nixpkgs 实例
           # 这里我们直接在 flake.nix 中创建实例， 再传递到其他子 modules 中使用
           # 这样能有效重用 nixpkgs 实例，避免 nixpkgs 实例泛滥。
           pkgs-stable = import nixpkgs-stable {
-            # 这里递归引用了外部的 system 属性
             inherit system;
             # 为了拉取 chrome 等软件包，
             # 这里我们需要允许安装非自由软件
@@ -65,6 +66,11 @@ commit.
   };
 }
 ```
+
+> **NOTE**：使用 `import nixpkgs { ... }` 时必须显式传入 `system` 或 `localSystem`
+> 来指定系统架构，这一点与用 `nixpkgs.lib.nixosSystem` 定义 NixOS 时不同。  
+> 原因在于后者通常已在 `hardware-configuration.nix` 中通过 `nixpkgs.hostPlatform`
+> 指定了平台，而直接 `import nixpkgs { ... }` 会创建一份全新的实例，并不会自动继承该值。
 
 然后在你对应的 module 中使用该数据源中的包，一个 Home Manager 的子模块示例：
 

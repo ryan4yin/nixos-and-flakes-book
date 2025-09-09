@@ -45,8 +45,9 @@ NixOS 的所有实现代码都存放在
 2. `config`: 包含了当前环境中所有 option 的值，在后面学习模块系统时会大量使用它
 3. `options`: 当前环境中所有 Modules 中定义的所有 options 的集合
 4. `pkgs`: **一个包含所有 nixpkgs 包的集合，它也提供了许多相关的工具函数**
-   - 入门阶段可以认为它的默认值为 `nixpkgs.legacyPackages."${system}"`，可通过
-     `nixpkgs.pkgs` 这个 option 来自定义 `pkgs` 的值
+   - 在入门阶段，你可以暂时把它的默认值理解为 `nixpkgs.legacyPackages.<system>`（其中的
+     `<system>` 就是你本机的架构，例如 `x86_64-linux`）。也可通过 `nixpkgs.pkgs`
+     选项来自定义 `pkgs` 的值。
 5. `modulesPath`: 一个只在 NixOS 中可用的参数，是一个 Path，指向
    [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-25.05/nixos/modules)
    - 它在

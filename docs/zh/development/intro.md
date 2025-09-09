@@ -108,7 +108,7 @@ stdenv.mkDerivation ({
 `buildInputs` 等参数都是可自定义的，而 `shellHook` 则是一个特殊的参数，它会在
 `nix develop` 进入该环境时被执行。
 
-如下是一份 `flake.nix` 文件，它定义了一个 nodejs 18 的开发环境：
+如下是一份 `flake.nix` 文件，它定义了一个 nodejs 24 的开发环境：
 
 ```nix
 {
@@ -120,19 +120,16 @@ stdenv.mkDerivation ({
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     devShells."${system}".default = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { inherit system; };
     in pkgs.mkShell {
-      # create an environment with nodejs-18_x, pnpm, and yarn
+      # create an environment with nodejs, pnpm, and yarn
       packages = with pkgs; [
-        nodejs_18
+        nodejs_24
         nodePackages.pnpm
-        (yarn.override { nodejs = nodejs_18; })
+        (yarn.override { nodejs = nodejs_24; })
       ];
 
       shellHook = ''
@@ -164,19 +161,16 @@ stdenv.mkDerivation ({
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     devShells."${system}".default = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { inherit system; };
     in pkgs.mkShell {
-      # create an environment with nodejs_18, pnpm, and yarn
+      # create an environment with nodejs_24, pnpm, and yarn
       packages = with pkgs; [
-        nodejs_18
+        nodejs_24
         nodePackages.pnpm
-        (yarn.override { nodejs = nodejs_18; })
+        (yarn.override { nodejs = nodejs_24; })
         nushell
       ];
 
@@ -189,7 +183,7 @@ stdenv.mkDerivation ({
 }
 ```
 
-使用上面的 `flake.nix` 配置，`nix develop` 将进入一个 nodejs 18 的开发环境，同时使用
+使用上面的 `flake.nix` 配置，`nix develop` 将进入一个 nodejs 24 的开发环境，同时使用
 `nushell` 作为交互式 shell.
 
 ## 通过 `pkgs.runCommand` 创建开发环境
@@ -215,15 +209,12 @@ wrapper, 这样就能直接通过执行运行该 wrapper 来进入到该环境�
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     packages."${system}".dev = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { inherit system; };
       packages = with pkgs; [
-          nodejs_20
+          nodejs_22
           nodePackages.pnpm
           nushell
       ];
@@ -255,7 +246,7 @@ session，可以在其中正常使用 `node` `pnpm` 命令.
     # 将 dev-shell 安装到系统环境中
     (let
       packages = with pkgs; [
-          nodejs_20
+          nodejs_22
           nodePackages.pnpm
           nushell
       ];
