@@ -120,13 +120,10 @@ stdenv.mkDerivation ({
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     devShells."${system}".default = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { };
     in pkgs.mkShell {
       # create an environment with nodejs-18_x, pnpm, and yarn
       packages = with pkgs; [
@@ -164,13 +161,10 @@ stdenv.mkDerivation ({
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     devShells."${system}".default = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { };
     in pkgs.mkShell {
       # create an environment with nodejs_18, pnpm, and yarn
       packages = with pkgs; [
@@ -215,13 +209,10 @@ wrapper, 这样就能直接通过执行运行该 wrapper 来进入到该环境�
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     packages."${system}".dev = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { };
       packages = with pkgs; [
           nodejs_20
           nodePackages.pnpm

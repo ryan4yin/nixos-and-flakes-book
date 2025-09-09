@@ -141,10 +141,14 @@ outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `
 ```
 
 `nixpkgs.lib.nixosSystem` 后面跟的 attribute
-set 就是该函数的参数，我们这里只设置了两个参数：
+set 就是该函数的参数，里面包含了所有的配置项；我们这里只设定了唯一一个配置项：
 
-1. `system`: 这个很好懂，就是系统架构参数。
-2. `modules`: 它是一个 modules 的列表，NixOS 的实际系统配置都定义在这些 modules 中。
+- `modules`: 它是一个 modules 的列表，NixOS 的实际系统配置都定义在这些 modules 中。
+
+> 在某些配置中，你可能会看到有用到 `system` 这个参数，譬如 `system = "x86_64-linux"`. 它是
+> `nixpkgs.hostPlatform` 的一个旧别名，但这个参数其实已经在生成的
+> `hardware-configuration.nix` 中设置过了，而 `configuration.nix`
+> 会引入该文件，因此我们可以安全地忽略或删除它。
 
 `/etc/nixos/configuration.nix` 这个配置文件本身就是一个 Nixpkgs
 Module，因此可以直接将其添加到 `modules` 列表中使用。

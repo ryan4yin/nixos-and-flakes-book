@@ -154,13 +154,18 @@ definition includes the `lib` attribute, and in our example, we use the `lib` at
 }
 ```
 
-The attribute set following `nixpkgs.lib.nixosSystem` is the function's parameter. We have
-only set two parameters here:
 
-1. `system`: This is straightforward, it's the system architecture parameter.
-2. `modules`: This is a list of modules, where the actual NixOS system configuration is
-   defined. The `/etc/nixos/configuration.nix` configuration file itself is a Nixpkgs
-   Module, so it can be directly added to the `modules` list for use.
+The attribute set following `nixpkgs.lib.nixosSystem` is the function’s single argument,
+holding all configuration parameters; here we provide only one:
+
+- `modules`: This is a list of modules, where the actual NixOS system configuration is
+  defined. The `/etc/nixos/configuration.nix` configuration file itself is a Nixpkgs
+  Module, so it can be directly added to the `modules` list for use.
+
+> In some configurations, you might still see the `system` parameter being used, e.g.
+> `system = "x86_64-linux"`. It’s a legacy alias for `nixpkgs.hostPlatform`, but this is
+> already set in the generated `hardware-configuration.nix`, which is imported by
+> `configuration.nix`, so we can safely ignore or remove it.
 
 Understanding these basics is sufficient for beginners. Exploring the
 `nixpkgs.lib.nixosSystem` function in detail requires a grasp of the Nixpkgs module

@@ -120,13 +120,10 @@ Here is a `flake.nix` that defines a development environment with Node.js 18 ins
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     devShells."${system}".default = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { };
     in pkgs.mkShell {
       # create an environment with nodejs_18, pnpm, and yarn
       packages = with pkgs; [
@@ -164,13 +161,10 @@ Here is an example:
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     devShells."${system}".default = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { };
     in pkgs.mkShell {
       # create an environment with nodejs_18, pnpm, and yarn
       packages = with pkgs; [
@@ -215,13 +209,10 @@ Example:
 
   outputs = { self , nixpkgs ,... }: let
     # system should match the system you are running on
-    # system = "x86_64-linux";
-    system = "x86_64-darwin";
+    system = "x86_64-linux";
   in {
     packages."${system}".dev = let
-      pkgs = import nixpkgs {
-        inherit system;
-      };
+      pkgs = import nixpkgs { };
       packages = with pkgs; [
           nodejs_20
           nodePackages.pnpm
