@@ -75,3 +75,10 @@ NixOS Wiki 中给出的使用案例：
   };
 }
 ```
+
+## References
+
+- [Flakes Check - Nix Manual]
+
+[Flakes Check - Nix Manual]:
+  https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check
