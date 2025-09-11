@@ -33,7 +33,8 @@ jobs:
           nix develop .#default --ignore-environment --command bash -c '
             set -e
             pnpm install
-            pnpm run export-epub
+            pnpm run export-epub -- --lang=en
+            pnpm run export-epub -- --lang=zh
           '
       # # For debugging, upload the pdfs as artifacts
       # - uses: actions/upload-artifact@v3
@@ -58,4 +59,5 @@ jobs:
           body_path: CHANGELOG
           files: |
             nixos-and-flakes-book.pdf
-            nixos-and-flakes-book.epub
+            nixos-and-flakes-book.en.epub
+            nixos-and-flakes-book.zh.epub

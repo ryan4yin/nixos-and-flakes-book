@@ -3,6 +3,21 @@ import fs from "fs"
 import path from "path"
 import { exec } from "child_process"
 
+// Usage: tsx epub-export.ts --lang en
+// You can also set LANG env var (e.g., LANG=zh). Defaults to 'en'.
+const argLang = process.argv.find((a) => a.startsWith("--lang="))?.split("=")[1]
+const envLang = process.env.LANG?.split(".")[0] // LANG like en_US.UTF-8
+let lang =
+  argLang || (envLang && /^[a-zA-Z]{2}$/.test(envLang) ? envLang : undefined) || "en"
+lang = lang.toLowerCase()
+if (!fs.existsSync(path.join("docs", lang))) {
+  console.error(`❌ Language directory not found: docs/${lang}`)
+  process.exit(1)
+}
+console.log(`🌐 Using language: ${lang}`)
+// Map for metadata (Pandoc expects BCP 47). For Simplified Chinese use zh-Hans.
+const metaLang = lang === "zh" ? "zh-Hans" : lang
+
 const sidebar: {
   text: string
   items?: { text: string; link: string }[]
@@ -104,7 +119,7 @@ for (const category of sidebar) {
   if (category.items) {
     for (const item of category.items) {
       if (item.link && item.link.endsWith(".md")) {
-        const filePath = path.join("en", item.link).replace(/\\/g, "/")
+        const filePath = path.join(lang, item.link).replace(/\\/g, "/")
         fileList.push(filePath)
       }
     }
@@ -146,7 +161,7 @@ pre > code.sourceCode { white-space: pre; }                      /* don’t pre-
 fs.writeFileSync(path.join(tempDir, "epub-fixes.css"), css)
 
 // --- Run Pandoc ---
-const outputFileName = "../nixos-and-flakes-book.epub"
+const outputFileName = `../nixos-and-flakes-book.${lang}.epub`
 const pandocCommand = `pandoc ${fileList.join(" ")} \
   -o ${outputFileName} \
   --from=markdown+gfm_auto_identifiers+pipe_tables+raw_html+tex_math_dollars+fenced_code_blocks+fenced_code_attributes \
@@ -159,7 +174,8 @@ const pandocCommand = `pandoc ${fileList.join(" ")} \
   --css=epub-fixes.css \
   --metadata=title:"NixOS and Flakes Book" \
   --metadata=author:"Ryan Yin" \
-  --resource-path=.:../docs/public:en`
+  --metadata=lang:${metaLang} \
+  --resource-path=.:../docs/public:${lang}`
 
 console.log("🚀 Executing pandoc:", pandocCommand)
 
