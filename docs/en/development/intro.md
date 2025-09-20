@@ -108,7 +108,7 @@ stdenv.mkDerivation ({
 and other parameters are customizable, and `shellHook` is a special parameter that will be
 executed when `nix develop` enters the environment.
 
-Here is a `flake.nix` that defines a development environment with Node.js 18 installed:
+Here is a `flake.nix` that defines a development environment with Node.js 24 installed:
 
 ```nix
 {
@@ -234,7 +234,7 @@ Example:
 
 Then execute `nix run .#dev` or `nix shell .#dev --command 'dev-shell'`, you will enter a
 nushell session, where you can use the `node` `pnpm` command normally, and the node
-version is 20.
+version is 22.
 
 The wrapper generated in this way is an executable file, which does not actually depend on
 the `nix run` or `nix shell` command.
