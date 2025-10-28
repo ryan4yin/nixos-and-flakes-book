@@ -86,7 +86,14 @@ and `/nix/store/370s8inz4fc9k9lqk4qzj5vyr60q166w-python3-3.11.6-env/lib/python3.
        For full logs, run 'nix log /nix/store/n3scj3s7v9jsb6y3v0fhndw35a9hdbs6-home-manager-path.drv'.
 ```
 
-解决方法如下：
+出现这种报错的原因是: `lldb` 这个包自带了一个 Python 3.11 的 `six.py`，另外 `python311`
+也引入了带有该文件的 Python 依赖。在将这两个包安装到同一个环境中时，Nix 会尝试把这些 `lib`
+包都链接到同一处，于是这两个包中的 `six.py` 就冲突了。
+
+这是 `lldb` 等部分包打得不够干净导致的问题，理想情况下它不应自带 `six.py`
+这个文件, 应直接引用 NixOS 仓库中的 `six` 包。
+
+彻底解决问题需要修改 `lldb` 的打包脚本，而对于普通用户，一个简单的解决方法如下：
 
 1. 将两个包拆分到两个不同的 **profiles** 中。比如说，你可以通过
    `environment.systemPackages` 安装 `lldb`，通过 `home.packages` 安装 `python311`。
