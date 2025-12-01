@@ -26,7 +26,7 @@ set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如
     # 同样是拉取 Git 仓库，但使用 ssh 协议 + 密钥认证，同时使用了 shallow=1 参数避免复制 .git
     ssh-git-example.url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1";
     # 当然也可以直接依赖本地的 git 仓库
-    git-directory-example.url = "git+file:/path/to/repo?shallow=1";
+    git-directory-example.url = "git+file:///path/to/repo?shallow=1";
     # 使用 `dir` 参数指定某个子目录
     nixpkgs.url = "github:foo/bar?dir=shu";
     # 本地文件夹 (如果使用绝对路径，可省略掉前缀 'path:')
