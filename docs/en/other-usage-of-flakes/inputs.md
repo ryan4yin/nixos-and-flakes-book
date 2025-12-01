@@ -29,7 +29,7 @@ of the current flake. There are various types of inputs, as shown in the example
     # to avoid copying the .git directory.
     ssh-git-example.url = "git+ssh://git@github.com/ryan4yin/nix-secrets.git?shallow=1";
     # It's also possible to directly depend on a local Git repository.
-    git-directory-example.url = "git+file:/path/to/repo?shallow=1";
+    git-directory-example.url = "git+file:///path/to/repo?shallow=1";
     # Using the `dir` parameter to specify a subdirectory.
     nixpkgs.url = "github:foo/bar?dir=shu";
     # Local folder (if using an absolute path, the 'path:' prefix can be omitted).
