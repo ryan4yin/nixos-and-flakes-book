@@ -15,9 +15,6 @@ nix flake update home-manager
 
 # 部署新配置（如果你的配置就在默认的 /etc/nixos，可以省略后面的 --flake .）
 sudo nixos-rebuild switch --flake .
-
-# 或者在一条命令中同时更新 flake.lock 并部署新配置（即等同于先运行 "nix flake update"）
-sudo nixos-rebuild switch --recreate-lock-file --flake .
 ```
 
 有时在运行 `nixos-rebuild switch` 时可能会遇到 `sha256 mismatch`
