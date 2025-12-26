@@ -202,7 +202,7 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
     vim
     wget
     # 这里从 helix 这个 inputs 数据源安装了 helix 程序
-    inputs.helix.packages."${pkgs.system}".helix
+    inputs.helix.packages."${pkgs.stdenv.hostPlatform.system}".helix
   ];
   # 省略其他配置......
 }

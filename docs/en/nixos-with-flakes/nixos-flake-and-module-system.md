@@ -218,7 +218,7 @@ Next, you can reference this flake input data source in `configuration.nix`:
     vim
     wget
     # Here, the helix package is installed from the helix input data source
-    inputs.helix.packages."${pkgs.system}".helix
+    inputs.helix.packages."${pkgs.stdenv.hostPlatform.system}".helix
   ];
   # ...
 }
