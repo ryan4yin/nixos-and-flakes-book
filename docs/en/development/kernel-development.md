@@ -9,7 +9,7 @@ An example of kernel development with `flake.nix`.
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
 
     # custom kernel's source
     thead-kernel = {

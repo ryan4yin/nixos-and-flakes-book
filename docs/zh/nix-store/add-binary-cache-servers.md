@@ -120,7 +120,7 @@ Store 中。因此 Nix 对 substituters 的临时设置做出了限制，要想�
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # 省略若干配置...
   };
@@ -200,7 +200,7 @@ Nix 提供了
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # 省略若干配置...
   };

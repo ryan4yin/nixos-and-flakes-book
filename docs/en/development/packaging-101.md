@@ -17,9 +17,9 @@ packaging.
     with hash prefetching, dependency inference, license detection, and more
 - Source Code:
   - [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/build-support/trivial-builders/default.nix#L21-L49)
-  - [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/build-support/setup-hooks/make-wrapper.sh)
+  - [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
   - FHS related
-    - [pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix):
+    - [pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix](https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix):
       `pkgs.buildFHSEnvBubblewrap`
-    - [pkgs/build-support/build-fhsenv-chroot/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix):
+    - [pkgs/build-support/build-fhsenv-chroot/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix):
       `pkgs.buildFHSEnvChroot`

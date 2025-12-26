@@ -4,10 +4,10 @@ In our previous NixOS configurations, we set various values for `options` to con
 NixOS or Home Manager. These `options` are actually defined in two locations:
 
 - NixOS:
-  [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/25.05/nixos/modules),
+  [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/25.11/nixos/modules),
   where all NixOS options visible on <https://search.nixos.org/options> are defined.
 - Home Manager:
-  [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-25.05/modules),
+  [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-25.11/modules),
   where you can find all its options at
   <https://nix-community.github.io/home-manager/options.xhtml>.
 
@@ -218,7 +218,7 @@ Let's start with a simple example:
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -258,7 +258,6 @@ an error: `error: infinite recursion encountered`.
 Let's explain each case:
 
 1. Example 1 evaluation flow: `config.warnings` => `config.foo` => `config`
-
    1. First, Nix attempts to compute the value of `config.warnings` but finds that it
       depends on `config.foo`.
    2. Next, Nix tries to compute the value of `config.foo`, which depends on its outer
@@ -270,7 +269,6 @@ Let's explain each case:
       `config.warnings`, and the computation ends.
 
 2. Example 2: `config` => `config.foo` => `config`
-
    1. Initially, Nix tries to compute the value of `config` but finds that it depends on
       `config.foo`.
    2. Next, Nix attempts to compute the value of `config.foo`, which depends on its outer
@@ -331,7 +329,7 @@ The first thought might be to directly use `imports` in `config = { ... };`, lik
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -395,7 +393,7 @@ Let's look at an example directly:
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -446,12 +444,12 @@ section
 
 [lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L995
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/doc/module-system/module-system.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md
 [Writing NixOS Modules - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/writing-modules.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/writing-modules.chapter.md
 [Option Definitions - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-def.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-def.section.md
 [Option Declarations - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-declarations.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-declarations.section.md
 [Options Types - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-types.section.md

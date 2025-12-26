@@ -70,7 +70,7 @@ pkgsCross.mmix
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -78,7 +78,7 @@ pkgsCross.mmix
       modules = [
         {
           # the platform that performs the build-step
-          nixpkgs.localSystem.system = "x86_64-linux"; 
+          nixpkgs.localSystem.system = "x86_64-linux";
 
           # the platform that will execute the resulting binaries / os image
           # add this to enable cross-compilation.
@@ -121,7 +121,7 @@ Module 即可启用 `aarch64-linux` 与 `riscv64-linux` 两种架构的模拟构
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -203,7 +203,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
   };
 
   outputs = { self, nixpkgs, ... }:
@@ -212,7 +212,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
       modules = [
         {
           # the platform that performs the build-step
-          nixpkgs.localSystem.system = "x86_64-linux"; 
+          nixpkgs.localSystem.system = "x86_64-linux";
 
           # the platform that will execute the resulting binaries / os image
           # add this to enable cross-compilation.
@@ -240,7 +240,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
   };
 
   outputs = { self, nixpkgs, ... }: let
@@ -261,7 +261,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
       };
       modules = [
         {
-          nixpkgs.localSystem.system = "x86_64-linux"; 
+          nixpkgs.localSystem.system = "x86_64-linux";
           nixpkgs.crossSystem.system = "riscv64-linux";
         }
 
