@@ -79,7 +79,7 @@ need to add a Module in `flake.nix`, as shown below:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -87,7 +87,7 @@ need to add a Module in `flake.nix`, as shown below:
       modules = [
         {
           # the platform that performs the build-step
-          nixpkgs.localSystem.system = "x86_64-linux"; 
+          nixpkgs.localSystem.system = "x86_64-linux";
 
           # the platform that will execute the resulting binaries
           # add this to enable cross-compilation.
@@ -134,7 +134,7 @@ cross-compilation, as shown below:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -150,10 +150,10 @@ cross-compilation, as shown below:
 }
 ```
 
-You do not need to add any additional modules, just specify `nixpkgs.hostPlatform` as `riscv64-linux`.
-Nix will automatically detect whether the current system is `riscv64-linux` during the
-build. If not, it will automatically build through the emulated system(QEMU). For users,
-these underlying operations are completely transparent.
+You do not need to add any additional modules, just specify `nixpkgs.hostPlatform` as
+`riscv64-linux`. Nix will automatically detect whether the current system is
+`riscv64-linux` during the build. If not, it will automatically build through the emulated
+system(QEMU). For users, these underlying operations are completely transparent.
 
 ## Linux binfmt_misc
 
@@ -240,7 +240,7 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
   };
 
   outputs = { self, nixpkgs, ... }:
@@ -249,7 +249,7 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
       modules = [
         {
           # the platform that performs the build-step
-          nixpkgs.localSystem.system = "x86_64-linux"; 
+          nixpkgs.localSystem.system = "x86_64-linux";
 
           # the platform that will execute the resulting binaries
           # add this to enable cross-compilation.
@@ -279,7 +279,7 @@ follows:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
   };
 
   outputs = { self, nixpkgs, ... }: let
@@ -300,7 +300,7 @@ follows:
       };
       modules = [
         {
-          nixpkgs.localSystem.system = "x86_64-linux"; 
+          nixpkgs.localSystem.system = "x86_64-linux";
           nixpkgs.crossSystem.system = "riscv64-linux";
         }
 

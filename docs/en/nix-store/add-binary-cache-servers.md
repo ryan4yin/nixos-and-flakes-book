@@ -139,7 +139,7 @@ The second method is to configure `substituters` and `trusted-public-keys` using
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # omitting several configurations...
   };
@@ -226,7 +226,7 @@ In other words, you can use it like this:
   };
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
 
     # omitting several configurations...
   };

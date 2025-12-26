@@ -12,8 +12,8 @@ set，其中定义了这个 flake 的所有依赖项，这些依赖项会在被�
 ```nix{2-5,7}
 {
   inputs = {
-    # NixOS 官方软件源，这里使用 nixos-25.05 分支
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # NixOS 官方软件源，这里使用 nixos-25.11 分支
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -44,8 +44,8 @@ set 即为该 flake 的构建结果：
   description = "A simple NixOS flake";
 
   inputs = {
-    # NixOS 官方软件源，这里使用 nixos-25.05 分支
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # NixOS 官方软件源，这里使用 nixos-25.11 分支
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -126,8 +126,8 @@ outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `
 ```nix{8-13}
 {
   inputs = {
-    # NixOS 官方软件源，这里使用 nixos-25.05 分支
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # NixOS 官方软件源，这里使用 nixos-25.11 分支
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -144,8 +144,9 @@ outputs 定义中有返回 `lib` 这个属性，我们的例子中就使用了 `
 `nixpkgs.lib.nixosSystem` 后面跟的 attribute
 set 就是该函数的参数，里面包含了所有的配置项；我们这里只设定了两个配置项：
 
-- `system`：是 `nixpkgs.hostPlatform` 的旧别名，用来指定机器运行的平台。
-  由于生成的 `hardware-configuration.nix`（在 `configuration.nix` 中被 import）已经定义了该值，通常无需在此处重复设置。
+- `system`：是 `nixpkgs.hostPlatform` 的旧别名，用来指定机器运行的平台。由于生成的
+  `hardware-configuration.nix`（在 `configuration.nix`
+  中被 import）已经定义了该值，通常无需在此处重复设置。
 - `modules`: 它是一个 modules 的列表，NixOS 的实际系统配置都定义在这些 modules 中。
 
 `/etc/nixos/configuration.nix` 这个配置文件本身就是一个 Nixpkgs
@@ -159,11 +160,11 @@ Module，因此可以直接将其添加到 `modules` 列表中使用。
 
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
-[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-25.05/flake.nix
+[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-25.11/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]:
-  https://github.com/NixOS/nixpkgs/tree/nixos-25.05/nixos/lib/eval-config.nix
+  https://github.com/NixOS/nixpkgs/tree/nixos-25.11/nixos/lib/eval-config.nix
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/doc/module-system/module-system.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md
 [nixpkgs/nixos-25.05/lib/modules.nix - _module.args]:
   https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L122-L184
 [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]:

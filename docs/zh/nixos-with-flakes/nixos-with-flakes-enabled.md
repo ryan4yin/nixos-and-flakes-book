@@ -66,8 +66,8 @@ cat flake.nix
   description = "A simple NixOS flake";
 
   inputs = {
-    # NixOS 官方软件源，这里使用 nixos-25.05 分支
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    # NixOS 官方软件源，这里使用 nixos-25.11 分支
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -123,11 +123,11 @@ wrapper，它自身并没有提供任何新的功能，也没有引入任何破�
 
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
-[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-25.05/flake.nix
+[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-25.11/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]:
-  https://github.com/NixOS/nixpkgs/tree/nixos-25.05/nixos/lib/eval-config.nix
+  https://github.com/NixOS/nixpkgs/tree/nixos-25.11/nixos/lib/eval-config.nix
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/doc/module-system/module-system.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md
 [nixpkgs/nixos-25.05/lib/modules.nix - _module.args]:
   https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L122-L184
 [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]:
