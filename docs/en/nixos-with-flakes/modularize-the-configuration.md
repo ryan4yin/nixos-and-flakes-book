@@ -177,13 +177,14 @@ Here's the source code:
 ```nix
   # ......
 
-  mkOverride = priority: content:
-    { _type = "override";
-      inherit priority content;
-    };
+  mkOverride = priority: content: {
+    _type = "override";
+    inherit priority content;
+  };
 
   mkOptionDefault = mkOverride 1500; # priority of option defaults
   mkDefault = mkOverride 1000; # used in config sections of non-user modules to set a default
+  defaultOverridePriority = 100;
   mkImageMediaOverride = mkOverride 60; # image media profiles can be derived by inclusion into host config, hence needing to override host config, but do allow user to mkForce
   mkForce = mkOverride 50;
   mkVMOverride = mkOverride 10; # used by ‘nixos-rebuild build-vm’
@@ -194,7 +195,8 @@ Here's the source code:
 In summary, `lib.mkDefault` is used to set default values of options with a priority of
 1000 internally, and `lib.mkForce` is used to force values of options with a priority of
 50 internally. If you set a value of an option directly, it will be set with a default
-priority of 1000, the same as `lib.mkDefault`.
+priority of 100 (defined by `defaultoverridepriority`), which is higher than
+`lib.mkDefault` so the default value will be overridden.
 
 The lower the `priority` value, the higher the actual priority. As a result, `lib.mkForce`
 has a higher priority than `lib.mkDefault`. If you define multiple values with the same
