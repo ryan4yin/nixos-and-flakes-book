@@ -164,13 +164,14 @@ Flakes 对目录结构没有任何要求，你可以参考上面的例子，摸�
 ```nix
   # ......
 
-  mkOverride = priority: content:
-    { _type = "override";
-      inherit priority content;
-    };
+  mkOverride = priority: content: {
+    _type = "override";
+    inherit priority content;
+  };
 
   mkOptionDefault = mkOverride 1500; # priority of option defaults
   mkDefault = mkOverride 1000; # used in config sections of non-user modules to set a default
+  defaultOverridePriority = 100;
   mkImageMediaOverride = mkOverride 60; # image media profiles can be derived by inclusion into host config, hence needing to override host config, but do allow user to mkForce
   mkForce = mkOverride 50;
   mkVMOverride = mkOverride 10; # used by ‘nixos-rebuild build-vm’
@@ -179,8 +180,9 @@ Flakes 对目录结构没有任何要求，你可以参考上面的例子，摸�
 ```
 
 所以 `lib.mkDefault` 就是用于设置选项的默认值，它的优先级是 1000，而 `lib.mkForce`
-则用于强制设置选项的值，它的优先级是 50。如果你直接设置选项的值，那么它的优先级就是 1000（和
-`lib.mkDefault` 一样）。
+则用于强制设置选项的值，它的优先级是 50。如果你直接设置选项的值，那么它的优先级就是 100（由
+`defaultoverridepriority` 定义），比 `lib.mkDefault`
+的优先级更高，所以会覆盖掉 default 值。
 
 `priority` 的值越低，它实际的优先级就越高，所以 `lib.mkForce` 的优先级比 `lib.mkDefault`
 高。而如果你定义了多个优先级相同的值，Nix 会报错说存在参数冲突，需要你手动解决。
