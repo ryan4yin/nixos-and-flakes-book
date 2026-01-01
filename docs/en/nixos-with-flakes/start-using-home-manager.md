@@ -16,10 +16,13 @@ Here's an example of its contents:
   home.username = "ryan";
   home.homeDirectory = "/home/ryan";
 
-  # link the configuration file in current directory to the specified location in home directory
+  # Import files from the current configuration directory into the Nix store,
+  # and create symbolic links pointing to those store files in the Home directory.
+
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
-  # link all files in `./scripts` to `~/.config/i3/scripts`
+  # Import the scripts directory into the Nix store,
+  # and recursively generate symbolic links in the Home directory pointing to the files in the store.
   # home.file.".config/i3/scripts" = {
   #   source = ./scripts;
   #   recursive = true;   # link recursively
