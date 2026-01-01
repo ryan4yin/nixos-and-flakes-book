@@ -14,10 +14,10 @@ manager 作为 NixOS 模块安装，首先需要创建 `/etc/nixos/home.nix`，�
   home.username = "ryan";
   home.homeDirectory = "/home/ryan";
 
-  # 直接将当前文件夹的配置文件，链接到 Home 目录下的指定位置
+  # 将当前配置目录中的文件导入 Nix store，并在 Home 目录下生成指向该 store 文件的符号链接
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
-  # 递归将某个文件夹中的文件，链接到 Home 目录下的指定位置
+  # 将 scripts 目录导入 Nix store，并在 Home 目录下递归生成指向 store 中的文件的符号链接
   # home.file.".config/i3/scripts" = {
   #   source = ./scripts;
   #   recursive = true;   # 递归整个文件夹
