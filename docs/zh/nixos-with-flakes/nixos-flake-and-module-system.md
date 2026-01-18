@@ -228,8 +228,8 @@ nix run github:helix-editor/helix/master
 
 上面使用 Helix 的官方 Flake 中提供的最新版本就是一个例子，其他更多的用例会在后面提到，这里引用几个后面会讲的例子：
 
-- [Getting Started with Home Manager](./start-using-home-manager.md): 这里引入了社区的 Home-Manager 作为依赖项，从而能直接使用该 Flake 提供的功能。
-- [Downgrading or Upgrading Packages](./downgrade-or-upgrade-packages.md): 这里引入了不同版本的 Nixpkgs 作为依赖项，从而能很灵活地选用不同版本的 Nixpkgs 中的包。
+- [安装使用 Home Manager](./start-using-home-manager.md): 这里引入了社区的 Home-Manager 作为依赖项，从而能直接使用该 Flake 提供的功能。
+- [降级与升级软件包](./downgrade-or-upgrade-packages.md): 这里引入了不同版本的 Nixpkgs 作为依赖项，从而能很灵活地选用不同版本的 Nixpkgs 中的包。
 
 ## 其他 Flakes 学习资料
 
