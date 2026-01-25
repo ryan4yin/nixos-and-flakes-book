@@ -49,7 +49,7 @@ Hello, world!
 
 为了更好的使用上述两个功能，我们先来看看它们的原理。
 
-[`pkgs.mkShell` 的源码](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/build-support/mkshell/default.nix)如下：
+[`pkgs.mkShell`] 的源码如下：
 
 ```nix
 { lib, stdenv, buildEnv }:
@@ -270,8 +270,8 @@ session，可以在其中正常使用 `node` `pnpm` 命令.
 
 相关源代码：
 
-- [pkgs/build-support/trivial-builders/default.nix - runCommand](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/pkgs/build-support/trivial-builders/default.nix#L21-L49)
-- [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/setup-hooks/make-wrapper.sh)
+- [pkgs/build-support/trivial-builders/default.nix - runCommand]
+- [pkgs/build-support/setup-hooks/make-wrapper.sh]
 
 ## 进入任何 Nix 包的构建环境
 
@@ -467,3 +467,6 @@ TODO 未完待续
 - [Shell Scripts - NixOS Wiki](https://wiki.nixos.org/wiki/Shell_Scripts)
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
+[pkgs/build-support/trivial-builders/default.nix - runCommand]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/trivial-builders/default.nix#L25-L54
+[pkgs/build-support/setup-hooks/make-wrapper.sh]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/setup-hooks/make-wrapper.sh
+[`pkgs.mkShell`]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/mkshell/default.nix

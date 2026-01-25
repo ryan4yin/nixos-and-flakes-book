@@ -60,8 +60,7 @@ automatically injected, and declaration-free parameters** provided by the module
      `nixpkgs.pkgs` option.
 5. `modulesPath`: A parameter available only in NixOS, which is a path pointing to
    [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-25.11/nixos/modules).
-   - It is defined in
-     [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/lib/eval-config-minimal.nix#L43).
+   - It is defined in [nixpkgs - modulesPath].
    - It is typically used to import additional NixOS modules and can be found in most
      NixOS auto-generated `hardware-configuration.nix` files.
 
@@ -82,7 +81,7 @@ to understand. If readers are interested, I will include the links here:
    Nixpkgs Manual.
    - Nixpkgs Manual: [Module System - Nixpkgs]
    - NixOS Manual:
-     [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]
+     [nixos manual - specialArgs]
 1. `_module.args`:
    - NixOS Manual:
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
@@ -283,7 +282,8 @@ the following official/semi-official documents:
   https://github.com/NixOS/nixpkgs/tree/nixos-25.11/nixos/lib/eval-config.nix
 [Module System - Nixpkgs]:
   https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md
-[nixpkgs/nixos-25.05/lib/modules.nix - _module.args]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L122-L184
-[nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md?plain=1#L268-L275
+[nixpkgs/nixos-25.11/lib/modules.nix - _module.args]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/lib/modules.nix#L122-L184
+[nixos manual - specialArgs]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-types.section.md?plain=1#L283-L290
+[nixpkgs - modulesPath]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/lib/eval-config-minimal.nix#L42

@@ -43,7 +43,7 @@ stdenv.mkDerivation rec {
 
 除了覆写参数，还可以通过 `overrideAttrs` 来覆写使用 `stdenv.mkDerivation`
 构建的 Derivation 的属性。以
-[pkgs.hello](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/applications/misc/hello/default.nix)
+[pkgs.hello]
 为例，首先通过前述方法查看这个包的源码：
 
 ```nix
@@ -97,3 +97,6 @@ helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
 ## 参考
 
 - [Chapter 4. Overriding - nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable/#chap-overrides)
+
+
+[pkgs.hello]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/applications/misc/hello/default.nix

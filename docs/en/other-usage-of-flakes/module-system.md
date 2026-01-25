@@ -442,7 +442,7 @@ section
 - [Module System - Nixpkgs]
 - [Writing NixOS Modules - Nixpkgs]
 
-[lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L995
+[lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/lib/modules.nix
 [Module System - Nixpkgs]:
   https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md
 [Writing NixOS Modules - Nixpkgs]:
