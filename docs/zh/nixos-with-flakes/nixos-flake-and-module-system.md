@@ -50,9 +50,7 @@ NixOS 的所有实现代码都存放在
      选项来自定义 `pkgs` 的值。
 5. `modulesPath`: 一个只在 NixOS 中可用的参数，是一个 Path，指向
    [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-25.11/nixos/modules)
-   - 它在
-     [nixpkgs/nixos/lib/eval-config-minimal.nix#L43](https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/lib/eval-config-minimal.nix#L43)
-     中被定义
+   - 它在 [nixpkgs - modulesPath] 中被定义
    - 通常被用于导入一些额外的 NixOS 模块，NixOS 自动生成的 `hardware-configuration.nix`
      中基本都能看到它
 
@@ -70,7 +68,7 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 1. `specialArgs`: NixOS Manual 跟 Nixpkgs Manual 中分别有与它有关的只言片语
    - Nixpkgs Manual: [Module System - Nixpkgs]
    - NixOS Manual:
-     [nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]
+     [nixos manual - specialArgs]
 1. `_module.args`:
    - NixOS Manual:
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
@@ -252,7 +250,7 @@ nix run github:helix-editor/helix/master
   https://github.com/NixOS/nixpkgs/tree/nixos-25.11/nixos/lib/eval-config.nix
 [Module System - Nixpkgs]:
   https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md
-[nixpkgs/nixos-25.05/lib/modules.nix - _module.args]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/lib/modules.nix#L122-L184
-[nixpkgs/nixos-25.05/nixos/doc/manual/development/option-types.section.md#L268-L275]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.05/nixos/doc/manual/development/option-types.section.md?plain=1#L268-L275
+[nixpkgs/nixos-25.11/lib/modules.nix - _module.args]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/lib/modules.nix#L122-L184
+[nixos manual - specialArgs]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-types.section.md?plain=1#L283-L290

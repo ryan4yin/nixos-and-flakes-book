@@ -28,7 +28,7 @@ By using these methods, you can discover the input parameters of a package and d
 which ones can be modified using `override`.
 
 For example, let's take a look at the source code of
-[pkgs.hello](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/applications/misc/hello/default.nix):
+[pkgs.hello]:
 
 ```nix
 { callPackage
@@ -84,3 +84,10 @@ by using `nix repl -f '<nixpkgs>'` and entering `:e stdenv.mkDerivation`.
 
 This will open the source code in your default editor. If you're new to using `nix repl`,
 you can type `:?` to see the help information.
+
+
+## References
+
+- [Chapter 4. Overriding - nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable/#chap-overrides)
+
+[pkgs.hello]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/applications/misc/hello/default.nix

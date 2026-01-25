@@ -8,7 +8,7 @@ numerous applications for this technique, some common ones include:
 
 1. Instantiate nixpkgs instances with different commit IDs to install various versions of
    software packages. This approach was used in the previous section
-   [Downgrade or Upgrade Packages](/nixos-with-flakes/downgrade-or-upgrade-packages.md).
+   [Downgrade or Upgrade Packages](../nixos-with-flakes/downgrade-or-upgrade-packages.md).
 
 2. If you wish to utilize overlays without affecting the default nixpkgs instance, you can
    instantiate a new nixpkgs instance and apply overlays to it.
@@ -88,9 +88,9 @@ We have learned in our study of Nix syntax:
 
 `nixpkgs` is a flake with a `default.nix` file in its root directory. So, `import nixpkgs`
 essentially returns the execution result of
-[nixpkgs/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/default.nix).
+[nixpkgs/default.nix].
 Starting from this file, you can find that the implementation of `import nixpkgs` is in
-[pkgs/top-level/impure.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/top-level/impure.nix),
+[pkgs/top-level/impure.nix],
 as excerpted below:
 
 ```nix
@@ -150,3 +150,7 @@ some common issues to consider:
 
 2. When mixing QEMU simulation and cross-compilation, care should be taken to avoid
    unnecessary duplication of package compilations.
+
+
+[nixpkgs/default.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/default.nix
+[pkgs/top-level/impure.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/top-level/impure.nix

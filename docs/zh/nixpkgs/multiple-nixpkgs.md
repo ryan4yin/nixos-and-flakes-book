@@ -76,9 +76,9 @@
 
 `nixpkgs` 是一个 Git 仓库，它的根目录下刚好有一个 `default.nix`
 文件，那么答案就呼之欲出了：`import nixpkgs` 就是返回
-[nixpkgs/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/default.nix)
+[nixpkgs/default.nix]
 文件的执行结果。从这个文件开始探索，就能找到 `import nixpkgs` 的实现代码是
-[pkgs/top-level/impure.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/top-level/impure.nix)，这里截取部分内容：
+[pkgs/top-level/impure.nix]，这里截取部分内容：
 
 ```nix
 # ... skip some lines
@@ -132,3 +132,6 @@ set 就是这个参数的参数。
    都会重新求值并产生一个新的 nixpkgs 实例，在配置越来越多时会导致构建时间变长、内存占用变大。所以这里改为了在
    `flake.nix` 中创建所有 nixpkgs 实例。
 2. 在混合使用 QEMU 模拟编译与交叉编译时，搞得不好可能会导致许多包被重复编译多次，要注意避免这种情况。
+
+[nixpkgs/default.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/default.nix
+[pkgs/top-level/impure.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/top-level/impure.nix
