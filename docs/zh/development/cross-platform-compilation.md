@@ -78,7 +78,7 @@ pkgsCross.mmix
       modules = [
         {
           # the platform that performs the build-step
-          nixpkgs.localSystem.system = "x86_64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux";
 
           # the platform that will execute the resulting binaries / os image
           # add this to enable cross-compilation.
@@ -212,7 +212,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
       modules = [
         {
           # the platform that performs the build-step
-          nixpkgs.localSystem.system = "x86_64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux";
 
           # the platform that will execute the resulting binaries / os image
           # add this to enable cross-compilation.
@@ -261,7 +261,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
       };
       modules = [
         {
-          nixpkgs.localSystem.system = "x86_64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux";
           nixpkgs.crossSystem.system = "riscv64-linux";
         }
 

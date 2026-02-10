@@ -87,7 +87,7 @@ need to add a Module in `flake.nix`, as shown below:
       modules = [
         {
           # the platform that performs the build-step
-          nixpkgs.localSystem.system = "x86_64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux";
 
           # the platform that will execute the resulting binaries
           # add this to enable cross-compilation.
@@ -249,7 +249,7 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
       modules = [
         {
           # the platform that performs the build-step
-          nixpkgs.localSystem.system = "x86_64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux";
 
           # the platform that will execute the resulting binaries
           # add this to enable cross-compilation.
@@ -300,7 +300,7 @@ follows:
       };
       modules = [
         {
-          nixpkgs.localSystem.system = "x86_64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux";
           nixpkgs.crossSystem.system = "riscv64-linux";
         }
 
