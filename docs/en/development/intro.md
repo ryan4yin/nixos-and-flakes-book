@@ -128,7 +128,7 @@ Here is a `flake.nix` that defines a development environment with Node.js 24 ins
       # create an environment with nodejs, pnpm, and yarn
       packages = with pkgs; [
         nodejs_24
-        nodePackages.pnpm
+        pnpm
         (yarn.override { nodejs = nodejs_24; })
       ];
 
