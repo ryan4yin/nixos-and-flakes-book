@@ -99,4 +99,4 @@ helloWithDebug = pkgs.hello.overrideAttrs (finalAttrs: previousAttrs: {
 - [Chapter 4. Overriding - nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable/#chap-overrides)
 
 
-[pkgs.hello]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/applications/misc/hello/default.nix
+[pkgs.hello]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/applications/misc/hello/default.nix

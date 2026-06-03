@@ -115,7 +115,7 @@ stdenv.mkDerivation ({
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
   outputs = { self , nixpkgs ,... }: let
@@ -128,7 +128,7 @@ stdenv.mkDerivation ({
       # create an environment with nodejs, pnpm, and yarn
       packages = with pkgs; [
         nodejs_24
-        nodePackages.pnpm
+        pnpm
         (yarn.override { nodejs = nodejs_24; })
       ];
 
@@ -156,7 +156,7 @@ stdenv.mkDerivation ({
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
   outputs = { self , nixpkgs ,... }: let
@@ -169,7 +169,7 @@ stdenv.mkDerivation ({
       # create an environment with nodejs_24, pnpm, and yarn
       packages = with pkgs; [
         nodejs_24
-        nodePackages.pnpm
+        pnpm
         (yarn.override { nodejs = nodejs_24; })
         nushell
       ];
@@ -204,7 +204,7 @@ wrapper, 这样就能直接通过执行运行该 wrapper 来进入到该环境�
   description = "A Nix-flake-based Node.js development environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
   outputs = { self , nixpkgs ,... }: let
@@ -215,7 +215,7 @@ wrapper, 这样就能直接通过执行运行该 wrapper 来进入到该环境�
       pkgs = import nixpkgs { inherit system; };
       packages = with pkgs; [
           nodejs_22
-          nodePackages.pnpm
+          pnpm
           nushell
       ];
     in pkgs.runCommand "dev-shell" {
@@ -247,7 +247,7 @@ session，可以在其中正常使用 `node` `pnpm` 命令.
     (let
       packages = with pkgs; [
           nodejs_22
-          nodePackages.pnpm
+          pnpm
           nushell
       ];
     in pkgs.runCommand "dev-shell" {
@@ -467,6 +467,6 @@ TODO 未完待续
 - [Shell Scripts - NixOS Wiki](https://wiki.nixos.org/wiki/Shell_Scripts)
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
-[pkgs/build-support/trivial-builders/default.nix - runCommand]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/trivial-builders/default.nix#L25-L54
-[pkgs/build-support/setup-hooks/make-wrapper.sh]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/setup-hooks/make-wrapper.sh
-[`pkgs.mkShell`]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/build-support/mkshell/default.nix
+[pkgs/build-support/trivial-builders/default.nix - runCommand]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/trivial-builders/default.nix#L25-L54
+[pkgs/build-support/setup-hooks/make-wrapper.sh]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/setup-hooks/make-wrapper.sh
+[`pkgs.mkShell`]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/mkshell/default.nix

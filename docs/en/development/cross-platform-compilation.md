@@ -79,7 +79,7 @@ need to add a Module in `flake.nix`, as shown below:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -134,7 +134,7 @@ cross-compilation, as shown below:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -240,7 +240,7 @@ So how to use this method in Flakes? The example `flake.nix` is as follows:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05-small";
   };
 
   outputs = { self, nixpkgs, ... }:
@@ -279,7 +279,7 @@ follows:
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05-small";
   };
 
   outputs = { self, nixpkgs, ... }: let

@@ -70,7 +70,7 @@ pkgsCross.mmix
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -121,7 +121,7 @@ Module 即可启用 `aarch64-linux` 与 `riscv64-linux` 两种架构的模拟构
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }: {
@@ -203,7 +203,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05-small";
   };
 
   outputs = { self, nixpkgs, ... }:
@@ -240,7 +240,7 @@ nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
   description = "NixOS running on LicheePi 4A";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11-small";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05-small";
   };
 
   outputs = { self, nixpkgs, ... }: let

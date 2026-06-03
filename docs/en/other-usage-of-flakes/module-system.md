@@ -4,10 +4,10 @@ In our previous NixOS configurations, we set various values for `options` to con
 NixOS or Home Manager. These `options` are actually defined in two locations:
 
 - NixOS:
-  [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/25.11/nixos/modules),
+  [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-26.05/nixos/modules),
   where all NixOS options visible on <https://search.nixos.org/options> are defined.
 - Home Manager:
-  [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-25.11/modules),
+  [home-manager/modules](https://github.com/nix-community/home-manager/blob/release-26.05/modules),
   where you can find all its options at
   <https://nix-community.github.io/home-manager/options.xhtml>.
 
@@ -218,7 +218,7 @@ Let's start with a simple example:
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -329,7 +329,7 @@ The first thought might be to directly use `imports` in `config = { ... };`, lik
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -393,7 +393,7 @@ Let's look at an example directly:
 # ./flake.nix
 {
   description = "NixOS Flake for Test";
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
@@ -442,14 +442,14 @@ section
 - [Module System - Nixpkgs]
 - [Writing NixOS Modules - Nixpkgs]
 
-[lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/lib/modules.nix
+[lib/modules.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/lib/modules.nix
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/doc/module-system/module-system.chapter.md
 [Writing NixOS Modules - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/writing-modules.chapter.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/doc/manual/development/writing-modules.chapter.md
 [Option Definitions - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-def.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/doc/manual/development/option-def.section.md
 [Option Declarations - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-declarations.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/doc/manual/development/option-declarations.section.md
 [Options Types - NixOS]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-types.section.md
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/doc/manual/development/option-types.section.md

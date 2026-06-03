@@ -12,8 +12,8 @@ dependencies of this flake. These dependencies will be passed as arguments to th
 ```nix{2-5,7}
 {
   inputs = {
-    # NixOS official package source, using the nixos-25.11 branch here
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # NixOS official package source, using the nixos-26.05 branch here
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -45,8 +45,8 @@ results of the flake:
   description = "A simple NixOS flake";
 
   inputs = {
-    # NixOS official package source, here using the nixos-25.11 branch
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # NixOS official package source, here using the nixos-26.05 branch
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -140,8 +140,8 @@ definition includes the `lib` attribute, and in our example, we use the `lib` at
 ```nix{8-13}
 {
   inputs = {
-    # NixOS official package source, here using the nixos-25.11 branch
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # NixOS official package source, here using the nixos-26.05 branch
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
@@ -175,5 +175,5 @@ source code, and study its implementation.
 
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
-[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-25.11/flake.nix
+[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-26.05/flake.nix
 

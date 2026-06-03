@@ -133,5 +133,5 @@ set 就是这个参数的参数。
    `flake.nix` 中创建所有 nixpkgs 实例。
 2. 在混合使用 QEMU 模拟编译与交叉编译时，搞得不好可能会导致许多包被重复编译多次，要注意避免这种情况。
 
-[nixpkgs/default.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/default.nix
-[pkgs/top-level/impure.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-25.11/pkgs/top-level/impure.nix
+[nixpkgs/default.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/default.nix
+[pkgs/top-level/impure.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/top-level/impure.nix

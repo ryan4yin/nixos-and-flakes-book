@@ -262,7 +262,7 @@ module）中设置默认值，然后在高层级的模块（high-level module）
 ```nix{8-36}
 # flake.nix
 {
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   outputs = {nixpkgs, ...}: {
     nixosConfigurations = {
       "my-nixos" = nixpkgs.lib.nixosSystem {
@@ -309,7 +309,7 @@ module）中设置默认值，然后在高层级的模块（high-level module）
 ```bash
 # 示例一：多行字符串合并
 › echo $(nix eval .#nixosConfigurations.my-nixos.config.programs.bash.shellInit)
-trace: warning: system.stateVersion is not set, defaulting to 25.11. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersio
+trace: warning: system.stateVersion is not set, defaulting to 26.05. Read why this matters on https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersio
 n.
 "echo 'insert before default'
 
@@ -344,5 +344,5 @@ echo 'insert after default';"
 ## References
 
 - [Nix modules: Improving Nix's discoverability and usability ](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
-- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md)
+- [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/doc/module-system/module-system.chapter.md)
 - [Misterio77/nix-starter-configs](https://github.com/Misterio77/nix-starter-configs)

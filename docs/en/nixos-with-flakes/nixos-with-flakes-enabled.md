@@ -78,8 +78,8 @@ Flakes. Here's an example of the content:
   description = "A simple NixOS flake";
 
   inputs = {
-    # NixOS official package source, using the nixos-25.11 branch here
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    # NixOS official package source, using the nixos-26.05 branch here
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {

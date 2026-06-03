@@ -49,7 +49,7 @@ NixOS 的所有实现代码都存放在
      `<system>` 就是你本机的架构，例如 `x86_64-linux`）。也可通过 `nixpkgs.pkgs`
      选项来自定义 `pkgs` 的值。
 5. `modulesPath`: 一个只在 NixOS 中可用的参数，是一个 Path，指向
-   [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-25.11/nixos/modules)
+   [nixpkgs/nixos/modules](https://github.com/NixOS/nixpkgs/tree/nixos-26.05/nixos/modules)
    - 它在 [nixpkgs - modulesPath] 中被定义
    - 通常被用于导入一些额外的 NixOS 模块，NixOS 自动生成的 `hardware-configuration.nix`
      中基本都能看到它
@@ -72,7 +72,7 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 1. `_module.args`:
    - NixOS Manual:
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
-   - Source Code: [nixpkgs/nixos-25.11/lib/modules.nix - _module.args]
+   - Source Code: [nixpkgs/nixos-26.05/lib/modules.nix - _module.args]
 
 总之，`specialArgs` 与 `_module.args` 需要的值都是一个 attribute
 set，它们的功能也相同，都是将其 attribute
@@ -94,7 +94,7 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 ```nix{11}
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     another-input.url = "github:username/repo-name/branch-name";
   };
 
@@ -116,7 +116,7 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 ```nix{14}
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
     another-input.url = "github:username/repo-name/branch-name";
   };
 
@@ -167,7 +167,7 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 ```nix{6,11,17}
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     # helix editor, use the master branch
     helix.url = "github:helix-editor/helix/master";
@@ -245,12 +245,12 @@ nix run github:helix-editor/helix/master
 
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
-[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-25.11/flake.nix
+[nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-26.05/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]:
-  https://github.com/NixOS/nixpkgs/tree/nixos-25.11/nixos/lib/eval-config.nix
+  https://github.com/NixOS/nixpkgs/tree/nixos-26.05/nixos/lib/eval-config.nix
 [Module System - Nixpkgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/doc/module-system/module-system.chapter.md
-[nixpkgs/nixos-25.11/lib/modules.nix - _module.args]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/lib/modules.nix#L122-L184
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/doc/module-system/module-system.chapter.md
+[nixpkgs/nixos-26.05/lib/modules.nix - _module.args]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/lib/modules.nix#L122-L184
 [nixos manual - specialArgs]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-25.11/nixos/doc/manual/development/option-types.section.md?plain=1#L283-L290
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/doc/manual/development/option-types.section.md?plain=1#L299-L306
