@@ -169,8 +169,7 @@ In Nix, some people use `lib.mkDefault` and `lib.mkForce` to define values. Thes
 functions are designed to set default values or force values of options.
 
 You can explore the source code of `lib.mkDefault` and `lib.mkForce` by running
-`nix repl -f '<nixpkgs>'` and then entering `:e lib.mkDefault`. To learn more about
-`nix repl`, type `:?` for the help information.
+`nix edit nixpkgs#lib.mkDefault`.
 
 Here's the source code:
 
@@ -258,9 +257,7 @@ Nix will throw an error. However, by using `lib.mkOrder`, `lib.mkBefore`, or
 `lib.mkAfter`, you can define multiple values with the same override priority, and they
 will be merged in the order you specify.
 
-To examine the source code of `lib.mkBefore`, you can run `nix repl -f '<nixpkgs>'` and
-then enter `:e lib.mkBefore`. To learn more about `nix repl`, type `:?` for the help
-information:
+To examine the source code of `lib.mkBefore`, you can run `nix edit nixpkgs#lib.mkBefore`:
 
 ```nix
   # ......
