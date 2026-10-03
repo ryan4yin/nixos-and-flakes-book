@@ -2,6 +2,7 @@
   "type": "module",
   "packageManager": "pnpm@11.4.0",
   "devDependencies": {
+    "tsx": "4.23.15",
     "vitepress": "1.6.4",
     "vitepress-export-pdf": "1.0.0"
   },
@@ -10,10 +11,10 @@
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
     "export-pdf": "press-export-pdf export ./docs --outFile ./nixos-and-flakes-book.pdf",
-    "export-epub": "npx tsx epub-export.ts"
+    "export-epub": "tsx epub-export.ts"
   },
   "dependencies": {
-    "@searking/markdown-it-cjk-breaks": "2.0.1-0",
+    "markdown-it-cjk-breaks": "2.0.1",
     "markdown-it-footnote": "^4.0.0",
     "sitemap-ts": "^1.10.1",
     "vitepress-plugin-comment-with-giscus": "^1.1.15"
