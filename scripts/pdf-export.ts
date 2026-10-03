@@ -9,14 +9,25 @@ import { commonPandocArgs, prepareTemp, resolveLang, runPandoc } from "./book-ex
 // patched Markdown as the EPUB export. The dev shell provides `typst` and the
 // CJK fonts, and exports `BOOK_PDF_FONT_PATHS` (colon-separated font dirs).
 
-// Keep short code blocks on a single page, but let long ones break: Typst's
-// `block(breakable: false)` overflows (and drops lines) when the block does not
-// fit on one page, so only apply it below a threshold.
-const PDF_HEADER = `// Keep short code blocks on one page; longer ones may still break.
+// Typst tweaks injected into the Pandoc-generated document:
+// - a monospace font for code blocks (CJK falls back to the Source Han fonts)
+// - keep short code blocks and images on a single page, while long code blocks
+//   may still break: Typst's `block(breakable: false)` overflows (and drops
+//   lines) when the block does not fit on one page, so only apply it below a
+//   threshold.
+const PDF_HEADER = `#show raw: set text(font: ("Source Han Mono SC", "Inter"))
+
 #show raw.where(block: true): it => {
   let lines = it.text.split("\\n").len()
   if lines <= 40 { block(breakable: false, it) } else { it }
 }
+
+#show figure.where(kind: image): set block(breakable: false)
+`
+
+// Force the table of contents (and body) onto a new page so the Pandoc title
+// block becomes a standalone cover page.
+const PDF_PAGEBREAK = `#pagebreak()
 `
 
 const lang = resolveLang()
@@ -28,6 +39,7 @@ const fontPaths = (process.env.BOOK_PDF_FONT_PATHS ?? process.env.TYPST_FONT_PAT
 
 const { fileList, tempDir } = prepareTemp(lang)
 fs.writeFileSync(path.join(tempDir, "pdf-header.typ"), PDF_HEADER)
+fs.writeFileSync(path.join(tempDir, "pdf-pagebreak.typ"), PDF_PAGEBREAK)
 
 const output = `../nixos-and-flakes-book.${lang}.pdf`
 
@@ -38,6 +50,7 @@ runPandoc([
   "--pdf-engine=typst",
   ...fontPaths.map((dir) => `--pdf-engine-opt=--font-path=${dir}`),
   "--include-in-header=pdf-header.typ",
+  "--include-before-body=pdf-pagebreak.typ",
   "-V",
   `mainfont=${mainfont}`,
   "-V",
