@@ -27,11 +27,20 @@ export function resolveLang(argv: string[] = process.argv): string {
   return lang
 }
 
+// Sentinel first line carrying VitePress line-highlight ranges (`nix{7-27}`)
+// to the PDF header, which strips it and fills those lines. Kept in sync with
+// `PDF_HEADER` in `pdf-export.ts`.
+const HL_SENTINEL = "@@book-hl:"
+
 /**
  * Reduce fence opener to plain ```lang (strip any {...}/attributes).
  * Also map shell/console → bash. If no lang, keep plain ``` only.
+ *
+ * When `highlight` is set, a VitePress highlight range (`nix{7-27}`) is kept as
+ * a sentinel first line instead of being dropped; the PDF header turns it into
+ * per-line highlights. The EPUB has no such handling, so it must not get it.
  */
-function normalizeFenceOpeners(md: string): string {
+function normalizeFenceOpeners(md: string, highlight = false): string {
   return md
     .split(/(```[\s\S]*?```)/g)
     .map((block) => {
@@ -53,42 +62,30 @@ function normalizeFenceOpeners(md: string): string {
         return lines.join("\n")
       }
 
-      // Info-string form: ```lang{...} or ```lang
-      const mm = info.match(/^([a-zA-Z0-9_-]+)(\{[^}]*\})?$/) // ignore tail
-      if (!mm) {
+      // Info-string form: ```lang{ranges} → lang + optional highlight ranges
+      const mm = info.match(/^([a-zA-Z0-9_-]+)\{([^}]*)\}$/)
+      if (mm) {
+        let lang = mm[1]
+        if (lang === "shell" || lang === "console") lang = "bash"
+        lines[0] = "```" + lang
+        const spec = mm[2].trim()
+        if (highlight && spec) lines.splice(1, 0, `${HL_SENTINEL}${spec}@@`)
+        return lines.join("\n")
+      }
+
+      // Info-string form: ```lang
+      const mm2 = info.match(/^([a-zA-Z0-9_-]+)$/)
+      if (!mm2) {
         // unknown → leave as-is
         lines[0] = "```" + info
         return lines.join("\n")
       }
 
-      let lang = mm[1]
+      let lang = mm2[1]
       if (lang === "shell" || lang === "console") lang = "bash"
 
       lines[0] = "```" + (lang || "")
       return lines.join("\n")
-    })
-    .join("")
-}
-
-/** Add left-gutter line numbers as literal text (e.g., " 1 | …") inside fenced blocks. */
-function addLineNumbersToFences(md: string): string {
-  return md
-    .split(/(```[\s\S]*?```)/g)
-    .map((block) => {
-      if (!block.startsWith("```")) return block
-
-      const lines = block.split("\n")
-      // find closing fence
-      let closeIdx = lines.length - 1
-      while (closeIdx > 0 && !lines[closeIdx].startsWith("```")) closeIdx--
-
-      const opener = lines[0]
-      const body = lines.slice(1, closeIdx)
-      const width = Math.max(1, String(body.length).length)
-
-      const numbered = body.map((l, i) => `${String(i + 1).padStart(width, " ")} | ${l}`)
-      const tail = lines.slice(closeIdx) // includes closing fence
-      return [opener, ...numbered, ...tail].join("\n")
     })
     .join("")
 }
@@ -240,7 +237,10 @@ function getFileList(lang: string): string[] {
  * via `--resource-path`, but the Typst PDF engine only looks relative to the
  * working directory, so the assets have to be reachable from `.temp`.
  */
-export function prepareTemp(lang: string): { fileList: string[]; tempDir: string } {
+export function prepareTemp(
+  lang: string,
+  highlight = false
+): { fileList: string[]; tempDir: string } {
   const fileList = getFileList(lang)
   console.log("Files to include:", fileList)
 
@@ -264,16 +264,14 @@ export function prepareTemp(lang: string): { fileList: string[]; tempDir: string
     fs.mkdirSync(path.dirname(dstPath), { recursive: true })
     let content = fs.readFileSync(srcPath, "utf8")
 
-    // 1) Strip attributes/ranges: end up with plain ```lang (alias shell→bash)
-    content = normalizeFenceOpeners(content)
+    // 1) Strip attributes; keep `{ranges}` as a sentinel line for the PDF.
+    content = normalizeFenceOpeners(content, highlight)
     // 2) XHTML + path fixes only outside code
     content = sanitizeOutsideCode(content)
     // 3) Internal page links → in-document anchors
     content = rewriteInternalLinks(content, rel, anchors)
     // 4) Stable id on the leading heading (target of cross-file links)
     content = injectHeadingId(content, anchors.get(rel)!)
-    // 5) Inline line numbers (start at 1)
-    content = addLineNumbersToFences(content)
 
     fs.writeFileSync(dstPath, content)
   }

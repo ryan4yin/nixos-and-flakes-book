@@ -1,0 +1,105 @@
+// Custom Pandoc `conf` for the Typst PDF export, selected with
+// `-V template=typst-conf.typ`.
+//
+// Pandoc's built-in `conf` sets `par(justify: true)` and a single `font`. For
+// mixed CJK/Latin text that means:
+//   - justified CJK lines get stretched with visible gaps between every
+//     character, and
+//   - Typst's font fallback picks the Traditional Chinese variant
+//     (Source Han Sans TC), whose punctuation is centred instead of sitting at
+//     the lower-left as Simplified Chinese expects.
+// So we turn justification off and append the Simplified Chinese font family.
+// The rest mirrors the built-in `conf` (Pandoc 3.x).
+
+#let content-to-string(content) = {
+  if content.has("text") {
+    content.text
+  } else if content.has("children") {
+    content.children.map(content-to-string).join("")
+  } else if content.has("body") {
+    content-to-string(content.body)
+  } else if content == [ ] {
+    " "
+  }
+}
+
+#let conf(
+  title: none,
+  subtitle: none,
+  authors: (),
+  keywords: (),
+  date: none,
+  abstract: none,
+  cols: 1,
+  margin: (x: 1.25in, y: 1.25in),
+  paper: "us-letter",
+  lang: "en",
+  region: "US",
+  font: (),
+  fontsize: 11pt,
+  sectionnumbering: none,
+  pagenumbering: "1",
+  doc,
+) = {
+  set document(
+    title: title,
+    author: authors.map(author => content-to-string(author.name)),
+    keywords: keywords,
+  )
+  set page(
+    paper: paper,
+    margin: margin,
+    numbering: pagenumbering,
+    columns: cols,
+  )
+  set par(justify: false)
+  set text(
+    lang: lang,
+    region: region,
+    font: font + ("Source Han Sans SC",),
+    size: fontsize,
+  )
+  set heading(numbering: sectionnumbering)
+
+  place(top, float: true, scope: "parent", clearance: 4mm)[
+  #if title != none {
+    align(center)[#block(inset: 2em)[
+      #text(weight: "bold", size: 1.5em)[#title]
+      #(if subtitle != none {
+        parbreak()
+        text(weight: "bold", size: 1.25em)[#subtitle]
+      })
+    ]]
+  }
+
+  #if authors != none and authors != [] {
+    let count = authors.len()
+    let ncols = calc.min(count, 3)
+    grid(
+      columns: (1fr,) * ncols,
+      row-gutter: 1.5em,
+      ..authors.map(author =>
+          align(center)[
+            #author.name \
+            #author.affiliation \
+            #author.email
+          ]
+      )
+    )
+  }
+
+  #if date != none {
+    align(center)[#block(inset: 1em)[
+      #date
+    ]]
+  }
+
+  #if abstract != none {
+    block(inset: 2em)[
+    #text(weight: "semibold")[Abstract] #h(1em) #abstract
+    ]
+  }
+  ]
+
+  doc
+}
