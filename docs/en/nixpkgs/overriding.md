@@ -19,10 +19,8 @@ of approaches you can follow:
    [`fcitx5-rime.nix`](https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix).
    Make sure to select the appropriate branch, such as `nixos-unstable`, if you are using
    that branch.
-2. Use the `nix repl -f '<nixpkgs>'` command to open a Nix REPL and then enter
-   `:e pkgs.fcitx5-rime`. This opens the source code of the package in your default
-   editor, where you can see all the parameters of the package. To learn the basic usage
-   of `nix repl`, you can type `:?` to see the help information.
+2. Use the `nix edit nixpkgs#fcitx5-rime` command. This opens the source code of the
+   package in your default editor, where you can see all the parameters of the package.
 
 By using these methods, you can discover the input parameters of a package and determine
 which ones can be modified using `override`.
