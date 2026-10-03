@@ -38,7 +38,7 @@ export const shared = defineConfig({
     config: (md) => {
       // add support for footnote
       md.use(require("markdown-it-footnote"))
-      md.use(require("@searking/markdown-it-cjk-breaks"))
+      md.use(require("markdown-it-cjk-breaks"))
     },
   },
 

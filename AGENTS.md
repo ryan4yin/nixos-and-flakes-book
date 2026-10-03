@@ -45,4 +45,4 @@ The NixOS release branch is hardcoded in ~20 files. When upgrading:
 ## Style
 
 - Prettier: `semi: false`, `printWidth: 90`, `proseWrap: always` (see `.prettierrc.yaml`)
-- Nix: `nixfmt-rfc-style` with `width: 100`
+- Nix: `nixfmt` with `width: 100`
