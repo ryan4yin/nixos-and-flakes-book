@@ -9,8 +9,10 @@
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
+    "check": "prettier --check . && typos .",
     "export-pdf": "tsx scripts/pdf-export.ts",
-    "export-epub": "tsx scripts/epub-export.ts"
+    "export-epub": "tsx scripts/epub-export.ts",
+    "export": "pnpm run export-pdf -- --lang=en && pnpm run export-pdf -- --lang=zh && pnpm run export-epub -- --lang=en && pnpm run export-epub -- --lang=zh"
   },
   "dependencies": {
     "markdown-it-cjk-breaks": "^2.0.1",
