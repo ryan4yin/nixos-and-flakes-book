@@ -3,15 +3,16 @@
   "packageManager": "pnpm@11.4.0",
   "devDependencies": {
     "tsx": "^4.23.15",
-    "vitepress": "^1.6.4",
-    "vitepress-export-pdf": "^1.0.0"
+    "vitepress": "^1.6.4"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
     "docs:preview": "vitepress preview docs",
-    "export-pdf": "press-export-pdf export ./docs --outFile ./nixos-and-flakes-book.pdf",
-    "export-epub": "tsx epub-export.ts"
+    "check": "prettier --check . && typos .",
+    "export-pdf": "tsx scripts/pdf-export.ts",
+    "export-epub": "tsx scripts/epub-export.ts",
+    "export": "pnpm run export-pdf -- --lang=en && pnpm run export-pdf -- --lang=zh && pnpm run export-epub -- --lang=en && pnpm run export-epub -- --lang=zh"
   },
   "dependencies": {
     "markdown-it-cjk-breaks": "^2.0.1",

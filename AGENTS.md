@@ -7,7 +7,7 @@ An opinionated VitePress book (bilingual EN/ZH) about NixOS & Flakes.
 - `docs/en/` and `docs/zh/` — parallel content trees; **every change must be mirrored in
   both**
 - `docs/.vitepress/config/` — VitePress config (shared.ts + en.ts + zh.ts)
-- `flake.nix` — dev environment (nodejs_22, pnpm, prettier, typos, nixfmt, pandoc)
+- `flake.nix` — dev environment (nodejs_22, pnpm, prettier, typos, nixfmt, pandoc, typst)
 
 ## Commands
 

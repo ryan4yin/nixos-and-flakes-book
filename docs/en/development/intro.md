@@ -48,8 +48,7 @@ development environment, we need to use `pkgs.mkShell` and `nix develop`.
 We can create a development environment using `pkgs.mkShell { ... }` and open an
 interactive Bash shell of this development environment using `nix develop`.
 
-To see how [`pkgs.mkShell`] works, let's take a look at
-its source code.
+To see how [`pkgs.mkShell`] works, let's take a look at its source code.
 
 ```nix
 { lib, stdenv, buildEnv }:
@@ -479,6 +478,9 @@ documentation.
 - [Shell Scripts - NixOS Wiki](https://wiki.nixos.org/wiki/Shell_Scripts)
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
-[pkgs/build-support/trivial-builders/default.nix - runCommand]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/trivial-builders/default.nix#L25-L54
-[pkgs/build-support/setup-hooks/make-wrapper.sh]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/setup-hooks/make-wrapper.sh
-[`pkgs.mkShell`]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/mkshell/default.nix
+[pkgs/build-support/trivial-builders/default.nix - runCommand]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/trivial-builders/default.nix#L25-L54
+[pkgs/build-support/setup-hooks/make-wrapper.sh]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/setup-hooks/make-wrapper.sh
+[`pkgs.mkShell`]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/mkshell/default.nix

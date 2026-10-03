@@ -80,8 +80,7 @@ to understand. If readers are interested, I will include the links here:
 1. `specialArgs`: There are scattered mentions related to it in the NixOS Manual and the
    Nixpkgs Manual.
    - Nixpkgs Manual: [Module System - Nixpkgs]
-   - NixOS Manual:
-     [nixos manual - specialArgs]
+   - NixOS Manual: [nixos manual - specialArgs]
 1. `_module.args`:
    - NixOS Manual:
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)
@@ -286,4 +285,5 @@ the following official/semi-official documents:
   https://github.com/NixOS/nixpkgs/blob/nixos-26.05/lib/modules.nix#L122-L184
 [nixos manual - specialArgs]:
   https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/doc/manual/development/option-types.section.md?plain=1#L299-L306
-[nixpkgs - modulesPath]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/lib/eval-config-minimal.nix#L42
+[nixpkgs - modulesPath]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/nixos/lib/eval-config-minimal.nix#L42

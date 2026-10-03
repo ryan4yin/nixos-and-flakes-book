@@ -20,19 +20,13 @@ jobs:
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
-      - name: Generate PDF
-        run: |
-          nix develop .#export-pdf --ignore-environment --command bash -c '
-            set -e
-            export NO_SANDBOX=true
-            pnpm install
-            pnpm export-pdf
-          '
-      - name: Generate EPUB
+      - name: Generate PDF and EPUB
         run: |
           nix develop .#default --ignore-environment --command bash -c '
             set -e
             pnpm install
+            pnpm run export-pdf -- --lang=en
+            pnpm run export-pdf -- --lang=zh
             pnpm run export-epub -- --lang=en
             pnpm run export-epub -- --lang=zh
           '
@@ -58,6 +52,7 @@ jobs:
           generate_release_notes: true
           body_path: CHANGELOG
           files: |
-            nixos-and-flakes-book.pdf
+            nixos-and-flakes-book.en.pdf
+            nixos-and-flakes-book.zh.pdf
             nixos-and-flakes-book.en.epub
             nixos-and-flakes-book.zh.epub

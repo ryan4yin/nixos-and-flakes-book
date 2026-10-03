@@ -75,8 +75,7 @@
 > 的参数如果为文件夹路径，那么会返回该文件夹下的 `default.nix` 文件的执行结果。
 
 `nixpkgs` 是一个 Git 仓库，它的根目录下刚好有一个 `default.nix`
-文件，那么答案就呼之欲出了：`import nixpkgs` 就是返回
-[nixpkgs/default.nix]
+文件，那么答案就呼之欲出了：`import nixpkgs` 就是返回 [nixpkgs/default.nix]
 文件的执行结果。从这个文件开始探索，就能找到 `import nixpkgs` 的实现代码是
 [pkgs/top-level/impure.nix]，这里截取部分内容：
 
@@ -134,4 +133,5 @@ set 就是这个参数的参数。
 2. 在混合使用 QEMU 模拟编译与交叉编译时，搞得不好可能会导致许多包被重复编译多次，要注意避免这种情况。
 
 [nixpkgs/default.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/default.nix
-[pkgs/top-level/impure.nix]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/top-level/impure.nix
+[pkgs/top-level/impure.nix]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/top-level/impure.nix

@@ -25,7 +25,6 @@
           })
         ];
         pkgs = import nixpkgs { inherit overlays system; };
-        pkgs_chromium = import nixpkgs { inherit system; };
         packages = with pkgs; [
           nodejs
           pnpm
@@ -36,6 +35,12 @@
           typos
           nixfmt
           pandoc
+
+          # PDF export (pandoc --pdf-engine=typst): Latin font + CJK fallback
+          typst
+          inter
+          source-han-sans
+          source-han-mono
         ];
       in
       {
@@ -72,20 +77,13 @@
 
           shellHook = ''
             echo "node `node --version`"
+
+            # Fonts for the Typst PDF export (colon-separated). Inter is the
+            # Latin main font; the Source Han fonts provide CJK fallback.
+            export BOOK_PDF_FONT_PATHS="${pkgs.inter}/share/fonts:${pkgs.source-han-sans}/share/fonts:${pkgs.source-han-mono}/share/fonts"
+            export TYPST_FONT_PATHS="$BOOK_PDF_FONT_PATHS"
+
             ${self.checks.${system}.pre-commit-check.shellHook}
-          '';
-        };
-
-        devShells.export-pdf = pkgs.mkShell {
-          inherit packages;
-
-          shellHook = ''
-            echo "node `node --version`"
-
-            # Set Puppeteer to not download Chrome, cause it doesn't work on NixOS
-            export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
-            # Set Puppeteer to use Chromium from Nixpkgs
-            export PUPPETEER_EXECUTABLE_PATH=${pkgs_chromium.chromium.outPath}/bin/chromium
           '';
         };
       }
