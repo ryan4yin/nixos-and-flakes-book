@@ -5,6 +5,17 @@ export const zh = defineConfig({
   description: "一份非官方的新手指南",
 
   themeConfig: {
+    // Localize the default-theme UI (dark mode, outline, prev/next, ...).
+    darkModeSwitchLabel: "外观",
+    lightModeSwitchTitle: "切换到浅色模式",
+    darkModeSwitchTitle: "切换到深色模式",
+    sidebarMenuLabel: "目录",
+    returnToTopLabel: "回到顶部",
+    langMenuLabel: "切换语言",
+    outline: { label: "本页目录" },
+    lastUpdated: { text: "最后更新于" },
+    docFooter: { prev: "上一篇", next: "下一篇" },
+
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: "首页", link: "/zh/" },

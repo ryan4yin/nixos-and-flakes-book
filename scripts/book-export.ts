@@ -98,6 +98,20 @@ function mapOutsideCode(md: string, fn: (part: string) => string): string {
     .join("")
 }
 
+/**
+ * Scope footnote ids to the chapter that defines them. `preface.md` and
+ * `introduction-to-flakes.md` both define `[^1]`/`[^2]`/`[^3]`; because Pandoc
+ * parses the whole book in one run, the later definition wins and the preface's
+ * notes end up pointing at the wrong URLs. Prefixing every footnote id
+ * (reference and definition alike) with the file's chapter id keeps each
+ * chapter's notes self-contained.
+ */
+function namespaceFootnotes(md: string, prefix: string): string {
+  return mapOutsideCode(md, (part) =>
+    part.replace(/\[\^([^\[\]]+)\]/g, (_whole, id: string) => `[^${prefix}${id}]`)
+  )
+}
+
 /** Apply XHTML + path + component fixes only outside fenced code blocks. */
 function sanitizeOutsideCode(md: string): string {
   return mapOutsideCode(md, (part) =>
@@ -275,11 +289,13 @@ export function prepareTemp(
 
     // 1) Strip attributes; keep `{ranges}` as a sentinel line for the PDF.
     content = normalizeFenceOpeners(content, highlight)
-    // 2) XHTML + path fixes only outside code
+    // 2) Scope footnote ids per chapter (they collide across concatenated files)
+    content = namespaceFootnotes(content, `${anchors.get(rel)!}-`)
+    // 3) XHTML + path fixes only outside code
     content = sanitizeOutsideCode(content)
-    // 3) Internal page links → in-document anchors
+    // 4) Internal page links → in-document anchors
     content = rewriteInternalLinks(content, rel, anchors)
-    // 4) Stable id on the leading heading (target of cross-file links)
+    // 5) Stable id on the leading heading (target of cross-file links)
     content = injectHeadingId(content, anchors.get(rel)!)
 
     fs.writeFileSync(dstPath, content)

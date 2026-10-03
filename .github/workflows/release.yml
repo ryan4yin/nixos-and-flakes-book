@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
       - name: Install nix
         uses: cachix/install-nix-action@v31
         with:
@@ -31,7 +31,7 @@ jobs:
             pnpm run export-epub -- --lang=zh
           '
       # # For debugging, upload the pdfs as artifacts
-      # - uses: actions/upload-artifact@v3
+      # - uses: actions/upload-artifact@v7
       #   with:
       #     name: pdf
       #     path: '*.pdf'
@@ -46,7 +46,7 @@ jobs:
           echo "Changelog from $PREVIOUS_TAG to HEAD:"
           cat CHANGELOG
       - name: Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         if: startsWith(github.ref, 'refs/tags/')
         with:
           generate_release_notes: true

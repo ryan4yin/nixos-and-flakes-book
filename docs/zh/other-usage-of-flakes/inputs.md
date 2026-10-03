@@ -3,7 +3,7 @@
 `flake.nix` 中的 `inputs` 是一个 attribute
 set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如下：
 
-> 详细的例子参见官方文档 [Nix flakes - Nix Manual]
+> 详细的例子参见官方文档 [Flakes Inputs - Nix Manual]
 
 ```nix
 {
@@ -65,7 +65,7 @@ set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如
 
 ## 参考
 
-- [Nix flakes - Nix Manual]
+- [Flakes Inputs - Nix Manual]
 
-[Nix flakes - Nix Manual]:
+[Flakes Inputs - Nix Manual]:
   https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake.html#flake-inputs
