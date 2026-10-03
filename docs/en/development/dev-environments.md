@@ -84,46 +84,53 @@ hint: See PEP 668 for the detailed specification.
 ```
 
 Based on the error message, `pip install` is directly disabled by NixOS. Even when
-attempting `pip install --user`, it is similarly disabled. To improve the reproducibility
-of the environment, Nix eliminates these commands altogether. Even if we create a new
-environment using methods like `mkShell`, these commands still result in errors
-(presumably because the pip command in Nixpkgs itself has been modified to prevent any
-modification instructions like `install` from running).
+attempting `pip install --user`, it is similarly disabled.
 
-However, many project installation scripts are based on pip, which means these scripts
-cannot be used directly. Additionally, the content in nixpkgs is limited, and many
-packages from PyPI are missing. This requires users to package them themselves, adding a
-lot of complexity and mental burden.
+This block comes from [PEP 668](https://peps.python.org/pep-0668/): pip refuses to install
+into any Python environment marked as _externally managed_, meaning its packages are
+maintained by an external package manager such as an OS distribution. The rule comes from
+painful lessons on traditional distros: mixing `pip install` with OS-managed Python files
+used to break system tools. Many of these tools are Python programs themselves, Fedora's
+`yum` and `dnf` among them, so a single careless `sudo pip install` could break the
+package manager itself.
 
-One solution is to use the `venv` virtual environment. Within a virtual environment, you
-can use commands like pip normally:
+NixOS enables it too. Its Python ships with an `EXTERNALLY-MANAGED` marker file, and the
+custom message about `/nix/store` in the error above is the content of that file.
+
+For new projects, we recommend [uv](https://github.com/astral-sh/uv) directly: `uv venv`
+creates a virtual environment, and `uv add` / `uv run` manage the dependencies and run
+commands. uv is also pip-compatible: `uv pip install` works inside a virtual environment
+just like pip. uv itself is packaged in nixpkgs.
+
+If you want the virtual environment itself to be reproducible, Nix can build it into
+`/nix/store` as an immutable artifact, installing the dependencies declared in
+`pyproject.toml` and `uv.lock` at build time. The actively maintained tool for this today
+is [uv2nix](https://github.com/pyproject-nix/uv2nix):
+
+> Note that even in such an environment, running commands like `pip install` directly will
+> still fail. Python dependencies must be installed through `flake.nix` because the data
+> is located in the `/nix/store` directory, and these modification commands can only be
+> executed during the Nix build phase.
+
+Its advantage is that it utilizes the lock mechanism of Nix Flakes to improve
+reproducibility. However, the downside is that it adds an extra layer of abstraction,
+making the underlying system more complex.
+
+`uvx` solves the problem mentioned earlier directly: Python CLI tools cannot be installed
+into the global environment. It works like `npx` in the Node.js world: `uvx <tool>`
+(equivalently `uv tool run <tool>`) downloads a tool into an isolated environment and runs
+it directly, without touching the system Python; `uv tool install <tool>` makes such a
+tool available persistently.
+
+For legacy projects, whose install scripts and dependency management are built on top of
+pip, there is little we can do except creating a virtual environment first:
 
 ```shell
 python -m venv ./env
 source ./env/bin/activate
 ```
 
-Alternatively, you can use a third-party tool called `virtualenv`, but this requires
-additional installation.
-
-For those who still lack confidence in the venv created directly with Python, they may
-prefer to include the virtual environment in `/nix/store` to make it immutable. This can
-be achieved by directly installing the dependencies from `requirements.txt` or
-`poetry.toml` using Nix. There are existing Nix packaging tools available to assist with
-this:
-
-> Note that even in these environments, running commands like `pip install` directly will
-> still fail. Python dependencies must be installed through `flake.nix` because the data
-> is located in the `/nix/store` directory, and these modification commands can only be
-> executed during the Nix build phase.
-
-- [python venv demo](https://github.com/MordragT/nix-templates/blob/master/python-venv/flake.nix)
-- [poetry2nix](https://github.com/nix-community/poetry2nix)
-
-The advantage of these tools is that they utilize the lock mechanism of Nix Flakes to
-improve reproducibility. However, the downside is that they add an extra layer of
-abstraction, making the underlying system more complex.
-
-Finally, in some more complex projects, neither of the above solutions may be feasible. In
-such cases, the best solution is to use containers such as Docker or Podman. Containers
-have fewer restrictions compared to Nix and can provide the best compatibility.
+For projects that even a virtual environment or an FHS environment cannot handle, the last
+resort is containers such as Docker or Podman, running a regular Ubuntu/Debian/Alpine
+inside. Containers have fewer restrictions compared to Nix and can provide the best
+compatibility.
