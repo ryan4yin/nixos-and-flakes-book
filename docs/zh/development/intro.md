@@ -467,6 +467,9 @@ TODO 未完待续
 - [Shell Scripts - NixOS Wiki](https://wiki.nixos.org/wiki/Shell_Scripts)
 
 [New Nix Commands]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix.html
-[pkgs/build-support/trivial-builders/default.nix - runCommand]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/trivial-builders/default.nix#L25-L54
-[pkgs/build-support/setup-hooks/make-wrapper.sh]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/setup-hooks/make-wrapper.sh
-[`pkgs.mkShell`]: https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/mkshell/default.nix
+[pkgs/build-support/trivial-builders/default.nix - runCommand]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/trivial-builders/default.nix#L25-L54
+[pkgs/build-support/setup-hooks/make-wrapper.sh]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/setup-hooks/make-wrapper.sh
+[`pkgs.mkShell`]:
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/mkshell/default.nix

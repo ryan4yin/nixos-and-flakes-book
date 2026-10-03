@@ -67,8 +67,7 @@ Nixpkgs 的模块系统提供了两种方式来传递非默认参数：
 
 1. `specialArgs`: NixOS Manual 跟 Nixpkgs Manual 中分别有与它有关的只言片语
    - Nixpkgs Manual: [Module System - Nixpkgs]
-   - NixOS Manual:
-     [nixos manual - specialArgs]
+   - NixOS Manual: [nixos manual - specialArgs]
 1. `_module.args`:
    - NixOS Manual:
      [Appendix A. Configuration Options](https://nixos.org/manual/nixos/stable/options#opt-_module.args)

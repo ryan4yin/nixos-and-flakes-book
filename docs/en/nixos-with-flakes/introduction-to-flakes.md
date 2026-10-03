@@ -96,7 +96,6 @@ is currently no alternative for this command):
       other inputs in each Flake instead of using global state.
 2. `nix-env`: `nix-env` is a core command-line tool for classic Nix used to manage
    software packages in the user environment.
-
    1. It installs packages from the data sources added by `nix-channel`, causing the
       installed package's version to be influenced by the channel. Packages installed with
       `nix-env` are not automatically recorded in Nix's declarative configuration and are
