@@ -20,19 +20,13 @@ jobs:
       - name: Show nixpkgs version
         run: nix-instantiate --eval -E '(import <nixpkgs> {}).lib.version'
 
-      - name: Generate PDF
+      - name: Generate PDF and EPUB
         run: |
           nix develop .#default --ignore-environment --command bash -c '
             set -e
             pnpm install
             pnpm run export-pdf -- --lang=en
             pnpm run export-pdf -- --lang=zh
-          '
-      - name: Generate EPUB
-        run: |
-          nix develop .#default --ignore-environment --command bash -c '
-            set -e
-            pnpm install
             pnpm run export-epub -- --lang=en
             pnpm run export-epub -- --lang=zh
           '

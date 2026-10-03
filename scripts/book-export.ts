@@ -1,4 +1,4 @@
-import config from "./docs/.vitepress/config"
+import config from "../docs/.vitepress/config"
 import fs from "fs"
 import path from "path"
 import { spawnSync } from "child_process"
@@ -93,19 +93,105 @@ function addLineNumbersToFences(md: string): string {
     .join("")
 }
 
-/** Apply XHTML + path fixes only outside fenced code blocks. */
-function sanitizeOutsideCode(md: string): string {
+/** Apply `fn` to the parts of `md` outside fenced code blocks. */
+function mapOutsideCode(md: string, fn: (part: string) => string): string {
   return md
     .split(/(```[\s\S]*?```)/g)
-    .map((part) => {
-      if (part.startsWith("```")) return part
-      return part
-        .replace(/<br\s*>/g, "<br />")
-        .replace(/<img([^>]*?)(?<!\/)>/g, "<img$1 />")
-        .replace(/!\[([^\]]*)\]\(\/([^)]*)\)/g, "![$1]($2)") // MD images /foo → foo
-        .replace(/src="\/([^"]+)"/g, 'src="$1"') // HTML <img src="/foo"> → "foo"
-    })
+    .map((part) => (part.startsWith("```") ? part : fn(part)))
     .join("")
+}
+
+/** Apply XHTML + path + component fixes only outside fenced code blocks. */
+function sanitizeOutsideCode(md: string): string {
+  return mapOutsideCode(md, (part) =>
+    part
+      .replace(/<br\s*>/g, "<br />")
+      .replace(/<img([^>]*?)(?<!\/)>/g, "<img$1 />")
+      .replace(/!\[([^\]]*)\]\(\/([^)]*)\)/g, "![$1]($2)") // MD images /foo → foo
+      .replace(/src="\/([^"]+)"/g, 'src="$1"') // HTML <img src="/foo"> → "foo"
+      // VitePress <Badge> components are not valid XHTML; keep their text.
+      .replace(/<Badge\b[^>]*\btext="([^"]*)"[^>]*\/?>/g, "**$1**")
+      .replace(/<Badge\b[^>]*\/?>/g, "")
+      // `align` is obsolete in EPUB3; use the equivalent inline style.
+      .replace(/\balign="(center|left|right|justify)"/g, 'style="text-align: $1"')
+      // A raw `#` inside the URL fragment is invalid; percent-encode it.
+      .replace(/matrix\.to\/#\/#/g, "matrix.to/#/%23")
+  )
+}
+
+/**
+ * Stable anchor id for a Markdown file. Derived from its path so it does not
+ * depend on Pandoc's slug rules (which differ from VitePress's for edge cases).
+ */
+function idFor(rel: string): string {
+  return "ch-" + rel.replace(/\.md$/, "").replace(/\//g, "-")
+}
+
+/**
+ * Rewrite internal page links to in-document anchors so both the EPUB and the
+ * PDF resolve them. Handles `.md` links plus extension-less route links
+ * (`./other`, `../a/b#anchor`, `/faq/`). Non-page targets (assets, external
+ * URLs) are left untouched.
+ */
+function rewriteInternalLinks(
+  md: string,
+  currentRel: string,
+  anchors: Map<string, string>
+): string {
+  return mapOutsideCode(md, (part) =>
+    part.replace(
+      /\]\(([^)\s#]*)(#[^)\s]+)?\)/g,
+      (whole, target: string, anchor?: string) => {
+        if (!target || target.includes("://")) return whole
+        let rel = target.startsWith("/")
+          ? target.slice(1)
+          : path.posix.normalize(path.posix.join(path.posix.dirname(currentRel), target))
+        rel = rel.replace(/\/+$/, "")
+
+        const id = rel.endsWith(".md")
+          ? anchors.get(rel)
+          : (anchors.get(`${rel}.md`) ?? anchors.get(`${rel}/index.md`))
+        if (!id) {
+          if (rel.endsWith(".md")) {
+            console.warn(
+              `⚠️  internal target not exported: ${target} (from ${currentRel})`
+            )
+          }
+          return whole
+        }
+        return anchor ? `](#${anchor.slice(1)})` : `](#${id})`
+      }
+    )
+  )
+}
+
+/** Anchor id already declared on the file's leading heading, if any. */
+function firstHeadingId(md: string): string | undefined {
+  for (const line of md.split("\n")) {
+    if (line.startsWith("```")) return undefined
+    if (!/^#\s+\S/.test(line)) continue
+    return line.match(/\{#([^}\s]+)/)?.[1]
+  }
+  return undefined
+}
+
+/** Give the file's leading heading a stable id that cross-file links target. */
+function injectHeadingId(md: string, id: string): string {
+  const lines = md.split("\n")
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith("```")) break
+    if (!/^#\s+\S/.test(lines[i])) continue
+    if (/\{#[^}]+\}/.test(lines[i])) return md // already has an explicit id
+
+    lines[i] = lines[i].replace(/\{([^}]*)\}\s*$/, (_, attrs) => {
+      const rest = attrs.trim()
+      return `{#${id}${rest ? " " + rest : ""}}`
+    })
+    if (!lines[i].includes(`{#${id}`))
+      lines[i] = `${lines[i].replace(/\s*$/, "")} {#${id}}`
+    break
+  }
+  return lines.join("\n")
 }
 
 const EPUB_CSS = `
@@ -161,9 +247,19 @@ export function prepareTemp(lang: string): { fileList: string[]; tempDir: string
   if (fs.existsSync(TEMP_DIR)) fs.rmSync(TEMP_DIR, { recursive: true, force: true })
   fs.mkdirSync(TEMP_DIR, { recursive: true })
 
+  const prefix = `${lang}/`
+  const anchors = new Map<string, string>()
+  for (const relFile of fileList) {
+    const rel = relFile.replace(prefix, "")
+    const text = fs.readFileSync(path.join("docs", relFile), "utf8")
+    // Prefer an anchor already present on the leading heading (VitePress custom
+    // anchor); otherwise inject a stable, path-derived one.
+    anchors.set(rel, firstHeadingId(text) ?? idFor(rel))
+  }
   for (const relFile of fileList) {
     const srcPath = path.join("docs", relFile)
     const dstPath = path.join(TEMP_DIR, relFile)
+    const rel = relFile.replace(prefix, "")
 
     fs.mkdirSync(path.dirname(dstPath), { recursive: true })
     let content = fs.readFileSync(srcPath, "utf8")
@@ -172,7 +268,11 @@ export function prepareTemp(lang: string): { fileList: string[]; tempDir: string
     content = normalizeFenceOpeners(content)
     // 2) XHTML + path fixes only outside code
     content = sanitizeOutsideCode(content)
-    // 3) Inline line numbers (start at 1)
+    // 3) Internal page links → in-document anchors
+    content = rewriteInternalLinks(content, rel, anchors)
+    // 4) Stable id on the leading heading (target of cross-file links)
+    content = injectHeadingId(content, anchors.get(rel)!)
+    // 5) Inline line numbers (start at 1)
     content = addLineNumbersToFences(content)
 
     fs.writeFileSync(dstPath, content)
