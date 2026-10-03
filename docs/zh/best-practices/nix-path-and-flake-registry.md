@@ -11,7 +11,7 @@ Nix 表达式中形如 `<name>` 的路径会被解析为 `NIX_PATH` 中名为 `n
 `NIX_PATH`，可复现能力大打折扣。
 
 但是在某些场景下，我们还是需要使用 `NIX_PATH`，比如我们前面多次使用了
-`nix repl '<nixpkgs>'` 命令，它就是使用了从 `NIX_PATH` 搜索到的 Nixpkgs。
+`nix repl -f '<nixpkgs>'` 命令，它就是使用了从 `NIX_PATH` 搜索到的 Nixpkgs。
 
 ## Flakes Registry 介绍 {#flakes-registry-introduction}
 
@@ -31,7 +31,7 @@ Flake Registry 是一个 Flake 注册中心，它可以帮助我们在使用 `ni
 > **注意：新手请先跳过这部分内容！因为配置如果抄得不对，关掉 nix-channel 可能会导致一些令人头疼的错误。**
 
 前面说明了 `NIX_PATH` 与 Flake Registry 的作用。在日常使用中，我们一般都会希望能在执行
-`nix repl '<nixpkgs>'`, `nix run nixpkgs#ponysay hello`
+`nix repl -f '<nixpkgs>'`, `nix run nixpkgs#ponysay hello`
 等命令时，使用的 nixpkgs 与系统一致。**NixOS 24.05 自带了这一功能**（PR [automatic flake
 registry]）。此外我们也可以主动关闭 `nix-channel`，因为 flakes 已经能够完全替代它。
 

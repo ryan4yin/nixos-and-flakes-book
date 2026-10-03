@@ -58,7 +58,7 @@ There are a couple of expressions that I frequently use: `:lf <ref>` and `:e <ex
 The `:e <expr>` command is very intuitive, so I won't go into detail about it. Instead,
 let's focus on `:lf <ref>`:
 
-```nix
+```shell
 # cd into my nix-config repo(you should replace it with your own nix-config repo)
 › cd ~/nix-config/
 

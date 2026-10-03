@@ -51,9 +51,11 @@ nix 的新命令行工具还提供了一些方便的功能，比如说你现在�
 nix flake show templates
 ```
 
-其中有个 `templates#full` 模板展示了所有可能的用法，可以看看它的内容：
+其中有个 `templates#full` 模板展示了所有可能的用法。`nix flake init` 会把 `flake.nix`
+写入当前目录，所以建议在一个临时目录里执行，避免覆盖你自己的文件：
 
 ```bash
+mkdir /tmp/flake-demo && cd /tmp/flake-demo
 nix flake init -t templates#full
 cat flake.nix
 ```

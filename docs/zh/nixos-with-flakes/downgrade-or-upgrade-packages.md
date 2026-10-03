@@ -14,7 +14,7 @@ commit.
 
 ```nix{8-13,19-20,26-42}
 {
-  description = "NixOS configuration of Ryan Yin"
+  description = "My NixOS configuration";
 
   inputs = {
     # 默认使用 nixos-unstable 分支

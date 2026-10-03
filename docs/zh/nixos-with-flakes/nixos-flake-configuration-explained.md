@@ -39,6 +39,11 @@ set，其中定义了这个 flake 的所有依赖项，这些依赖项会在被�
 中的依赖项为参数的函数，函数的返回值是一个 attribute set，这个返回的 attribute
 set 即为该 flake 的构建结果：
 
+函数的参数是 `inputs` 中的依赖项以及 `self`（这个 flake 自身的 outputs）。参数末尾的
+`...`（省略号）表示忽略其他属性，因此你只需要列出用到的 input。`{ self, nixpkgs, ... }@inputs:`
+会把整个参数集合绑定到 `inputs`，方便后续转发；`inputs@{ self, nixpkgs, ... }:`
+是等价的另一种写法。
+
 ```nix{9-16}
 {
   description = "A simple NixOS flake";
@@ -70,7 +75,7 @@ flake 有很多的用途，也可以有很多不同类型的 outputs，[Flake �
 实际我们也可以自定义 flake 的位置与 NixOS 配置的名称，而不是使用默认值。只需要在
 `nixos-rebuild` 命令后面添加 `--flake` 参数即可，一个例子：
 
-```nix
+```shell
 sudo nixos-rebuild switch --flake /path/to/your/flake#your-hostname
 ```
 
@@ -82,7 +87,7 @@ sudo nixos-rebuild switch --flake /path/to/your/flake#your-hostname
 
 你甚至能直接引用一个远程的 GitHub 仓库作为你的 flake 来源，示例如下：
 
-```nix
+```shell
 sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 ```
 
@@ -158,11 +163,8 @@ Module，因此可以直接将其添加到 `modules` 列表中使用。
 [nixpkgs/flake.nix] 中找到 `nixpkgs.lib.nixosSystem`
 的定义，跟踪它的源码，研究其实现方式。
 
-
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
 [nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-26.05/flake.nix
 [nixpkgs/nixos/lib/eval-config.nix]:
   https://github.com/NixOS/nixpkgs/tree/nixos-26.05/nixos/lib/eval-config.nix
-
-

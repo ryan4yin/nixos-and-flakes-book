@@ -17,3 +17,8 @@ specifics here. For more information, please visit the official download site at
 > [ryan4yin/nix-darwin-kickstarter](https://github.com/ryan4yin/nix-darwin-kickstarter)
 > may be a good starting point for you, you can learn how to use Nix with this book and
 > take nix-darwin-kickstarter as a start point to build your own Nix configuration.
+
+> If you're using WSL2,
+> [nix-community/NixOS-WSL](https://github.com/nix-community/NixOS-WSL) provides a NixOS
+> distribution that runs on WSL2, which is a convenient way to try NixOS without a
+> separate machine.

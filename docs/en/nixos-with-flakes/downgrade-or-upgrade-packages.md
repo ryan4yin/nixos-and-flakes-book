@@ -10,7 +10,7 @@ commit or branch:
 
 ```nix{8-13,19-20,27-42}
 {
-  description = "NixOS configuration of Ryan Yin";
+  description = "My NixOS configuration";
 
   inputs = {
     # Default to the nixos-unstable branch

@@ -19,7 +19,7 @@ set，是整个 Flake 的构建结果，每个 Flake 都可以有许多不同的
   - 可以通过执行命令 `nix flake init --template <reference>` 使用模板初始化一个 Flake 包
 - 其他用户自定义的 outputs，可能被其他 Nix 相关的工具使用
 
-细节详见官方文档 [Flakes Check - Nix Manual].
+细节详见官方文档 [Nix flakes - Nix Manual].
 
 NixOS Wiki 中给出的使用案例：
 
@@ -78,7 +78,7 @@ NixOS Wiki 中给出的使用案例：
 
 ## References
 
-- [Flakes Check - Nix Manual]
+- [Nix flakes - Nix Manual]
 
-[Flakes Check - Nix Manual]:
-  https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check
+[Nix flakes - Nix Manual]:
+  https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake.html#flake-outputs

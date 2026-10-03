@@ -82,7 +82,7 @@ Module，也可以用做 NixOS Module，因为这俩定义完全是一致的：
     # ...
   };
 
-  outputs = inputs@{ nixpkgs ... }: {
+  outputs = inputs@{ nixpkgs, ... }: {
     nixosConfigurations = {
       my-nixos = nixpkgs.lib.nixosSystem {
         modules = [

@@ -3,7 +3,7 @@
 `flake.nix` 中的 `inputs` 是一个 attribute
 set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如下：
 
-> 详细的例子参见官方文档 [Flakes Check - Nix Manual]
+> 详细的例子参见官方文档 [Nix flakes - Nix Manual]
 
 ```nix
 {
@@ -28,7 +28,7 @@ set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如
     # 当然也可以直接依赖本地的 git 仓库
     git-directory-example.url = "git+file:///path/to/repo?shallow=1";
     # 使用 `dir` 参数指定某个子目录
-    nixpkgs.url = "github:foo/bar?dir=shu";
+    nixpkgs-dir.url = "github:foo/bar?dir=shu";
     # 本地文件夹 (如果使用绝对路径，可省略掉前缀 'path:')
     directory-example.url = "path:/path/to/repo";
 
@@ -57,13 +57,15 @@ set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如
     };
   };
 
-  outputs = { self, ... }@inputs: { ... };
+  outputs = { self, ... }@inputs: {
+    # ......
+  };
 }
 ```
 
 ## 参考
 
-- [Flakes Check - Nix Manual]
+- [Nix flakes - Nix Manual]
 
-[Flakes Check - Nix Manual]:
-  https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake-check
+[Nix flakes - Nix Manual]:
+  https://nix.dev/manual/nix/stable/command-ref/new-cli/nix3-flake.html#flake-inputs

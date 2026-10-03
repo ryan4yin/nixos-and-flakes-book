@@ -20,8 +20,7 @@ nixpkgs 包含了一系列预定义好的交叉编译工具链，其名为 `pkgs
 来看看有哪些工具链：
 
 ```shell
-› nix repl '<nixpkgs>'
-warning: future versions of Nix will require using `--file` to load a file
+› nix repl -f '<nixpkgs>'
 Welcome to Nix 2.13.3. Type :? for help.
 
 Loading installable ''...
