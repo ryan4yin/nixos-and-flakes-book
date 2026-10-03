@@ -45,7 +45,7 @@ sudo mv /etc/nixos /etc/nixos.bak  # 备份原来的配置
 cd ~/nixos-config
 
 # 通过 --flake .#my-nixos 参数指定使用当前文件夹的 flake.nix，
-# 使用的 nixosConfiguraitons 名称为 my-nixos
+# 使用的 nixosConfigurations 名称为 my-nixos
 sudo nixos-rebuild switch --flake .#my-nixos
 ```
 

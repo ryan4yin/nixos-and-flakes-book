@@ -43,7 +43,6 @@ Luckily, some people in the community have done this for us. The following repos
 contains development environment templates for most programming languages. Just copy and
 paste them:
 
-- [MordragT/nix-templates](https://github.com/MordragT/nix-templates)
 - [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates)
 
 If you think the structure of `flake.nix` is still too complicated and want a simpler way,
@@ -55,7 +54,7 @@ provides users with a simpler definition:
 If you don't want to write a single line of nix code and just want to get a reproducible
 development environment with minimal cost, here's a tool that might meet your needs:
 
-- [jetpack-io/devbox](https://github.com/jetpack-io/devbox)
+- [jetify-com/devbox](https://github.com/jetify-com/devbox)
 
 ## Dev Environment for Python
 

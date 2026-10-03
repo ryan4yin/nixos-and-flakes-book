@@ -38,8 +38,8 @@ user-level packages and configuration files within the user's home directory.
 Due to Nix's features, such as being declarative and reproducible, Nix is not limited to
 managing desktop environments but is also extensively used for managing development
 environments, compilation environments, cloud virtual machines, and container image
-construction. [NixOps](https://github.com/NixOS/nixops) (an official Nix project) and
-[colmena](https://github.com/zhaofengli/colmena) (a community project) are both
+construction. [colmena](https://github.com/nix-community/colmena) and
+[deploy-rs](https://github.com/serokell/deploy-rs) (community projects) are both
 operational tools based on Nix.
 
 ## Why NixOS?

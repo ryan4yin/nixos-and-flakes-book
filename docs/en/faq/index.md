@@ -28,9 +28,9 @@ still require system snapshots or other means of backup.
 ## How does Nix compare to traditional system management tools like Ansible?
 
 Nix is not only used for managing desktop environments but is also widely employed for
-batch management of cloud servers. The official [NixOps](https://github.com/NixOS/nixops)
-from the NixOS community and [colmena](https://github.com/zhaofengli/colmena) developed by
-the community are tools specifically designed for this use case.
+batch management of cloud servers. [colmena](https://github.com/nix-community/colmena) and
+[deploy-rs](https://github.com/serokell/deploy-rs), both developed by the community, are
+tools specifically designed for this use case.
 
 When compared to widely used traditional tools like Ansible, Nix has the following main
 advantages:

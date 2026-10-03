@@ -15,5 +15,5 @@ NixOS 的安装不难，与许多传统发行版类似，它提供了一个对�
 
 1. [NixOS 官网](https://nixos.org/download.html)
 1. [复用 flake 管理 NixOS WSL](https://zhuanlan.zhihu.com/p/627073511): 使用 WSL 的用户可以参考下这篇文章
-1. [ryan4yin/nix-darwin-kickstarter](https://github.com/ryan4yin/nix-darwin-kickstart):
+1. [ryan4yin/nix-darwin-kickstarter](https://github.com/ryan4yin/nix-darwin-kickstarter):
    macOS 用户可以通过这个模板仓库结合本书的内容来学习使用 Nix.

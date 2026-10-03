@@ -68,7 +68,8 @@ $ fhs
   collection of useful tips and tricks for NixOS desktop users.
 - [nix-alien](https://github.com/thiagokokada/nix-alien): Run unpatched binaries on
   Nix/NixOS
-- [nix-ld](https://github.com/Mic92/nix-ld): Run unpatched dynamic binaries on NixOS.
+- [nix-ld](https://github.com/nix-community/nix-ld): Run unpatched dynamic binaries on
+  NixOS.
 - [NixOS: Packaging Closed Source Software (& Binary Distributed Ones) - Lan Tian @ Blog](https://lantian.pub/en/article/modify-computer/nixos-packaging.lantian/#examples-closed-source-software--binary-distributed-ones)
 
 [Tips&Tricks for NixOS Desktop - NixOS Discourse]:

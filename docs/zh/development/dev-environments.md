@@ -29,7 +29,6 @@
 
 幸运的是，社区已经有人为我们做好了这件事，如下这个仓库中包含了绝大多数编程语言的开发环境模板，直接复制粘贴下来就能用：
 
-- [MordragT/nix-templates](https://github.com/MordragT/nix-templates)
 - [the-nix-way/dev-templates](https://github.com/the-nix-way/dev-templates)
 
 如果你觉得 `flake.nix`
@@ -39,7 +38,7 @@
 
 如果你连任何一行 nix 代码都不想写，只想以最小的代价获得一个可复现的开发环境，这里也有一个或许能符合你需求的工具：
 
-- [jetpack-io/devbox](https://github.com/jetpack-io/devbox)
+- [jetify-com/devbox](https://github.com/jetify-com/devbox)
 
 ## Python 开发环境
 

@@ -13,7 +13,7 @@ NixOS or Home Manager. These `options` are actually defined in two locations:
 
 > If you are using nix-darwin too, its configuration is similar, and its module system is
 > implemented in
-> [nix-darwin/modules](https://github.com/LnL7/nix-darwin/tree/master/modules).
+> [nix-darwin/modules](https://github.com/nix-darwin/nix-darwin/tree/master/modules).
 
 The foundation of the aforementioned NixOS Modules and Home Manager Modules is a universal
 module system implemented in Nixpkgs, found in [lib/modules.nix][lib/modules.nix]. The
