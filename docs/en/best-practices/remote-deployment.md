@@ -1,10 +1,10 @@
 # Remote Deployment
 
 Nix's inherent design is well-suited for remote deployment, and the Nix community offers
-several tools tailored for this purpose, such as [NixOps](https://github.com/NixOS/nixops)
-and [colmena](https://github.com/zhaofengli/colmena). Additionally, the official tool
-we've used extensively, `nixos-rebuild`, possesses some remote deployment capabilities
-too.
+several tools tailored for this purpose, such as
+[colmena](https://github.com/nix-community/colmena) and
+[deploy-rs](https://github.com/serokell/deploy-rs). Additionally, the official tool we've
+used extensively, `nixos-rebuild`, possesses some remote deployment capabilities too.
 
 In addition, within multi-architecture scenarios, remote deployment can optimally leverage
 Nix's multi-architecture support. For example, you can cross-compile an aarch64/riscv64

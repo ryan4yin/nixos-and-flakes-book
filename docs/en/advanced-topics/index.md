@@ -70,15 +70,13 @@ There are many other valuable community projects worth exploring. Here are a few
   displays the build progress of Nix packages, with additional information such as build
   time and build log.
 - [agenix](https://github.com/ryantm/agenix): A tool for secrets management.
-- [colmena](https://github.com/zhaofengli/colmena): Tools for NixOS deployment.
-- [nixos-generators](https://github.com/nix-community/nixos-generators): A tool to
-  generate ISO/qcow2/... from NixOS configurations.
+- [colmena](https://github.com/nix-community/colmena): Tools for NixOS deployment.
 - [lanzaboote](https://github.com/nix-community/lanzaboote): Enables secure boot for
   NixOS.
 - [impermanence](https://github.com/nix-community/impermanence): Helps make NixOS
   stateless and improves system reproducibility.
-- [devbox](https://github.com/jetpack-io/devbox): Lightweight, repeatable dev environments
-  without container woes, internally powered by nix, similar to earthly.
+- [devbox](https://github.com/jetify-com/devbox): Lightweight, repeatable dev environments
+  without container woes, internally powered by nix.
 - [nixpak](https://github.com/nixpak/nixpak): A tool to sandbox all sorts of Nix-packaged
   applications, including graphical ones.
 - [nixpacks](https://github.com/railwayapp/nixpacks): Nixpacks takes a source directory

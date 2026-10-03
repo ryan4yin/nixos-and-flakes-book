@@ -117,4 +117,4 @@ and use `make menuconfig` to configure the kernel.
 ## References
 
 - [Linux kernel - NixOS Wiki](https://wiki.nixos.org/wiki/Linux_kernel)
-- https://github.com/jordanisaacs/kernel-module-flake
+- https://github.com/jordanisaacs/kernel-development-flake

@@ -369,5 +369,5 @@ order of definition.
 
 ## References
 
-- [Nix modules: Improving Nix's discoverability and usability](https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
+- [Nix modules: Improving Nix's discoverability and usability](http://web.archive.org/web/20230606000903/https://cfp.nixcon.org/nixcon2020/talk/K89WJY/)
 - [Module System - Nixpkgs](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/doc/module-system/module-system.chapter.md)

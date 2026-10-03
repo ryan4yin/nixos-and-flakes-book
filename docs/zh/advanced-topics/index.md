@@ -60,11 +60,10 @@ Flakes 熟悉到一定程度后，你可以尝试一些 Flakes 的进阶玩法�
 - [nix-output-monitor](https://github.com/maralorn/nix-output-monitor): 美化 `nix build`
   命令的输出日志，同时打印出更详细的日志信息，以及构建计时器等额外信息，强烈推荐使用！
 - [agenix](https://github.com/ryantm/agenix): secrets 管理工具
-- [nixos-generator](https://github.com/nix-community/nixos-generators): 镜像生成工具，从 nixos 配置生成 iso/qcow2 等格式的镜像
 - [lanzaboote](https://github.com/nix-community/lanzaboote): 启用 secure boot
 - [impermanence](https://github.com/nix-community/impermanence): 用于配置无状态系统。可用它持久化你指定的文件或文件夹，同时再将 /home 目录挂载为 tmpfs 或者每次启动时用工具擦除一遍。这样所有不受 impermanence 管理的数据都将成为临时数据，如果它们导致了任何问题，重启下系统这些数据就全部还原到初始状态了！
-- [colmena](https://github.com/zhaofengli/colmena): NixOS 主机部署工具
-- [devbox](https://github.com/jetpack-io/devbox): 一个基于 Nix 的轻量级开发环境管理工具，类似 earthly，目标是统一开发环境与部署环境，使得开发环境与部署环境一致
+- [colmena](https://github.com/nix-community/colmena): NixOS 主机部署工具
+- [devbox](https://github.com/jetify-com/devbox): 一个基于 Nix 的轻量级开发环境管理工具，目标是统一开发环境与部署环境，使得开发环境与部署环境一致
 - [nixpak](https://github.com/nixpak/nixpak): 一个使用沙箱运行任何 Nix 应用程序的工具（包括 GUI 应用程序），提升系统安全性
 - [nixpacks](https://github.com/railwayapp/nixpacks): 一个将任何代码自动打包为 OCI 容器镜像的工具，类似 buildpacks
 - ...
