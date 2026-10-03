@@ -29,8 +29,7 @@ in the NixOS configuration of the building machine.
 `pkgsCross`. You can explore them in `nix repl`.
 
 ```shell
-› nix repl '<nixpkgs>'
-warning: future versions of Nix will require using `--file` to load a file
+› nix repl -f '<nixpkgs>'
 Welcome to Nix 2.13.3. Type :? for help.
 
 Loading installable ''...

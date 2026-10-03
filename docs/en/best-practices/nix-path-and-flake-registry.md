@@ -14,7 +14,7 @@ Flake builds depending on a mutable environment variable `NIX_PATH`, compromisin
 reproducibility.
 
 However, in certain scenarios, we still need to use `NIX_PATH`, such as when we frequently
-use the command `nix repl '<nixpkgs>'`, which utilizes the Nixpkgs found through
+use the command `nix repl -f '<nixpkgs>'`, which utilizes the Nixpkgs found through
 `NIX_PATH` search.
 
 ## Introduction to Flakes Registry {#flakes-registry-introduction}
@@ -37,7 +37,7 @@ then downloads the repository, locates the `flake.nix` within, and runs the corr
 > to some headaches.**
 
 The roles of `NIX_PATH` and the Flake Registry have been explained earlier. In daily use,
-we typically want the `nixpkgs` used in commands like `nix repl '<nixpkgs>'`,
+we typically want the `nixpkgs` used in commands like `nix repl -f '<nixpkgs>'`,
 `nix run nixpkgs#ponysay hello` to match the system's `nixpkgs`. This is done by default
 as of [NixOS 24.05][automatic flake registry]. Also, although `nix-channel` can coexist
 with the Flakes feature, in practice, Flakes can completely replace it, so we can also

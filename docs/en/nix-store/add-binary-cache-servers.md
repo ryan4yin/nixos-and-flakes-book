@@ -115,7 +115,7 @@ The second method is to configure `substituters` and `trusted-public-keys` using
 
 ```nix{5-23,42-46}
 {
-  description = "NixOS configuration of Ryan Yin";
+  description = "My NixOS configuration";
 
   # the nixConfig here only affects the flake itself, not the system configuration!
   nixConfig = {
@@ -208,7 +208,7 @@ In other words, you can use it like this:
 
 ```nix{7,13,36-58}
 {
-  description = "NixOS configuration of Ryan Yin";
+  description = "My NixOS configuration";
 
   # the nixConfig here only affects the flake itself, not the system configuration!
   nixConfig = {
@@ -291,6 +291,7 @@ If you only need to use a proxy temporarily, you can set the proxy environment v
 with the following commands:
 
 ```bash
+# These files are under /run, so the following commands need root privileges.
 sudo mkdir -p /run/systemd/system/nix-daemon.service.d/
 sudo tee /run/systemd/system/nix-daemon.service.d/override.conf <<EOF
 [Service]

@@ -61,10 +61,12 @@ what templates are available:
 nix flake show templates
 ```
 
-Among them, the `templates#full` template demonstrates all possible usage. Take a look at
-its content:
+Among them, the `templates#full` template demonstrates all possible usage.
+`nix flake init` writes `flake.nix` into the current directory, so run it in a scratch
+directory to avoid overwriting your own files:
 
 ```bash
+mkdir /tmp/flake-demo && cd /tmp/flake-demo
 nix flake init -t templates#full
 cat flake.nix
 ```
@@ -143,5 +145,3 @@ functionality of `flake.nix` and gradually see the benefits that such a wrapper 
 > detail how to modularize your NixOS configuration, and
 > [Other Useful Tips - Managing NixOS Configuration with Git](./other-useful-tips.md) will
 > introduce several best practices for managing NixOS configuration with Git.
-
-

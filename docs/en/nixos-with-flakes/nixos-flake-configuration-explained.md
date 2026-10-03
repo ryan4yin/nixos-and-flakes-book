@@ -40,6 +40,12 @@ Now let's look at `outputs`. It is a function that takes the dependencies from `
 its parameters, and its return value is an attribute set, which represents the build
 results of the flake:
 
+The arguments are the contents of `inputs` plus `self`, the flake's own outputs. The
+trailing `...` (ellipsis) means "ignore any other attributes", so you only need to name
+the inputs you actually use. `{ self, nixpkgs, ... }@inputs:` binds the whole argument set
+to `inputs`, which is handy when you want to forward it; the equivalent
+`inputs@{ self, nixpkgs, ... }:` form is also common.
+
 ```nix{9-16}
 {
   description = "A simple NixOS flake";
@@ -74,7 +80,7 @@ Actually, we can also customize the location of the flake and the name of the Ni
 configuration instead of using the defaults. This can be done by adding the `--flake`
 parameter to the `nixos-rebuild` command. Here's an example:
 
-```nix
+```shell
 sudo nixos-rebuild switch --flake /path/to/your/flake#your-hostname
 ```
 
@@ -89,7 +95,7 @@ A brief explanation of the `--flake /path/to/your/flake#your-hostname` parameter
 You can even directly reference a remote GitHub repository as your flake source, for
 example:
 
-```nix
+```shell
 sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 ```
 
@@ -176,4 +182,3 @@ source code, and study its implementation.
 [nix flake - Nix Manual]:
   https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake#flake-inputs
 [nixpkgs/flake.nix]: https://github.com/NixOS/nixpkgs/tree/nixos-26.05/flake.nix
-

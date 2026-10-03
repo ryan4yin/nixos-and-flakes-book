@@ -10,10 +10,6 @@ manager 作为 NixOS 模块安装，首先需要创建 `/etc/nixos/home.nix`，�
 { config, pkgs, ... }:
 
 {
-  # 注意修改这里的用户名与用户目录
-  home.username = "ryan";
-  home.homeDirectory = "/home/ryan";
-
   # 将当前配置目录中的文件导入 Nix store，并在 Home 目录下生成指向该 store 文件的符号链接
   # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
 
@@ -107,8 +103,10 @@ manager 作为 NixOS 模块安装，首先需要创建 `/etc/nixos/home.nix`，�
   # git 相关配置
   programs.git = {
     enable = true;
-    userName = "Ryan Yin";
-    userEmail = "xiaoyin_c@qq.com";
+    settings.user = {
+      name = "ryan";
+      email = "ryan@example.com";
+    };
   };
 
   # 启用 starship，这是一个漂亮的 shell 提示符
@@ -221,7 +219,23 @@ nix flake new example -t github:nix-community/home-manager#nixos
 }
 ```
 
+`home-manager.users.ryan`
+中的用户名必须与 NixOS 配置中已有的用户一致。如果你还没创建该用户，需要先在
+`configuration.nix` 中添加：
+
+```nix
+users.users.ryan = {
+  isNormalUser = true;
+  extraGroups = [ "wheel" ];
+};
+```
+
 然后执行 `sudo nixos-rebuild switch` 应用配置，即可完成 home-manager 的安装。
+
+> 如果你的配置存放在 Git 仓库中，记得先执行
+> `git add home.nix`。Flake 与 Git 一起使用时，Nix 只能看到被 Git 跟踪的文件，未被跟踪的
+> `home.nix` 会报
+> `path '.../home.nix' does not exist`。详见[使用 Git 管理配置](./other-useful-tips.md)。
 
 > 如果你的系统 Hostname 不是 `my-nixos`，你需要在 `flake.nix` 中修改 `nixosConfigurations`
 > 的名称，或者使用 `--flake /etc/nixos#my-nixos` 来指定配置名称。
@@ -299,8 +313,9 @@ Error: nu::shell::external_command
 /home/ryan/nix-config> exit
 ```
 
-解决方法是，使用 `sudo`
-来运行命令，该命令临时授予当前用户以特权身份（`root`）运行命令的权限：
+解决方法是使用 `sudo`，它会先在当前用户的 `PATH`（由 Home Manager 管理）中查找命令，再以
+`root` 身份执行它。这一行为依赖 NixOS 的 `sudo` 配置，在其他发行版上 `sudo` 可能会重置
+`PATH`，依然找不到命令：
 
 ```sh
 › sudo kubectl

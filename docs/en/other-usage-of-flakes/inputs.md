@@ -31,7 +31,7 @@ of the current flake. There are various types of inputs, as shown in the example
     # It's also possible to directly depend on a local Git repository.
     git-directory-example.url = "git+file:///path/to/repo?shallow=1";
     # Using the `dir` parameter to specify a subdirectory.
-    nixpkgs.url = "github:foo/bar?dir=shu";
+    nixpkgs-dir.url = "github:foo/bar?dir=shu";
     # Local folder (if using an absolute path, the 'path:' prefix can be omitted).
     directory-example.url = "path:/path/to/repo";
 
@@ -63,7 +63,9 @@ of the current flake. There are various types of inputs, as shown in the example
     };
   };
 
-  outputs = { self, ... }@inputs: { ... };
+  outputs = { self, ... }@inputs: {
+    # ......
+  };
 }
 ```
 

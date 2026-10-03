@@ -12,10 +12,6 @@ Here's an example of its contents:
 { config, pkgs, ... }:
 
 {
-  # TODO please change the username & home directory to your own
-  home.username = "ryan";
-  home.homeDirectory = "/home/ryan";
-
   # Import files from the current configuration directory into the Nix store,
   # and create symbolic links pointing to those store files in the Home directory.
 
@@ -112,8 +108,10 @@ Here's an example of its contents:
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    userName = "Ryan Yin";
-    userEmail = "xiaoyin_c@qq.com";
+    settings.user = {
+      name = "ryan";
+      email = "ryan@example.com";
+    };
   };
 
   # starship - an customizable prompt for any shell
@@ -224,8 +222,23 @@ After adjusting the parameters, the content of `/etc/nixos/flake.nix` is as foll
 }
 ```
 
+`home-manager.users.ryan` must match a user declared in your NixOS configuration. If you
+haven't created that user yet, add it to `configuration.nix` before switching:
+
+```nix
+users.users.ryan = {
+  isNormalUser = true;
+  extraGroups = [ "wheel" ];
+};
+```
+
 Then run `sudo nixos-rebuild switch` to apply the configuration, and home-manager will be
 installed automatically.
+
+> If your configuration lives in a Git repository, run `git add home.nix` first. With
+> Flakes, Nix only sees files tracked by Git, and an untracked `home.nix` fails with
+> `path '.../home.nix' does not exist`. See
+> [Managing the Configuration with Git](./other-useful-tips.md).
 
 > If your system's hostname is not `my-nixos`, you need to modify the name of
 > `nixosConfigurations` in `flake.nix`, or use `--flake /etc/nixos#my-nixos` to specify
@@ -316,8 +329,10 @@ Error: nu::shell::external_command
 /home/ryan/nix-config> exit
 ```
 
-The solution is to use `sudo` to run the command, which temporarily grants the current
-user the ability to run the command as a privileged user (`root`):
+`sudo` runs the command as another user (`root`), looking it up in your own user's `PATH`
+first. Because Home Manager manages your `PATH`, `sudo kubectl` can still find `kubectl`.
+This relies on NixOS's `sudo` configuration; on other distributions `sudo` may reset
+`PATH` and still fail to find the command:
 
 ```sh
 › sudo kubectl
