@@ -21,12 +21,22 @@ export const shared = defineConfig({
     })
   },
 
-  // SEO Improvement - JSON-LD
+  // SEO Improvement - JSON-LD, per-page Open Graph/Twitter cards, canonical
   transformPageData(pageData) {
+    const url = pageUrl(pageData)
+    const title = pageData.title || SITE_TITLE
+    const description = pageData.description || LOCALE_DESCRIPTIONS[localeOf(pageData)]
     return {
       frontmatter: {
         ...pageData.frontmatter,
-        head: [["script", { type: "application/ld+json" }, getJSONLD(pageData)]],
+        head: [
+          ["link", { rel: "canonical", href: url }],
+          ["meta", { property: "og:title", content: title }],
+          ["meta", { property: "og:description", content: description }],
+          ["meta", { property: "og:url", content: url }],
+          ["meta", { name: "twitter:card", content: "summary_large_image" }],
+          ["script", { type: "application/ld+json" }, getJSONLD(pageData, title)],
+        ],
       },
     }
   },
@@ -140,41 +150,52 @@ export const shared = defineConfig({
   },
 })
 
-function getJSONLD(pageData: PageData) {
-  if (pageData.relativePath === "index.md") {
-    return `{
-  "@context":"http://schema.org",
-  "@type":"WebSite",
-  "url":"https:\/\/nixos-and-flakes.thiscute.world\/",
-  "inLanguage":"en",
-  "description":"An unofficial and opinionated book for beginners",
-  "name":"${pageData.title}"
-}`
-  } else if (pageData.relativePath === "zh/index.md") {
-    return `{
-  "@context":"http://schema.org",
-  "@type":"WebSite",
-  "url":"https:\/\/nixos-and-flakes.thiscute.world\/zh\/",
-  "inLanguage":"zh-CN",
-  "description":"一份非官方的新手指南",
-  "name":"${pageData.title}"
-}`
-  } else {
-    let lang = pageData.relativePath.startsWith("zh/") ? "zh-CN" : "en"
-    let url = `https:\/\/nixos-and-flakes.thiscute.world\/${pageData.relativePath
-      .replace(/\.md$/, "")
-      .replace(/\/index\$/, "/")}`
-    return `{
-  "@context":"http://schema.org",
-  "@type":"TechArticle",
-  "headline":"${pageData.title} | NixOS & Flakes Book",
-  "inLanguage":"${lang}",
-  "mainEntityOfPage":{
-     "@type":"WebPage",
-     "@id":"${url}"
-  },
-  "keywords":"NixOS, Nix, Flakes, Linux, Tutorial",
-  "url":"${url}"
-}`
+const SITE_ORIGIN = "https://nixos-and-flakes.thiscute.world"
+const SITE_TITLE = "NixOS & Flakes Book"
+const LOCALE_DESCRIPTIONS: Record<string, string> = {
+  en: "An unofficial and opinionated book for beginners",
+  zh: "一份非官方的新手指南",
+}
+
+/** `en` is the root locale; only `zh` is prefixed. */
+function localeOf(pageData: PageData): "en" | "zh" {
+  return pageData.relativePath.startsWith("zh/") ? "zh" : "en"
+}
+
+/**
+ * Canonical site URL for a page. `relativePath` already uses the built route
+ * (the `en` locale is rewritten to the root), so only `.md` and the `index`
+ * suffix need trimming. The previous regex escaped the `$` anchor
+ * (`/\/index\$/`), so nested index pages kept a stray `/index` segment.
+ */
+function pageUrl(pageData: PageData): string {
+  const pathSegment = pageData.relativePath
+    .replace(/\.md$/, "")
+    .replace(/\/index$/, "/")
+    .replace(/^index$/, "")
+  return `${SITE_ORIGIN}/${pathSegment}`
+}
+
+function getJSONLD(pageData: PageData, title: string): string {
+  const url = pageUrl(pageData)
+  const locale = localeOf(pageData)
+  if (pageData.relativePath === "index.md" || pageData.relativePath === "zh/index.md") {
+    return JSON.stringify({
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      url,
+      inLanguage: locale === "zh" ? "zh-CN" : "en",
+      description: LOCALE_DESCRIPTIONS[locale],
+      name: title,
+    })
   }
+  return JSON.stringify({
+    "@context": "http://schema.org",
+    "@type": "TechArticle",
+    headline: `${title} | ${SITE_TITLE}`,
+    inLanguage: locale === "zh" ? "zh-CN" : "en",
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    keywords: "NixOS, Nix, Flakes, Linux, Tutorial",
+    url,
+  })
 }
