@@ -63,36 +63,47 @@ hint: See PEP 668 for the detailed specification.
 ```
 
 根据错误信息，`pip install` 直接被 NixOS 禁用掉了，测试了 `pip install --user`
-也同样被禁用。为了提升环境的可复现能力，Nix 把它们全部废掉了。即使我们通过 `mkShell`
-等方式创建一个新环境，这些命令照样会报错（猜测是 Nixpkgs 中的 pip 命令本身就被魔改了，只要是跑
-`install` 等修改指令就直接嘎掉）。
+也同样被禁用。
 
-但是很多项目的安装脚本都是基于 pip 的，这导致这些脚本都不能直接使用，而且另一方面 nixpkgs 中的内容有限，很多 pypi 中的包里边都没有，还得自己打包，相对麻烦很多，也加重了用户的心智负担。
+这条拦截源自
+[PEP 668](https://peps.python.org/pep-0668/)：只要 Python 环境被标记为「外部管理」的（也就是它的包由外部包管理器维护，比如操作系统发行版），pip 就拒绝往里安装。这条规则来自以前传统发行版里的血泪教训：
+`pip install`
+和发行版管理的 Python 文件混用，经常把系统工具搞坏。很多系统工具本身就是 Python 写的，Fedora 的
+`yum`、`dnf` 就是如此，于是随便一个 `sudo pip install`，系统包管理器都可能直接被搞坏掉...
 
-解决方案之一是改用 `venv` 虚拟环境，在虚拟环境里当然就能正常使用 pip 等命令了：
+NixOS 同样启用了这条规则，它的 Python 自带一个 `EXTERNALLY-MANAGED`
+标记文件，上面报错中关于 `/nix/store` 的提示语就来自这个文件。
+
+对于新项目，建议直接使用 [uv](https://github.com/astral-sh/uv)：`uv venv`
+创建虚拟环境，`uv add` / `uv run`
+负责依赖管理和命令执行；uv 也兼容 pip 用法，虚拟环境里可以直接
+`uv pip install`。uv 本身在 nixpkgs 中就有打包，装上就能用。
+
+如果对可复现性有更高的要求，还可以让 Nix 直接把虚拟环境构建进 `/nix/store`
+里做成不可变产物，在构建期安装 `pyproject.toml` + `uv.lock`
+中声明的依赖。目前还在积极维护的 Nix 封装工具是
+[uv2nix](https://github.com/pyproject-nix/uv2nix)：
+
+> 注意即使是在这种环境中，直接跑 `pip install` 之类的安装命令仍然是会失败的，必须通过
+> `flake.nix` 来安装 Python 依赖！因为数据还是在 `/nix/store`
+> 中，这类修改命令必须在 Nix的构建阶段才能执行...
+
+它的好处是能利用上 Nix
+Flakes 的锁机制来提升可复现能力，缺点是多了一层封装，底层变得更复杂了。
+
+`uvx`
+则直接解决前面提到的问题：全局环境装不了 Python 命令行工具。它的用法类似 Node 的 npx：`uvx <tool>`（等价于
+`uv tool run <tool>`）会把工具下载到隔离环境里直接运行，不碰系统Python；想长期使用就用
+`uv tool install <tool>` 持久安装。
+
+对于旧项目，安装脚本、依赖管理全都建立在 pip 之上，遇到这种情况没啥好办法，先创建个虚拟环境，在虚拟环境里用：
 
 ```shell
 python -m venv ./env
 source ./env/bin/activate
 ```
 
-或者使用第三方工具 `virtualenv`，缺点是这个需要额外安装。
-
-这样用 python 直接创建的 venv，对一些人而言可能还是没有安全感，仍然希望将这个虚拟环境也弄进
-`/nix/store` 里使其不可变，通过 nix 直接安装 `requirements.txt` 或者 `poetry.toml`
-中的依赖项。这当然是可行的，有现成的 Nix 封装工具帮我们干这个活：
-
-> 注意即使是在这俩环境中，直接跑 `pip install` 之类的安装命令仍然是会失败的，必须通过
-> `flake.nix` 来安装 Python 依赖！因为数据还是在 `/nix/store`
-> 中，这类修改命令必须在 Nix的构建阶段才能执行...
-
-- [python venv demo](https://github.com/MordragT/nix-templates/blob/master/python-venv/flake.nix)
-- [poetry2nix](https://github.com/nix-community/poetry2nix)
-
-这俩工具的好处是，能利用上 Nix
-Flakes 的锁机制来提升可复现能力，缺点是多了一层封装，底层变得更复杂了。
-
-最后，在一些更复杂的项目上，上述两种方案可能都行不通，这时候最佳的解决方案，就是改用容器了，比如 Docker、Podman 等，容器的限制没 Nix 这么严格，能提供最佳的兼容性。
+部分连虚拟环境、FHS 环境都搞不定的项目，就只能上容器化方案了，比如 Docker、Podman 等，容器里跑个正常的 Ubuntu/Debian/Alpine，容器的限制没 Nix 这么严格，能提供最佳的兼容性。
 
 ## Go 开发环境
 
