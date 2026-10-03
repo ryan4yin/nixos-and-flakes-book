@@ -2,9 +2,9 @@
   "type": "module",
   "packageManager": "pnpm@11.4.0",
   "devDependencies": {
-    "tsx": "4.23.15",
-    "vitepress": "1.6.4",
-    "vitepress-export-pdf": "1.0.0"
+    "tsx": "^4.23.15",
+    "vitepress": "^1.6.4",
+    "vitepress-export-pdf": "^1.0.0"
   },
   "scripts": {
     "docs:dev": "vitepress dev docs",
@@ -14,7 +14,7 @@
     "export-epub": "tsx epub-export.ts"
   },
   "dependencies": {
-    "markdown-it-cjk-breaks": "2.0.1",
+    "markdown-it-cjk-breaks": "^2.0.1",
     "markdown-it-footnote": "^4.0.0",
     "sitemap-ts": "^1.10.1",
     "vitepress-plugin-comment-with-giscus": "^1.1.15"
