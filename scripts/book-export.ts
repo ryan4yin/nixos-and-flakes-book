@@ -195,10 +195,19 @@ const EPUB_CSS = `
 /* Fix Kindle extra spacing in Pandoc-highlighted code blocks */
 code.sourceCode > span { display: inline !important; }          /* override inline-block */
 pre > code.sourceCode > span { display: inline !important; }     /* extra safety */
-pre { line-height: 1.2 !important; margin: 0 !important; }       /* tighten & remove gaps */
+pre { line-height: 1.2 !important; }                             /* tighten */
 pre code { display: block; padding: 0; margin: 0; }
 pre, code { font-variant-ligatures: none; }                      /* avoid odd ligature spacing */
-pre > code.sourceCode { white-space: pre; }                      /* don’t pre-wrap lines */
+pre > code.sourceCode { white-space: pre; }                      /* don't pre-wrap lines */
+
+/* Box code blocks, matching the PDF export. */
+pre.sourceCode {
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  background: #f8f8f8;
+  padding: 6px 8px;
+  margin: 1em 0;
+}
 `
 
 function copyDir(src: string, dst: string): void {
@@ -277,7 +286,13 @@ export function prepareTemp(
   }
 
   copyDir(path.join("docs", "public"), TEMP_DIR)
-  fs.writeFileSync(path.join(TEMP_DIR, "epub-fixes.css"), EPUB_CSS)
+  // Injected with `--include-in-header` (not `--css`): passing `--css` makes
+  // Pandoc drop its own syntax-highlighting stylesheet, leaving code black and
+  // white. A `<style>` header coexists with it.
+  fs.writeFileSync(
+    path.join(TEMP_DIR, "epub-fixes.html"),
+    `<style>\n${EPUB_CSS}\n</style>\n`
+  )
 
   return { fileList, tempDir: TEMP_DIR }
 }

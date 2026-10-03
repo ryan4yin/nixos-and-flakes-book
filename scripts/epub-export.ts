@@ -17,7 +17,7 @@ runPandoc([
   "--to=epub3",
   "--standalone",
   "--embed-resources",
-  "--css=epub-fixes.css",
+  "--include-in-header=epub-fixes.html",
   "--metadata=title:NixOS and Flakes Book",
   "--metadata=author:Ryan Yin",
   `--metadata=lang:${metaLang}`,
