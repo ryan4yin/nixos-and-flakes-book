@@ -242,12 +242,20 @@ function getFileList(lang: string): string[] {
     items?: { text: string; link: string }[]
   }[] = (config.locales as any)[localeKey]?.themeConfig?.sidebar ?? []
 
+  // Localized sidebars use absolute links that already carry the language
+  // prefix (`/zh/preface.md`); strip it so the prefix is added exactly once.
+  const prefix = lang === "en" ? "" : `/${lang}`
+
   const fileList: string[] = []
   for (const category of sidebar) {
     if (!category.items) continue
     for (const item of category.items) {
       if (item.link && item.link.endsWith(".md")) {
-        fileList.push(path.join(lang, item.link).replace(/\\/g, "/"))
+        const link =
+          prefix && item.link.startsWith(`${prefix}/`)
+            ? item.link.slice(prefix.length)
+            : item.link
+        fileList.push(path.join(lang, link).replace(/\\/g, "/"))
       }
     }
   }
