@@ -25,6 +25,28 @@ of approaches you can follow:
 By using these methods, you can discover the input parameters of a package and determine
 which ones can be modified using `override`.
 
+The `fcitx5-rime` package, for instance, has the following input parameters, all of which
+can be modified with `override`:
+
+```nix
+{ lib, stdenv
+, fetchFromGitHub
+, pkg-config
+, cmake
+, extra-cmake-modules
+, gettext
+, fcitx5
+, librime
+, rime-data
+, symlinkJoin
+, rimeDataPkgs ? [ rime-data ]
+}:
+
+stdenv.mkDerivation rec {
+  # ......
+}
+```
+
 For example, let's take a look at the source code of [pkgs.hello]:
 
 ```nix
@@ -39,11 +61,11 @@ For example, let's take a look at the source code of [pkgs.hello]:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hello";
-  version = "2.12.1";
+  version = "2.12.3";
 
   src = fetchurl {
     url = "mirror://gnu/hello/hello-${finalAttrs.version}.tar.gz";
-    sha256 = "sha256-jZkUKv2SV28wsM18tCqNxoCZmLxdYH2Idh9RLibH2yA=";
+    sha256 = "sha256-DV9gFUOC/uELEUocNOeF2LH0kgc64tOm97FHaHs2aqA=";
   };
 
   doCheck = true;
@@ -87,4 +109,4 @@ you can type `:?` to see the help information.
 - [Chapter 4. Overriding - nixpkgs Manual](https://nixos.org/manual/nixpkgs/stable/#chap-overrides)
 
 [pkgs.hello]:
-  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/applications/misc/hello/default.nix
+  https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/by-name/he/hello/package.nix

@@ -33,6 +33,9 @@ NixOS 的配置文件是纯文本，因此跟普通的 dotfiles 一样可以使�
 ```shell
 sudo mv /etc/nixos /etc/nixos.bak  # 备份原来的配置
 sudo ln -s ~/nixos-config/ /etc/nixos
+
+# 部署默认位置（/etc/nixos）的 flake.nix
+sudo nixos-rebuild switch
 ```
 
 然后就可以在 `~/nixos-config`
