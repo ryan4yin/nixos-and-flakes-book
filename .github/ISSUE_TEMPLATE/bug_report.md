@@ -25,8 +25,8 @@ If applicable, add screenshots to help explain your problem.
 
 **Environment (please complete the following information):**
 
-- NixOS Version: [e.g. 23.11]
-- Nix version: [e.g. 2.18]
+- NixOS Version: [e.g. 26.05]
+- Nix version: [e.g. 2.34]
 
 **Additional context**
 Add any other context about the problem here.

@@ -235,10 +235,12 @@ function copyDir(src: string, dst: string): void {
 }
 
 function getFileList(lang: string): string[] {
+  // The `en` locale lives under `root`; other languages use their own key.
+  const localeKey = lang === "en" ? "root" : lang
   const sidebar: {
     text: string
     items?: { text: string; link: string }[]
-  }[] = config.locales!.root.themeConfig!.sidebar as any
+  }[] = (config.locales as any)[localeKey]?.themeConfig?.sidebar ?? []
 
   const fileList: string[] = []
   for (const category of sidebar) {

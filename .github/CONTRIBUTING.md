@@ -12,7 +12,8 @@ the preferred channel for bug reports, features requests and submitting pull req
 But please respect the following restrictions:
 
 - Please **do not** use the issue tracker for personal support requests (use
-  [Stack Overflow](https://stackoverflow.com) or IRC)
+  [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions)
+  instead)
 
 - Please **do not** derail or troll issues. Keep the discussion on topic and
   respect the opinions of others
@@ -33,7 +34,7 @@ When creating a pull request, please heed the following:
 
 You will need [nix](https://github.com/NixOS/nix) & with flakes enabled.
 
-After cloning the repo, run enter an environment with pnpm, vitepress, spell checker and markdown linter installed first:
+After cloning the repo, enter a development environment that provides pnpm, VitePress, the spell checker (typos), and the formatter (prettier):
 
 ```sh
 $ nix develop
@@ -46,6 +47,8 @@ Boot up the documentation site locally, with live reloading of the source code:
 $ pnpm run docs:dev
 ```
 
+Then visit <http://localhost:5173> and try modifying the source code. You'll get a live update.
+
 If you made a lot of changes, run the following command to check for typos & format the docs before submitting a pull request:
 
 > Generally, `nix develop` will add a pre-commit hook to run the following command before you commit.
@@ -54,5 +57,3 @@ If you made a lot of changes, run the following command to check for typos & for
 $ typos -w
 $ prettier --write .
 ```
-
-After executing the above command, visit <http://localhost:5173> and try modifying the source code. You'll get live update.
