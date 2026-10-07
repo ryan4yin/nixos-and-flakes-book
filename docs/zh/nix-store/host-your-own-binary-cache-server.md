@@ -114,13 +114,13 @@ mc admin user add s3 nixbuilder <PASSWORD>
 现在再使用刚刚创建好的 `nix-cache-write.json` 文件创建一个上载文件到 S3 的策略：
 
 ```bash
-mc admin policy add s3 nix-cache-write nix-cache-write.json
+mc admin policy create s3 nix-cache-write nix-cache-write.json
 ```
 
 将我们上面创建的 S3 策略与 `nixbuilder` 用户关联：
 
 ```bash
-mc admin policy set s3 nix-cache-write user=nixbuilder
+mc admin policy attach s3 nix-cache-write -user nixbuilder
 ```
 
 再允许匿名用户在不进行身份验证的情况下下载文件，这样所有 Nix 服务器就都能直接从这个 S3 缓存拉数据了：
