@@ -58,11 +58,10 @@ on Reddit, receiving strong feedback[^2].
 
 The positive reception of this shared document encouraged me and drove me to continue
 improving it. Through continuous updates, the content of this document expanded to over
-20,000 words. Some readers suggested that the reading experience could be improved,
-leading me to their suggestions[^3]. As a result, I migrated the article's content to a
-GitHub repository, established a dedicated documentation site, and adjusted the
-presentation to make it more aligned with a beginner's guide rather than a personal
-notebook.
+20,000 words. Some readers said the reading experience could be better, so I applied their
+suggestions[^3]. As a result, I migrated the article's content to a GitHub repository,
+established a dedicated documentation site, and adjusted the presentation to make it more
+aligned with a beginner's guide rather than a personal notebook.
 
 And so, a bilingual open-source book was born, which I named "<NixOS & Flakes Book>" with
 the Chinese title "NixOS & Flakes 新手指南" ("NixOS & Flakes Beginner's Guide").
@@ -103,10 +102,10 @@ If you find this book helpful, please consider donating to support its developme
 
 ## Feedback and Discussion
 
-I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months until
-now(2024-02), so there must be some misconceptions or complex cases in the book. If anyone
-finds anything incorrect or have any questions / suggestions, just let me know about it by
-opening an issue or joining the discussion on
+I’m not an expert on NixOS, and I’ve only been using NixOS for less than 9 months as of
+2024-02, so there must be some misconceptions or complex cases in the book. If anyone
+finds anything incorrect or has any questions or suggestions, just let me know by opening
+an issue or joining the discussion on
 [GitHub Discussions](https://github.com/ryan4yin/nixos-and-flakes-book/discussions). I'm
 happy to continue improving the content of this book.
 

@@ -9,7 +9,7 @@ configured, and different users may want to use different build parameters. This
 encountered:
 
 1. [`fcitx5-rime.nix`](https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix):
-   By default, `fcitx5-rime` use `rime-data` as the value of `rimeDataPkgs`, but this
+   By default, `fcitx5-rime` uses `rime-data` as the value of `rimeDataPkgs`, but this
    parameter can be customized by `override`.
 2. [`vscode/with-extensions.nix`](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/applications/editors/vscode/with-extensions.nix):
    This package for VS Code can also be customized by overriding the value of

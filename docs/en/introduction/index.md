@@ -86,5 +86,5 @@ The development environment of three desktop computers is managed by Home Manage
 main configuration is completely shared, and the configuration modified on any host can be
 seamlessly synchronized to other hosts through Git.
 
-Nix almost completely shielded me from the differences between OS and architecture at the
-bottom of the three machines, and the experience was very smooth!
+Nix almost completely shielded me from the differences in OS and CPU architecture between
+the three machines, and the experience was very smooth!

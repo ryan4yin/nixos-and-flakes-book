@@ -102,7 +102,7 @@ To find out why a package is installed, you can use the following command:
    `nix shell nixpkgs#nix-tree nixpkgs#ripgrep`
 1. `nix-store --gc --print-roots | rg -v '/proc/' | rg -Po '(?<= -> ).*' | xargs -o nix-tree`
 1. `/<package-name>` to find the package you want to check.
-1. `w` to show the package is depended by which packages, and the full dependency chain.
+1. `w` to show which packages depend on it, and the full dependency chain.
 
 ## Reducing Disk Usage
 
