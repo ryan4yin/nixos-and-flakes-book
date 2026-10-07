@@ -27,7 +27,7 @@
 - [nixpkgs Manual](https://nixos.org/manual/nixpkgs/unstable/): 主要介绍 Nixpkgs 的参数、Nix 包的使用、修改、打包方法。
 - [NixOS Manual](https://nixos.org/manual/nixos/unstable/):
   NixOS 系统使用手册，主要包含 Wayland/X11, GPU 等系统级别的配置说明。
-- [nix-pills](https://nixos.org/guides/nix-pills): Nix
+- [nix-pills](https://nixos.org/guides/nix-pills/): Nix
   Pills 对如何使用 Nix 构建软件包进行了深入的阐述，写得比官方文档清晰易懂，而且也足够深入，值得一读。
 - [nixos-in-production](https://github.com/Gabriella439/nixos-in-production): 这是一本介绍如何在生产环境中使用 NixOS 的书籍，目前还在编写中，不过已经有了一些很棒的内容。
 

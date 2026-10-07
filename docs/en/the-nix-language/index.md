@@ -11,8 +11,8 @@ The community already has a lot of good Nix language tutorials, so I won't reinv
 wheel. To get started, I recommend reading the following resources for a quick
 introduction to the Nix language:
 
-1. [**Nix Language Basics - nix.dev**](https://nix.dev/tutorials/first-steps/nix-language):
-   This tutorial provides a comprehensive overview of the basics of the Nix language,
+1. [**Nix Language Basics - nix.dev**](https://nix.dev/tutorials/nix-language): This
+   tutorial provides a comprehensive overview of the basics of the Nix language,
    recommended for beginners.
 1. [**A tour of Nix**](https://nixcloud.io/tour/?id=introduction/nix): An online
    interactive tutorial focuses on programming language constructs and how Nix can be

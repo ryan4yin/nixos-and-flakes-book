@@ -30,7 +30,7 @@ expand your knowledge:
 - [NixOS Manual](https://nixos.org/manual/nixos/unstable/): A user manual for NixOS,
   providing configuration instructions for system-level components such as Wayland/X11 and
   GPU.
-- [nix-pills](https://nixos.org/guides/nix-pills): "Nix Pills" is a series of guides that
+- [nix-pills](https://nixos.org/guides/nix-pills/): "Nix Pills" is a series of guides that
   provide an in-depth explanation of building software packages with Nix. It offers clear
   and understandable explanations.
 - [nixos-in-production](https://github.com/Gabriella439/nixos-in-production): This is a
