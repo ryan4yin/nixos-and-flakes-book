@@ -7,7 +7,7 @@ callPackage、Overriding 与 Overlays 是在使用 Nix 时偶尔会用到的技�
 1. [fcitx5-rime.nix](https://github.com/NixOS/nixpkgs/blob/e4246ae1e7f78b7087dce9c9da10d28d3725025f/pkgs/tools/inputmethods/fcitx5/fcitx5-rime.nix):
    fcitx5-rime 的 `rimeDataPkgs` 默认使用 `rime-data`
    包，但是也可以通过 override 来自定义该参数的值，以加载自定义的 rime 配置（比如加载小鹤音形输入法配置）。
-2. [vscode/with-extensions.nix](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/applications/editors/vscode/with-extensions.nix):
+2. [vscode/with-extensions.nix](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/applications/editors/vscode/with-extensions.nix):
    vscode 的这个包也可以通过 override 来自定义 `vscodeExtensions`
    参数的值来安装自定义插件。
    1. [nix-vscode-extensions](https://github.com/nix-community/nix-vscode-extensions): 就是利用该参数实现的 vscode 插件管理

@@ -19,9 +19,7 @@ WIP 未完成，目前请移步如下参考文档学习 Nix 打包。
   - [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/setup-hooks/make-wrapper.sh)
   - FHS related
     - [pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix):
-      `pkgs.buildFHSEnvBubblewrap`
-    - [pkgs/build-support/build-fhsenv-chroot/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix):
-      `pkgs.buildFHSEnvChroot`
+      `pkgs.buildFHSEnvBubblewrap`（已取代弃用的 `pkgs.buildFHSEnvChroot`）
 
 ---
 
@@ -79,7 +77,7 @@ Derivation 实质上只是一个 attribute set，Nix 底层会使用内置函数
 的 Nix 语言 wrapper，屏蔽了底层的细节，简化了用法。
 
 一个简单的 Derivation 如下，它声明了一个名为 hello 的应用程序（摘抄自
-[nixpkgs/pkgs/hello](https://github.com/NixOS/nixpkgs/blob/nixos-23.05/pkgs/applications/misc/hello/default.nix)）：
+[nixpkgs/pkgs/by-name/he/hello/package.nix](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/by-name/he/hello/package.nix)）：
 
 ```nix
 { callPackage
@@ -93,11 +91,11 @@ Derivation 实质上只是一个 attribute set，Nix 底层会使用内置函数
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "hello";
-  version = "2.12.1";
+  version = "2.12.3";
 
   src = fetchurl {
     url = "mirror://gnu/hello/hello-${finalAttrs.version}.tar.gz";
-    sha256 = "sha256-jZkUKv2SV28wsM18tCqNxoCZmLxdYH2Idh9RLibH2yA=";
+    sha256 = "sha256-DV9gFUOC/uELEUocNOeF2LH0kgc64tOm97FHaHs2aqA=";
   };
 
   doCheck = true;

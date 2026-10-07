@@ -20,6 +20,4 @@ packaging.
   - [pkgs/build-support/setup-hooks/make-wrapper.sh](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/setup-hooks/make-wrapper.sh)
   - FHS related
     - [pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix):
-      `pkgs.buildFHSEnvBubblewrap`
-    - [pkgs/build-support/build-fhsenv-chroot/default.nix](https://github.com/NixOS/nixpkgs/blob/nixos-26.05/pkgs/build-support/build-fhsenv-bubblewrap/buildFHSEnv.nix):
-      `pkgs.buildFHSEnvChroot`
+      `pkgs.buildFHSEnvBubblewrap` (replaces the deprecated `pkgs.buildFHSEnvChroot`)
