@@ -7,7 +7,7 @@ Nix can be installed in various ways:
    system management.
 
 This book primarily focuses on the usage of NixOS and Flakes. Therefore, we will skip
-content that pertains solely to Nix(such as installation on macOS, Linux, or WSL).
+content that pertains solely to Nix (such as installation on macOS, Linux, or WSL).
 
 The installation process of NixOS is straightforward, but we won't delve into the
 specifics here. For more information, please visit the official download site at
