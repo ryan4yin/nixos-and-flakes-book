@@ -281,7 +281,7 @@ Related source code:
 Now let's take a look at `nix develop`, first read the help document output by
 `nix develop --help`:
 
-```
+```shell
 Name
     nix develop - run a bash shell that provides the build environment of a derivation
 
