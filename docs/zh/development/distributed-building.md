@@ -81,9 +81,9 @@ Module）：
         }
       ];
   # optional, useful when the builder has a faster internet connection than yours
-	nix.extraOptions = ''
-		builders-use-substitutes = true
-	'';
+  nix.extraOptions = ''
+    builders-use-substitutes = true
+  '';
 
   # define the host alias for remote builders
   # this config will be written to /etc/ssh/ssh_config

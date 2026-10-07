@@ -17,7 +17,7 @@ the build results of the software package are stored in the Nix Store.
 
 Data in the Nix Store has a fixed path format:
 
-```
+```text
 /nix/store/b6gvzjyb2pg0kjfwrjmg1vfhh54ad73z-firefox-33.1
 |--------| |------------------------------| |----------|
 store directory         digest                  name

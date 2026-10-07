@@ -223,11 +223,11 @@ Added 17755 variables.
 # replace gcc through overlays, this will create a new instance of nixpkgs
 nix-repl> a = import <nixpkgs> { crossSystem = "riscv64-linux"; overlays = [ (self: super: { gcc = self.gcc13; }) ]; }
 
-# check the gcc version, it is indeed changed to 12.2
+# check the gcc version, it is indeed changed to 13
 nix-repl> a.pkgsCross.riscv64.stdenv.cc
 «derivation /nix/store/kdi3g7px1bxz2r1jmjnr4pahscw8jj96-riscv64-unknown-linux-gnu-gcc-wrapper-13.4.0.drv»
 
-# take a look at the default pkgs, it is still 11.3
+# take a look at the default pkgs, it is still 14
 nix-repl> pkgs.pkgsCross.riscv64.stdenv.cc
 «derivation /nix/store/xd8s47j71z3lym5f2j9zy3v9r0ifw209-riscv64-unknown-linux-gnu-gcc-wrapper-14.3.0.drv»
 ```

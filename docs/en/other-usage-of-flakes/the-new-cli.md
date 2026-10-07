@@ -4,7 +4,7 @@ Once you have enabled the `nix-command` and `flakes` features, you can start usi
 generation Nix command-line tools provided by [New Nix Commands][New Nix Commands]. In
 this section, we will focus on two commands: `nix shell` and `nix run`. Other important
 commands like `nix build` will be discussed in detail in
-[`nix develop` & `pkgs.mkShell`](/development/intro.md)
+[`nix develop` & `pkgs.mkShell`](../development/intro.md)
 
 ## `nix shell`
 

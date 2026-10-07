@@ -13,7 +13,7 @@ Store 中。
 
 Nix Store 中的数据具有固定的路径格式：
 
-```
+```text
 /nix/store/b6gvzjyb2pg0kjfwrjmg1vfhh54ad73z-firefox-33.1
 |--------| |------------------------------| |----------|
 store directory         digest                  name

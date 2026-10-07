@@ -277,7 +277,7 @@ session，可以在其中正常使用 `node` `pnpm` 命令.
 
 现在再来看看 `nix develop`，先读下 `nix develop --help` 输出的帮助文档：
 
-```
+```shell
 Name
     nix develop - run a bash shell that provides the build environment of a derivation
 

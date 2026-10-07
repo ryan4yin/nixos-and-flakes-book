@@ -23,7 +23,7 @@ sudo nixos-rebuild switch --flake .#myhost --show-trace -L -v
 
 要学会用 `nix repl`，最好先看看它的 help 信息：
 
-```
+```shell
 › nix repl -f '<nixpkgs>'
 Welcome to Nix 2.13.3. Type :? for help.
 
