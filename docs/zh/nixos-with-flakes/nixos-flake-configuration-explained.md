@@ -3,7 +3,7 @@
 上面我们创建了一个 `flake.nix`
 文件并通过它来管理系统配置，但你对它的结构还是一头雾水，下面我们来详细解释一下这个文件的内容。
 
-### 1. flake inputs
+## 1. flake inputs
 
 首先看看其中的 `inputs` 属性，它是一个 attribute
 set，其中定义了这个 flake 的所有依赖项，这些依赖项会在被拉取后，作为参数传递给 `outputs`
@@ -33,7 +33,7 @@ set，其中定义了这个 flake 的所有依赖项，这些依赖项会在被�
 `nixpkgs` 在 `inputs` 中被定义后，就可以在后面的 `outputs`
 函数的参数中使用此依赖项中的内容了，我们的示例中正是这么干的。
 
-### 2. flake outputs
+## 2. flake outputs
 
 再来看看 `outputs`，它是一个以 `inputs`
 中的依赖项为参数的函数，函数的返回值是一个 attribute set，这个返回的 attribute
@@ -91,7 +91,7 @@ sudo nixos-rebuild switch --flake /path/to/your/flake#your-hostname
 sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 ```
 
-### 3. `outputs` 函数的特殊参数 `self` {#special-parameter-self-of-outputs-function}
+## 3. `outputs` 函数的特殊参数 `self` {#special-parameter-self-of-outputs-function}
 
 虽然我们前面并未提到，但是前面的所有示例代码中，`outputs` 函数都还有一个特殊的参数
 `self`，这里我们简单介绍一下它的作用。
@@ -110,7 +110,7 @@ sudo nixos-rebuild switch --flake github:owner/repo#your-hostname
 > 来引用当前 flake 的输出，这确实是可行的，但 Nix
 > Manual 并未对其做任何说明，属于是 flake 的内部实现细节，不建议在你自己的代码中使用！
 
-### 4. `nixpkgs.lib.nixosSystem` 函数的简单介绍 {#simple-introduction-to-nixpkgs-lib-nixos-system}
+## 4. `nixpkgs.lib.nixosSystem` 函数的简单介绍 {#simple-introduction-to-nixpkgs-lib-nixos-system}
 
 **一个 Flake 可以依赖其他 Flakes，从而使用它们提供的功能**。
 

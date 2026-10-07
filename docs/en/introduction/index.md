@@ -11,9 +11,9 @@ achieving that state.
 > manager with sway, Nix will assist you in achieving that goal. You don't have to worry
 > about the underlying details, such as which packages sway requires for installation,
 > which i3-related packages need to be uninstalled, or the necessary adjustments to system
-> configuration and environment variables for sway. Nix automatically handles these
-> details for the user (provided that the Nix packages related to sway and i3 are properly
-> designed).
+> configuration and environment variables for sway, and which Sway parameters need
+> changing to run on an Nvidia GPU. Nix automatically handles these details for the user
+> (provided that the Nix packages related to sway and i3 are properly designed).
 
 NixOS, a Linux distribution built on top of the Nix package manager, can be described as
 "OS as Code." It employs declarative Nix configuration files to describe the entire state

@@ -213,7 +213,9 @@ After adjusting the parameters, the content of `/etc/nixos/flake.nix` is as foll
             # TODO replace ryan with your own username
             home-manager.users.ryan = import ./home.nix;
 
-            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+            # Use home-manager.extraSpecialArgs to pass custom arguments to ./home.nix
+            # Uncomment the next line to make all flake inputs available in home.nix
+            # home-manager.extraSpecialArgs = inputs;
           }
         ];
       };

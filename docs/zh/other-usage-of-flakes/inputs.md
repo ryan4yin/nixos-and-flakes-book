@@ -15,7 +15,7 @@ set，用来指定当前 Flake 的依赖，inputs 有很多种类型，举例如
     # Git URL by tag, applicable to any Git repository using the https/ssh protocol.
     git-example-tag.url = "git+https://git.somehost.tld/user/path?tag=x.y.x";
     # Github URL by pull request.
-    git-pr.url = "github:NixOS/nixpkgs?ref=pull/349351/head";
+    git-pr.url = "github:NixOS/nixpkgs/pull/349351/head";
     # Git URL with submodules, applicable to any Git repository using the https/ssh protocol.
     git-example-submodule.url = "git+https://git.somehost.tld/user/path?submodules=1";
     # Archive File URL, needed in case your input use LFS.

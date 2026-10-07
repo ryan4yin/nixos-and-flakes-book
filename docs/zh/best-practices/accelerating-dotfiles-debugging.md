@@ -15,10 +15,10 @@ store，因此你对 Dotfiles 的修改能立即生效。
 这种方法能有用的前提是，你的 Dotfiles 内容不是由 Nix 生成的，比如我的 Emacs/Neovim 配置都是原生的，仅通过 Nix
 Home-Manager 的 `home.file` 或 `xdg.configFile` 将它们链接到正确的位置。
 
-下面简单说明下如何通过这个函数加速 Dotfiles 的调试.
+下面简单说明下如何通过这个函数加速 Dotfiles 的调试。
 
-假设你将你的 Neovim 配置放在了 `~/nix-config/home/nvim` 下，在你的 Home Manager 配置(如
-`/etc/nixos/home.nix`) 中添加如下代码:
+假设你将你的 Neovim 配置放在了 `~/nix-config/home/nvim` 下，在你的 Home Manager 配置（如
+`~/nix-config/home/default.nix`）中添加如下代码：
 
 ```nix
 { config, pkgs, ... }: let
@@ -38,9 +38,9 @@ in
 修改完配置后，运行 `sudo nixos-rebuild switch` (或者如果你是单独使用 home
 manager的话，应该是这个指令 `home-manager switch`)即可生效。这之后，你对
 `~/nix-config/home/nvim` 或 `~/nix-config/home/doom`
-的修改就能立即被 Neovim/Emacs 观察到了.
+的修改就能立即被 Neovim/Emacs 观察到了。
 
-这样你就既能使用一个 nix-config 仓库统一管理所有 Dotfiles, 一些频繁修改的非 Nix 配置也能快速生效，不受 Nix 的影响.
+这样你就既能使用一个 nix-config 仓库统一管理所有 Dotfiles，一些频繁修改的非 Nix 配置也能快速生效，不受 Nix 的影响。
 
 > **注意事项**
 >
