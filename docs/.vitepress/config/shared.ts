@@ -25,6 +25,8 @@ function deriveDescription(pageData: PageData): string | undefined {
   }
   const body = raw
     .replace(/^---\n[\s\S]*?\n---\n?/, "") // frontmatter
+    .replace(/<script[\s\S]*?<\/script>/gi, "") // inline scripts
+    .replace(/<style[\s\S]*?<\/style>/gi, "") // inline styles (e.g. the home page)
     .replace(/```[\s\S]*?```/g, "") // fenced code blocks
   for (const block of body.split(/\n\s*\n/)) {
     const first = block.trim().split("\n")[0].trim()
