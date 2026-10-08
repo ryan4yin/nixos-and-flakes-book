@@ -2,6 +2,18 @@
 
 TODO
 
+## UnitTests
+
+TODO
+
+## Integration Tests for NixOS
+
+TODO
+
+## How to debug tests?
+
+TODO
+
 ## References
 
 - [Integration testing with NixOS virtual machines - nix.dev](https://nix.dev/tutorials/nixos/integration-testing-using-virtual-machines.html)
