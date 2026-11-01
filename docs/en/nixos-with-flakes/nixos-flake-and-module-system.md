@@ -207,7 +207,7 @@ First, add the helix input data source to `flake.nix`:
 
 Next, you can reference this flake input data source in `configuration.nix`:
 
-```nix{1,10}
+```nix{1,9}
 { config, pkgs, inputs, ... }:
 {
   # ...

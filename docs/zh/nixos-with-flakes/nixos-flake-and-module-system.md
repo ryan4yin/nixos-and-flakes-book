@@ -190,7 +190,7 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 
 接下来在 `configuration.nix` 中就能引用这个 flake input 数据源了：
 
-```nix{1,10}
+```nix{1,9}
 { config, pkgs, inputs, ... }:
 {
   # 省略无关配置......
