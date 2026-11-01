@@ -167,10 +167,9 @@ system software from other flake sources.
 
 ## Installing System Software from Other Flake Sources {#install-system-packages-from-other-flakes}
 
-The most common requirement for managing a system is to install software, and we have
-already seen in the previous section how to install packages from the official nixpkgs
-repository using `environment.systemPackages`. These packages all come from the official
-nixpkgs repository.
+The most common requirement for managing a system is to install software. As shown in
+[Enabling NixOS with Flakes](./nixos-with-flakes-enabled.md), packages from the official
+nixpkgs repository can be installed with `environment.systemPackages`.
 
 Now, we will learn how to install software packages from other flake sources, which is
 much more flexible than installing directly from nixpkgs. The main use case is to install

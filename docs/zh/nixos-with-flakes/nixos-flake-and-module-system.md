@@ -153,8 +153,8 @@ set 中的所有参数传递到所有子模块中。这两者的区别在于：
 
 ## 从其他 flakes 安装系统软件 {#install-system-packages-from-other-flakes}
 
-管系统最常见的需求就是装软件，我们在上一节已经见识过如何通过 `environment.systemPackages`
-来安装 `pkgs` 中的包，这些包都来自官方的 nixpkgs 仓库。
+管理系统最常见的需求就是装软件。正如[启用 NixOS 的 Flakes 支持](./nixos-with-flakes-enabled.md)中所示，可以使用
+`environment.systemPackages` 安装来自官方 nixpkgs 仓库的软件包。
 
 现在我们学习下如何安装其他 flake 来源的软件包，这比直接从 nixpkgs 安装要灵活很多，最主要的用途是安装 Nixpkgs 中还未添加或未更新的某软件的最新版本。
 
