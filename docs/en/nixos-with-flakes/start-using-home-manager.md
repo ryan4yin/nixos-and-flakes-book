@@ -177,12 +177,11 @@ in the current folder for reference:
 nix flake new example -t github:nix-community/home-manager#nixos
 ```
 
-After adjusting the parameters, the content of `/etc/nixos/flake.nix` is as follows:
+After adjusting the parameters, the content of `/etc/nixos/flake.nix` is as follows, with
+the Home Manager-specific changes highlighted:
 
-```nix
+```nix{4-12,16,21-33}
 {
-  description = "NixOS configuration";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     # home-manager, used for managing user configuration
@@ -197,28 +196,25 @@ After adjusting the parameters, the content of `/etc/nixos/flake.nix` is as foll
   };
 
   outputs = inputs@{ nixpkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      # TODO please change the hostname to your own
-      my-nixos = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./configuration.nix
+    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      modules = [
+        ./configuration.nix
 
-          # make home-manager as a module of nixos
-          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+        # make home-manager as a module of nixos
+        # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
 
-            # TODO replace ryan with your own username
-            home-manager.users.ryan = import ./home.nix;
+          # TODO replace ryan with your own username
+          home-manager.users.ryan = import ./home.nix;
 
-            # Use home-manager.extraSpecialArgs to pass custom arguments to ./home.nix
-            # Uncomment the next line to make all flake inputs available in home.nix
-            # home-manager.extraSpecialArgs = inputs;
-          }
-        ];
-      };
+          # Use home-manager.extraSpecialArgs to pass custom arguments to ./home.nix
+          # Uncomment the next line to make all flake inputs available in home.nix
+          # home-manager.extraSpecialArgs = inputs;
+        }
+      ];
     };
   };
 }

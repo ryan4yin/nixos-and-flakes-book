@@ -171,12 +171,11 @@ manager 作为 NixOS 模块安装，首先需要创建 `/etc/nixos/home.nix`，�
 nix flake new example -t github:nix-community/home-manager#nixos
 ```
 
-调整好参数后的 `/etc/nixos/flake.nix` 内容示例如下：
+调整好参数后的 `/etc/nixos/flake.nix` 内容示例如下，其中仅高亮了与 Home
+Manager 相关的改动：
 
-```nix
+```nix{4-12,16,21-33}
 {
-  description = "NixOS configuration";
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     # home-manager, used for managing user configuration
@@ -191,29 +190,26 @@ nix flake new example -t github:nix-community/home-manager#nixos
   };
 
   outputs = inputs@{ nixpkgs, home-manager, ... }: {
-    nixosConfigurations = {
-      # 这里的 my-nixos 替换成你的主机名称
-      my-nixos = nixpkgs.lib.nixosSystem {
-        modules = [
-          ./configuration.nix
+    nixosConfigurations.my-nixos = nixpkgs.lib.nixosSystem {
+      modules = [
+        ./configuration.nix
 
-          # 将 home-manager 配置为 nixos 的一个 module
-          # 这样在 nixos-rebuild switch 时，home-manager 配置也会被自动部署
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
+        # 将 home-manager 配置为 nixos 的一个 module
+        # 这样在 nixos-rebuild switch 时，home-manager 配置也会被自动部署
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
 
-            # 这里的 ryan 也得替换成你的用户名
-            # 这里的 import 函数在前面 Nix 语法中介绍过了，不再赘述
-            home-manager.users.ryan = import ./home.nix;
+          # 这里的 ryan 也得替换成你的用户名
+          # 这里的 import 函数在前面 Nix 语法中介绍过了，不再赘述
+          home-manager.users.ryan = import ./home.nix;
 
-            # 使用 home-manager.extraSpecialArgs 自定义传递给 ./home.nix 的参数
-            # 取消注释下面这一行，就可以在 home.nix 中使用 flake 的所有 inputs 参数了
-            # home-manager.extraSpecialArgs = inputs;
-          }
-        ];
-      };
+          # 使用 home-manager.extraSpecialArgs 自定义传递给 ./home.nix 的参数
+          # 取消注释下面这一行，就可以在 home.nix 中使用 flake 的所有 inputs 参数了
+          # home-manager.extraSpecialArgs = inputs;
+        }
+      ];
     };
   };
 }
